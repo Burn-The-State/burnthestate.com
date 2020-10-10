@@ -256,21 +256,282 @@ $('#stakeBTN').click(async () => {
   // TODO get real 10**18 valu prob + BN
   const amount = $('#stake-input').val();
   console.log('amount ', amount);
-  // TODO BN!
-  const provider = getInfuraProvider();
-  const amountBN = provider.utils.BN(amount);
-  console.log('amountBN ', amountBN);
-  console.log('amountBNTS ', amountBN.toString());
+  if (amount === 0 || amount === '0') return;
 
-  const contract = yfkaControllerContract();
+  // // TODO
+  // if (!window.ethereum) return;
 
-  const tx = await contract.methods.stake(idx, amount).call();
+  // // TODO figure out state etc
+  // const transactionParameters = {
+  //   nonce: '0x00', // ignored by MetaMask
+  //   gasPrice: window.'0x09184e72a000', // customizable by user during MetaMask confirmation.
+  //   gas: '0x2710', // customizable by user during MetaMask confirmation.
+  //   to: YFKA_CONTROLLER_ADDRESS, // Required except during contract publications.
+  //   from: window.ethereum.selectedAddress, // must match user's active address.
+  //   value: '0x00', // Only required to send ether to the recipient from the initiating external account.
+  //   data:
+  //     '0x7f7465737432000000000000000000000000000000000000000000000000000000600057', // Optional, but used for defining smart contract creation and interaction.
+  //   chainId: 3, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+  // };
+
+  // const txHash = await window.ethereum.request({
+  //   method: 'eth_sendTransaction',
+  //   params: [transactionParameters],
+  // });
+
+  // const contract = yfkaControllerContract();
+
+  // const tx = await contract.methods.stake(idx, amount).call();
   // TODO
   // find out what pool is select
   // figure out the idx in the pool for the selected one
   //  *** TODO CHECK INPUT === BN***
   // get amount entered, prob to amount * (10 ** decimals)
   // metamask create tx for contract + input + pool
+
+window.addEventListener('load', (event) => {
+  console.log("Connected test...");
+    if (web3.isConnected){
+      console.log("Connected");
+      updatePoolBalances();
+      updateActivePool();
+      document.getElementById("isConnected").src = document.getElementById("isConnectedGreen").src;
+    }
+});
+
+var ashAddress = "0x615983a35CF71D89F1B094e920151d7eA9Bf48bc"
+
+function updateActivePool() {
+  var ashContract = web3.eth.contract(contractABI);
+  var contractInstance = ashContract.at(ashAddress);
+
+  contractInstance.getActivePool(function (err, res) {
+  		if(res == 0) document.getElementById("activePool").innerHTML = "Bonus Pool: XAMP";
+  		else if(res == 1) document.getElementById("activePool").innerHTML = "Bonus Pool: TOB";
+  		else if(res == 2) document.getElementById("activePool").innerHTML = "Bonus Pool: BOA";
+  });
+
+}
+function updatePoolBalances() {
+	var uniContract = web3.eth.contract(uniTokenABI);
+  var uniInstance = uniContract.at(uniTokenAddressXAMP);
+
+  var ashContract = web3.eth.contract(contractABI);
+  var contractInstance = ashContract.at(ashAddress);
+
+	var chartXAMP = document.getElementById('xampChart').getContext('2d');
+
+  uniInstance.balanceOf(ashAddress, function (err, res) {
+    contractInstance.getPointsForStake(0, res, function (err, stakedXAMP) {
+      // Chart info
+      var xampStaked = (stakedXAMP / 10**7);
+			var ctx = document.getElementById('xampChart').getContext('2d');
+      var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['XAMP Pool Staked', 'Unstaked'],
+          datasets: [{
+            label: 'Amount Staked',
+            backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
+            borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
+            data: [xampStaked, 100- xampStaked]
+          }]
+        },
+        options: {}
+      });
+
+    });
+	});
+
+
+  var uniInstance = uniContract.at(uniTokenAddressTOB);
+
+  uniInstance.balanceOf(ashAddress, function (err, res) {
+    contractInstance.getPointsForStake(1, res, function (err, stakedTOB) {
+			var tobStaked = (stakedTOB / 10**7);
+			var ctx = document.getElementById('tobChart').getContext('2d');
+      var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['TOB Pool Staked', 'Unstaked'],
+          datasets: [{
+            label: 'Amount Staked',
+            backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
+            borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
+            data: [tobStaked, 100- tobStaked]
+          }]
+        },
+        options: {}
+      });
+		});
+	});
+
+  var uniInstance = uniContract.at(uniTokenAddressBOA);
+
+	uniInstance.balanceOf(ashAddress, function (err, res) {
+    contractInstance.getPointsForStake(2, res, function (err, stakedBOA) {
+
+			var boaStaked = (stakedBOA / 10**7);
+			var ctx = document.getElementById('boaChart').getContext('2d');
+      var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['BOA Pool Staked', 'Unstaked'],
+          datasets: [{
+            label: 'Amount Staked',
+            backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
+            borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
+            data: [boaStaked, 100- boaStaked]
+          }]
+        },
+        options: {}
+      });
+    });
+	});
+
+  var uniInstance = uniContract.at(uniTokenAddressETH);
+
+  uniInstance.balanceOf(ashAddress, function (err, res) {
+    contractInstance.getPointsForStake(2, res, function (err, stakedETH) {
+
+      var ethStaked = (stakedETH / 10**7);
+      var ctx = document.getElementById('ethChart').getContext('2d');
+      var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['ETH Pool Staked', 'Unstaked'],
+          datasets: [{
+            label: 'Amount Staked',
+            backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
+            borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
+            data: [ethStaked, 100- ethStaked]
+          }]
+        },
+        options: {}
+      });
+    });
+  });
+
+}
+
+function waitForApproval(tx, contractInstance, payload) {
+	web3.eth.getTransaction(tx,
+		function (err, res2) {
+
+    	if(res2['blockNumber'] == null) setTimeout(() => { waitForApproval(tx, contractInstance, payload)}, 5000);
+			else {
+      	setTimeout(() => { console.log(res2);}, 5000);
+      	contractInstance.stake(payload, document.getElementById("stakeAmount").value * 10**18, function (err, res) {
+          document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
+          document.getElementById("stakeReceipt").style.opacity = "1";
+          // updatePoolBalances();
+      	});
+      }
+
+      console.log(res2);
+  	}
+	);
+}
+
+
+document.getElementById("connectToMetamask").addEventListener('click', async () => {
+    // Modern dapp browsers...
+    if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+            // Request account access if needed
+            await ethereum.enable();
+            // Accounts now exposed
+            document.getElementById("isConnected").src = document.getElementById("isConnectedGreen").src;
+            web3.eth.sendTransaction({/* ... */});
+        } catch (error) {
+            // User denied account access...
+        }
+
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider);
+        // Acccounts always exposed
+        web3.eth.sendTransaction({/* ... */});
+    }
+    // Non-dapp browsers...
+    else {
+        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+    }
+});
+
+
+document.getElementById("estimateButton").addEventListener('click', async () => {
+    // Modern dapp browsers...
+    if (web3.isConnected) {
+    	var ashContract = web3.eth.contract(contractABI);
+      var contractInstance = ashContract.at(ashAddress);
+
+      var e = document.getElementById("selectedToken");
+      var value = e.options[e.selectedIndex].value;
+
+      var payload;
+
+			if(value == "XAMP") payload = 0;
+      else if(value == "TOB") payload = 1;
+      else if(value == "BOA") payload = 2;
+      else if(value == "ETH") payload = 3;
+
+      console.log(payload);
+
+      contractInstance.getCurrentReward(payload, function (err, res) {
+        console.log("Number Redeemed: " + res / 10**18);
+        document.getElementById("estimateResult").innerHTML = "You will receive " + res / 10**18 + " YFKA";
+				document.getElementById("estimateResult").style.opacity = "1";
+			});
+    }
+
+});
+
+
+
+// STAKING
+// EXECUTE APPROVE ON UNISWAP TOKEN
+// THEN EXECUTE THE STAKE FUNCTION
+// Modern dapp browsers...
+    // if (web3.isConnected) {
+    // 	var ashContract = web3.eth.contract(contractABI);
+    //   var contractInstance = ashContract.at(ashAddress);
+
+    // 	var uniContract = web3.eth.contract(uniTokenABI);
+
+    //   var e = document.getElementById("selectedTokenStake");
+    //   var value = e.options[e.selectedIndex].value;
+
+    //   var payload;
+
+		// 	if(value == "XAMP") {
+		// 		payload = 0;
+    //     uniInstance = uniContract.at(uniTokenAddressXAMP);
+    //   }
+    //   else if(value == "TOB") {
+    //   	payload = 1;
+    //     uniInstance = uniContract.at(uniTokenAddressTOB);
+    //   }
+    //   else if(value == "BOA") {
+    //   	payload = 2;
+    //     uniInstance = uniContract.at(uniTokenAddressBOA);
+    //   }
+    //   else if(value == "ETH") {
+    //   	payload = 3;
+    //     uniInstance = uniContract.at(uniTokenAddressETH);
+    //   }
+
+    //   console.log(document.getElementById("stakeAmount").value * 10**18);
+
+    //   uniInstance.approve(ashAddress, document.getElementById("stakeAmount").value * 10**18, function (err, res) {
+    //     console.log("APPROVE TX: https://etherscan.io/tx/" + res);
+    //     document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
+    //     document.getElementById("stakeReceipt").style.opacity = "1";
+    //     waitForApproval(res, contractInstance, payload);
+    //   });
+    // };
 
 })
 
