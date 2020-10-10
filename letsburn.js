@@ -157,7 +157,6 @@ const getPoolBalances = async () => {
     BOA: boaContractBalance ? boaContractBalance / (10 ** boaContractDecimals) : 0,
     ETH: ethContractBalance ? ethContractBalance / (10 ** ethContractDecimals) : 0,
   }
-
 }
 
 const getBonusPool = async () => {
@@ -229,6 +228,19 @@ const updateActivePool = async () => {
 const getYFKASupply = async () => {
 
 }
+
+
+$('input[type=radio][name=stake]').change(async () => {
+  console.log('change radio stake');
+  const balances = await getPoolBalances();
+  console.log('balances: ', balances);
+  const balance = balances[this.value];
+  console.log('balance: ', balance);
+  // TODO
+  $('stake-input').value(balance);
+  return balance || '';
+}
+
 
 window.addEventListener('load', async (event) => {
   if (!isConnected()) return;
