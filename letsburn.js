@@ -241,6 +241,13 @@ $('input[type=radio][name=stake]').change(async (event) => {
 
 $('#stakeBTN').click(async () => {
   console.log('stake value: ', 'stake btn click');
+  const keys = Object.keys(PAIRS);
+  console.log('keys: ', keys);
+  const value = $('[name=stake][type=radio]:checked').val();
+  console.log('value: ', value);
+  const idx = keys.indexOf(value);
+  console.log('idx: ', idx);
+
   const contract = yfkaControllerContract();
   // TODO
   // find out what pool is select
