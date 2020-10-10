@@ -117,37 +117,37 @@ const getBalances = async () => {
 
   const provider = getInfuraProvider();
 
-  // XAMP
-  const xampContract = new provider.eth.Contract(STANDARD_ERC20_ABI, TOKENS.XAMP);
+  // YFKA_XAMP
+  const xampContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_XAMP);
   const xampContractBalance = await xampContract.methods.balanceOf(account).call();
   console.log('xampContractBalance: ', xampContractBalance);
 
   const xampContractDecimals = await xampContract.methods.decimals().call();
   console.log('xampContractDecimals: ', xampContractDecimals);
 
-  // TOB
-  const tobContract = new provider.eth.Contract(STANDARD_ERC20_ABI, TOKENS.TOB);
+  // YFKA_TOB
+  const tobContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_TOB);
   const tobContractBalance = await tobContract.methods.balanceOf(account).call();
   console.log('tobContractBalance: ', tobContractBalance);
 
   const tobContractDecimals = await tobContract.methods.decimals().call();
   console.log('tobContractDecimals: ', tobContractDecimals);
 
-  // BOA
-  const boaContract = new provider.eth.Contract(STANDARD_ERC20_ABI, TOKENS.BOA);
+  // YFKA_BOA
+  const boaContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_BOA);
   const boaContractBalance = await boaContract.methods.balanceOf(account).call();
   console.log('boaContractBalance: ', boaContractBalance);
 
   const boaContractDecimals = await boaContract.methods.decimals().call();
   console.log('boaContractDecimals: ', boaContractDecimals);
 
-  // YFKA
-  const yfkaContract = new provider.eth.Contract(STANDARD_ERC20_ABI, TOKENS.YFKA);
-  const yfkaContractBalance = await yfkaContract.methods.balanceOf(account).call();
-  console.log('yfkaContractBalance: ', yfkaContractBalance);
+  // YFKA_ETH
+  const ethContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_ETH);
+  const ethContractBalance = await ethContract.methods.balanceOf(account).call();
+  console.log('ethContractBalance: ', ethContractBalance);
 
-  const yfkaContractDecimals = await yfkaContract.methods.decimals().call();
-  console.log('yfkaContractDecimals: ', yfkaContractDecimals);
+  const ethContractDecimals = await ethContract.methods.decimals().call();
+  console.log('ethContractDecimals: ', ethContractDecimals);
 
 
   // TODO TOB showing NaN so figure that out
@@ -223,7 +223,6 @@ const updateActivePool = async () => {
   // });
 
 }
-
 
 
 
