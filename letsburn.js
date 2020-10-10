@@ -236,6 +236,7 @@ $('input[type=radio][name=stake]').change(async (event) => {
   // TODO
   $('#stake-input').val(`${balance}`);
   $('#stake-input').attr('placeholder', `${balance}`);
+  $('#stake-balance').html(`${balance}`)
   return balance || '';
 });
 
@@ -289,205 +290,205 @@ $('#stakeBTN').click(async () => {
   // get amount entered, prob to amount * (10 ** decimals)
   // metamask create tx for contract + input + pool
 
-window.addEventListener('load', (event) => {
-  console.log("Connected test...");
-    if (web3.isConnected){
-      console.log("Connected");
-      updatePoolBalances();
-      updateActivePool();
-      document.getElementById("isConnected").src = document.getElementById("isConnectedGreen").src;
-    }
-});
+// window.addEventListener('load', (event) => {
+//   console.log("Connected test...");
+//     if (web3.isConnected){
+//       console.log("Connected");
+//       updatePoolBalances();
+//       updateActivePool();
+//       document.getElementById("isConnected").src = document.getElementById("isConnectedGreen").src;
+//     }
+// });
 
-var ashAddress = "0x615983a35CF71D89F1B094e920151d7eA9Bf48bc"
+// var ashAddress = "0x615983a35CF71D89F1B094e920151d7eA9Bf48bc"
 
-function updateActivePool() {
-  var ashContract = web3.eth.contract(contractABI);
-  var contractInstance = ashContract.at(ashAddress);
+// function updateActivePool() {
+//   var ashContract = web3.eth.contract(contractABI);
+//   var contractInstance = ashContract.at(ashAddress);
 
-  contractInstance.getActivePool(function (err, res) {
-  		if(res == 0) document.getElementById("activePool").innerHTML = "Bonus Pool: XAMP";
-  		else if(res == 1) document.getElementById("activePool").innerHTML = "Bonus Pool: TOB";
-  		else if(res == 2) document.getElementById("activePool").innerHTML = "Bonus Pool: BOA";
-  });
+//   contractInstance.getActivePool(function (err, res) {
+//   		if(res == 0) document.getElementById("activePool").innerHTML = "Bonus Pool: XAMP";
+//   		else if(res == 1) document.getElementById("activePool").innerHTML = "Bonus Pool: TOB";
+//   		else if(res == 2) document.getElementById("activePool").innerHTML = "Bonus Pool: BOA";
+//   });
 
-}
-function updatePoolBalances() {
-	var uniContract = web3.eth.contract(uniTokenABI);
-  var uniInstance = uniContract.at(uniTokenAddressXAMP);
+// }
+// function updatePoolBalances() {
+// 	var uniContract = web3.eth.contract(uniTokenABI);
+//   var uniInstance = uniContract.at(uniTokenAddressXAMP);
 
-  var ashContract = web3.eth.contract(contractABI);
-  var contractInstance = ashContract.at(ashAddress);
+//   var ashContract = web3.eth.contract(contractABI);
+//   var contractInstance = ashContract.at(ashAddress);
 
-	var chartXAMP = document.getElementById('xampChart').getContext('2d');
+// 	var chartXAMP = document.getElementById('xampChart').getContext('2d');
 
-  uniInstance.balanceOf(ashAddress, function (err, res) {
-    contractInstance.getPointsForStake(0, res, function (err, stakedXAMP) {
-      // Chart info
-      var xampStaked = (stakedXAMP / 10**7);
-			var ctx = document.getElementById('xampChart').getContext('2d');
-      var myDoughnutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ['XAMP Pool Staked', 'Unstaked'],
-          datasets: [{
-            label: 'Amount Staked',
-            backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
-            borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
-            data: [xampStaked, 100- xampStaked]
-          }]
-        },
-        options: {}
-      });
+//   uniInstance.balanceOf(ashAddress, function (err, res) {
+//     contractInstance.getPointsForStake(0, res, function (err, stakedXAMP) {
+//       // Chart info
+//       var xampStaked = (stakedXAMP / 10**7);
+// 			var ctx = document.getElementById('xampChart').getContext('2d');
+//       var myDoughnutChart = new Chart(ctx, {
+//         type: 'doughnut',
+//         data: {
+//           labels: ['XAMP Pool Staked', 'Unstaked'],
+//           datasets: [{
+//             label: 'Amount Staked',
+//             backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
+//             borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
+//             data: [xampStaked, 100- xampStaked]
+//           }]
+//         },
+//         options: {}
+//       });
 
-    });
-	});
-
-
-  var uniInstance = uniContract.at(uniTokenAddressTOB);
-
-  uniInstance.balanceOf(ashAddress, function (err, res) {
-    contractInstance.getPointsForStake(1, res, function (err, stakedTOB) {
-			var tobStaked = (stakedTOB / 10**7);
-			var ctx = document.getElementById('tobChart').getContext('2d');
-      var myDoughnutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ['TOB Pool Staked', 'Unstaked'],
-          datasets: [{
-            label: 'Amount Staked',
-            backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
-            borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
-            data: [tobStaked, 100- tobStaked]
-          }]
-        },
-        options: {}
-      });
-		});
-	});
-
-  var uniInstance = uniContract.at(uniTokenAddressBOA);
-
-	uniInstance.balanceOf(ashAddress, function (err, res) {
-    contractInstance.getPointsForStake(2, res, function (err, stakedBOA) {
-
-			var boaStaked = (stakedBOA / 10**7);
-			var ctx = document.getElementById('boaChart').getContext('2d');
-      var myDoughnutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ['BOA Pool Staked', 'Unstaked'],
-          datasets: [{
-            label: 'Amount Staked',
-            backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
-            borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
-            data: [boaStaked, 100- boaStaked]
-          }]
-        },
-        options: {}
-      });
-    });
-	});
-
-  var uniInstance = uniContract.at(uniTokenAddressETH);
-
-  uniInstance.balanceOf(ashAddress, function (err, res) {
-    contractInstance.getPointsForStake(2, res, function (err, stakedETH) {
-
-      var ethStaked = (stakedETH / 10**7);
-      var ctx = document.getElementById('ethChart').getContext('2d');
-      var myDoughnutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ['ETH Pool Staked', 'Unstaked'],
-          datasets: [{
-            label: 'Amount Staked',
-            backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
-            borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
-            data: [ethStaked, 100- ethStaked]
-          }]
-        },
-        options: {}
-      });
-    });
-  });
-
-}
-
-function waitForApproval(tx, contractInstance, payload) {
-	web3.eth.getTransaction(tx,
-		function (err, res2) {
-
-    	if(res2['blockNumber'] == null) setTimeout(() => { waitForApproval(tx, contractInstance, payload)}, 5000);
-			else {
-      	setTimeout(() => { console.log(res2);}, 5000);
-      	contractInstance.stake(payload, document.getElementById("stakeAmount").value * 10**18, function (err, res) {
-          document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
-          document.getElementById("stakeReceipt").style.opacity = "1";
-          // updatePoolBalances();
-      	});
-      }
-
-      console.log(res2);
-  	}
-	);
-}
+//     });
+// 	});
 
 
-document.getElementById("connectToMetamask").addEventListener('click', async () => {
-    // Modern dapp browsers...
-    if (window.ethereum) {
-        window.web3 = new Web3(ethereum);
-        try {
-            // Request account access if needed
-            await ethereum.enable();
-            // Accounts now exposed
-            document.getElementById("isConnected").src = document.getElementById("isConnectedGreen").src;
-            web3.eth.sendTransaction({/* ... */});
-        } catch (error) {
-            // User denied account access...
-        }
+//   var uniInstance = uniContract.at(uniTokenAddressTOB);
 
-    }
-    // Legacy dapp browsers...
-    else if (window.web3) {
-        window.web3 = new Web3(web3.currentProvider);
-        // Acccounts always exposed
-        web3.eth.sendTransaction({/* ... */});
-    }
-    // Non-dapp browsers...
-    else {
-        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
-    }
-});
+//   uniInstance.balanceOf(ashAddress, function (err, res) {
+//     contractInstance.getPointsForStake(1, res, function (err, stakedTOB) {
+// 			var tobStaked = (stakedTOB / 10**7);
+// 			var ctx = document.getElementById('tobChart').getContext('2d');
+//       var myDoughnutChart = new Chart(ctx, {
+//         type: 'doughnut',
+//         data: {
+//           labels: ['TOB Pool Staked', 'Unstaked'],
+//           datasets: [{
+//             label: 'Amount Staked',
+//             backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
+//             borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
+//             data: [tobStaked, 100- tobStaked]
+//           }]
+//         },
+//         options: {}
+//       });
+// 		});
+// 	});
+
+//   var uniInstance = uniContract.at(uniTokenAddressBOA);
+
+// 	uniInstance.balanceOf(ashAddress, function (err, res) {
+//     contractInstance.getPointsForStake(2, res, function (err, stakedBOA) {
+
+// 			var boaStaked = (stakedBOA / 10**7);
+// 			var ctx = document.getElementById('boaChart').getContext('2d');
+//       var myDoughnutChart = new Chart(ctx, {
+//         type: 'doughnut',
+//         data: {
+//           labels: ['BOA Pool Staked', 'Unstaked'],
+//           datasets: [{
+//             label: 'Amount Staked',
+//             backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
+//             borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
+//             data: [boaStaked, 100- boaStaked]
+//           }]
+//         },
+//         options: {}
+//       });
+//     });
+// 	});
+
+//   var uniInstance = uniContract.at(uniTokenAddressETH);
+
+//   uniInstance.balanceOf(ashAddress, function (err, res) {
+//     contractInstance.getPointsForStake(2, res, function (err, stakedETH) {
+
+//       var ethStaked = (stakedETH / 10**7);
+//       var ctx = document.getElementById('ethChart').getContext('2d');
+//       var myDoughnutChart = new Chart(ctx, {
+//         type: 'doughnut',
+//         data: {
+//           labels: ['ETH Pool Staked', 'Unstaked'],
+//           datasets: [{
+//             label: 'Amount Staked',
+//             backgroundColor: ['rgb(255, 0, 0)','rgb(0, 0, 0)'],
+//             borderColor: ['rgb(255, 0, 0)', 'rgb(0, 0, 0)'],
+//             data: [ethStaked, 100- ethStaked]
+//           }]
+//         },
+//         options: {}
+//       });
+//     });
+//   });
+
+// }
+
+// function waitForApproval(tx, contractInstance, payload) {
+// 	web3.eth.getTransaction(tx,
+// 		function (err, res2) {
+
+//     	if(res2['blockNumber'] == null) setTimeout(() => { waitForApproval(tx, contractInstance, payload)}, 5000);
+// 			else {
+//       	setTimeout(() => { console.log(res2);}, 5000);
+//       	contractInstance.stake(payload, document.getElementById("stakeAmount").value * 10**18, function (err, res) {
+//           document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
+//           document.getElementById("stakeReceipt").style.opacity = "1";
+//           // updatePoolBalances();
+//       	});
+//       }
+
+//       console.log(res2);
+//   	}
+// 	);
+// }
 
 
-document.getElementById("estimateButton").addEventListener('click', async () => {
-    // Modern dapp browsers...
-    if (web3.isConnected) {
-    	var ashContract = web3.eth.contract(contractABI);
-      var contractInstance = ashContract.at(ashAddress);
+// document.getElementById("connectToMetamask").addEventListener('click', async () => {
+//     // Modern dapp browsers...
+//     if (window.ethereum) {
+//         window.web3 = new Web3(ethereum);
+//         try {
+//             // Request account access if needed
+//             await ethereum.enable();
+//             // Accounts now exposed
+//             document.getElementById("isConnected").src = document.getElementById("isConnectedGreen").src;
+//             web3.eth.sendTransaction({/* ... */});
+//         } catch (error) {
+//             // User denied account access...
+//         }
 
-      var e = document.getElementById("selectedToken");
-      var value = e.options[e.selectedIndex].value;
+//     }
+//     // Legacy dapp browsers...
+//     else if (window.web3) {
+//         window.web3 = new Web3(web3.currentProvider);
+//         // Acccounts always exposed
+//         web3.eth.sendTransaction({/* ... */});
+//     }
+//     // Non-dapp browsers...
+//     else {
+//         console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+//     }
+// });
 
-      var payload;
 
-			if(value == "XAMP") payload = 0;
-      else if(value == "TOB") payload = 1;
-      else if(value == "BOA") payload = 2;
-      else if(value == "ETH") payload = 3;
+// document.getElementById("estimateButton").addEventListener('click', async () => {
+//     // Modern dapp browsers...
+//     if (web3.isConnected) {
+//     	var ashContract = web3.eth.contract(contractABI);
+//       var contractInstance = ashContract.at(ashAddress);
 
-      console.log(payload);
+//       var e = document.getElementById("selectedToken");
+//       var value = e.options[e.selectedIndex].value;
 
-      contractInstance.getCurrentReward(payload, function (err, res) {
-        console.log("Number Redeemed: " + res / 10**18);
-        document.getElementById("estimateResult").innerHTML = "You will receive " + res / 10**18 + " YFKA";
-				document.getElementById("estimateResult").style.opacity = "1";
-			});
-    }
+//       var payload;
 
-});
+// 			if(value == "XAMP") payload = 0;
+//       else if(value == "TOB") payload = 1;
+//       else if(value == "BOA") payload = 2;
+//       else if(value == "ETH") payload = 3;
+
+//       console.log(payload);
+
+//       contractInstance.getCurrentReward(payload, function (err, res) {
+//         console.log("Number Redeemed: " + res / 10**18);
+//         document.getElementById("estimateResult").innerHTML = "You will receive " + res / 10**18 + " YFKA";
+// 				document.getElementById("estimateResult").style.opacity = "1";
+// 			});
+//     }
+
+// });
 
 
 
@@ -549,6 +550,7 @@ window.addEventListener('load', async (event) => {
     const balance = poolBalances['XAMP'];
     $('#stake-input').val(`${balance}`);
     $('#stake-input').attr('placeholder', `${balance}`);
+    $('#stake-balance').html(`${balance}`);
     console.log(poolBalances);
 });
 
