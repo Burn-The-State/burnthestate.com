@@ -250,8 +250,18 @@ $('#stakeBTN').click(async () => {
   })
   const idx = indexOfValue.indexOf(true);
   console.log('idx: ', idx);
+  const pool = POOLS[idx];
+  console.log('pool: ', pool);
+
+  // TODO get real 10**18 valu prob + BN
+  const amount = $('#stake-input').val();
 
   const contract = yfkaControllerContract();
+
+  const tx = await contract.methods.stake({
+    idx,
+    amount,
+  }).call();
   // TODO
   // find out what pool is select
   // figure out the idx in the pool for the selected one
