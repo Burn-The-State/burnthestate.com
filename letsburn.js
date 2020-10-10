@@ -230,11 +230,11 @@ const getYFKASupply = async () => {
 }
 
 
-$('input[type=radio][name=stake]').change(async () => {
+$('input[type=radio][name=stake]').change(async (event) => {
   console.log('change radio stake');
   const balances = await getPoolBalances();
   console.log('balances: ', balances);
-  const balance = balances[this.value];
+  const balance = balances[event.currentTarget.value];
   console.log('balance: ', balance);
   // TODO
   $('stake-input').value(balance);
