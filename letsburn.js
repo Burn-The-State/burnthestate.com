@@ -110,7 +110,7 @@ const getAccount = async () => {
   return provider.utils.toChecksumAddress(accounts[0]);
 }
 
-const getBalances = async () => {
+const getPoolBalances = async () => {
   console.log('getBalances');
   const account = await getAccount();
   if (!account) return null;
@@ -155,7 +155,7 @@ const getBalances = async () => {
     XAMP: xampContractBalance ? xampContractBalance / (10 ** xampContractDecimals) : 0,
     TOB: tobContract ? tobContract / (10 ** tobContractDecimals) : 0,
     BOA: boaContractBalance ? boaContractBalance / (10 ** boaContractDecimals) : 0,
-    YFKA: yfkaContractBalance ? yfkaContractBalance / (10 ** yfkaContractDecimals) : 0,
+    ETH: ethContractBalance ? ethContractBalance / (10 ** ethContractDecimals) : 0,
   }
 
 }
@@ -238,8 +238,8 @@ window.addEventListener('load', async (event) => {
 
     await updateActivePool();
 
-    const balances = await getBalances();
-    console.log(balances);
+    const poolBalances = await getPoolBalances();
+    console.log(poolBalances);
 });
 
 
