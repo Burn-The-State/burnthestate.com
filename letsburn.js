@@ -246,7 +246,7 @@ $('#stakeBTN').click(async () => {
   const value = $('[name=stake][type=radio]:checked').val();
   console.log('value: ', value);
   const indexOfValue = keys.map((key) => {
-    return key.indexOf('value') >= 0;
+    return key.indexOf(value) >= 0;
   })
   const idx = indexOfValue.indexOf(true);
   console.log('idx: ', idx);
