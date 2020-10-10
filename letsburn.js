@@ -237,10 +237,14 @@ $('input[type=radio][name=stake]').change(async (event) => {
   const balance = balances[event.currentTarget.value];
   console.log('balance: ', balance);
   // TODO
-  $('stake-input').val(`${balance}`);
-  $('stake-input').attr('placeholder', `${balance}`);
+  $('#stake-input').val(`${balance}`);
+  $('#stake-input').attr('placeholder', `${balance}`);
   return balance || '';
 });
+
+$('stakeBTN').click(async () => {
+  console.log('stake value: ', 'stake btn click');
+})
 
 
 window.addEventListener('load', async (event) => {
