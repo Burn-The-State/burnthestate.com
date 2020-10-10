@@ -239,7 +239,7 @@ $('input[type=radio][name=stake]').change(async (event) => {
   return balance || '';
 });
 
-$('stakeBTN').click(async () => {
+$('#stakeBTN').click(async () => {
   console.log('stake value: ', 'stake btn click');
   const contract = yfkaControllerContract();
   // TODO
