@@ -256,10 +256,11 @@ $('#stakeBTN').click(async () => {
   // TODO get real 10**18 valu prob + BN
   const amount = $('#stake-input').val();
   console.log('amount ', amount);
-  const provider = getInfuraProvider();
-  const amountBN = provider.utils.BN(amount);
-  console.log('amountBN ', amountBN);
-  console.log('amountBNTS ', amountBN.toString());
+  // TODO BN!
+  // const provider = getInfuraProvider();
+  // const amountBN = provider.utils.BN(amount);
+  // console.log('amountBN ', amountBN);
+  // console.log('amountBNTS ', amountBN.toString());
 
   const contract = yfkaControllerContract();
 
