@@ -22,6 +22,7 @@ const POOLS = [
 
 const YFKA_CONTROLLER_ADDRESS = '0x615983a35cf71d89f1b094e920151d7ea9bf48bc';
 
+// TODO parse/stringify prob not needed
 const STANDARD_ERC20_ABI = JSON.parse(JSON.stringify([
   {
     "constant": true,
