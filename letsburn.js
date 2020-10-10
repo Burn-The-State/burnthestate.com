@@ -254,8 +254,12 @@ window.addEventListener('load', async (event) => {
     $("#isConnected").html("wallet connected");
 
     await updateActivePool();
-
+    // Set defaults
     const poolBalances = await getPoolBalances();
+    // TODO use const
+    const balance = poolBalances['XAMP'];
+    $('#stake-input').val(`${balance}`);
+    $('#stake-input').attr('placeholder', `${balance}`);
     console.log(poolBalances);
 });
 
