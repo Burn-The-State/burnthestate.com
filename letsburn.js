@@ -162,10 +162,7 @@ const getPoolBalances = async () => {
 const getBonusPool = async () => {
   console.log('getBonusPool');
   const contract = yfkaControllerContract();
-  const activePoolIndex = await contract.methods.getActivePool().call();
-  console.log('activePoolIndex: ', activePoolIndex);
-  console.log('active pool: ', POOLS[activePoolIndex]);
-  return POOLS[activePoolIndex];
+
 }
 
 const getGlobalEmissionRate = async () => {
@@ -244,6 +241,14 @@ $('input[type=radio][name=stake]').change(async (event) => {
 
 $('stakeBTN').click(async () => {
   console.log('stake value: ', 'stake btn click');
+  const contract = yfkaControllerContract();
+  // TODO
+  // find out what pool is select
+  // figure out the idx in the pool for the selected one
+  //  *** TODO CHECK INPUT === BN***
+  // get amount entered, prob to amount * (10 ** decimals)
+  // metamask create tx for contract + input + pool
+
 })
 
 
