@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel='icon' href='imgs/favicon.ico' sizes="16x16" />
+
+		<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link href="burnthestate.css" rel="stylesheet" type="text/css"/>
+
+		<title>Burn The State</title>
+	</head>
+
+	<body>
+	<div class="container p-3">
+
+		<!-- nav -->
+		<nav class="navbar navbar-light border rounded">
+
+		  <a class="navbar-brand" href="#">
+		    <strong>BURN THE STATE</strong>
+		  </a>
+
+
+		  <div class="col text-right pr-0">
+			  <span class="pl-2"><button id="connectToMetamask" type="button" class="btn-sm btn-dark "><img class="icon-sm pr-2" src="imgs/metamask.png"/><span id="isConnected">connect to metamask</span></button></span>
+		  </div>
+		</nav>
+
+		<!-- banner -->
+		<div id="banner" class="row m-0 pt-5 pb-5 mt-3 mb-3 pl-4 border rounded">
+			<div class="col-6 text-left">
+				<h1><strong>Crypto back to its roots!</strong></h1>
+					<h4>Rather than attempting to recreate traditional financial structures on the blockchain, we should be developing structures that serve as their antithesis.</h4>
+
+				<div class="btn-group" role="group" aria-label="">
+					<button type="button" class="btn burn-btn"><img class="coins" src="imgs/xamp.png"/></br>XAMP</button>
+					<button type="button" class="btn burn-btn"><img class="coins" src="imgs/tob.png"/></br>TOB</button>
+					<button type="button" class="btn burn-btn"><img class="coins" src="imgs/boa.png"/></br>BOA</button>
+					<button type="button" class="btn burn-btn"><img class="coins" src="imgs/yfka.png"/></br>YFKA</button>
+				</div>
+
+				<span class="row m-0 pt-5 pb-0 mt-3 mb-0 pl-0">
+					<span class="col text-left p-0 m-0"><strong>YFKA Total Supply: </strong><span class="info1" id="yfka-total-supply">3204</span></span>
+				</span>
+
+				<span class="row m-0 pt-0 pb-0 mt-0 mb-3 pl-0">
+					<span class="col text-left p-0 m-0"><strong>Total Value Locked: </strong><span class="info1">99999</span></span>
+				</span>
+
+			</div>
+
+			<div class="col-6 text-right">
+				<img class="img-fluid pr-4" src="imgs/cat2.png">
+			</div>
+		</div>
+
+		<!-- rules -->
+		<div id="rules" class="row m-0 pt-5 pb-4 mb-4 pl-4 border border-light rounded">
+			<div class="col-10 text-left justify-content-left">
+				<h1><img class="coins-y" src="imgs/yfka.png"/><strong>Yield Farming Known as Ash</strong></br><h3>Burn The State's Yield Farming Token</h3></h1>
+
+				<p>
+					Citizen! Put your Antiample, Token of Babel, and Boa to good use! <a target="_blank" href="https://uniswap.info/token/0x4086692d53262b2be0b13909d804f0491ff6ec3e"> Provide liquidity on Uniswap</a>, come back to this site, and stake the LP tokens to farm YFKA.</br>
+					You receive <strong>100% APY on all staked tokens</strong>. You must stake <strong>at least 0.4 YFKA</strong> worth (in value) of LP tokens.
+				</p>	‍
+				<p>
+					<strong>Rules:</strong></br>
+					• The amount of YFKA that can be farmed decreases by 1% every 5000 blocks, so those that stake first have an advantage.</br>
+					• When you stake, the emission rate is locked and you maintain that rate.</br>
+					• If you redeem (without re-staking) or unstake, you lose your emission rate and it is updated to the current value.</br>
+					• You can redeem your rewards and keep your emission rate by re-staking.</br>
+					• You must stake at least 0.4 YFKA worth of LP tokens to restake.</br>
+					• The smallest pool is a Bonus pool. You get 2x rewards if you stake on a Bonus Pool. The ETH pool will never be the Bonus Pool.
+				</p>
+			</div>
+		</div>
+
+		<div id="row1" class="row m-0 pb-4 pt-4 pl-4 pr-4 mb-4 border border-dark rounded">
+
+			<!-- left -->
+			<!-- <div class="col m-0"> -->
+				<!-- TODO -->
+				<!-- <div>
+					<label><strong>Your Emission Rate</strong></label></br>
+					<span class="rate" id="personalEmissionRate">99.691%</span>
+				</div> -->
+			<!-- </div> -->
+
+
+			<!-- right -->
+			<!-- <div class="col m-0 text-right"> -->
+				<!-- TODO stick out moar -->
+				<div class="col m-12 text-center">
+					<label><h3><strong>Buy BTS</strong></h3></label></br>
+				<div class="row">
+					<button type="button" class="btn btn-light btn-lg btn-block"><a target="_blank" href="https://app.uniswap.org/#/swap?inputCurrency=0x4086692d53262b2be0b13909d804f0491ff6ec3e">Buy YKFA on Uniswap</a></button>
+				</div>
+				<br/>
+				<div class="row">
+					<button type="button" class="btn btn-light btn-lg btn-block"><a target="_blank" href="https://app.uniswap.org/#/swap?inputCurrency=0xf911a7ec46a2c6fa49193212fe4a2a9b95851c27">Buy XAMP on Uniswap</a></button>
+				</div>
+				<br/>
+				<div class="row">
+					<button type="button" class="btn btn-light btn-lg btn-block"><a target="_blank" href="https://app.uniswap.org/#/swap?inputCurrency=0x7777770f8a6632ff043c8833310e245eba9209e6">Buy TOB on Uniswap</a></button>
+				</div>
+				<br/>
+				<div class="row">
+					<button type="button" class="btn btn-light btn-lg btn-block"><a target="_blank" href="https://app.uniswap.org/#/swap?inputCurrency=0xf9c36c7ad7fa0f0862589c919830268d1a2581a1">Buy BOA on Uniswap</a></button>
+				</div>
+		</div>
+		</div>
+
+		<!-- row 1 -->
+		<div id="row1" class="row m-0 pb-4 pt-4 pl-4 pr-4 mb-1 border border-dark rounded">
+
+			<!-- left -->
+			<!-- <div class="col m-0"> -->
+				<!-- TODO -->
+				<!-- <div>
+					<label><strong>Your Emission Rate</strong></label></br>
+					<span class="rate" id="personalEmissionRate">99.691%</span>
+				</div> -->
+			<!-- </div> -->
+
+
+			<!-- right -->
+			<!-- <div class="col m-0 text-right"> -->
+				<div class="col m-0 text">
+					<div>
+						<label><strong>Global Emission Rate</strong></label></br>
+						<span class="rate" id="global-rate">N/A</span>
+					</div>
+				</div>
+
+				<div class="col m-0 text text-right">
+					<div>
+						<label><strong>Bonus Pool Emission Rate</strong></label></br>
+						<span class="rate" id="bonus-global-token"></span>
+						<span class="rate" id="bonus-global-rate">N/A</span>
+					</div>
+				</div>
+		</div>
+
+			<!-- Pools -->
+	<div id="row3" class="row justify-content-md-center text-center m-0 pl-5 pr-5 pt-5 pb-5 mb-1 border rounded">
+
+		<div class="col-12 mb-3"><h4><strong>YFKA Reward Estimate</strong></h4></div>
+
+		<!-- Pool 1 -->
+		<div class="col-lg mb-3 mt-3 ml-0 mr-1 text-center">
+			<label>YFKA/ETH</label>
+			<div id="pools" class="row border rounded pt-1 pb-4 pl-2 text-left">
+				<div class="col p-0">
+					<div class="col"><img class="" src="imgs/poolEth.png"/></div>
+					<div class="col"><h5 class="text-left" id="eth-apy">100% <small>APY</small></h5></div>
+					<!-- <div class="col"><span class="text-left"><small><strong>LP tokens: </strong>1.3 UNI-V2</small></span></div> -->
+					<!-- <div class="col"><span class="text-left"><small><strong>Pool share: </strong>0.3%</small></span></div> -->
+					<!-- <div class="col"><span id="estimateResult0" class="text-left"><small><strong>Earnings: </strong>2.4 YFKA</small></span></div> -->
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Pool 2 -->
+		<div class="col-lg mb-3 mt-3 ml-1 mr-1 text-center">
+			<label>YFKA/XAMP</label>
+			<div id="pools" class="row border rounded pt-1 pb-4 pl-2 text-left">
+				<div class="col p-0">
+					<div class="col"><img class="" src="imgs/poolXamp.png"/></div>
+					<div class="col"><h5 class="text-left" id="xamp-apy">100% <small>APY</small></h5></div>
+					<!-- <div class="col"><span class="text-left"><small><strong>LP tokens: </strong>1.3 UNI-V2</small></span></div> -->
+					<!-- <div class="col"><span class="text-left"><small><strong>Pool share: </strong>0.3%</small></span></div> -->
+					<!-- <div id="estimateResult1" class="col"><span class="text-left"><small><strong>Earnings: </strong>2.4 YFKA</small></span></div> -->
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Pool 3 -->
+		<div class="col-lg mb-3 mt-3 ml-1 mr-1 text-center">
+			<label>YFKA/TOB</label>
+			<div id="pools" class="row border rounded pt-1 pb-4 pl-2 text-left">
+				<div class="col p-0">
+					<div class="col"><img class="" src="imgs/poolTob.png"/></div>
+					<div class="col"><h5 class="text-left" id="tob-apy">100% <small>APY</small></h5></div>
+					<!-- <div class="col"><span class="text-left"><small><strong>LP tokens: </strong>1.3 UNI-V2</small></span></div> -->
+					<!-- <div class="col"><span class="text-left"><small><strong>Pool share: </strong>0.3%</small></span></div> -->
+					<!-- <div id="estimateResult2" class="col"><span class="text-left"><small><strong>Earnings: </strong>2.4 YFKA</small></span></div> -->
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Pool 4 -->
+		<div class="col-lg mb-3 mt-3 ml-1 mr-2 text-center">
+			<label>YFKA/BOA</label>
+			<div id="pools" class="row border rounded pt-1 pb-4 pl-2 text-left">
+				<div class="col p-0">
+					<div class="col"><img class="" src="imgs/poolBoa.png"/></div>
+					<div class="col"><h5 class="text-left" id="boa-apy">100% <small>APY</small></h5></div>
+					<!-- <div class="col"><span class="text-left"><small><strong>LP tokens: </strong>1.3 UNI-V2</small></span></div> -->
+					<!-- <div class="col"><span class="text-left"><small><strong>Pool share: </strong>0.3%</small></span></div> -->
+					<!-- <div id="estimateResult3" class="col"><span class="text-left"><small><strong>Earnings: </strong>2.4 YFKA</small></span></div> -->
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+		<!-- stake -->
+		<div id="stake" class="row justify-content-md-center m-0 pt-5 pb-5 mb-1 border rounded">
+
+		    <div class="col-12 text-center"><h4><strong>Stake your tokens</strong></h4></div>
+		    <!-- left -->
+		    <div class="col-lg-6 m-3">
+
+		     	<div class="">
+		     		<label>Choose a pool to stake</label>
+		     	</div>
+
+		     	<div id="w-block" class="col border border-dark rounded p-3">
+
+		     		<div class="form-check">
+					  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+					  <label class="form-check-label" for="exampleRadios1">
+					    XAMP
+					  </label>
+					</div>
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+					  <label class="form-check-label" for="exampleRadios2">
+					    TOB
+					  </label>
+					</div>
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+					  <label class="form-check-label" for="exampleRadios3">
+					    BOA
+					  </label>
+					</div>
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
+					  <label class="form-check-label" for="exampleRadios4">
+					    ETH
+					  </label>
+					</div>
+
+		     	</div>
+
+		    </div>
+
+		    <!-- right -->
+		    <div class="col-lg-6 m-3">
+
+		      <div class="row">
+		    	<div class="col text-left">Enter amount</div><div class="col text-right"><strong><small>Balance:</small></strong> 3.5 UNI-V2</div>
+		      </div>
+
+		      <div id="w-block" class="col border border-dark rounded p-3">
+		      	<input class="form-control form-control-sm" type="text" placeholder="">
+		      	<input type="range" class="custom-range p-3" id="customRange1">
+		      	<button type="button" class="btn btn-dark btn-block">Unlock wallet</button>
+		      	<button id="stakeBTN" type="button" class="btn btn-dark btn-block">Stake</button>
+		      </div>
+		    </div>
+		</div>
+
+	<!-- Redeem -->
+		<div id="redeem" class="row justify-content-md-center m-0 pt-5 pb-5 mb-3 border border-dark rounded">
+
+		    <div class="col-12 text-center"><h4><strong>Redeem</strong></h4></div>
+
+		    <!-- left -->
+		    <div class="col-lg-6 m-3">
+
+		     	<div class="txt">
+		     		<label class="redeemTxt">Choose a pool to re-stake in order to redeem, without loosing your emissions rate.</br> <small>Minimum re-stake of 0.4 YFKA worth of LP Tokens (0.2 YFKA + 0.2 BTS token or ETH)</small></label>
+		     	</div>
+
+		     	<div id="w-block" class="col border border-dark rounded p-3">
+
+		     		<div class="form-check">
+					  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+					  <label class="form-check-label" for="exampleRadios1">
+					    XAMP
+					  </label>
+					</div>
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+					  <label class="form-check-label" for="exampleRadios2">
+					    TOB
+					  </label>
+					</div>
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+					  <label class="form-check-label" for="exampleRadios3">
+					    BOA
+					  </label>
+					</div>
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
+					  <label class="form-check-label" for="exampleRadios4">
+					    ETH
+					  </label>
+					</div>
+
+		     	</div>
+
+		    </div>
+
+		    <!-- right -->
+		    <div class="col-lg-6 m-3">
+
+		      <div class="row">
+		    	<div class="col text-left">Enter amount</div><div class="col text-right"><strong><small>Balance:</small></strong> 3.5 UNI-V2</div>
+		      </div>
+
+		      <div id="w-block" class="col border border-dark rounded p-3">
+		      	<input class="form-control form-control-sm" type="text" placeholder="">
+		      	<input type="range" class="custom-range p-3" id="customRange1">
+		      	<button type="button" class="btn btn-dark btn-block">Unlock wallet</button>
+		      	<button type="button" class="btn btn-dark btn-block">Stake</button>
+		      </div>
+		    </div>
+		</div>
+
+	<!-- unstake -->
+	<div id="unstake" class="row justify-content-md-center m-0 pt-5 pb-5 border rounded mb-3">
+
+		<div class="col-12 text-center"><h4><strong>Unstake your tokens</strong></h4></div>
+
+	    <!-- left -->
+	    <div class="col-lg-6 m-3">
+
+	     	<div class="">
+	     		<label>Choose a Pool to unstake</label>
+	     	</div>
+
+	     	<div id="b-block" class="col border border-dark rounded p-3">
+
+	     		<div class="form-check">
+				  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+				  <label class="form-check-label" for="exampleRadios1">
+				    XAMP
+				  </label>
+				</div>
+				<div class="form-check">
+				  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+				  <label class="form-check-label" for="exampleRadios2">
+				    TOB
+				  </label>
+				</div>
+				<div class="form-check">
+				  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+				  <label class="form-check-label" for="exampleRadios3">
+				    BOA
+				  </label>
+				</div>
+				<div class="form-check">
+				  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
+				  <label class="form-check-label" for="exampleRadios4">
+				    ETH
+				  </label>
+				</div>
+
+	     	</div>
+
+	    </div>
+
+	    <!-- right -->
+	    <div class="col-lg-6 m-3">
+
+	      <div class="row">
+		    <div class="col text-left">Enter amount</div><div class="col text-right"><strong><small>Balance:</small></strong> 3.5 UNI-V2</div>
+		  </div>
+
+	      <div id="b-block" class="col border border-dark rounded p-3">
+	      	<input class="form-control form-control-sm" type="text" placeholder="">
+	      	<input type="range" class="custom-range p-3" id="customRange1">
+	      	<button type="button" class="btn btn-light btn-block">Unlock wallet</button>
+	      	<button type="button" class="btn btn-light btn-block">Withdraw</button>
+	      </div>
+	    </div>
+
+	</div>
+
+	<!-- footer -->
+	<div id="footer" class="row m-0 p-5 text-center border-dark rounded mb-1">
+
+		<div class="col text-center pt-1">
+			<a href="https://www.twitter.com/burn_the_state"><img class="icon" src="imgs/twitter.svg"/></a>
+			<a href="https://discord.gg/86bgYh"><img class="icon" src="imgs/discord.svg"/></a>
+			<a href="https://t.me/burnthestate"><img class="icon" src="imgs/telegram.svg"/></a>
+			<a href="https://medium.com/@burn_the_state/tokenomics-of-ash-a-new-type-of-yield-farming-e67c6de0bbe0"><img class="icon" src="imgs/medium.svg"/></a>
+		</div>
+	</div>
+</div>
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+	<script src="letsburn.js"></script>
+  </body>
+</html>
