@@ -161,8 +161,8 @@ const getPoolBalances = async () => {
 const getBonusPool = async () => {
   console.log('getBonusPool');
   const contract = yfkaControllerContract();
-  // TODO placeholder for now...
-  return PAIRS.YFKA_BOA;
+  const idx = await contract.methods.getActivePool().call();
+  return POOLS[idx];
 }
 
 const getGlobalEmissionRate = async () => {
