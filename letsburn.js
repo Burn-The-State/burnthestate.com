@@ -153,7 +153,7 @@ const getPoolBalances = async () => {
   // TODO TOB showing NaN so figure that out
   return {
     XAMP: xampContractBalance ? xampContractBalance / (10 ** xampContractDecimals) : 0,
-    TOB: tobContract ? tobContract / (10 ** tobContractDecimals) : 0,
+    TOB: tobContract ? tobContractBalance / (10 ** tobContractDecimals) : 0,
     BOA: boaContractBalance ? boaContractBalance / (10 ** boaContractDecimals) : 0,
     ETH: ethContractBalance ? ethContractBalance / (10 ** ethContractDecimals) : 0,
   }
