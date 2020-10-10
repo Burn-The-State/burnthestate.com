@@ -258,10 +258,7 @@ $('#stakeBTN').click(async () => {
 
   const contract = yfkaControllerContract();
 
-  const tx = await contract.methods.stake({
-    idx,
-    amount,
-  }).call();
+  const tx = await contract.methods.stake(idx, amount).call();
   // TODO
   // find out what pool is select
   // figure out the idx in the pool for the selected one
