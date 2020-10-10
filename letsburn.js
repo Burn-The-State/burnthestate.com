@@ -254,13 +254,13 @@ $('#stakeBTN').click(async () => {
   console.log('pool: ', pool);
 
   // TODO get real 10**18 valu prob + BN
-  const amount = $('#stake-input').val();
+  const amount = new String($('#stake-input').val());
   console.log('amount ', amount);
   // TODO BN!
-  // const provider = getInfuraProvider();
-  // const amountBN = provider.utils.BN(amount);
-  // console.log('amountBN ', amountBN);
-  // console.log('amountBNTS ', amountBN.toString());
+  const provider = getInfuraProvider();
+  const amountBN = provider.utils.BN(amount);
+  console.log('amountBN ', amountBN);
+  console.log('amountBNTS ', amountBN.toString());
 
   const contract = yfkaControllerContract();
 
