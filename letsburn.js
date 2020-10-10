@@ -245,7 +245,10 @@ $('#stakeBTN').click(async () => {
   console.log('keys: ', keys);
   const value = $('[name=stake][type=radio]:checked').val();
   console.log('value: ', value);
-  const idx = keys.indexOf(value);
+  const indexOfValue = keys.map((key) => {
+    return key.indexOf('value') >= 0;
+  })
+  const idx = indexOfValue.indexOf(true);
   console.log('idx: ', idx);
 
   const contract = yfkaControllerContract();
