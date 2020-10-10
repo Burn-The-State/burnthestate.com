@@ -102,7 +102,6 @@ const yfkaControllerContract = () => {
   return contract;
 }
 
-
 const getAccount = async () => {
   const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
 
@@ -162,7 +161,8 @@ const getPoolBalances = async () => {
 const getBonusPool = async () => {
   console.log('getBonusPool');
   const contract = yfkaControllerContract();
-
+  // TODO placeholder for now...
+  return PAIRS.YFKA_BOA;
 }
 
 const getGlobalEmissionRate = async () => {
@@ -254,7 +254,7 @@ $('#stakeBTN').click(async () => {
   console.log('pool: ', pool);
 
   // TODO get real 10**18 valu prob + BN
-  const amount = new String($('#stake-input').val());
+  const amount = $('#stake-input').val();
   console.log('amount ', amount);
   // TODO BN!
   const provider = getInfuraProvider();
