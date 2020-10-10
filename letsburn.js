@@ -239,7 +239,7 @@ $('input[type=radio][name=stake]').change(async () => {
   // TODO
   $('stake-input').value(balance);
   return balance || '';
-}
+});
 
 
 window.addEventListener('load', async (event) => {
