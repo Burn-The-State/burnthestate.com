@@ -4,7 +4,7 @@ body
 	background-image: url(imgs/gradient.jpg);
 	/*background-color: #000;*/
 	background-repeat: repeat-y;
-	background-position: top center;
+	background-position: middle center;
 	background-attachment: fixed;
 	background-size: 100%;
 }
