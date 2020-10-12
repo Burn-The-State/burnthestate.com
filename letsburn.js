@@ -197,15 +197,15 @@ const updateActivePool = async () => {
   switch (bonusAddress) {
     case PAIRS.YFKA_XAMP:
       $('#bonus-global-token').html('XAMP');
-      $('#xamp-apy').html(`${bonusEmissionRate}% <small>APY</small>`);
+      $('#xamp-apy').html(`${bonusEmissionRate}`);
       break;
     case PAIRS.YFKA_TOB:
       $('#bonus-global-token').html('TOB');
-      $('#tob-apy').html(`${bonusEmissionRate}% <small>APY</small>`);
+      $('#tob-apy').html(`${bonusEmissionRate}`);
       break;
     case PAIRS.YFKA_BOA:
       $('#bonus-global-token').html('BOA');
-      $('#boa-apy').html(`${bonusEmissionRate}% <small>APY</small>`);
+      $('#boa-apy').html(`${bonusEmissionRate}`);
       break;
     case PAIRS.YFKA_ETH:
     default:
