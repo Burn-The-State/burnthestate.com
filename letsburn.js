@@ -188,10 +188,10 @@ const updateActivePool = async () => {
   $('#global-rate').html(`${globalEmissionRate}%`);
   $('#bonus-global-rate').html(`${bonusEmissionRate}%`);
 
-  $('#eth-apy').html(`${globalEmissionRate}% <small>APY</small>`);
-  $('#xamp-apy').html(`${globalEmissionRate}% <small>APY</small>`);
-  $('#tob-apy').html(`${globalEmissionRate}% <small>APY</small>`);
-  $('#boa-apy').html(`${globalEmissionRate}% <small>APY</small>`);
+  $('#eth-apy').html(`${globalEmissionRate}`);
+  $('#xamp-apy').html(`${globalEmissionRate}`);
+  $('#tob-apy').html(`${globalEmissionRate}`);
+  $('#boa-apy').html(`${globalEmissionRate}`);
 
   const bonusAddress = await getBonusPool();
   switch (bonusAddress) {

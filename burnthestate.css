@@ -1,7 +1,8 @@
 body
 {
 	font-family: 'Roboto Condensed', sans-serif;
-	background-image: url(imgs/gradient.jpg);
+	/*background-image: url(imgs/gradient.jpg);*/
+	background-color: #000;
 	background-repeat: repeat-y;
 	background-position: top center;
 	background-attachment: fixed;
@@ -23,6 +24,19 @@ a:hover
 	color: #cd2012;
 }
 
+
+mark
+{
+	color: white !important;
+	background-color: black !important;
+}
+
+#connectToMetamask
+{
+	background-color: #000;
+}
+
+
 #banner
 {
 
@@ -33,6 +47,29 @@ a:hover
 	background-position: top center;
 	color: #fff;
 	border: 0px !important;
+}
+
+#buy
+{
+	background-color: #fff;
+	/*color: #fff;*/	
+}
+
+#buy img 
+{
+	width: 45px;
+}
+
+#buy .btn
+{
+	background-color: #fff;
+	border: 0px !important;
+}
+
+#buy a
+{
+	color: #000;
+	/*text-decoration: none;*/
 }
 
 #row1
@@ -54,29 +91,42 @@ a:hover
 
 #row3
 {
-	background-color: #cd2012;
-	color: #fff;
+	background-color: #fff;
+	/*background-color: #cd2012;*/
+	color: #000;
 	border: 0px !important;
 }
 
 
 #stake
 {
+	
 	background-image: url(imgs/flames2.png);
-	background-size: 150%;
+	background-size: 100%;
 	background-repeat: no-repeat;
 	background-position: center bottom;
+
 	border: 0px !important;
 	background-color: #fff;
 	color: #000;
 }
 
+#stake .btn
+{
+	background-color: #000;
+}
+
+
 #redeem
 {
 	background-color: #cd2012;
-	/*background-color: #000;*/
 	color: #fff;
 	border: 0px !important;
+}
+
+#redeem .btn
+{
+	background-color: #000;
 }
 
 .redeemTxt
@@ -122,14 +172,14 @@ a:hover
 
 #pools
 {
-	/*background-image: url(imgs/eth.png);
-	background-size: 10%;*/
-	background-color: #fff;
-	background-position: right;
-	background-repeat: no-repeat;
+	/*background-image: url(imgs/fireBG3.png);
+	background-size: 100%;
+	background-position: top;
+	background-repeat: no-repeat;*/
 
+	background-color: #fff;
 	color: #000;
-	border: 0px !important;
+	border: 1px solid #b9b9b9 !important;
 	line-height: 15px;
 }
 
@@ -140,15 +190,35 @@ a:hover
 	padding-bottom: 10px;
 }
 
-/*#ethPool .row
+#bonusPool
 {
-	border: 1px solid blue;
+	background-image: url(imgs/fireBG3.png);
+	background-size: 100%;
+	background-position: top;
+	background-repeat: no-repeat;
+
+	background-color: #cd2012;
+	color: #fff;
+	border: 1px solid #cd2012 !important;
+	line-height: 15px;
 }
 
-#ethPool .col
+
+
+.bigNumber
 {
-	border: 1px solid green;
-}*/
+	font-size: 30px;
+	font-weight: 700;
+	/*color: #000;*/
+}
+
+.gPercentage
+{
+	font-size: 14px;
+	font-weight: 700;
+	/*color: #000;*/
+}
+
 
 #r-block
 {
@@ -161,6 +231,12 @@ a:hover
 {
 	font-weight: 300;
 }
+
+
+
+
+
+
 
 .info1
 {
@@ -234,6 +310,15 @@ a:hover
 	color: #fff;
 
 }
+
+.burn-btn a {
+
+	color: #fff;
+	text-decoration: none;
+
+}
+
+
 
 .custom-range::-webkit-slider-thumb {
   width: 1rem;
