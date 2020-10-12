@@ -1,8 +1,8 @@
 body
 {
 	font-family: 'Roboto Condensed', sans-serif;
-	/*background-image: url(imgs/gradient.jpg);*/
-	background-color: #000;
+	background-image: url(imgs/gradient.jpg);
+	/*background-color: #000;*/
 	background-repeat: repeat-y;
 	background-position: middle center;
 	background-attachment: fixed;
