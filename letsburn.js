@@ -179,7 +179,6 @@ const getGlobalEmissionRate = async () => {
   return emissionRateToReadable;
 }
 
-
 // UI FUNCTIONS
 const updateActivePool = async () => {
   console.log('updateActivePool');
@@ -220,12 +219,9 @@ const updateActivePool = async () => {
 
 }
 
-
-
 const getYFKASupply = async () => {
 
 }
-
 
 $('input[type=radio][name=stake]').change(async (event) => {
   console.log('change radio stake');
@@ -496,43 +492,43 @@ $('#stakeBTN').click(async () => {
 // EXECUTE APPROVE ON UNISWAP TOKEN
 // THEN EXECUTE THE STAKE FUNCTION
 // Modern dapp browsers...
-    // if (web3.isConnected) {
-    // 	var ashContract = web3.eth.contract(contractABI);
-    //   var contractInstance = ashContract.at(ashAddress);
+    if (web3.isConnected) {
+		var ashContract = web3.eth.contract(contractABI);
+		var contractInstance = ashContract.at(ashAddress);
 
-    // 	var uniContract = web3.eth.contract(uniTokenABI);
+		var uniContract = web3.eth.contract(uniTokenABI);
 
-    //   var e = document.getElementById("selectedTokenStake");
-    //   var value = e.options[e.selectedIndex].value;
+		var e = document.getElementById("selectedTokenStake");
+		var value = e.options[e.selectedIndex].value;
 
-    //   var payload;
+		var payload;
 
-		// 	if(value == "XAMP") {
-		// 		payload = 0;
-    //     uniInstance = uniContract.at(uniTokenAddressXAMP);
-    //   }
-    //   else if(value == "TOB") {
-    //   	payload = 1;
-    //     uniInstance = uniContract.at(uniTokenAddressTOB);
-    //   }
-    //   else if(value == "BOA") {
-    //   	payload = 2;
-    //     uniInstance = uniContract.at(uniTokenAddressBOA);
-    //   }
-    //   else if(value == "ETH") {
-    //   	payload = 3;
-    //     uniInstance = uniContract.at(uniTokenAddressETH);
-    //   }
+		if(value == "XAMP") {
+			payload = 0;
+			uniInstance = uniContract.at(YFKA_XAMP);
+		}
+		else if(value == "TOB") {
+			payload = 1;
+			uniInstance = uniContract.at(YFKA_TOB);
+		}
+		else if(value == "BOA") {
+			payload = 2;
+			uniInstance = uniContract.at(YFKA_BOA);
+		}
+		else if(value == "ETH") {
+			payload = 3;
+			uniInstance = uniContract.at(YFKA_ETH);
+		}
 
-    //   console.log(document.getElementById("stakeAmount").value * 10**18);
+		console.log(document.getElementById("stakeAmount").value * 10**18);
 
-    //   uniInstance.approve(ashAddress, document.getElementById("stakeAmount").value * 10**18, function (err, res) {
-    //     console.log("APPROVE TX: https://etherscan.io/tx/" + res);
-    //     document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
-    //     document.getElementById("stakeReceipt").style.opacity = "1";
-    //     waitForApproval(res, contractInstance, payload);
-    //   });
-    // };
+		uniInstance.approve(ashAddress, document.getElementById("stakeAmount").value * 10**18, function (err, res) {
+			console.log("APPROVE TX: https://etherscan.io/tx/" + res);
+			document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
+			document.getElementById("stakeReceipt").style.opacity = "1";
+			waitForApproval(res, contractInstance, payload);
+		});
+    };
 
 })
 
