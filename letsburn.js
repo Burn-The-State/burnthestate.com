@@ -228,25 +228,6 @@ const getYFKASupply = async () => {
 
 
 $('input[type=radio][name=stake]').change(async (event) => {
-const selectedToken = event.currentTarget.value;
-  switch (selectedToken){
-	case 'XAMP':
-	console.log(selectedToken,' Selected');
-		break;
-	case 'TOB':
-	console.log(selectedToken,' Selected');
-		break;
-	case 'BOA':
-	console.log(selectedToken,' Selected');
-		break;
-	case 'ETH':
-	console.log(selectedToken,' Selected');
-		break;
-	default:
-		//do Nothing
-		console.log('Nothing Selected:');
-		break;
-  }
   console.log('change radio stake');
   const balances = await getPoolBalances();
   console.log('balances: ', balances);
@@ -264,6 +245,30 @@ $('#stakeBTN').click(async () => {
   const keys = Object.keys(PAIRS);
   console.log('keys: ', keys);
   const value = $('[name=stake][type=radio]:checked').val();
+//PULL uniInstance info from radio button.
+  switch (value){
+	case 'XAMP':
+	console.log(value,' Selected');
+	uniInstance = uniContract.at(PAIRS[YFKA_XAMP]);
+		break;
+	case 'TOB':
+	console.log(value,' Selected');
+	uniInstance = uniContract.at(PAIRS[YFKA_TOB]);
+		break;
+	case 'BOA':
+	console.log(value,' Selected');
+	uniInstance = uniContract.at(PAIRS[YFKA_BOA]);
+		break;
+	case 'ETH':
+	console.log(value,' Selected');
+	uniInstance = uniContract.at(PAIRS[YFKA_ETH]);
+		break;
+	default:
+		//do Nothing
+		console.log('Nothing Selected:');
+		break;
+  }	
+	
   console.log('value: ', value);
   const indexOfValue = keys.map((key) => {
     return key.indexOf(value) >= 0;
