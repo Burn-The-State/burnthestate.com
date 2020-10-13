@@ -234,6 +234,7 @@ function waitForApproval(tx, contractInstance, payload) {
     	if(res2['blockNumber'] == null) setTimeout(() => { waitForApproval(tx, contractInstance, payload)}, 5000);
  			else {
        	setTimeout(() => { console.log(res2);}, 5000);
+	console.log('Approval - Success.... Moving on');
        	contractInstance.stake(payload, document.getElementById("stake-input").value * 10**18, function (err, res) {
            //document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
            //document.getElementById("stakeReceipt").style.opacity = "1";
