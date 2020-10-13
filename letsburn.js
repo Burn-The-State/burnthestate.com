@@ -272,19 +272,23 @@ var uniContract = web3.eth.contract(uniTokenABI);
   switch (value){
 	case 'XAMP':
 	console.log(value,' Selected');
-	uniInstance = uniContract.at(PAIRS[YFKA_XAMP]);
+	console.log(PAIRS.YFKA_BOA, 'contract');
+	uniInstance = uniContract.at(PAIRS.YFKA_XAMP);
 		break;
 	case 'TOB':
 	console.log(value,' Selected');
-	uniInstance = uniContract.at(PAIRS[YFKA_TOB]);
+	console.log(PAIRS.YFKA_BOA, 'contract');
+	uniInstance = uniContract.at(PAIRS.YFKA_TOB);
 		break;
 	case 'BOA':
 	console.log(value,' Selected');
-	uniInstance = uniContract.at(PAIRS[YFKA_BOA]);
+	console.log(PAIRS.'YFKA_BOA', 'contract');
+	uniInstance = uniContract.at(PAIRS.YFKA_BOA);
 		break;
 	case 'ETH':
 	console.log(value,' Selected');
-	uniInstance = uniContract.at(PAIRS[YFKA_ETH]);
+	console.log(PAIRS.YFKA_BOA, 'contract');
+	uniInstance = uniContract.at(PAIRS.YFKA_ETH);
 		break;
 	default:
 		//do Nothing
