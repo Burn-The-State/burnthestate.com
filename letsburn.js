@@ -282,7 +282,7 @@ var uniContract = web3.eth.contract(uniTokenABI);
 		break;
 	case 'BOA':
 	console.log(value,' Selected');
-	console.log(PAIRS.'YFKA_BOA', 'contract');
+	console.log(PAIRS.YFKA_BOA, 'contract');
 	uniInstance = uniContract.at(PAIRS.YFKA_BOA);
 		break;
 	case 'ETH':
