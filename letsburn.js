@@ -224,7 +224,30 @@ const getYFKASupply = async () => {
 
 }
 
-$('input[type=radio][name=stake]').change(async (event) => {
+$('input[type=radio][name=stake]').change(async (event) => {	
+  //get selected token
+  const selectedToken = event.currentTarget.value;
+  switch (selectedToken)
+	case "XAMP":
+	console.log(event.currentTarget.value,' Selected:');
+		break;
+	case "TOB":
+	console.log(event.currentTarget.value,' Selected:');
+	console.log('Nothing Selected:');
+		break;
+	case "BOA":
+	console.log(event.currentTarget.value,' Selected:');
+	console.log('Nothing Selected:');
+		break;
+	case "ETH":
+	console.log(event.currentTarget.value,' Selected:');
+	console.log('Nothing Selected:');
+		break;
+	default:
+		//do Nothing
+		console.log('Nothing Selected:');
+		break;
+	  
   console.log('change radio stake');
   const balances = await getPoolBalances();
   console.log('balances: ', balances);
