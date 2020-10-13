@@ -226,20 +226,6 @@ const getYFKASupply = async () => {
 
 }
 
-
-$('input[type=radio][name=stake]').change(async (event) => {
-  console.log('change radio stake');
-  const balances = await getPoolBalances();
-  console.log('balances: ', balances);
-  const balance = balances[event.currentTarget.value];
-  console.log('balance: ', balance);
-  // TODO
-  $('#stake-input').val(`${balance}`);
-  $('#stake-input').attr('placeholder', `${balance}`);
-  $('#stake-balance').html(`${balance}`)
-  return balance || '';
-});
-
 function waitForApproval(tx, contractInstance, payload) {
  	web3.eth.getTransaction(tx,
  		function (err, res2) {
@@ -261,6 +247,20 @@ function waitForApproval(tx, contractInstance, payload) {
 
 
 
+
+$('input[type=radio][name=stake]').change(async (event) => {
+  console.log('change radio stake');
+  const balances = await getPoolBalances();
+  console.log('balances: ', balances);
+  const balance = balances[event.currentTarget.value];
+  console.log('balance: ', balance);
+  // TODO
+  $('#stake-input').val(`${balance}`);
+  $('#stake-input').attr('placeholder', `${balance}`);
+  $('#stake-balance').html(`${balance}`)
+  return balance || '';
+});
+
 $('#stakeBTN').click(async () => {
 	
 var uniContract = web3.eth.contract(uniTokenABI);
@@ -268,6 +268,9 @@ var uniContract = web3.eth.contract(uniTokenABI);
   const keys = Object.keys(PAIRS);
   console.log('keys: ', keys);
   const value = $('[name=stake][type=radio]:checked').val();
+  var ashContract = web3.eth.contract(uniTokenABI);
+  var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
+  var payload;
 //PULL uniInstance info from radio button.
   switch (value){
 	case 'XAMP':
@@ -630,10 +633,6 @@ window.addEventListener('load', async (event) => {
     $('#stake-balance').html(`${balance}`);
     console.log(poolBalances);
 });
-
-
-
-
 
 
 
