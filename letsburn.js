@@ -653,9 +653,9 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 		balance = res / 10**18;
 	});
 	
-	$('#redeem-input').val(`${balance}`);
-	$('#redeem-input').attr('placeholder', `${balance}`);
-	$('#redeem-balance').html(`${balance}`)
+	$('#reward-input').val(`${balance}`);
+	$('#reward-input').attr('placeholder', `${balance}`);
+	$('#reward-balance').html(`${balance}`)
 	return balance || '';
 });
 
