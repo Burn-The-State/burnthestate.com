@@ -660,6 +660,33 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 });
 
 
+
+
+$('input[type=radio][name=unstake]').change(async (event) => {
+	console.log('change radio unstake');
+	var ashContract = web3.eth.contract(contractABI);
+	var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
+	const value = $('[name=unstake][type=radio]:checked').val();
+	var payload;
+
+	if(value == "XAMP") payload = 0;
+	else if(value == "TOB") payload = 1;
+	else if(value == "BOA") payload = 2;
+	else if(value == "ETH") payload = 3;
+	console.log('Selected Coin: ',value,";Payload: ",payload);
+	
+	var balance;
+	contractInstance.getPointsForStake(payload, function (err, res) {
+		console.log("Number Redeemed: " + res / 10**18);
+		balance = res / 10**18;
+	$('#unstake-input').val(`${balance}`);
+	$('#unstake-input').attr('placeholder', `${balance}`);
+	$('#unstake-balance').html(`${balance}`);
+	return balance || '';
+	});
+});
+
+
 // var ashAddress = "0x615983a35CF71D89F1B094e920151d7eA9Bf48bc"
 
 
