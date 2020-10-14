@@ -651,12 +651,12 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	contractInstance.getCurrentReward(payload, function (err, res) {
 		console.log("Number Redeemed: " + res / 10**18);
 		balance = res / 10**18;
-	});
-	
 	$('#reward-input').val(`${balance}`);
 	$('#reward-input').attr('placeholder', `${balance}`);
 	$('#reward-balance').html(`${balance}`)
-	return balance || '';
+		return balance || '';
+	});
+
 });
 
 
