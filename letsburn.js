@@ -633,14 +633,14 @@ window.addEventListener('load', async (event) => {
     console.log(poolBalances);
 });
 
-
 $('input[type=radio][name=redeem]').change(async (event) => {
 	console.log('change radio redeem');
 	var ashContract = web3.eth.contract(contractABI);
 	var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
 	const value = $('[name=redeem][type=radio]:checked').val();
 	var payload;
-
+	const account = await getAccount();
+	
 	if(value == "XAMP") payload = 0;
 	else if(value == "TOB") payload = 1;
 	else if(value == "BOA") payload = 2;
@@ -653,10 +653,20 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 		balance = res / 10**18;
 	$('#reward-input').val(`${balance}`);
 	$('#reward-input').attr('placeholder', `${balance}`);
-	$('#reward-balance').html(`${balance}`)
-		return balance || '';
+	$('#reward-balance').html(`${balance}`);
+	//return balance || '';
 	});
-
+	var personalEmission;
+	contractInstance.getPersonalEmissionRate(payload, account, function (err, res) {
+		console.log("Personal Emission: " + res / 100);
+		personalEmission = res / 100;
+	$('#personal-emission').html(`${personalEmission}`);
+	return balance || '';
+	});
+	
+	
+	
+	
 });
 
 
