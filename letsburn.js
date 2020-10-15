@@ -105,7 +105,7 @@ const yfkaControllerContract = () => {
 
 const getAccount = async () => {
   const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-
+	console.log("accounts:" , accounts);
   const provider = getInfuraProvider();
   return provider.utils.toChecksumAddress(accounts[0]);
 }
