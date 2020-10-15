@@ -271,15 +271,23 @@ var uniContract = web3.eth.contract(uniTokenABI);
 //PULL uniInstance info from radio button.
   switch (value){
 	case 'XAMP':
+	console.log(value,' Selected');
+	console.log(PAIRS.YFKA_BOA, 'contract');
 	uniInstance = uniContract.at(PAIRS.YFKA_XAMP);
 		break;
 	case 'TOB':
+	console.log(value,' Selected');
+	console.log(PAIRS.YFKA_BOA, 'contract');
 	uniInstance = uniContract.at(PAIRS.YFKA_TOB);
 		break;
 	case 'BOA':
+	console.log(value,' Selected');
+	console.log(PAIRS.YFKA_BOA, 'contract');
 	uniInstance = uniContract.at(PAIRS.YFKA_BOA);
 		break;
 	case 'ETH':
+	console.log(value,' Selected');
+	console.log(PAIRS.YFKA_BOA, 'contract');
 	uniInstance = uniContract.at(PAIRS.YFKA_ETH);
 		break;
 	default:
@@ -302,37 +310,6 @@ var uniContract = web3.eth.contract(uniTokenABI);
   console.log('amount ', amount);
   if (amount === 0 || amount === '0') return;
 
-  // // TODO
-  if (!window.ethereum) return;
-
-  // // TODO figure out state etc
-  const transactionParameters = {
-     nonce: '0x00', // ignored by MetaMask
-     gasPrice: window.'0x09184e72a000', // customizable by user during MetaMask confirmation.
-     gas: '0x2710', // customizable by user during MetaMask confirmation.
-     to: YFKA_CONTROLLER_ADDRESS, // Required except during contract publications.
-     from: window.ethereum.selectedAddress, // must match user's active address.
-     value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-     data:
-       '0x7f7465737432000000000000000000000000000000000000000000000000000000600057', // Optional, but used for defining smart contract creation and interaction.
-     chainId: 3, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-   };
-
-  const txHash = await window.ethereum.request({
-		method: 'eth_sendTransaction',
-		params: [transactionParameters],
-	});
-
-  const contract = yfkaControllerContract();
-
-  const tx = await contract.methods.stake(idx, amount).call();
-	uniInstance.approve(YFKA_CONTROLLER_ADDRESS, amount, function (err, res) {
-	console.log("APPROVE TX: https://etherscan.io/tx/" + res);
-	//TODO: ADD TRX ADDRESS UNDER BUTTON....
-	//document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
-	//document.getElementById("stakeReceipt").style.opacity = "1";
-	waitForApproval(res, contractInstance, payload);
-	});
   // // TODO
   // if (!window.ethereum) return;
 
