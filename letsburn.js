@@ -305,9 +305,6 @@ var uniContract = web3.eth.contract(uniTokenABI);
   // // TODO
   if (!window.ethereum) return;
 
- /*   // // TODO
-  if (!window.ethereum) return;
-
   // // TODO figure out state etc
   const transactionParameters = {
      nonce: '0x00', // ignored by MetaMask
@@ -327,7 +324,7 @@ var uniContract = web3.eth.contract(uniTokenABI);
 	});
 
   const contract = yfkaControllerContract();
- */
+
   const tx = await contract.methods.stake(idx, amount).call();
 	uniInstance.approve(YFKA_CONTROLLER_ADDRESS, amount, function (err, res) {
 	console.log("APPROVE TX: https://etherscan.io/tx/" + res);
