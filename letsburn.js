@@ -383,8 +383,8 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	});
 	var personalEmission;
 	contractInstance.getPersonalEmissionRate(payload, account, function (err, res) {
-		console.log("Personal Emission: " + res);
-		personalEmission = res;
+		console.log("Personal Emission: " + res/ 10**18;);
+		personalEmission = res/ 10**18;;
 	$('#personal-emission').html(`${personalEmission}`);
 	return personalEmission || '';
 	});
