@@ -172,10 +172,10 @@ const getGlobalEmissionRate = async () => {
   const emissionRate = await contract.methods.emissionRate().call();
   console.log('emissionRate: ', emissionRate);
   // TODO is it 18 tho
-  const emissionRateToHuman = emissionRate / (10 ** 18);
+  const emissionRateToHuman = ((emissionRate / (10 ** 18))/2);
   console.log('emissionRateToHuman: ', emissionRateToHuman);
 
-  const emissionRateToReadable = Math.round((emissionRateToHuman - 1) * 100);
+  const emissionRateToReadable = Math.round((emissionRateToHuman) * 100);
   console.log('emissionRateToReadable: ', emissionRateToReadable);
   return emissionRateToReadable;
 }
