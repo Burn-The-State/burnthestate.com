@@ -389,8 +389,8 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	contractInstance.getCurrentReward(payload, function (err, res) {
 		console.log("Number Redeemed: " + res / 10**18);
 		const balance = res / 10**18;
-	$('#redeem-amount').val(`${balance}`);
-	$('#redeem-amount-button').val(`${balance}`);
+	$('#redeem-amount').(`${balance}`);
+	$('#redeem-amount-button').(`${balance}`);
 	return balance || '';
 	});
 
