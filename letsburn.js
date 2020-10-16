@@ -203,6 +203,15 @@ const getPoolBalances = async () => {
   }
 }
 
+const updateUserStats = async () => {
+	//current Rewards
+	contractInstance.getCurrentReward(0, function (err, res) {
+		const balance = res / 10**18;
+	$('#reward-XAMP').html(`${balance}`);
+	});
+}
+
+
 const getBonusPool = async () => {
   console.log('getBonusPool');
   const contract = yfkaControllerContract();
@@ -229,6 +238,7 @@ const getGlobalEmissionRate = async () => {
 const updateActivePool = async () => {
   console.log('updateActivePool');
   const globalEmissionRate = await getGlobalEmissionRate();
+await updateUserStats();
   const bonusEmissionRate = Math.round(globalEmissionRate * 2);
   $('#global-rate').html(`${globalEmissionRate}%`);
   $('#bonus-global-rate').html(`${bonusEmissionRate}%`);
