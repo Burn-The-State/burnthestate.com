@@ -113,11 +113,11 @@ const getAccount = async () => {
 const getReward = async () =>{
 	var ashContract = web3.eth.contract(contractABI);
 	var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
-
-	const xampEmission = new contractInstance.getCurrentReward(0);
-	const tobEmission = new contractInstance.getCurrentReward(1);
-	const boaEmission = new contractInstance.getCurrentReward(2);
-	const ethEmission = new contractInstance.getCurrentReward(3);
+	
+	const xampEmission = await contractInstance.getCurrentReward(0).call();
+	const tobEmission = await contractInstance.getCurrentReward(1).call();
+	const boaEmission = await contractInstance.getCurrentReward(2).call();
+	const ethEmission = await contractInstance.getCurrentReward(3).call();
 	console.log("Number Redeemable: " + xampEmission / 10**18);
 	console.log("Number Redeemable: " + tobEmission / 10**18);
 	console.log("Number Redeemable: " + boaEmission / 10**18);
