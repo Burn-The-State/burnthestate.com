@@ -411,9 +411,9 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	const bonusEmissionRate = globalEmissionRate*2;
 	$('#coin-emission').html(`${globalEmissionRate}`);
 	const bonusAddress = await getBonusPool();
-	const testing = getReward();
-	const test = testing['XAMP'];
-	console.log("TEST: ", test);
+//	const testing = getReward();
+//	const test = testing['XAMP'];
+//	console.log("TEST: ", test);
 	if(value == "XAMP"){
 		payload = 0;
 	}
