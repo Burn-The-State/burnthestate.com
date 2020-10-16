@@ -209,6 +209,18 @@ const updateUserStats = async () => {
 		const balance = res / 10**18;
 	$('#reward-XAMP').html(`${balance}`);
 	});
+	contractInstance.getCurrentReward(1, function (err, res) {
+		const balance = res / 10**18;
+	$('#reward-TOB').html(`${balance}`);
+	});
+	contractInstance.getCurrentReward(2, function (err, res) {
+		const balance = res / 10**18;
+	$('#reward-BOA').html(`${balance}`);
+	});
+	contractInstance.getCurrentReward(3, function (err, res) {
+		const balance = res / 10**18;
+	$('#reward-ETH').html(`${balance}`);
+	});
 }
 
 
