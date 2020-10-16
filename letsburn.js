@@ -371,20 +371,16 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	const bonusAddress = await getBonusPool();
 	
 	if(value == "XAMP"){
-		if (bonusAddress == PAIRS.YFKA_XAMP) $('#coin-emission').html(`${bonusEmissionRate}`);
 		payload = 0;
 	}
 	else if(value == "TOB"){
-		if (bonusAddress == PAIRS.YFKA_TOB) $('#coin-emission').html(`${bonusEmissionRate}`);
 		payload = 1;
 	}
 	else if(value == "BOA")
 	{
-		if (bonusAddress == PAIRS.YFKA_BOA) $('#coin-emission').html(`${bonusEmissionRate}`);
 		payload = 2;
 	}
 	else if(value == "ETH"){
-		if (bonusAddress == PAIRS.YFKA_ETH) $('#coin-emission').html(`${bonusEmissionRate}`);
 		payload = 3;
 	}
 	console.log('Selected Coin: ',value,";Payload: ",payload);
