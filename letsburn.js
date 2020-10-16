@@ -115,7 +115,10 @@ const getReward = async () =>{
 	var ashContract = web3.eth.contract(contractABI);
 	var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
 	
-	const xampReward, tobReward, boaReward, ethReward;
+	const xampReward = 0;
+	const tobReward = 0;
+	const boaReward = 0;
+	const ethReward = 0;
 	contractInstance.getCurrentReward(0, function (err, res) {
 		xampReward = res / 10**18;
 	});
@@ -136,10 +139,10 @@ const getReward = async () =>{
 	console.log("Number Redeemable: " , boaReward);
 	console.log("Number Redeemable: " , ethReward);
   return {
-    XAMP: xampReward/ 10**18,
-    TOB: tobReward/ 10**18,
-    BOA: boaReward/ 10**18,
-    ETH: ethReward/ 10**18,
+    XAMP: xampReward,
+    TOB: tobReward,
+    BOA: boaReward,
+    ETH: ethReward,
   }	
 }
 
