@@ -277,22 +277,22 @@ const updateUserStats = async () => {
 	});
 	//% of pool
 	var TotalXAMPbalance = 0;
-	contractInstance.totalYFKAStaked(0, account, function (err, res) {
+	contractInstance.totalYFKAStaked(0, function (err, res) {
 		TotalXAMPbalance = (res / (10 ** 18));
 		console.log('TOTAL TOB: ', TotalTOBbalance);
 	});
 	var TotalTOBbalance = 0;
-	contractInstance.totalYFKAStaked(1, account, function (err, res) {
+	contractInstance.totalYFKAStaked(1, function (err, res) {
 		TotalTOBbalance = (res / (10 ** 18));
 		console.log('TOTAL TOB: ', TotalTOBbalance);
 	});
 	var TotalBOAbalance = 0;
-	contractInstance.totalYFKAStaked(2, account, function (err, res) {
+	contractInstance.totalYFKAStaked(2, function (err, res) {
 		TotalBOAbalance = (res / (10 ** 18));
 		console.log('TOTAL BOA: ', TotalBOAbalance);
 	});
 	var TotalETHbalance = 0;
-	contractInstance.totalYFKAStaked(3, account, function (err, res) {
+	contractInstance.totalYFKAStaked(3, function (err, res) {
 		TotalETHbalance = (res / (10 ** 18));
 		console.log('TOTAL ETH: ', TotalETHbalance);
 	});
