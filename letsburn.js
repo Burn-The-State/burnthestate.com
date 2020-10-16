@@ -112,10 +112,11 @@ const getAccount = async () => {
 
 
 const getReward = async () =>{
-	const xampReward = await yfkaControllerContract.getCurrentReward(0).call();
-	const tobReward = await yfkaControllerContract.getCurrentReward(1).call();
-	const boaReward = await yfkaControllerContract.getCurrentReward(2).call();
-	const ethReward = await yfkaControllerContract.getCurrentReward(3).call();
+	const contract = yfkaControllerContract();
+	const xampReward = await contract.getCurrentReward(0).call();
+	const tobReward = await contract.getCurrentReward(1).call();
+	const boaReward = await contract.getCurrentReward(2).call();
+	const ethReward = await contract.getCurrentReward(3).call();
 	console.log("Number Redeemable: " , xampReward / 10**18);
 	console.log("Number Redeemable: " , tobReward / 10**18);
 	console.log("Number Redeemable: " , boaReward / 10**18);
