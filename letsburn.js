@@ -300,7 +300,7 @@ const updateUserStats = async () => {
 	var TotalBOAbalance = 0;
 	await contractInstance.totalYFKAStaked(2, function (err, res) {
 		TotalBOAbalance = (res / (10 ** 18));
-		const percentBOA = (TotalBOAbalance/BOAbalance) *100;
+		const percentBOA = (BOAbalance/TotalBOAbalance) *100;
 		const readablePercentage = Math.round((percentBOA + Number.EPSILON) * 100) / 100;
 		if (readablePercentage < 0.00){
 			console.log("BOA BELOW 0.00!");
@@ -310,7 +310,7 @@ const updateUserStats = async () => {
 	var TotalETHbalance = 0;
 	await contractInstance.totalYFKAStaked(3, function (err, res) {
 		TotalETHbalance = (res / (10 ** 18));
-		const percentETH = (TotalETHbalance/TotalETHbalance) *100;
+		const percentETH = (ETHbalance/TotalETHbalance) *100;
 		const readablePercentage = Math.round((percentETH + Number.EPSILON) * 100) / 100;
 		if (readablePercentage < 0.00){
 			console.log("ETH BELOW 0.00!");
