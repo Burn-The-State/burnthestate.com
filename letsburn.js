@@ -278,13 +278,18 @@ const updateUserStats = async () => {
 	//% of pool
 	var TotalXAMPbalance = 0;
 	await contractInstance.totalYFKAStaked(0, function (err, res) {
+		
 		TotalXAMPbalance = (res / (10 ** 18));
+		const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
 		console.log('TOTAL XAMP: ', TotalXAMPbalance);
+		console.log('XAMP %: ', percentXAMP);
 	});
 	var TotalTOBbalance = 0;
 	await contractInstance.totalYFKAStaked(1, function (err, res) {
 		TotalTOBbalance = (res / (10 ** 18));
+		const percentTOB = (TOBbalance/TotalTOBbalance) *100;
 		console.log('TOTAL TOB: ', TotalTOBbalance);
+		console.log('TOB %: ', percentTOB);
 	});
 	var TotalBOAbalance = 0;
 	await contractInstance.totalYFKAStaked(2, function (err, res) {
