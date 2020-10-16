@@ -403,7 +403,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 		const emissionRateToHuman = (res / (10 ** 18)/2);
 		console.log('emissionRateToHuman: ', emissionRateToHuman);
 		
-		var emissionRateToReadable = Math.round(emissionRateToHuman+ Number.EPSILON) * 100);
+		var emissionRateToReadable = Math.round((emissionRateToHuman+ Number.EPSILON) * 100);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		console.log('emissionRateToReadable: ', emissionRateToReadable);
 		$('#personal-emission').html(`${emissionRateToReadable}`);
