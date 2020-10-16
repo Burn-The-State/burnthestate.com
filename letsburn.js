@@ -115,10 +115,10 @@ const getReward = async () =>{
 	var ashContract = web3.eth.contract(contractABI);
 	var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
 	
-	const xampReward = 0;
-	const tobReward = 0;
-	const boaReward = 0;
-	const ethReward = 0;
+	var xampReward = 0;
+	var tobReward = 0;
+	var boaReward = 0;
+	var ethReward = 0;
 	contractInstance.getCurrentReward(0, function (err, res) {
 		xampReward = res / 10**18;
 	});
