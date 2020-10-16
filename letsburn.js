@@ -279,7 +279,7 @@ const updateUserStats = async () => {
 	var TotalXAMPbalance = 0;
 	contractInstance.totalYFKAStaked(0, function (err, res) {
 		TotalXAMPbalance = (res / (10 ** 18));
-		console.log('TOTAL TOB: ', TotalTOBbalance);
+		console.log('TOTAL XAMP: ', TotalXAMPbalance);
 	});
 	var TotalTOBbalance = 0;
 	contractInstance.totalYFKAStaked(1, function (err, res) {
