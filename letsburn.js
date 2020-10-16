@@ -281,7 +281,7 @@ const updateUserStats = async () => {
 		
 		TotalXAMPbalance = (res / (10 ** 18));
 		const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
-		if ((Math.round((percentXAMP + Number.EPSILON) * 100) / 100 < 0.00)
+		if ((Math.round((percentXAMP + Number.EPSILON) * 100) / 100 < 0.00))
 		{
 			console.log("BELOW 0.00!");
 			$('#pool-Share-XAMP').html('<0.01%');
@@ -294,7 +294,8 @@ const updateUserStats = async () => {
 	await contractInstance.totalYFKAStaked(1, function (err, res) {
 		TotalTOBbalance = (res / (10 ** 18));
 		const percentTOB = (TOBbalance/TotalTOBbalance) *100;
-		if ((Math.round((percentTOB + Number.EPSILON) * 100) / 100) < 0.00)
+		const readablePercent =Math.round((percentTOB + Number.EPSILON) * 100) / 100;
+		if ((Math.round((percentTOB + Number.EPSILON) * 100) / 100) < 0.00))
 		{
 			console.log("BELOW 0.00!");
 			$('#pool-Share-TOB').html('<0.01%');
@@ -307,7 +308,7 @@ const updateUserStats = async () => {
 	await contractInstance.totalYFKAStaked(2, function (err, res) {
 		TotalBOAbalance = (res / (10 ** 18));
 		const percentBOA = (TotalBOAbalance/BOAbalance) *100;
-		if ((Math.round((percentBOA + Number.EPSILON) * 100) / 100) < 0.00)
+		if ((Math.round((percentBOA + Number.EPSILON) * 100) / 100) < 0.00))
 		{
 			console.log("BELOW 0.00!");
 			$('#pool-Share-BOA').html('<0.01%');
@@ -320,7 +321,7 @@ const updateUserStats = async () => {
 	await contractInstance.totalYFKAStaked(3, function (err, res) {
 		TotalETHbalance = (res / (10 ** 18));
 		const percentETH = (TotalETHbalance/TotalETHbalance) *100;
-		if ((Math.round((percentETH + Number.EPSILON) * 100) / 100) < 0.00)
+		if ((Math.round((percentETH + Number.EPSILON) * 100) / 100) < 0.00))
 		{
 			console.log("BELOW 0.00!");
 			$('#pool-Share-ETH').html('<0.01%');
