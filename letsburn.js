@@ -282,36 +282,29 @@ const updateUserStats = async () => {
 		TotalXAMPbalance = (res / (10 ** 18));
 		const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
 		console.log('TOTAL XAMP: ', TotalXAMPbalance);
-		console.log('XAMP %: ', percentXAMP);
+		$('#pool-Share-XAMP').html(`${percentXAMP}`);
 	});
 	var TotalTOBbalance = 0;
 	await contractInstance.totalYFKAStaked(1, function (err, res) {
 		TotalTOBbalance = (res / (10 ** 18));
 		const percentTOB = (TOBbalance/TotalTOBbalance) *100;
 		console.log('TOTAL TOB: ', TotalTOBbalance);
-		console.log('TOB %: ', percentTOB);
+		$('#pool-Share-TOB').html(`${percentTOB}`);
 	});
 	var TotalBOAbalance = 0;
 	await contractInstance.totalYFKAStaked(2, function (err, res) {
 		TotalBOAbalance = (res / (10 ** 18));
+		const percentBOA = (TotalBOAbalance/TotalBOAbalance) *100;
 		console.log('TOTAL BOA: ', TotalBOAbalance);
+		$('#pool-Share-BOA').html(`${percentBOA}`);
 	});
 	var TotalETHbalance = 0;
 	await contractInstance.totalYFKAStaked(3, function (err, res) {
 		TotalETHbalance = (res / (10 ** 18));
+		const percentETH = (TotalETHbalance/TotalETHbalance) *100;
 		console.log('TOTAL ETH: ', TotalETHbalance);
+		$('#pool-Share-ETH').html(`${percentETH}`);
 	});
-	
-	const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
-	const percentTOB = (TOBbalance/TotalTOBbalance) *100;
-	const percentBOA = (BOAbalance/TotalBOAbalance) *100;
-	const percentETH = (ETHbalance/TotalETHbalance) *100;
-	$('#pool-Share-XAMP').html(`${percentXAMP}`);
-	$('#pool-Share-TOB').html(`${percentTOB}`);
-	$('#pool-Share-BOA').html(`${percentBOA}`);
-	$('#pool-Share-ETH').html(`${percentETH}`);
-
-	
 }
 
 
