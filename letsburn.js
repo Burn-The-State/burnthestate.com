@@ -280,52 +280,48 @@ const updateUserStats = async () => {
 	await contractInstance.totalYFKAStaked(0, function (err, res) {
 		
 		TotalXAMPbalance = (res / (10 ** 18));
-		if (((TotalXAMPbalance/XAMPbalance) *100) < 0.00)
+		const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
+		if (percentXAMP < 0.00)
 		{
-			const percentXAMP = "<0.01 %";
 			$('#pool-Share-XAMP').html(`${percentXAMP}`);
 		}else
 		{
-			const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
 			$('#pool-Share-XAMP').html(`${percentXAMP}`);
 		}
 	});
 	var TotalTOBbalance = 0;
 	await contractInstance.totalYFKAStaked(1, function (err, res) {
 		TotalTOBbalance = (res / (10 ** 18));
-		if (((TotalTOBbalance/TOBbalance) *100) < 0.00)
+		const percentTOB = (TOBbalance/TotalTOBbalance) *100;
+		if (percentTOB < 0.00)
 		{
-			const percentTOB = "<0.01 %";
-			$('#pool-Share-TOB').html(`${percentTOB}`);
+			$('#pool-Share-TOB').html("<0.01 %");
 		}else
 		{
-			const percentTOB = (TOBbalance/TotalTOBbalance) *100;
 			$('#pool-Share-TOB').html(`${percentTOB}`);
 		}
 	});
 	var TotalBOAbalance = 0;
 	await contractInstance.totalYFKAStaked(2, function (err, res) {
 		TotalBOAbalance = (res / (10 ** 18));
-		if (((TotalBOAbalance/BOAbalance) *100) < 0.00)
+		const percentBOA = (TotalBOAbalance/BOAbalance) *100;
+		if (percentBOA < 0.00)
 		{
-			const percentBOA = "<0.01 %";
-			$('#pool-Share-BOA').html(`${percentBOA}`);
+			$('#pool-Share-BOA').html("<0.01 %");
 		}else
 		{
-			const percentBOA = (TotalETHbalance/TotalETHbalance) *100;
 			$('#pool-Share-BOA').html(`${percentBOA}`);
 		}
 	});
 	var TotalETHbalance = 0;
 	await contractInstance.totalYFKAStaked(3, function (err, res) {
 		TotalETHbalance = (res / (10 ** 18));
-		if (((TotalETHbalance/TotalETHbalance) *100) < 0.00)
+		const percentETH = (TotalETHbalance/TotalETHbalance) *100;
+		if (percentETH < 0.00)
 		{
-			const percentETH = "<0.01 %";
-			$('#pool-Share-ETH').html(`${percentETH}`);
+			$('#pool-Share-ETH').html("<0.01 %");
 		}else
 		{
-			const percentETH = (TotalETHbalance/TotalETHbalance) *100;
 			$('#pool-Share-ETH').html(`${percentETH}`);
 		}
 	});
