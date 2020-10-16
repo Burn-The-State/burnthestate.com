@@ -117,15 +117,15 @@ const getReward = async () =>{
 	const tobReward = await contractInstance.getCurrentReward(1).call();
 	const boaReward = await contractInstance.getCurrentReward(2).call();
 	const ethReward = await contractInstance.getCurrentReward(3).call();
-	console.log("Number Redeemable: " + xampEmission / 10**18);
-	console.log("Number Redeemable: " + tobEmission / 10**18);
-	console.log("Number Redeemable: " + boaEmission / 10**18);
-	console.log("Number Redeemable: " + ethEmission / 10**18);
+	console.log("Number Redeemable: " , xampReward / 10**18);
+	console.log("Number Redeemable: " , tobReward / 10**18);
+	console.log("Number Redeemable: " , boaReward / 10**18);
+	console.log("Number Redeemable: " , ethReward / 10**18);
   return {
-    XAMP: xampEmission/ 10**18,
-    TOB: tobEmission/ 10**18,
-    BOA: boaEmission/ 10**18,
-    ETH: ethEmission/ 10**18,
+    XAMP: xampReward/ 10**18,
+    TOB: tobReward/ 10**18,
+    BOA: boaReward/ 10**18,
+    ETH: ethReward/ 10**18,
   }	
 }
 
