@@ -120,19 +120,23 @@ const getReward = async () =>{
 	var boaReward = 0;
 	var ethReward = 0;
 	contractInstance.getCurrentReward(0, function (err, res) {
-		xampReward = res / 10**18;
+		xampReward = res / 10**18;#
+		console.log("XAMP TEST: " + res / 10**18);
 	});
 	
 	contractInstance.getCurrentReward(1, function (err, res) {
 		tobReward = res / 10**18;
+		console.log("TOB TEST: " + res / 10**18);
 	});
 
 	contractInstance.getCurrentReward(2, function (err, res) {
 		boaReward = res / 10**18;
+		console.log("BOA TEST: " + res / 10**18);
 	});
 
 	contractInstance.getCurrentReward(3, function (err, res) {
 		ethReward = res / 10**18;
+		console.log("ETH TEST: " + res / 10**18);
 	});
 	console.log("Number Redeemable: " , xampReward);	
 	console.log("Number Redeemable: " , tobReward);
