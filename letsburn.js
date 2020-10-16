@@ -112,15 +112,29 @@ const getAccount = async () => {
 
 
 const getReward = async () =>{
-	const contract = yfkaControllerContract();
-	const xampReward = await contract.getCurrentReward(0).call();
-	const tobReward = await contract.getCurrentReward(1).call();
-	const boaReward = await contract.getCurrentReward(2).call();
-	const ethReward = await contract.getCurrentReward(3).call();
-	console.log("Number Redeemable: " , xampReward / 10**18);
-	console.log("Number Redeemable: " , tobReward / 10**18);
-	console.log("Number Redeemable: " , boaReward / 10**18);
-	console.log("Number Redeemable: " , ethReward / 10**18);
+	var ashContract = web3.eth.contract(contractABI);
+	var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
+	
+	const xampReward, tobReward, boaReward, ethReward;
+	contractInstance.getCurrentReward(0, function (err, res) {
+		xampReward = res / 10**18;
+	});
+	
+	contractInstance.getCurrentReward(1, function (err, res) {
+		tobReward = res / 10**18;
+	});
+
+	contractInstance.getCurrentReward(2, function (err, res) {
+		boaReward = res / 10**18;
+	});
+
+	contractInstance.getCurrentReward(3, function (err, res) {
+		ethReward = res / 10**18;
+	});
+	console.log("Number Redeemable: " , xampReward);	
+	console.log("Number Redeemable: " , tobReward);
+	console.log("Number Redeemable: " , boaReward);
+	console.log("Number Redeemable: " , ethReward);
   return {
     XAMP: xampReward/ 10**18,
     TOB: tobReward/ 10**18,
