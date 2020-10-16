@@ -254,39 +254,47 @@ const updateUserStats = async () => {
 	var XAMPbalance = 0;
 	contractInstance.stakes(0, account, function (err, res) {
 		XAMPbalance = (res / (10 ** 18));
+		console.log('Staked XAMP: ', XAMPbalance);
 		$('#balance-LP-XAMP').html(`${XAMPbalance}`);
 	});
 	var TOBbalance = 0;
 	contractInstance.stakes(1, account, function (err, res) {
 		TOBbalance = (res / (10 ** 18));
+		console.log('Staked TOB: ', TOBbalance);
 		$('#balance-LP-TOB').html(`${TOBbalance}`);
 	});
 	var BOAbalance = 0;
 	contractInstance.stakes(2, account, function (err, res) {
 		BOAbalance = (res / (10 ** 18));
+		console.log('Staked BOA: ', BOAbalance);
 		$('#balance-LP-BOA').html(`${BOAbalance}`);
 	});
 	var ETHbalance = 0;
 	contractInstance.stakes(3, account, function (err, res) {
 		ETHbalance = (res / (10 ** 18));
+		console.log('Staked ETH: ', ETHbalance);
 		$('#balance-LP-ETH').html(`${ETHbalance}`);
 	});
 	//% of pool
 	var TotalXAMPbalance = 0;
 	contractInstance.totalYFKAStaked(0, account, function (err, res) {
 		TotalXAMPbalance = (res / (10 ** 18));
+		console.log('TOTAL TOB: ', TotalTOBbalance);
 	});
 	var TotalTOBbalance = 0;
 	contractInstance.totalYFKAStaked(1, account, function (err, res) {
 		TotalTOBbalance = (res / (10 ** 18));
+		console.log('TOTAL TOB: ', TotalTOBbalance);
 	});
 	var TotalBOAbalance = 0;
 	contractInstance.totalYFKAStaked(2, account, function (err, res) {
 		TotalBOAbalance = (res / (10 ** 18));
+		console.log('TOTAL BOA: ', TotalBOAbalance);
 	});
 	var TotalETHbalance = 0;
 	contractInstance.totalYFKAStaked(3, account, function (err, res) {
 		TotalETHbalance = (res / (10 ** 18));
+		console.log('TOTAL ETH: ', TotalETHbalance);
 	});
 	
 	const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
