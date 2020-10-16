@@ -109,7 +109,8 @@ const getAccount = async () => {
   const provider = getInfuraProvider();
   return provider.utils.toChecksumAddress(accounts[0]);
 }
-	
+/*
+NOT WORKING... DID SOMETHING WRONG.....
 const getReward = async () =>{
 	var ashContract = web3.eth.contract(contractABI);
 	var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
@@ -129,7 +130,7 @@ const getReward = async () =>{
     ETH: ethEmission/ 10**18,
   }	
 }
-
+*/
 
 
 
