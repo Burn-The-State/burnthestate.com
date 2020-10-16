@@ -204,6 +204,8 @@ const getPoolBalances = async () => {
 }
 
 const updateUserStats = async () => {
+	const account = await getAccount();
+	
 	//current Rewards
 	contractInstance.getCurrentReward(0, function (err, res) {
 		const balance = res / 10**18;
@@ -220,6 +222,50 @@ const updateUserStats = async () => {
 	contractInstance.getCurrentReward(3, function (err, res) {
 		const balance = res / 10**18;
 	$('#reward-ETH').html(`${balance}`);
+	});
+	
+	//Emission Rates
+	contractInstance.getPersonalEmissionRate(0, account, function (err, res) {
+		const emissionRateToHuman = (res / (10 ** 18)/2);
+		const emissionRateToReadable = Math.round((emissionRateToHuman+ Number.EPSILON) * 100);
+		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
+		$('#personal-emission-XAMP').html(`${emissionRateToReadable}`);
+	});
+	contractInstance.getPersonalEmissionRate(1, account, function (err, res) {
+		const emissionRateToHuman = (res / (10 ** 18)/2);
+		const emissionRateToReadable = Math.round((emissionRateToHuman+ Number.EPSILON) * 100);
+		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
+		$('#personal-emission-TOB').html(`${emissionRateToReadable}`);
+	});
+	contractInstance.getPersonalEmissionRate(2, account, function (err, res) {
+		const emissionRateToHuman = (res / (10 ** 18)/2);
+		const emissionRateToReadable = Math.round((emissionRateToHuman+ Number.EPSILON) * 100);
+		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
+		$('#personal-emission-BOA').html(`${emissionRateToReadable}`);
+	});
+	contractInstance.getPersonalEmissionRate(3, account, function (err, res) {
+		const emissionRateToHuman = (res / (10 ** 18)/2);
+		const emissionRateToReadable = Math.round((emissionRateToHuman+ Number.EPSILON) * 100);
+		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
+		$('#personal-emission-ETH').html(`${emissionRateToReadable}`);
+	});
+	
+	//current LP Tokens
+	contractInstance.getPointsForStake(0, function (err, res) {
+	const balance = res / 10**18;
+	$('#balance-LP-XAMP').html(`${balance}`);
+	});
+	contractInstance.getPointsForStake(1, function (err, res) {
+	const balance = res / 10**18;
+	$('#balance-LP-TOB').html(`${balance}`);
+	});
+	contractInstance.getPointsForStake(2, function (err, res) {
+	const balance = res / 10**18;
+	$('#balance-LP-BOA').html(`${balance}`);
+	});
+	contractInstance.getPointsForStake(3, function (err, res) {
+	const balance = res / 10**18;
+	$('#balance-LP-ETH').html(`${balance}`);
 	});
 }
 
