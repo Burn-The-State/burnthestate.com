@@ -251,20 +251,23 @@ const updateUserStats = async () => {
 	});
 	
 	//current LP Tokens
-	const balances = await getPoolBalances();
-
-  	var balance = balances['XAMP'];
-	$('#balance-LP-XAMP').html(`${balance}`);
-
-  	var balance = balances['TOB'];
-	$('#balance-LP-TOB').html(`${balance}`);
-
-  	var balance = balances['BOA'];
-	$('#balance-LP-BOA').html(`${balance}`);
-
-  	var balance = balances['ETH'];
-	$('#balance-LP-ETH').html(`${balance}`);
-
+	contractInstance.stakes(0, account, function (err, res) {
+		const balance = (res / (10 ** 18));
+		$('#balance-LP-XAMP').html(`${balance}`);
+	});
+	contractInstance.stakes(1, account, function (err, res) {
+		const balance = (res / (10 ** 18));
+		$('#balance-LP-TOB').html(`${balance}`);
+	});
+	contractInstance.stakes(2, account, function (err, res) {
+		const balance = (res / (10 ** 18));
+		$('#balance-LP-BOA').html(`${balance}`);
+	});
+	contractInstance.stakes(3, account, function (err, res) {
+		const balance = (res / (10 ** 18));
+		$('#balance-LP-ETH').html(`${balance}`);
+	});
+ 
 }
 
 
