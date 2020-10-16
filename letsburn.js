@@ -120,7 +120,7 @@ const getReward = async () =>{
 	var boaReward = 0;
 	var ethReward = 0;
 	contractInstance.getCurrentReward(0, function (err, res) {
-		xampReward = res / 10**18;#
+		xampReward = res / 10**18;
 		console.log("XAMP TEST: " + res / 10**18);
 	});
 	
