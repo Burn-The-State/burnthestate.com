@@ -283,6 +283,7 @@ const updateUserStats = async () => {
 		const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
 		if (percentXAMP < 0.00)
 		{
+			console.log("BELOW 0.00!");
 			$('#pool-Share-XAMP').html('<0.01%');
 		}else
 		{
@@ -295,6 +296,7 @@ const updateUserStats = async () => {
 		const percentTOB = (TOBbalance/TotalTOBbalance) *100;
 		if (percentTOB < 0.00)
 		{
+			console.log("BELOW 0.00!");
 			$('#pool-Share-TOB').html('<0.01%');
 		}else
 		{
@@ -307,6 +309,7 @@ const updateUserStats = async () => {
 		const percentBOA = (TotalBOAbalance/BOAbalance) *100;
 		if (percentBOA < 0.00)
 		{
+			console.log("BELOW 0.00!");
 			$('#pool-Share-BOA').html('<0.01%');
 		}else
 		{
@@ -319,6 +322,7 @@ const updateUserStats = async () => {
 		const percentETH = (TotalETHbalance/TotalETHbalance) *100;
 		if (percentETH < 0.00)
 		{
+			console.log("BELOW 0.00!");
 			$('#pool-Share-ETH').html('<0.01%');
 		}else
 		{
