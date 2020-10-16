@@ -109,16 +109,14 @@ const getAccount = async () => {
   const provider = getInfuraProvider();
   return provider.utils.toChecksumAddress(accounts[0]);
 }
-/*
-NOT WORKING... DID SOMETHING WRONG.....
+
+
 const getReward = async () =>{
-	var ashContract = web3.eth.contract(contractABI);
-	var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
-	
-	const xampEmission = await contractInstance.getCurrentReward(0).call();
-	const tobEmission = await contractInstance.getCurrentReward(1).call();
-	const boaEmission = await contractInstance.getCurrentReward(2).call();
-	const ethEmission = await contractInstance.getCurrentReward(3).call();
+	var contractInstance = new provider.eth.Contract(STANDARD_ERC20_ABI, YFKA_CONTROLLER_ADDRESS);
+	const xampReward = await contractInstance.getCurrentReward(0).call();
+	const tobReward = await contractInstance.getCurrentReward(1).call();
+	const boaReward = await contractInstance.getCurrentReward(2).call();
+	const ethReward = await contractInstance.getCurrentReward(3).call();
 	console.log("Number Redeemable: " + xampEmission / 10**18);
 	console.log("Number Redeemable: " + tobEmission / 10**18);
 	console.log("Number Redeemable: " + boaEmission / 10**18);
@@ -130,7 +128,7 @@ const getReward = async () =>{
     ETH: ethEmission/ 10**18,
   }	
 }
-*/
+
 
 
 
