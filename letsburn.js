@@ -251,23 +251,54 @@ const updateUserStats = async () => {
 	});
 	
 	//current LP Tokens
+	var XAMPbalance = 0;
 	contractInstance.stakes(0, account, function (err, res) {
-		const balance = (res / (10 ** 18));
-		$('#balance-LP-XAMP').html(`${balance}`);
+		XAMPbalance = (res / (10 ** 18));
+		$('#balance-LP-XAMP').html(`${XAMPbalance}`);
 	});
+	var TOBbalance = 0;
 	contractInstance.stakes(1, account, function (err, res) {
-		const balance = (res / (10 ** 18));
-		$('#balance-LP-TOB').html(`${balance}`);
+		TOBbalance = (res / (10 ** 18));
+		$('#balance-LP-TOB').html(`${TOBbalance}`);
 	});
+	var BOAbalance = 0;
 	contractInstance.stakes(2, account, function (err, res) {
-		const balance = (res / (10 ** 18));
-		$('#balance-LP-BOA').html(`${balance}`);
+		BOAbalance = (res / (10 ** 18));
+		$('#balance-LP-BOA').html(`${BOAbalance}`);
 	});
+	var ETHbalance = 0;
 	contractInstance.stakes(3, account, function (err, res) {
-		const balance = (res / (10 ** 18));
-		$('#balance-LP-ETH').html(`${balance}`);
+		ETHbalance = (res / (10 ** 18));
+		$('#balance-LP-ETH').html(`${ETHbalance}`);
 	});
- 
+	//% of pool
+	var TotalXAMPbalance = 0;
+	contractInstance.totalYFKStaked(0, account, function (err, res) {
+		TotalXAMPbalance = (res / (10 ** 18));
+	});
+	var TotalTOBbalance = 0;
+	contractInstance.totalYFKStaked(1, account, function (err, res) {
+		TotalTOBbalance = (res / (10 ** 18));
+	});
+	var TotalBOAbalance = 0;
+	contractInstance.totalYFKStaked(2, account, function (err, res) {
+		TotalBOAbalance = (res / (10 ** 18));
+	});
+	var TotalETHbalance = 0;
+	contractInstance.totalYFKStaked(3, account, function (err, res) {
+		TotalETHbalance = (res / (10 ** 18));
+	});
+	
+	const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
+	const percentTOB = (TOBbalance/TotalTOBbalance) *100;
+	const percentBOA = (BOAbalance/TotalBOAbalance) *100;
+	const percentETH = (ETHbalance/TotalETHbalance) *100;
+	$('#pool-Share-XAMP').html(`${percentXAMP}`);
+	$('#pool-Share-TOB').html(`${percentTOB}`);
+	$('#pool-Share-BOA').html(`${percentBOA}`);
+	$('#pool-Share-ETH').html(`${percentETH}`);
+
+	
 }
 
 
