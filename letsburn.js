@@ -109,6 +109,29 @@ const getAccount = async () => {
   const provider = getInfuraProvider();
   return provider.utils.toChecksumAddress(accounts[0]);
 }
+	
+const getReward = async () =>{
+	var ashContract = web3.eth.contract(contractABI);
+	var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
+
+	const xampEmission = new contractInstance.getCurrentReward(0);
+	const tobEmission = new contractInstance.getCurrentReward(1);
+	const boaEmission = new contractInstance.getCurrentReward(2);
+	const ethEmission = new contractInstance.getCurrentReward(3);
+	console.log("Number Redeemed: " + xampEmission / 10**18);
+	console.log("Number Redeemed: " + tobEmission / 10**18);
+	console.log("Number Redeemed: " + boaEmission / 10**18);
+	console.log("Number Redeemed: " + ethEmission / 10**18);
+  return {
+    XAMP: xampEmission/ 10**18,
+    TOB: tobEmission/ 10**18,
+    BOA: boaEmission/ 10**18,
+    ETH: ethEmission/ 10**18,
+  }	
+}
+
+
+
 
 const getPoolBalances = async () => {
   console.log('getBalances');
@@ -370,6 +393,8 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	$('#coin-emission').html(`${globalEmissionRate}`);
 	const bonusAddress = await getBonusPool();
 	
+	const test = getReward['XAMP'];
+	console.log("TEST: ", test);
 	if(value == "XAMP"){
 		payload = 0;
 	}
