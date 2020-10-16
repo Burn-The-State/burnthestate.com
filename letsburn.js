@@ -252,25 +252,25 @@ const updateUserStats = async () => {
 	
 	//current LP Tokens
 	var XAMPbalance = 0;
-	contractInstance.stakes(0, account, function (err, res) {
+	await contractInstance.stakes(0, account, function (err, res) {
 		XAMPbalance = (res / (10 ** 18));
 		console.log('Staked XAMP: ', XAMPbalance);
 		$('#balance-LP-XAMP').html(`${XAMPbalance}`);
 	});
 	var TOBbalance = 0;
-	contractInstance.stakes(1, account, function (err, res) {
+	await contractInstance.stakes(1, account, function (err, res) {
 		TOBbalance = (res / (10 ** 18));
 		console.log('Staked TOB: ', TOBbalance);
 		$('#balance-LP-TOB').html(`${TOBbalance}`);
 	});
 	var BOAbalance = 0;
-	contractInstance.stakes(2, account, function (err, res) {
+	await contractInstance.stakes(2, account, function (err, res) {
 		BOAbalance = (res / (10 ** 18));
 		console.log('Staked BOA: ', BOAbalance);
 		$('#balance-LP-BOA').html(`${BOAbalance}`);
 	});
 	var ETHbalance = 0;
-	contractInstance.stakes(3, account, function (err, res) {
+	await contractInstance.stakes(3, account, function (err, res) {
 		ETHbalance = (res / (10 ** 18));
 		console.log('Staked ETH: ', ETHbalance);
 		$('#balance-LP-ETH').html(`${ETHbalance}`);
