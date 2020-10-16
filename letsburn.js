@@ -273,19 +273,19 @@ const updateUserStats = async () => {
 	});
 	//% of pool
 	var TotalXAMPbalance = 0;
-	contractInstance.totalYFKStaked(0, account, function (err, res) {
+	contractInstance.totalYFKAStaked(0, account, function (err, res) {
 		TotalXAMPbalance = (res / (10 ** 18));
 	});
 	var TotalTOBbalance = 0;
-	contractInstance.totalYFKStaked(1, account, function (err, res) {
+	contractInstance.totalYFKAStaked(1, account, function (err, res) {
 		TotalTOBbalance = (res / (10 ** 18));
 	});
 	var TotalBOAbalance = 0;
-	contractInstance.totalYFKStaked(2, account, function (err, res) {
+	contractInstance.totalYFKAStaked(2, account, function (err, res) {
 		TotalBOAbalance = (res / (10 ** 18));
 	});
 	var TotalETHbalance = 0;
-	contractInstance.totalYFKStaked(3, account, function (err, res) {
+	contractInstance.totalYFKAStaked(3, account, function (err, res) {
 		TotalETHbalance = (res / (10 ** 18));
 	});
 	
