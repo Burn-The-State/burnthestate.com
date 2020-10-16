@@ -391,7 +391,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 		const balance = res / 10**18;
 	$('#redeem-amount').val(`${balance}`);
 	$('#redeem-amount-button').val(`${balance}`);
-	//return balance || '';
+	return balance || '';
 	});
 
 	contractInstance.getPersonalEmissionRate(payload, account, function (err, res) {
