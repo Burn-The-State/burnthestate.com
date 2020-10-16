@@ -118,10 +118,10 @@ const getReward = async () =>{
 	const tobEmission = new contractInstance.getCurrentReward(1);
 	const boaEmission = new contractInstance.getCurrentReward(2);
 	const ethEmission = new contractInstance.getCurrentReward(3);
-	console.log("Number Redeemed: " + xampEmission / 10**18);
-	console.log("Number Redeemed: " + tobEmission / 10**18);
-	console.log("Number Redeemed: " + boaEmission / 10**18);
-	console.log("Number Redeemed: " + ethEmission / 10**18);
+	console.log("Number Redeemable: " + xampEmission / 10**18);
+	console.log("Number Redeemable: " + tobEmission / 10**18);
+	console.log("Number Redeemable: " + boaEmission / 10**18);
+	console.log("Number Redeemable: " + ethEmission / 10**18);
   return {
     XAMP: xampEmission/ 10**18,
     TOB: tobEmission/ 10**18,
@@ -392,8 +392,8 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	const bonusEmissionRate = globalEmissionRate*2;
 	$('#coin-emission').html(`${globalEmissionRate}`);
 	const bonusAddress = await getBonusPool();
-	
-	const test = getReward['XAMP'];
+	const testing = getReward();
+	const test = testing['XAMP'];
 	console.log("TEST: ", test);
 	if(value == "XAMP"){
 		payload = 0;
