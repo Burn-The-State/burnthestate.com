@@ -112,11 +112,10 @@ const getAccount = async () => {
 
 
 const getReward = async () =>{
-	var contractInstance = new provider.eth.Contract(STANDARD_ERC20_ABI, YFKA_CONTROLLER_ADDRESS);
-	const xampReward = await contractInstance.getCurrentReward(0).call();
-	const tobReward = await contractInstance.getCurrentReward(1).call();
-	const boaReward = await contractInstance.getCurrentReward(2).call();
-	const ethReward = await contractInstance.getCurrentReward(3).call();
+	const xampReward = await yfkaControllerContract.getCurrentReward(0).call();
+	const tobReward = await yfkaControllerContract.getCurrentReward(1).call();
+	const boaReward = await yfkaControllerContract.getCurrentReward(2).call();
+	const ethReward = await yfkaControllerContract.getCurrentReward(3).call();
 	console.log("Number Redeemable: " , xampReward / 10**18);
 	console.log("Number Redeemable: " , tobReward / 10**18);
 	console.log("Number Redeemable: " , boaReward / 10**18);
