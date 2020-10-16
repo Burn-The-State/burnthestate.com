@@ -119,22 +119,22 @@ const getReward = async () =>{
 	var tobReward = 0;
 	var boaReward = 0;
 	var ethReward = 0;
-	contractInstance.getCurrentReward(0, function (err, res) {
+	await contractInstance.getCurrentReward(0, function (err, res) {
 		xampReward = res / 10**18;
 		console.log("XAMP TEST: " + res / 10**18);
 	});
 	
-	contractInstance.getCurrentReward(1, function (err, res) {
+	await contractInstance.getCurrentReward(1, function (err, res) {
 		tobReward = res / 10**18;
 		console.log("TOB TEST: " + res / 10**18);
 	});
 
-	contractInstance.getCurrentReward(2, function (err, res) {
+	await contractInstance.getCurrentReward(2, function (err, res) {
 		boaReward = res / 10**18;
 		console.log("BOA TEST: " + res / 10**18);
 	});
 
-	contractInstance.getCurrentReward(3, function (err, res) {
+	await contractInstance.getCurrentReward(3, function (err, res) {
 		ethReward = res / 10**18;
 		console.log("ETH TEST: " + res / 10**18);
 	});
