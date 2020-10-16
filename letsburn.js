@@ -224,7 +224,7 @@ const updateActivePool = async () => {
 
 
 const getYFKASupply = async () => {
-
+	
 }
 
 function waitForApproval(tx, contractInstance, payload) {
@@ -384,10 +384,10 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 
 	contractInstance.getPersonalEmissionRate(payload, account, function (err, res) {
 		console.log("Personal Emission: " + res/ 10**18);
-		const emissionRateToHuman = res / (10 ** 18);
+		const emissionRateToHuman = (res / (10 ** 18)/2);
 		console.log('emissionRateToHuman: ', emissionRateToHuman);
 		
-		var emissionRateToReadable = Math.round((emissionRateToHuman - 1) * 100);
+		var emissionRateToReadable = Math.round(emissionRateToHuman * 100);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		console.log('emissionRateToReadable: ', emissionRateToReadable);
 		$('#personal-emission').html(`${emissionRateToReadable}`);
