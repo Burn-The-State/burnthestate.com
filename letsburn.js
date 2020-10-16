@@ -175,7 +175,7 @@ const getGlobalEmissionRate = async () => {
   const emissionRateToHuman = ((emissionRate / (10 ** 18))/2);
   console.log('emissionRateToHuman: ', emissionRateToHuman);
 
-  const emissionRateToReadable = Math.round((emissionRateToHuman) * 100);
+  const emissionRateToReadable = Math.round((emissionRateToHuman + Number.EPSILON) * 100);
   console.log('emissionRateToReadable: ', emissionRateToReadable);
   return emissionRateToReadable;
 }
@@ -193,7 +193,7 @@ const updateActivePool = async () => {
   $('#xamp-apy').html(`${globalEmissionRate}`);
   $('#tob-apy').html(`${globalEmissionRate}`);
   $('#boa-apy').html(`${globalEmissionRate}`);
-
+  $('#coin-emission').html(`${globalEmissionRate}`);
   const bonusAddress = await getBonusPool();
   switch (bonusAddress) {
     case PAIRS.YFKA_XAMP:
@@ -365,20 +365,36 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	const value = $('[name=redeem][type=radio]:checked').val();
 	var payload;
 	const account = await getAccount();
+	const globalEmissionRate = await getGlobalEmissionRate();
+	const bonusEmissionRate = globalEmissionRate*2;
+	$('#coin-emission').html(`${globalEmissionRate}`);
+	const bonusAddress = await getBonusPool();
 	
-	if(value == "XAMP") payload = 0;
-	else if(value == "TOB") payload = 1;
-	else if(value == "BOA") payload = 2;
-	else if(value == "ETH") payload = 3;
+	if(value == "XAMP"){
+		if bonusAddress == PAIRS.YFKA_XAMP $('#coin-emission').html(`${bonusEmissionRate}`);
+		payload = 0;
+	}
+	else if(value == "TOB"){
+		if bonusAddress == PAIRS.YFKA_TOB $('#coin-emission').html(`${bonusEmissionRate}`);
+		payload = 1;
+	}
+	else if(value == "BOA")
+	{
+		if bonusAddress == PAIRS.YFKA_BOA $('#coin-emission').html(`${bonusEmissionRate}`);
+		payload = 2;
+	}
+	else if(value == "ETH"){
+		if bonusAddress == PAIRS.YFKA_ETH $('#coin-emission').html(`${bonusEmissionRate}`);
+		payload = 3;
+	}
 	console.log('Selected Coin: ',value,";Payload: ",payload);
 	
 	var balance;
 	contractInstance.getCurrentReward(payload, function (err, res) {
 		console.log("Number Redeemed: " + res / 10**18);
 		balance = res / 10**18;
-	$('#reward-input').val(`${balance}`);
-	$('#reward-input').attr('placeholder', `${balance}`);
-	$('#reward-balance').html(`${balance}`);
+	$('#redeem-amount').val(`${balance}`);
+	$('#redeem-amount-button').val(`${balance}`);
 	//return balance || '';
 	});
 
@@ -387,7 +403,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 		const emissionRateToHuman = (res / (10 ** 18)/2);
 		console.log('emissionRateToHuman: ', emissionRateToHuman);
 		
-		var emissionRateToReadable = Math.round(emissionRateToHuman * 100);
+		var emissionRateToReadable = Math.round(emissionRateToHuman+ Number.EPSILON) * 100);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		console.log('emissionRateToReadable: ', emissionRateToReadable);
 		$('#personal-emission').html(`${emissionRateToReadable}`);
