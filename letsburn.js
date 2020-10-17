@@ -158,11 +158,14 @@ function twoDecimals(number){
 }
 function fourDecimals(number){
 	//returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
-	if (number > 1){
-	const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/100;
-	}else
+	if (number >= 1){
+		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/100;
+	}else if (number < 1)
 	{
-	const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/1000;
+		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/1000;
+	}else if (number <=0)
+	{
+		const newNumber = 0;
 	}
 	return newNumber;
 }
