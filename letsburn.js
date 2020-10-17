@@ -372,7 +372,7 @@ const getGlobalEmissionRate = async () => {
   const emissionRate = await contract.methods.emissionRate().call();
   console.log('emissionRate: ', emissionRate);
   // TODO is it 18 tho
-  const emissionRateToHuman = ((emissionRate / (10 ** 18))/2);
+  const emissionRateToHuman = ((emissionRate / (10 ** 18))/2)*100;
   console.log('emissionRateToHuman: ', emissionRateToHuman);
 
   const emissionRateToReadable = fourDecimals(emissionRateToHuman);
@@ -597,7 +597,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 
 	contractInstance.getPersonalEmissionRate(payload, account, function (err, res) {
 		console.log("Personal Emission: " + res/ 10**18);
-		const emissionRateToHuman = (res / (10 ** 18)/2)*1000;
+		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		console.log('emissionRateToHuman: ', emissionRateToHuman);
 		
 		var emissionRateToReadable = fourDecimals(emissionRateToHuman);
