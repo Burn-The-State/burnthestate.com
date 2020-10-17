@@ -527,7 +527,7 @@ window.addEventListener('load', async (event) => {
     // Set defaults
     const poolBalances = await getPoolBalances();
     // TODO use const
-    const balance = fourDecimals(poolBalances['XAMP']);
+    const balance = twoDecimals(poolBalances['XAMP']);
     $('#stake-input').val(`${balance}`);
     $('#stake-input').attr('placeholder', `${balance}`);
     $('#stake-balance').html(`${balance}`);
@@ -564,7 +564,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	
 	contractInstance.getCurrentReward(payload, function (err, res) {
 		console.log("Number Redeemed: " + res / 10**18);
-		const balance = fourDecimals(res / 10**18);
+		const balance = twoDecimals(res / 10**18);
 	$('#redeem-amount').html(`${balance}`);
 	$('#redeem-amount-button').html(`${balance}`);
 	return balance || '';
