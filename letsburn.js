@@ -503,14 +503,14 @@ const getYFKASupply = async () => {
  	);
 }
 */
-function waitForApproval(tx, contractInstance, payload) {
+function waitForApproval(tx, contractInstance, payload, amount) {
 	web3.eth.getTransaction(tx,
 		function (err, res2) {
       
     	if(res2['blockNumber'] == null) setTimeout(() => { waitForApproval(tx, contractInstance, payload)}, 5000);
 			else {
       	setTimeout(() => { console.log(res2);}, 5000);
-      	contractInstance.stake(payload, document.getElementById("stakeAmount").value * 10**18, function (err, res) {
+      	contractInstance.stake(payload, amount, function (err, res) {
           document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
           document.getElementById("stakeReceipt").style.opacity = "1";
           // updatePoolBalances();
@@ -655,7 +655,7 @@ document.getElementById("stakeButton").addEventListener('click', async () => {
 	console.log("APPROVE TX: https://etherscan.io/tx/" + res);
 	document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
 	document.getElementById("stakeReceipt").style.opacity = "1";
-	waitForApproval(res, contractInstance, payload);
+	waitForApproval(res, contractInstance, payload, amount);
 	});
 })
 
