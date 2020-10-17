@@ -195,7 +195,7 @@ const getTotalBalances = async () => {
 
   // YFKA_XAMP
   const xampContract = new provider.eth.Contract(uniTokenABI, PAIRS.YFKA_XAMP);
-  const xampContractBalance = await xampContract.methods.totalSupply();
+  const xampContractBalance = await xampContract.methods.totalSupply().call();
   console.log('xampTotalBalance: ', xampContractBalance);
 
   const xampContractDecimals = await xampContract.methods.decimals().call();
@@ -203,7 +203,7 @@ const getTotalBalances = async () => {
 
   // YFKA_TOB
   const tobContract = new provider.eth.Contract(uniTokenABI, PAIRS.YFKA_TOB);
-  const tobContractBalance = await tobContract.methods.totalSupply;
+  const tobContractBalance = await tobContract.methods.totalSupply().call();
   console.log('tobTotalBalance: ', tobContractBalance);
 
   const tobContractDecimals = await tobContract.methods.decimals().call();
