@@ -158,7 +158,7 @@ function twoDecimals(number){
 }
 function fourDecimals(number){
 	//returns the input with 4 Decimal places.
-	const newNumber = Math.round((number+ Number.EPSILON) * 100)/10;
+	const newNumber = Math.round((number+ Number.EPSILON) * 100)/1000;
 	return newNumber;
 }
 
