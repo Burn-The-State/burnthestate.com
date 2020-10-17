@@ -307,7 +307,7 @@ const updateUserStats = async () => {
 	
 	//Emission Rates
 	const bonusAddress = await getBonusPool();
-	var BonusPool = "XAMP";
+	var BonusPool = "";
 	  switch (bonusAddress) {
 	    case PAIRS.YFKA_XAMP:
 		BonusPool = "XAMP";
@@ -344,7 +344,7 @@ const updateUserStats = async () => {
 	contractInstance.getPersonalEmissionRate(2, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		var emissionRateToReadableBOA = twoDecimals(emissionRateToHuman);
-		if (emissionRateToReadable < 0) {emissionRateToReadableBOA = 0;}
+		if (emissionRateToReadableBOA < 0) {emissionRateToReadableBOA = 0;}
 		if (BonusPool = "BOA" ) emissionRateToReadableBOA = emissionRateToReadableBOA*2;
 		$('#personal-emission-BOA').html(`${emissionRateToReadableBOA}`);
 	});
