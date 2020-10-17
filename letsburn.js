@@ -166,7 +166,7 @@ function fourDecimals(number){
 	}else if (number < 1)
 	{
 		console.log("input <  1");
-		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/100;
+		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/10000;
 		return newNumber;
 	}else if (number <=0)
 	{
@@ -597,7 +597,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 
 	contractInstance.getPersonalEmissionRate(payload, account, function (err, res) {
 		console.log("Personal Emission: " + res/ 10**18);
-		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
+		const emissionRateToHuman = (res / (10 ** 18)/2)*1000;
 		console.log('emissionRateToHuman: ', emissionRateToHuman);
 		
 		var emissionRateToReadable = fourDecimals(emissionRateToHuman);
