@@ -510,7 +510,11 @@ function waitForApproval(tx, contractInstance, payload, amount) {
     	if(res2['blockNumber'] == null) setTimeout(() => { waitForApproval(tx, contractInstance, payload)}, 5000);
 			else {
       	setTimeout(() => { console.log(res2);}, 5000);
+				console.log("Amount: ",amount);
+				console.log("Payload: ",payload);
+				console.log("Calling: Stake ");
       	contractInstance.stake(payload, amount, function (err, res) {
+		
           document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
           document.getElementById("stakeReceipt").style.opacity = "1";
           // updatePoolBalances();
@@ -650,7 +654,7 @@ document.getElementById("stakeButton").addEventListener('click', async () => {
       });
     };
 }); */
-	amount = amount * 10**18
+	//amount = amount * 10**18
 	uniInstance.approve(YFKA_CONTROLLER_ADDRESS, amount, function (err, res) {
 	console.log("APPROVE TX: https://etherscan.io/tx/" + res);
 	document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
