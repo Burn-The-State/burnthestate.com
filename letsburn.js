@@ -161,7 +161,7 @@ function fourDecimals(number){
 	//returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
 	if (number >= 1){
 		console.log("input number >= 1");
-		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/1000;
+		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/10000;
 		return newNumber;
 	}else if (number < 1)
 	{
@@ -455,7 +455,7 @@ $('input[type=radio][name=stake]').change(async (event) => {
   console.log('change radio stake');
   const balances = await getPoolBalances();
   console.log('balances: ', balances);
-  const balance = fourDecimals(balances[event.currentTarget.value]);
+  const balance = twoDecimals(balances[event.currentTarget.value]);
   console.log('balance: ', balance);
   // TODO
   $('#stake-input').val(`${balance}`);
