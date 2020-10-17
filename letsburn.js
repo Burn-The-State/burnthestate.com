@@ -166,7 +166,7 @@ function fourDecimals(number){
 	}else if (number < 1)
 	{
 		console.log("input <  1");
-		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/1000;
+		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/100;
 		return newNumber;
 	}else if (number <=0)
 	{
