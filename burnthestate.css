@@ -170,7 +170,7 @@ mark
 	border: 0px !important;
 }
 
-#pool-XAMP, pool-TOB
+#pool-XAMP, #pool-TOB
 {
 	/*background-image: url(imgs/fireBG3.png);
 	background-size: 100%;
@@ -208,7 +208,7 @@ mark
 	line-height: 15px;
 }
 
-#pools,pool-BOA,pool-XAMP, pool-TOB, pool-ETH img
+#pools,#pool-BOA,#pool-XAMP, #pool-TOB, #pool-ETH img
 {
 	width: 100px;
 	padding-top: 15px;
