@@ -445,17 +445,20 @@ await updateUserStats();
     case PAIRS.YFKA_XAMP:
       $('#bonus-global-token').html('XAMP');
       $('#xamp-apy').html(`${bonusEmissionRate}`);
-      document.getElementById('pool-XAMP').style.backgroundImage="url(imgs/fireBG3.png)"; 
+      //document.getElementById('pool-XAMP').style.backgroundImage="url(imgs/fireBG3.png)"; .setAttribute("id", "div_top2");
+	document.getElementById('pool-XAMP').setAttribute("id", "bonusPool");
       break;
     case PAIRS.YFKA_TOB:
       $('#bonus-global-token').html('TOB');
       $('#tob-apy').html(`${bonusEmissionRate}`);
-      document.getElementById('pool-TOB').style.backgroundImage="url(imgs/fireBG3.png)"; 
+     // document.getElementById('pool-TOB').style.backgroundImage="url(imgs/fireBG3.png)"; 
+		  document.getElementById('pool-TOB').setAttribute("id", "bonusPool");
       break;
     case PAIRS.YFKA_BOA:
       $('#bonus-global-token').html('BOA');
       $('#boa-apy').html(`${bonusEmissionRate}`);
-      document.getElementById('pool-BOA').style.backgroundImage="url(imgs/fireBG3.png)"; 
+      //document.getElementById('pool-BOA').style.backgroundImage="url(imgs/fireBG3.png)"; 
+		  document.getElementById('pool-BOA').setAttribute("id", "bonusPool");
       break;
     case PAIRS.YFKA_ETH:
     default:
