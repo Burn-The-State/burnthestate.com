@@ -740,14 +740,45 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	
 });
 
+/*
+// UNSTAKE
+// EXECUTE UNSTAKE FUNCTION
+document.getElementById("unstakeButton").addEventListener('click', async () => {
+    // Modern dapp browsers...
+    if (web3.isConnected) {
+    	var ashContract = web3.eth.contract(contractABI);
+      var contractInstance = ashContract.at(ashAddress);
+      
+      var e = document.getElementById("selectedTokenUnstake");
+      var value = e.options[e.selectedIndex].value;
+      
+      var payload;
 
+			if(value == "XAMP") payload = 0;
+      else if(value == "TOB") payload = 1;
+      else if(value == "BOA") payload = 2;
+      else if(value == "ETH") payload = 3;
+      
+           
+      contractInstance.unstake(payload,document.getElementById("unstakeAmount").value * 10**18, function (err, res) {
+				console.log("https://etherscan.io/tx/" + res);
+        document.getElementById("unstakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res  +'">Unstake Receipt</a>';
+        document.getElementById("unstakeReceipt").style.opacity = "1";
+			});
+    }
+
+});
+
+
+
+*/
 
 
 $('input[type=radio][name=unstake]').change(async (event) => {
 	console.log('change radio unstake');
 	const value = $('[name=unstake][type=radio]:checked').val();
 	var payload;
-
+	const account = await getAccount();
 	if(value == "XAMP") payload = 0;
 	else if(value == "TOB") payload = 1;
 	else if(value == "BOA") payload = 2;
@@ -755,13 +786,13 @@ $('input[type=radio][name=unstake]').change(async (event) => {
 	console.log('Selected Coin: ',value,";Payload: ",payload);
 	
 	var balance;
-	contractInstance.getPointsForStake(payload, function (err, res) {
-		console.log("Number Redeemed: " + res / 10**18);
-		balance = res / 10**18;
-	$('#unstake-input').val(`${balance}`);
-	$('#unstake-input').attr('placeholder', `${balance}`);
-	$('#unstake-balance').html(`${balance}`);
-	return balance || '';
+	
+	await contractInstance.stakes(payload, account, function (err, res) {
+		balance = fourDecimals(res / (10 ** 18));
+		console.log('Staked XAMP: ', balance);
+		$('#unstake-input').val(`${balance}`);
+		$('#unstake-input').attr('placeholder', `${balance}`);
+		$('#unstake-balance').html(`${balance}`);
 	});
 });
 
