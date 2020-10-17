@@ -228,10 +228,10 @@ const getTotalBalances = async () => {
 
   // TODO TOB showing NaN so figure that out
   return {
-    XAMP: xampContractBalance ? xampContractBalance / (10 ** xampContractDecimals) : 0,
-    TOB: tobContract ? tobContractBalance / (10 ** tobContractDecimals) : 0,
-    BOA: boaContractBalance ? boaContractBalance / (10 ** boaContractDecimals) : 0,
-    ETH: ethContractBalance ? ethContractBalance / (10 ** ethContractDecimals) : 0,
+    XAMP: xampContractBalance / (10 ** xampContractDecimals),
+    TOB: tobContractBalance / (10 ** tobContractDecimals),
+    BOA: boaContractBalance / (10 ** boaContractDecimals),
+    ETH: ethContractBalance / (10 ** ethContractDecimals),
   }
 }
 
@@ -362,8 +362,10 @@ const updateUserStats = async () => {
 	//XAMP
 	const TotalXAMPbalance = TotalBalances.XAMP;	
 	const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
+	console.log("XAMP Balance = ", XAMPbalance, "XAMP Total =" TotalXAMPbalance)
 	var readablePercentage = twoDecimals(percentXAMP);
 	if (readablePercent <= 0) readablePercentage = "<0.00%";
+	console.log("XAMP % = ", readablePercentage);
 	$('#pool-Share-XAMP').html(`${readablePercentage}`);
 	
 	//TOB
