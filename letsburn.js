@@ -217,19 +217,19 @@ const updateUserStats = async () => {
 	
 	//current Rewards
 	contractInstance.getCurrentReward(0, function (err, res) {
-		const balance = fourDecimals(res / (10**18));
+		const balance = twoDecimals(res / (10**18));
 	$('#reward-XAMP').html(`${balance}`);
 	});
 	contractInstance.getCurrentReward(1, function (err, res) {
-		const balance = fourDecimals(res / (10**18));
+		const balance = twoDecimals(res / (10**18));
 	$('#reward-TOB').html(`${balance}`);
 	});
 	contractInstance.getCurrentReward(2, function (err, res) {
-		const balance = fourDecimals(res / (10**18));
+		const balance = twoDecimals(res / (10**18));
 	$('#reward-BOA').html(`${balance}`);
 	});
 	contractInstance.getCurrentReward(3, function (err, res) {
-		const balance = fourDecimals(res / (10**18));
+		const balance = twoDecimals(res / (10**18));
 	$('#reward-ETH').html(`${balance}`);
 	});
 	
