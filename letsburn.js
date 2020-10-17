@@ -162,24 +162,29 @@ function fourDecimals(number){
 	if (number >= 1){
 		console.log("input number >= 1");
 		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/100;
+		return newNumber;
 	}else if (number < 1)
 	{
 		console.log("input <  1");
 		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/1000;
+		return newNumber;
 	}else if (number <=0)
 	{
 		console.log("input <=  0");
 		const newNumber = 0;
+		return newNumber;
 	}else if (number >0)
 	{
 		console.log("input >  0");
 		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/1000;
+		return newNumber;
 	}else
 	{
 		console.log("input not above 1, Below 1 or above or below 0");
-		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/1000;
+		const newNumber = number;
+		return newNumber;
 	}
-	return newNumber;
+	
 }
 
 
