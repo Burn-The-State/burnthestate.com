@@ -507,7 +507,7 @@ function waitForApproval(tx, contractInstance, payload, amount) {
 	web3.eth.getTransaction(tx,
 		function (err, res2) {
       
-    	if(res2['blockNumber'] == null) setTimeout(() => { waitForApproval(tx, contractInstance, payload)}, 5000);
+    	if(res2['blockNumber'] == null) setTimeout(() => { waitForApproval(tx, contractInstance, payload,amount)}, 5000);
 			else {
       	setTimeout(() => { console.log(res2);}, 5000);
 				console.log("Amount: ",amount);
