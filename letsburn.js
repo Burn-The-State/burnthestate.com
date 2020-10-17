@@ -556,7 +556,7 @@ $('#stakeBTN').click(async () => {
   console.log('keys: ', keys);
   const value = $('[name=stake][type=radio]:checked').val();
   var payload;
-//PULL uniInstance info from radio button.
+  //PULL uniInstance info from radio button.
   switch (value){
 	case 'XAMP':
 		  payload =0;
@@ -588,79 +588,10 @@ $('#stakeBTN').click(async () => {
   console.log('idx: ', idx);
   const pool = POOLS[idx];
   console.log('pool: ', pool);
-
-  // TODO get real 10**18 valu prob + BN
   var amount = $('#stake-input').val();
   console.log('amount ', amount);
   if (amount === 0 || amount === '0') return;
-
-  // // TODO
   if (!window.ethereum) return;
-
- /*   // // TODO
-  if (!window.ethereum) return;
-  // // TODO figure out state etc
-  const transactionParameters = {
-     nonce: '0x00', // ignored by MetaMask
-     gasPrice: window.'0x09184e72a000', // customizable by user during MetaMask confirmation.
-     gas: '0x2710', // customizable by user during MetaMask confirmation.
-     to: YFKA_CONTROLLER_ADDRESS, // Required except during contract publications.
-     from: window.ethereum.selectedAddress, // must match user's active address.
-     value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-     data:
-       '0x7f7465737432000000000000000000000000000000000000000000000000000000600057', // Optional, but used for defining smart contract creation and interaction.
-     chainId: 3, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-   };
-  const txHash = await window.ethereum.request({
-		method: 'eth_sendTransaction',
-		params: [transactionParameters],
-	});
-  const contract = yfkaControllerContract();
- */
-  //const tx = await contract.methods.stake(idx, amount).call();
-	
-/* OLD CODE	
-	
-document.getElementById("stakeButton").addEventListener('click', async () => {
-    // Modern dapp browsers...
-    if (web3.isConnected) {
-    	var ashContract = web3.eth.contract(contractABI);
-      var contractInstance = ashContract.at(ashAddress);
-      
-    	var uniContract = web3.eth.contract(uniTokenABI);
-      
-      var e = document.getElementById("selectedTokenStake");
-      var value = e.options[e.selectedIndex].value;
-            
-      var payload;
-
-			if(value == "XAMP") {
-				payload = 0;
-        uniInstance = uniContract.at(uniTokenAddressXAMP);
-      }
-      else if(value == "TOB") {
-      	payload = 1;
-        uniInstance = uniContract.at(uniTokenAddressTOB);
-      }
-      else if(value == "BOA") {
-      	payload = 2;
-        uniInstance = uniContract.at(uniTokenAddressBOA);
-      }
-      else if(value == "ETH") {
-      	payload = 3;
-        uniInstance = uniContract.at(uniTokenAddressETH);
-      }
-      
-      console.log(document.getElementById("stakeAmount").value * 10**18);
-      
-      uniInstance.approve(ashAddress, document.getElementById("stakeAmount").value * 10**18, function (err, res) {
-        console.log("APPROVE TX: https://etherscan.io/tx/" + res);
-        document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
-        document.getElementById("stakeReceipt").style.opacity = "1";
-        waitForApproval(res, contractInstance, payload);
-      });
-    };
-}); */
 	amount = amount * 10**18
 	uniInstance.approve(YFKA_CONTROLLER_ADDRESS, amount, function (err, res) {
 	console.log("APPROVE TX: https://etherscan.io/tx/" + res);
@@ -668,7 +599,7 @@ document.getElementById("stakeButton").addEventListener('click', async () => {
 	document.getElementById("stakeReceipt").style.opacity = "1";
 	waitForApproval(res, contractInstance, payload, amount);
 	});
-})
+});
 
 
 window.addEventListener('load', async (event) => {
@@ -796,4 +727,45 @@ $('input[type=radio][name=unstake]').change(async (event) => {
 	});
 });
 
+
+$('#unstakeBTN').click(async () => {
+    var ashContract = web3.eth.contract(contractABI);
+      var contractInstance = ashContract.at(ashAddress);
+	
+	
+  console.log('unstake btn click');
+  const value = $('[name=unstake][type=radio]:checked').val();
+  var payload;
+  //PULL uniInstance info from radio button.
+  switch (value){
+	case 'XAMP':
+		  payload =0;
+		break;
+	case 'TOB':
+		  payload =1;
+		break;
+	case 'BOA':
+		  payload =2;
+		break;
+	case 'ETH':
+		  payload =3;
+		break;
+	default:
+		//do Nothing
+		console.log('Nothing Selected:');
+		break;
+  }	
+	var amount = $('#stake-input').val();
+	amount =  amount * 10**18;
+      contractInstance.unstake(payload,amount, function (err, res) {
+				console.log("https://etherscan.io/tx/" + res);
+        document.getElementById("unstakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res  +'">Unstake Receipt</a>';
+        document.getElementById("unstakeReceipt").style.opacity = "1";
+			});
+    }
+});
+
+
+$('#redeemBTN').click(async () => {
+});
 
