@@ -195,7 +195,7 @@ const getTotalBalances = async () => {
 
   // YFKA_XAMP
   const xampContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_XAMP);
-  const xampContractBalance = await xampContract.methods.totalSupply.call();
+  const xampContractBalance = await xampContract.methods.totalSupply;
   console.log('xampTotalBalance: ', xampContractBalance);
 
   const xampContractDecimals = await xampContract.methods.decimals().call();
@@ -203,7 +203,7 @@ const getTotalBalances = async () => {
 
   // YFKA_TOB
   const tobContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_TOB);
-  const tobContractBalance = await tobContract.methods.totalSupply().call();
+  const tobContractBalance = await tobContract.methods.totalSupply;
   console.log('tobTotalBalance: ', tobContractBalance);
 
   const tobContractDecimals = await tobContract.methods.decimals().call();
@@ -211,7 +211,7 @@ const getTotalBalances = async () => {
 
   // YFKA_BOA
   const boaContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_BOA);
-  const boaContractBalance = await boaContract.methods.totalSupply().call();
+  const boaContractBalance = await boaContract.methods.totalSupply;
   console.log('boaTotalBalance: ', boaContractBalance);
 
   const boaContractDecimals = await boaContract.methods.decimals().call();
@@ -219,7 +219,7 @@ const getTotalBalances = async () => {
 
   // YFKA_ETH
   const ethContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_ETH);
-  const ethContractBalance = await ethContract.methods.totalSupply().call();
+  const ethContractBalance = await ethContract.methods.totalSupply;
   console.log('ethTotalBalance: ', ethContractBalance);
 
   const ethContractDecimals = await ethContract.methods.decimals().call();
