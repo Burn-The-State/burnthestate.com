@@ -261,25 +261,25 @@ const updateUserStats = async () => {
 	//Emission Rates
 	contractInstance.getPersonalEmissionRate(0, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
-		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
+		const emissionRateToReadable = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-XAMP').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(1, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
-		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
+		const emissionRateToReadable = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-TOB').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(2, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
-		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
+		const emissionRateToReadable = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-BOA').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(3, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
-		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
+		const emissionRateToReadable = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-ETH').html(`${emissionRateToReadable}`);
 	});
@@ -375,7 +375,7 @@ const getGlobalEmissionRate = async () => {
   const emissionRateToHuman = ((emissionRate / (10 ** 18))/2)*100;
   console.log('emissionRateToHuman: ', emissionRateToHuman);
 
-  const emissionRateToReadable = fourDecimals(emissionRateToHuman);
+  const emissionRateToReadable = twoDecimals(emissionRateToHuman);
   console.log('emissionRateToReadable: ', emissionRateToReadable);
   return emissionRateToReadable;
 }
@@ -600,7 +600,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		console.log('emissionRateToHuman: ', emissionRateToHuman);
 		
-		var emissionRateToReadable = fourDecimals(emissionRateToHuman);
+		var emissionRateToReadable = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		console.log('emissionRateToReadable: ', emissionRateToReadable);
 		$('#personal-emission').html(`${emissionRateToReadable}`);
