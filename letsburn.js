@@ -152,13 +152,13 @@ const getReward = async () =>{
 }
 */
 function twoDecimals(number){
-	//returns the input with 2 Decimal places.
-	const newNumber = Math.round((number+ Number.EPSILON) * 100)/100;
+	//returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
+	const newNumber = Math.floor((number+ Number.EPSILON) * 100)/100;
 	return newNumber;
 }
 function fourDecimals(number){
-	//returns the input with 4 Decimal places.
-	const newNumber = Math.round((number+ Number.EPSILON) * 100)/1000;
+	//returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
+	const newNumber = Math.floor((number+ Number.EPSILON) * 100)/10000;
 	return newNumber;
 }
 
