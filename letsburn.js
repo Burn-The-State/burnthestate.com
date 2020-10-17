@@ -362,7 +362,7 @@ const updateUserStats = async () => {
 	//XAMP
 	const TotalXAMPbalance = TotalBalances.XAMP;	
 	const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
-	console.log("XAMP Balance = ", XAMPbalance, "XAMP Total =" TotalXAMPbalance)
+	console.log("XAMP Balance = ", XAMPbalance, "XAMP Total =", TotalXAMPbalance);
 	var readablePercentage = twoDecimals(percentXAMP);
 	if (readablePercent <= 0) readablePercentage = "<0.00%";
 	console.log("XAMP % = ", readablePercentage);
