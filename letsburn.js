@@ -364,34 +364,42 @@ const updateUserStats = async () => {
 	const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
 	console.log("XAMP Balance = ", XAMPbalance);
 	console.log("XAMP Total =", TotalXAMPbalance);
+	var readableTotalXAMP = twoDecimals(TotalXAMPbalance);
 	var readablePercentage = fourDecimals(percentXAMP);
 	if (readablePercent <= 0) readablePercentage = "<0.00%";
 	console.log("XAMP % = ", readablePercentage);
 	$('#pool-Share-XAMP').html(`${readablePercentage}`);
+	$('#total-LP-XAMP').html(`${readableTotalXAMP}`);
 	
 	//TOB
 	const TotalTOBbalance = TotalBalances.TOB;
 	const percentTOB = (TOBbalance/TotalTOBbalance) *100;
 	console.log("TOB Balance = ", TOBbalance);
 	console.log("TOB Total =", TotalTOBbalance);
+	var readableTotalTOB = twoDecimals(TotalTOBbalance);
 	var readablePercent = fourDecimals(percentTOB);
 	if (readablePercent <= 0) readablePercentage = "<0.00%";
 	$('#pool-Share-TOB').html(`${readablePercent}`);
+	$('#total-LP-TOB').html(`${readableTotalTOB}`);
 	
 	//BOA
 	const TotalBOAbalance = TotalBalances.BOA;
 	const percentBOA = (BOAbalance/TotalBOAbalance) *100;
+	var readableTotalBOA = twoDecimals(TotalBOAbalance);
 	var readablePercentage = fourDecimals(percentBOA);	
 	if (readablePercent <= 0) readablePercentage = "<0.00%";
 	console.log("TOB % = ", readablePercentage);
 	$('#pool-Share-BOA').html(`${readablePercent}`);
+	$('#total-LP-BOA').html(`${readableTotalBOA}`);
 	
 	//ETH
 	const TotalETHbalance = TotalBalances.ETH;
 	const percentETH = (ETHbalance/TotalETHbalance) *100;
+	var readableTotalETH = twoDecimals(TotalETHbalance);
 	var readablePercentage = fourDecimals(percentETH);
 	if (readablePercent <= 0) readablePercentage = "<0.00%";
 	$('#pool-Share-ETH').html(`${readablePercentage}`);
+	$('#total-LP-ETH').html(`${readableTotalETH}`);
 
 }
 
