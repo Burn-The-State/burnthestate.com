@@ -767,5 +767,37 @@ $('#unstakeBTN').click(async () => {
 
 
 $('#redeemBTN').click(async () => {
+    var ashContract = web3.eth.contract(contractABI);
+      var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
+	
+	
+  console.log('Redeem btn click');
+  const value = $('[name=redeem][type=radio]:checked').val();
+  var payload;
+  //PULL uniInstance info from radio button.
+  switch (value){
+	case 'XAMP':
+		  payload =0;
+		break;
+	case 'TOB':
+		  payload =1;
+		break;
+	case 'BOA':
+		  payload =2;
+		break;
+	case 'ETH':
+		  payload =3;
+		break;
+	default:
+		//do Nothing
+		console.log('Nothing Selected:');
+		break;
+  }	
+	
+	contractInstance.redeem(payload, function (err, res) {
+        document.getElementById("withdrawResult").innerHTML = '<a href="https://etherscan.io/tx/"' + res  +'">Withdraw Receipt</a>';
+        document.getElementById("withdrawResult").style.opacity = "1";
+			});
+    }
 });
 
