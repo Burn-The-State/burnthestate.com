@@ -170,7 +170,7 @@ mark
 	border: 0px !important;
 }
 
-#pool-XAMP, #pool-TOB
+#pool-XAMP
 {
 	/*background-image: url(imgs/fireBG3.png);
 	background-size: 100%;
@@ -195,6 +195,19 @@ mark
 	border: 1px solid #b9b9b9 !important;
 	line-height: 15px;
 }
+
+#pool-TOB
+{
+	/*background-image: url(imgs/fireBG3.png);
+	background-size: 100%;
+	background-position: top;
+	background-repeat: no-repeat;*/
+
+	background-color: #fff;
+	color: #000;
+	border: 1px solid #b9b9b9 !important;
+	line-height: 15px;
+}
 #pool-BOA
 {
 	/*background-image: url(imgs/fireBG3.png);
@@ -208,13 +221,36 @@ mark
 	line-height: 15px;
 }
 
-#pools,#pool-BOA,#pool-XAMP, #pool-TOB, #pool-ETH img
+#pool-ETH img
 {
 	width: 100px;
 	padding-top: 15px;
 	padding-bottom: 10px;
 }
-
+#pool-BOA img
+{
+	width: 100px;
+	padding-top: 15px;
+	padding-bottom: 10px;
+}
+#pool-XAMP img
+{
+	width: 100px;
+	padding-top: 15px;
+	padding-bottom: 10px;
+}
+#pool-TOB img
+{
+	width: 100px;
+	padding-top: 15px;
+	padding-bottom: 10px;
+}
+#pools img
+{
+	width: 100px;
+	padding-top: 15px;
+	padding-bottom: 10px;
+}
 #bonusPool
 {
 	background-image: url(imgs/fireBG3.png);
