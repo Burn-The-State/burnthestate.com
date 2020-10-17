@@ -217,44 +217,44 @@ const updateUserStats = async () => {
 	
 	//current Rewards
 	contractInstance.getCurrentReward(0, function (err, res) {
-		const balance = res / 10**18;
+		const balance = fourDecimals(res / (10**18));
 	$('#reward-XAMP').html(`${balance}`);
 	});
 	contractInstance.getCurrentReward(1, function (err, res) {
-		const balance = res / 10**18;
+		const balance = fourDecimals(res / (10**18));
 	$('#reward-TOB').html(`${balance}`);
 	});
 	contractInstance.getCurrentReward(2, function (err, res) {
-		const balance = res / 10**18;
+		const balance = fourDecimals(res / (10**18));
 	$('#reward-BOA').html(`${balance}`);
 	});
 	contractInstance.getCurrentReward(3, function (err, res) {
-		const balance = res / 10**18;
+		const balance = fourDecimals(res / (10**18));
 	$('#reward-ETH').html(`${balance}`);
 	});
 	
 	//Emission Rates
 	contractInstance.getPersonalEmissionRate(0, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2);
-		const emissionRateToReadable = Math.round((emissionRateToHuman+ Number.EPSILON) * 100);
+		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-XAMP').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(1, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2);
-		const emissionRateToReadable = Math.round((emissionRateToHuman+ Number.EPSILON) * 100);
+		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-TOB').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(2, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2);
-		const emissionRateToReadable = Math.round((emissionRateToHuman+ Number.EPSILON) * 100);
+		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-BOA').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(3, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2);
-		const emissionRateToReadable = Math.round((emissionRateToHuman+ Number.EPSILON) * 100);
+		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-ETH').html(`${emissionRateToReadable}`);
 	});
@@ -350,7 +350,7 @@ const getGlobalEmissionRate = async () => {
   const emissionRateToHuman = ((emissionRate / (10 ** 18))/2);
   console.log('emissionRateToHuman: ', emissionRateToHuman);
 
-  const emissionRateToReadable = Math.round((emissionRateToHuman + Number.EPSILON) * 100);
+  const emissionRateToReadable = fourDecimals(emissionRateToHuman);
   console.log('emissionRateToReadable: ', emissionRateToReadable);
   return emissionRateToReadable;
 }
@@ -430,7 +430,7 @@ $('input[type=radio][name=stake]').change(async (event) => {
   console.log('change radio stake');
   const balances = await getPoolBalances();
   console.log('balances: ', balances);
-  const balance = balances[event.currentTarget.value];
+  const balance = fourDecimals(balances[event.currentTarget.value]);
   console.log('balance: ', balance);
   // TODO
   $('#stake-input').val(`${balance}`);
@@ -527,7 +527,7 @@ window.addEventListener('load', async (event) => {
     // Set defaults
     const poolBalances = await getPoolBalances();
     // TODO use const
-    const balance = poolBalances['XAMP'];
+    const balance = fourDecimals(poolBalances['XAMP']);
     $('#stake-input').val(`${balance}`);
     $('#stake-input').attr('placeholder', `${balance}`);
     $('#stake-balance').html(`${balance}`);
@@ -564,7 +564,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	
 	contractInstance.getCurrentReward(payload, function (err, res) {
 		console.log("Number Redeemed: " + res / 10**18);
-		const balance = res / 10**18;
+		const balance = fourDecimals(res / 10**18);
 	$('#redeem-amount').html(`${balance}`);
 	$('#redeem-amount-button').html(`${balance}`);
 	return balance || '';
@@ -575,7 +575,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 		const emissionRateToHuman = (res / (10 ** 18)/2);
 		console.log('emissionRateToHuman: ', emissionRateToHuman);
 		
-		var emissionRateToReadable = Math.round((emissionRateToHuman+ Number.EPSILON) * 100);
+		var emissionRateToReadable = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		console.log('emissionRateToReadable: ', emissionRateToReadable);
 		$('#personal-emission').html(`${emissionRateToReadable}`);
