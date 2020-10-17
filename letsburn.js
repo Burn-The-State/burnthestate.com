@@ -730,7 +730,7 @@ $('input[type=radio][name=unstake]').change(async (event) => {
 
 $('#unstakeBTN').click(async () => {
     var ashContract = web3.eth.contract(contractABI);
-      var contractInstance = ashContract.at(ashAddress);
+      var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
 	
 	
   console.log('unstake btn click');
