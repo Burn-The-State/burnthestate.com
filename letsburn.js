@@ -526,7 +526,10 @@ function waitForApproval(tx, contractInstance, payload, amount) {
 	);
 }
 
-
+  var uniTokenAddressBOA = "0x5ecf87ff558f73d097eddfee35abde626c7aeab7";
+  var uniTokenAddressTOB = "0x34d0448a79f853d6e1f7ac117368c87bb7beea6b";
+  var uniTokenAddressXAMP = "0xaea4d6809375bb973c8036d53db9e90970942738";
+  var uniTokenAddressETH  = "0xc0cfb99342860725806f085046d0233fec876cd7";
 
 $('input[type=radio][name=stake]').change(async (event) => {
   console.log('change radio stake');
@@ -556,16 +559,20 @@ $('#stakeBTN').click(async () => {
 //PULL uniInstance info from radio button.
   switch (value){
 	case 'XAMP':
-	uniInstance = uniContract.at(PAIRS.YFKA_XAMP);
+		  payload =0;
+	uniInstance = uniContract.at(uniTokenAddressXAMP);
 		break;
 	case 'TOB':
-	uniInstance = uniContract.at(PAIRS.YFKA_TOB);
+		  payload =1;
+	uniInstance = uniContract.at(uniTokenAddressTOB);
 		break;
 	case 'BOA':
-	uniInstance = uniContract.at(PAIRS.YFKA_BOA);
+		  payload =2;
+	uniInstance = uniContract.at(uniTokenAddressBOA);
 		break;
 	case 'ETH':
-	uniInstance = uniContract.at(PAIRS.YFKA_ETH);
+		  payload =3;
+	uniInstance = uniContract.at(uniTokenAddressETH);
 		break;
 	default:
 		//do Nothing
@@ -654,7 +661,7 @@ document.getElementById("stakeButton").addEventListener('click', async () => {
       });
     };
 }); */
-	//amount = amount * 10**18
+	amount = amount * 10**18
 	uniInstance.approve(YFKA_CONTROLLER_ADDRESS, amount, function (err, res) {
 	console.log("APPROVE TX: https://etherscan.io/tx/" + res);
 	document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
