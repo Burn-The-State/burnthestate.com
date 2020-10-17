@@ -195,7 +195,7 @@ const getTotalBalances = async () => {
 
   // YFKA_XAMP
   const xampContract = new provider.eth.Contract(uniTokenABI, PAIRS.YFKA_XAMP);
-  const xampContractBalance = await xampContract.methods.totalSupply;
+  const xampContractBalance = await xampContract.methods.totalSupply();
   console.log('xampTotalBalance: ', xampContractBalance);
 
   const xampContractDecimals = await xampContract.methods.decimals().call();
