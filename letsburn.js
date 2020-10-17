@@ -186,7 +186,54 @@ function fourDecimals(number){
 	}
 	
 }
+const getTotalBalances = async () => {
+  console.log('getBalances');
+  const account = await getAccount();
+  if (!account) return null;
 
+  const provider = getInfuraProvider();
+
+  // YFKA_XAMP
+  const xampContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_XAMP);
+  const xampContractBalance = await xampContract.methods.totalSupply.call();
+  console.log('xampTotalBalance: ', xampContractBalance);
+
+  const xampContractDecimals = await xampContract.methods.decimals().call();
+  console.log('xampContractDecimals: ', xampContractDecimals);
+
+  // YFKA_TOB
+  const tobContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_TOB);
+  const tobContractBalance = await tobContract.methods.totalSupply.call();
+  console.log('tobTotalBalance: ', tobContractBalance);
+
+  const tobContractDecimals = await tobContract.methods.decimals().call();
+  console.log('tobContractDecimals: ', tobContractDecimals);
+
+  // YFKA_BOA
+  const boaContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_BOA);
+  const boaContractBalance = await boaContract.methods.totalSupply.call();
+  console.log('boaTotalBalance: ', boaContractBalance);
+
+  const boaContractDecimals = await boaContract.methods.decimals().call();
+  console.log('boaContractDecimals: ', boaContractDecimals);
+
+  // YFKA_ETH
+  const ethContract = new provider.eth.Contract(STANDARD_ERC20_ABI, PAIRS.YFKA_ETH);
+  const ethContractBalance = await ethContract.methods.totalSupply.call();
+  console.log('ethTotalBalance: ', ethContractBalance);
+
+  const ethContractDecimals = await ethContract.methods.decimals().call();
+  console.log('ethContractDecimals: ', ethContractDecimals);
+
+
+  // TODO TOB showing NaN so figure that out
+  return {
+    XAMP: xampContractBalance ? xampContractBalance / (10 ** xampContractDecimals) : 0,
+    TOB: tobContract ? tobContractBalance / (10 ** tobContractDecimals) : 0,
+    BOA: boaContractBalance ? boaContractBalance / (10 ** boaContractDecimals) : 0,
+    ETH: ethContractBalance ? ethContractBalance / (10 ** ethContractDecimals) : 0,
+  }
+}
 
 const getPoolBalances = async () => {
   console.log('getBalances');
@@ -310,52 +357,36 @@ const updateUserStats = async () => {
 		$('#balance-LP-ETH').html(`${ETHbalance}`);
 	});
 	//% of pool
-	var TotalXAMPbalance = 0;
-	await contractInstance.totalYFKAStaked(0, function (err, res) {
-		
-		TotalXAMPbalance = (res / (10 ** 18));
-		const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
-		const readablePercentage = twoDecimals(percentXAMP);
-		if (readablePercentage <= 0){
-			console.log("XAMP BELOW 0.00!");
-		}
-		$('#pool-Share-XAMP').html(`${readablePercentage}`);
-	});
-	var TotalTOBbalance = 0;
-	await contractInstance.totalYFKAStaked(1, function (err, res) {
-		TotalTOBbalance = (res / (10 ** 18));
-		const percentTOB = (TOBbalance/TotalTOBbalance) *100;
-		const readablePercent = twoDecimals(percentTOB);
-		
-		if (readablePercent <= 0){
-			console.log("TOB BELOW 0.00!");
-		}
-		$('#pool-Share-TOB').html(`${readablePercent}`);
-	});
-	var TotalBOAbalance = 0;
-	await contractInstance.totalYFKAStaked(2, function (err, res) {
-		TotalBOAbalance = (res / (10 ** 18));
-		const percentBOA = (BOAbalance/TotalBOAbalance) *100;
-		const readablePercentage = twoDecimals(percentBOA);
-		
-		if (readablePercentage <= 0){
-			console.log("BOA BELOW 0.00!");
-		}
-		
-		$('#pool-Share-BOA').html(`${readablePercentage}`);
-	});
-	var TotalETHbalance = 0;
-	await contractInstance.totalYFKAStaked(3, function (err, res) {
-		TotalETHbalance = (res / (10 ** 18));
-		const percentETH = (ETHbalance/TotalETHbalance) *100;
-		const readablePercentage = twoDecimals(percentETH);
-		
-		if (readablePercentage < 0.00){
-			console.log("ETH BELOW 0.00!");
-		}
-		
-		$('#pool-Share-ETH').html(`${readablePercentage}`);
-	});
+	const TotalBalances = await getTotalBalances();
+	
+	//XAMP
+	const TotalXAMPbalance = TotalBalances.XAMP;	
+	const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
+	var readablePercentage = twoDecimals(percentXAMP);
+	if (readablePercent <= 0) readablePercentage = "<0.00%";
+	$('#pool-Share-XAMP').html(`${readablePercentage}`);
+	
+	//TOB
+	const TotalTOBbalance = TotalBalances.TOB;
+	const percentTOB = (TOBbalance/TotalTOBbalance) *100;
+	var readablePercent = twoDecimals(percentTOB);
+	if (readablePercent <= 0) readablePercentage = "<0.00%";
+	$('#pool-Share-TOB').html(`${readablePercent}`);
+	
+	//BOA
+	const TotalBOAbalance = TotalBalances.BOA;
+	const percentBOA = (BOAbalance/TotalBOAbalance) *100;
+	var readablePercentage = twoDecimals(percentBOA);	
+	if (readablePercent <= 0) readablePercentage = "<0.00%";
+	$('#pool-Share-BOA').html(`${readablePercent}`);
+	
+	//ETH
+	const TotalETHbalance = TotalBalances.ETH;
+	const percentETH = (ETHbalance/TotalETHbalance) *100;
+	var readablePercentage = twoDecimals(percentETH);
+	if (readablePercent <= 0) readablePercentage = "<0.00%";
+	$('#pool-Share-ETH').html(`${readablePercentage}`);
+
 }
 
 
