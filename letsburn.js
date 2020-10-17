@@ -151,7 +151,16 @@ const getReward = async () =>{
   }	
 }
 */
-
+function twoDecimals(number){
+	//returns the input with 2 Decimal places.
+	const newNumber = Math.round((number+ Number.EPSILON) * 100)/100;
+	return newNumber;
+}
+function fourDecimals(number){
+	//returns the input with 4 Decimal places.
+	const newNumber = Math.round((number+ Number.EPSILON) * 100)/10;
+	return newNumber;
+}
 
 
 const getPoolBalances = async () => {
@@ -281,8 +290,8 @@ const updateUserStats = async () => {
 		
 		TotalXAMPbalance = (res / (10 ** 18));
 		const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
-		const readablePercentage = Math.round((percentXAMP + Number.EPSILON) * 100) / 100;
-		if (readablePercentage < 0.00){
+		const readablePercentage = fourDecimals(percentXAMP);
+		if (readablePercentage <= 0){
 			console.log("XAMP BELOW 0.00!");
 		}
 		$('#pool-Share-XAMP').html(`${readablePercentage}`);
@@ -291,9 +300,9 @@ const updateUserStats = async () => {
 	await contractInstance.totalYFKAStaked(1, function (err, res) {
 		TotalTOBbalance = (res / (10 ** 18));
 		const percentTOB = (TOBbalance/TotalTOBbalance) *100;
-		const readablePercent = Math.round((percentTOB + Number.EPSILON) * 100) / 100;
+		const readablePercent = forDecimals(percentTOB);
 		
-		if (readablePercent < 0.00){
+		if (readablePercent <= 0){
 			console.log("TOB BELOW 0.00!");
 		}
 		$('#pool-Share-TOB').html(`${readablePercent}`);
@@ -302,9 +311,9 @@ const updateUserStats = async () => {
 	await contractInstance.totalYFKAStaked(2, function (err, res) {
 		TotalBOAbalance = (res / (10 ** 18));
 		const percentBOA = (BOAbalance/TotalBOAbalance) *100;
-		const readablePercentage = Math.round((percentBOA + Number.EPSILON) * 100) / 100;
+		const readablePercentage = fourDecimals(percentBOA);
 		
-		if (readablePercentage < 0.00){
+		if (readablePercentage <= 0){
 			console.log("BOA BELOW 0.00!");
 		}
 		
@@ -314,7 +323,7 @@ const updateUserStats = async () => {
 	await contractInstance.totalYFKAStaked(3, function (err, res) {
 		TotalETHbalance = (res / (10 ** 18));
 		const percentETH = (ETHbalance/TotalETHbalance) *100;
-		const readablePercentage = Math.round((percentETH + Number.EPSILON) * 100) / 100;
+		const readablePercentage = forDecimals(percentETH);
 		
 		if (readablePercentage < 0.00){
 			console.log("ETH BELOW 0.00!");
