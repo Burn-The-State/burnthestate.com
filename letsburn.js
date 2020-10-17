@@ -439,7 +439,10 @@ function waitForApproval(tx, contractInstance, payload) {
  			else {
        	setTimeout(() => { console.log(res2);}, 5000);
 	console.log('Approval - Success.... Moving on');
-       	contractInstance.stake(payload, document.getElementById("stake-input").value * 10**18, function (err, res) {
+	console.log('Input ammount -',document.getElementById("stake-input").value);
+	console.log('UNIT256 ammount -',document.getElementById("stake-input").value * (10**18));
+				
+       	contractInstance.stake(payload, document.getElementById("stake-input").value * (10**18), function (err, res) {
            document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
            document.getElementById("stakeReceipt").style.opacity = "1";
            // updatePoolBalances();
