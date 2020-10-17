@@ -181,6 +181,7 @@ mark
 	color: #000;
 	border: 1px solid #b9b9b9 !important;
 	line-height: 15px;
+	background-repeat: no-repeat;
 }
 
 #pool-ETH
@@ -194,6 +195,7 @@ mark
 	color: #000;
 	border: 1px solid #b9b9b9 !important;
 	line-height: 15px;
+	background-repeat: no-repeat;
 }
 
 #pool-TOB
@@ -207,6 +209,7 @@ mark
 	color: #000;
 	border: 1px solid #b9b9b9 !important;
 	line-height: 15px;
+	background-repeat: no-repeat;
 }
 #pool-BOA
 {
@@ -219,6 +222,7 @@ mark
 	color: #000;
 	border: 1px solid #b9b9b9 !important;
 	line-height: 15px;
+	background-repeat: no-repeat;
 }
 
 #pool-ETH img
