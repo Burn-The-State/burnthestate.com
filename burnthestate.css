@@ -268,7 +268,12 @@ mark
 	line-height: 15px;
 }
 
-
+#bonusPool img
+{
+	width: 100px;
+	padding-top: 15px;
+	padding-bottom: 10px;
+}
 
 .bigNumber
 {
