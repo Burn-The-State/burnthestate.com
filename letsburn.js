@@ -211,7 +211,7 @@ const getTotalBalances = async () => {
 
   // YFKA_BOA
   const boaContract = new provider.eth.Contract(uniTokenABI, PAIRS.YFKA_BOA);
-  const boaContractBalance = await boaContract.methods.totalSupply;
+  const boaContractBalance = await boaContract.methods.totalSupply().call();
   console.log('boaTotalBalance: ', boaContractBalance);
 
   const boaContractDecimals = await boaContract.methods.decimals().call();
@@ -219,7 +219,7 @@ const getTotalBalances = async () => {
 
   // YFKA_ETH
   const ethContract = new provider.eth.Contract(uniTokenABI, PAIRS.YFKA_ETH);
-  const ethContractBalance = await ethContract.methods.totalSupply;
+  const ethContractBalance = await ethContract.methods.totalSupply().call();
   console.log('ethTotalBalance: ', ethContractBalance);
 
   const ethContractDecimals = await ethContract.methods.decimals().call();
