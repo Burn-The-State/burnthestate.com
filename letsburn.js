@@ -306,22 +306,46 @@ const updateUserStats = async () => {
 	});
 	
 	//Emission Rates
+	const bonusAddress = await getBonusPool();
+	var BonusPool = "XAMP";
+	  switch (bonusAddress) {
+	    case PAIRS.YFKA_XAMP:
+		BonusPool = "XAMP";
+	      break;
+	    case PAIRS.YFKA_TOB:
+		BonusPool = "TOB";
+	      break;
+	    case PAIRS.YFKA_BOA:
+		BonusPool = "BOA";
+	      break;
+	    case PAIRS.YFKA_ETH:
+	    default:
+	      // Dont do shit
+	      break;
+	  }
+	
+	
+	
+	
 	contractInstance.getPersonalEmissionRate(0, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		const emissionRateToReadable = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
+		if (BonusPool = "XAMP" ) emissionRateToReadable = emissionRateToReadable*2;
 		$('#personal-emission-XAMP').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(1, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		const emissionRateToReadable = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
+		if (BonusPool = "TOB" ) emissionRateToReadable = emissionRateToReadable*2;
 		$('#personal-emission-TOB').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(2, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		const emissionRateToReadable = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
+		if (BonusPool = "BOA" ) emissionRateToReadable = emissionRateToReadable*2;
 		$('#personal-emission-BOA').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(3, account, function (err, res) {
