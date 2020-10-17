@@ -569,7 +569,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	
 	contractInstance.getCurrentReward(payload, function (err, res) {
 		console.log("Number Redeemed: " + res / 10**18);
-		const balance = twoDecimals(res / 10**18);
+		const balance = fourDecimals(res / 10**18);
 	$('#redeem-amount').html(`${balance}`);
 	$('#redeem-amount-button').html(`${balance}`);
 	return balance || '';
@@ -580,7 +580,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 		const emissionRateToHuman = (res / (10 ** 18)/2);
 		console.log('emissionRateToHuman: ', emissionRateToHuman);
 		
-		var emissionRateToReadable = twoDecimals(emissionRateToHuman);
+		var emissionRateToReadable = fourDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		console.log('emissionRateToReadable: ', emissionRateToReadable);
 		$('#personal-emission').html(`${emissionRateToReadable}`);
