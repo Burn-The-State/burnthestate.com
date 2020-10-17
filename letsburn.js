@@ -440,8 +440,8 @@ function waitForApproval(tx, contractInstance, payload) {
        	setTimeout(() => { console.log(res2);}, 5000);
 	console.log('Approval - Success.... Moving on');
        	contractInstance.stake(payload, document.getElementById("stake-input").value * 10**18, function (err, res) {
-           //document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
-           //document.getElementById("stakeReceipt").style.opacity = "1";
+           document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
+           document.getElementById("stakeReceipt").style.opacity = "1";
            // updatePoolBalances();
        	});
        }
@@ -537,9 +537,8 @@ var uniContract = web3.eth.contract(uniTokenABI);
   //const tx = await contract.methods.stake(idx, amount).call();
 	uniInstance.approve(YFKA_CONTROLLER_ADDRESS, amount * 10**18, function (err, res) {
 	console.log("APPROVE TX: https://etherscan.io/tx/" + res);
-	//TODO: ADD TRX ADDRESS UNDER BUTTON....
-	//document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
-	//document.getElementById("stakeReceipt").style.opacity = "1";
+	document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
+	document.getElementById("stakeReceipt").style.opacity = "1";
 	waitForApproval(res, contractInstance, payload);
 	});
 })
