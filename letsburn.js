@@ -290,7 +290,7 @@ const updateUserStats = async () => {
 		
 		TotalXAMPbalance = (res / (10 ** 18));
 		const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
-		const readablePercentage = fourDecimals(percentXAMP);
+		const readablePercentage = twoDecimals(percentXAMP);
 		if (readablePercentage <= 0){
 			console.log("XAMP BELOW 0.00!");
 		}
@@ -300,7 +300,7 @@ const updateUserStats = async () => {
 	await contractInstance.totalYFKAStaked(1, function (err, res) {
 		TotalTOBbalance = (res / (10 ** 18));
 		const percentTOB = (TOBbalance/TotalTOBbalance) *100;
-		const readablePercent = fourDecimals(percentTOB);
+		const readablePercent = twoDecimals(percentTOB);
 		
 		if (readablePercent <= 0){
 			console.log("TOB BELOW 0.00!");
@@ -311,7 +311,7 @@ const updateUserStats = async () => {
 	await contractInstance.totalYFKAStaked(2, function (err, res) {
 		TotalBOAbalance = (res / (10 ** 18));
 		const percentBOA = (BOAbalance/TotalBOAbalance) *100;
-		const readablePercentage = fourDecimals(percentBOA);
+		const readablePercentage = twoDecimals(percentBOA);
 		
 		if (readablePercentage <= 0){
 			console.log("BOA BELOW 0.00!");
@@ -323,7 +323,7 @@ const updateUserStats = async () => {
 	await contractInstance.totalYFKAStaked(3, function (err, res) {
 		TotalETHbalance = (res / (10 ** 18));
 		const percentETH = (ETHbalance/TotalETHbalance) *100;
-		const readablePercentage = fourDecimals(percentETH);
+		const readablePercentage = twoDecimals(percentETH);
 		
 		if (readablePercentage < 0.00){
 			console.log("ETH BELOW 0.00!");
