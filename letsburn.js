@@ -526,8 +526,6 @@ var uniContract = web3.eth.contract(uniTokenABI);
   const keys = Object.keys(PAIRS);
   console.log('keys: ', keys);
   const value = $('[name=stake][type=radio]:checked').val();
-  var ashContract = web3.eth.contract(contractABI);
-  var contractInstance = ashContract.at(YFKA_CONTROLLER_ADDRESS);
   var payload;
 //PULL uniInstance info from radio button.
   switch (value){
@@ -587,7 +585,7 @@ var uniContract = web3.eth.contract(uniTokenABI);
   const contract = yfkaControllerContract();
  */
   //const tx = await contract.methods.stake(idx, amount).call();
-	uniInstance.approve(YFKA_CONTROLLER_ADDRESS, amount * 10**18, function (err, res) {
+	contractInstance.approve(YFKA_CONTROLLER_ADDRESS, amount * 10**18, function (err, res) {
 	console.log("APPROVE TX: https://etherscan.io/tx/" + res);
 	document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
 	document.getElementById("stakeReceipt").style.opacity = "1";
