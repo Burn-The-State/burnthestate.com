@@ -798,6 +798,6 @@ $('#redeemBTN').click(async () => {
         document.getElementById("withdrawResult").innerHTML = '<a href="https://etherscan.io/tx/"' + res  +'">Withdraw Receipt</a>';
         document.getElementById("withdrawResult").style.opacity = "1";
 			});
-    }
+    
 });
 
