@@ -331,21 +331,21 @@ const updateUserStats = async () => {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		var emissionRateToReadableXAMP = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadableXAMP < 0) {emissionRateToReadableXAMP = 0;}
-		if (BonusPool = "XAMP" ) emissionRateToReadableXAMP = emissionRateToReadableXAMP*2;
+		if (BonusPool == "XAMP" ) emissionRateToReadableXAMP = emissionRateToReadableXAMP*2;
 		$('#personal-emission-XAMP').html(`${emissionRateToReadableXAMP}`);
 	});
 	contractInstance.getPersonalEmissionRate(1, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		var emissionRateToReadableTOB = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadableTOB < 0) {emissionRateToReadableTOB = 0;}
-		if (BonusPool = "TOB" ) emissionRateToReadableTOB = emissionRateToReadableTOB*2;
+		if (BonusPool == "TOB" ) emissionRateToReadableTOB = emissionRateToReadableTOB*2;
 		$('#personal-emission-TOB').html(`${emissionRateToReadableTOB}`);
 	});
 	contractInstance.getPersonalEmissionRate(2, account, function (err, res) {
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		var emissionRateToReadableBOA = twoDecimals(emissionRateToHuman);
 		if (emissionRateToReadableBOA < 0) {emissionRateToReadableBOA = 0;}
-		if (BonusPool = "BOA" ) emissionRateToReadableBOA = emissionRateToReadableBOA*2;
+		if (BonusPool == "BOA" ) emissionRateToReadableBOA = emissionRateToReadableBOA*2;
 		$('#personal-emission-BOA').html(`${emissionRateToReadableBOA}`);
 	});
 	contractInstance.getPersonalEmissionRate(3, account, function (err, res) {
