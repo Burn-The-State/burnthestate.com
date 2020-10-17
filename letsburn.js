@@ -360,7 +360,7 @@ const updateUserStats = async () => {
 	const TotalBalances = await getTotalBalances();
 	
 	//XAMP
-	const TotalXAMPbalance = TotalBalances.XAMP;	
+	const TotalXAMPbalance = await TotalBalances.XAMP;	
 	const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
 	console.log("XAMP Balance = ", XAMPbalance);
 	console.log("XAMP Total =", TotalXAMPbalance);
@@ -372,7 +372,7 @@ const updateUserStats = async () => {
 	$('#total-LP-XAMP').html(`${readableTotalXAMP}`);
 	
 	//TOB
-	const TotalTOBbalance = TotalBalances.TOB;
+	const TotalTOBbalance = await TotalBalances.TOB;
 	const percentTOB = (TOBbalance/TotalTOBbalance) *100;
 	console.log("TOB Balance = ", TOBbalance);
 	console.log("TOB Total =", TotalTOBbalance);
@@ -383,7 +383,7 @@ const updateUserStats = async () => {
 	$('#total-LP-TOB').html(`${readableTotalTOB}`);
 	
 	//BOA
-	const TotalBOAbalance = TotalBalances.BOA;
+	const TotalBOAbalance = await TotalBalances.BOA;
 	const percentBOA = (BOAbalance/TotalBOAbalance) *100;
 	var readableTotalBOA = twoDecimals(TotalBOAbalance);
 	var readablePercentageBOA = fourDecimals(percentBOA);	
@@ -393,7 +393,7 @@ const updateUserStats = async () => {
 	$('#total-LP-BOA').html(`${readableTotalBOA}`);
 	
 	//ETH
-	const TotalETHbalance = TotalBalances.ETH;
+	const TotalETHbalance = await TotalBalances.ETH;
 	const percentETH = (ETHbalance/TotalETHbalance) *100;
 	var readableTotalETH = twoDecimals(TotalETHbalance);
 	var readablePercentageETH = fourDecimals(percentETH);
