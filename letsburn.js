@@ -761,8 +761,8 @@ $('#unstakeBTN').click(async () => {
 				console.log("https://etherscan.io/tx/" + res);
         document.getElementById("unstakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res  +'">Unstake Receipt</a>';
         document.getElementById("unstakeReceipt").style.opacity = "1";
-			});
-    }
+	});
+
 });
 
 
