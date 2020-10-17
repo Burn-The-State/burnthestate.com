@@ -170,7 +170,32 @@ mark
 	border: 0px !important;
 }
 
-#pools
+#pool-XAMP, pools-TOB
+{
+	/*background-image: url(imgs/fireBG3.png);
+	background-size: 100%;
+	background-position: top;
+	background-repeat: no-repeat;*/
+
+	background-color: #fff;
+	color: #000;
+	border: 1px solid #b9b9b9 !important;
+	line-height: 15px;
+}
+
+#pool-ETH
+{
+	/*background-image: url(imgs/fireBG3.png);
+	background-size: 100%;
+	background-position: top;
+	background-repeat: no-repeat;*/
+
+	background-color: #fff;
+	color: #000;
+	border: 1px solid #b9b9b9 !important;
+	line-height: 15px;
+}
+#pool-BOA
 {
 	/*background-image: url(imgs/fireBG3.png);
 	background-size: 100%;
