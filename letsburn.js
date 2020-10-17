@@ -166,7 +166,7 @@ function fourDecimals(number){
 	}else if (number < 1)
 	{
 		console.log("input <  1");
-		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/100;
+		const newNumber = Math.floor((number+ Number.EPSILON) * 10000)/1000;
 		return newNumber;
 	}else if (number <=0)
 	{
@@ -260,25 +260,25 @@ const updateUserStats = async () => {
 	
 	//Emission Rates
 	contractInstance.getPersonalEmissionRate(0, account, function (err, res) {
-		const emissionRateToHuman = (res / (10 ** 18)/2);
+		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-XAMP').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(1, account, function (err, res) {
-		const emissionRateToHuman = (res / (10 ** 18)/2);
+		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-TOB').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(2, account, function (err, res) {
-		const emissionRateToHuman = (res / (10 ** 18)/2);
+		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-BOA').html(`${emissionRateToReadable}`);
 	});
 	contractInstance.getPersonalEmissionRate(3, account, function (err, res) {
-		const emissionRateToHuman = (res / (10 ** 18)/2);
+		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		const emissionRateToReadable = fourDecimals(emissionRateToHuman);
 		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
 		$('#personal-emission-ETH').html(`${emissionRateToReadable}`);
@@ -597,7 +597,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 
 	contractInstance.getPersonalEmissionRate(payload, account, function (err, res) {
 		console.log("Personal Emission: " + res/ 10**18);
-		const emissionRateToHuman = (res / (10 ** 18)/2);
+		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		console.log('emissionRateToHuman: ', emissionRateToHuman);
 		
 		var emissionRateToReadable = fourDecimals(emissionRateToHuman);
