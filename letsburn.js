@@ -1546,7 +1546,6 @@ $('#unstakeBTN').click(async () => {
   });
 });
 
-
 /*
 *
 *
