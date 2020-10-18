@@ -45,30 +45,32 @@
       </div>
       <!-- rules -->
       <div id="rules" class="row m-0 pt-5 pb-4 mb-1 pl-4 pr-4 border border-light rounded">
-      <div class="col-12 text-left justify-content-left">
+      <div class="col-12 text-center justify-content-left">
       <h1><img class="coins-y" src="imgs/yfka.png"><strong><rfont style="color: #cd2012;">Y</rfont>ield <rfont style="color: #cd2012;">F</rfont>arming <rfont style="color: #cd2012;">K</rfont>nown as <rfont style="color: #cd2012;">A</rfont>sh</strong><br></h1>
       <h3>Burn The State's Yield Farming Token</h3><br>
         <div id="header" class="col border rounded pt-4 pb-3 m-0 text-center">  
           <h4><strong>Sovereign Individual!</strong></h4> <p>Put your XAMP, TOB, BOA and YFKA to work for you!</p> <p><a target="_blank" href="https://uniswap.info/token/0x4086692d53262b2be0b13909d804f0491ff6ec3e"> Provide liquidity on Uniswap</a>, come back to this site, and stake the LP tokens to farm for YFKA.</p>
         </div>
           <h3 class="pt-5"><strong>Rules:</strong></h3>
-            <div class="row border rounded m-0 p-4 pt-3">
-              
+            <div class="row border rounded text-left m-0 p-4 pt-3">
+              <div class="col-lg p-4 m-2">
                 <p>• Global Emission Rate (APY) was 100% at launch.</p>
                 <p>• Global Emission Rate decays each Ethereum block.</p>
                 <p>• Decay rate is 1% every 5000 Ethereum blocks.</p>
                 <p>•  When you first <a href="#stake">STAKE</a> you lock in your personal emission rate for the selected pool. If you stake in all 4 pools, you will have 4 different personal emission rates.</p>
+                <p>• Each stake &amp; every addition to a stake <strong>MUST BE A MINIMUM OF .4 YFKA WORTH OF LP TOKEN VALUE.</strong> (i.e. 0.2 YFKA + 0.2 YFKA worth of the other paired token). If you try to add less you will get an error and your wallet will show you an extremely high gas fee to send your transaction. <strong>DO NOT CONFIRM THE TRANSACTION, IT WILL FAIL!</strong></p>
+              </div>
+              <div class="col-lg p-4 m-2">
                 <p>• Once you lock in your personal emission rate, you retain that rate until you unstake or redeem. Meanwhile the Global Emission Rate continues to decay each block.</p>
-                <p>• <strong>SO LOCK IN AND STAY IN!</strong> Stack YFKA with higher emissions than everyone that locks in after you!</p>
-                              
+                <p>• <strong>SO LOCK IN AND STAY IN!</strong> Stack YFKA with higher emissions than everyone that locks in after you!</p>             
                 <p>• There is a bonus pool, with 2X rewards. It switches between pools based on the lowest % of LP tokens staked. YFKA/ETH is never eligible for the bonus. </p>
                 <p>• You <strong>MUST</strong> claim bonus pool rewards while the bonus is active or else your accrued rewards will revert back to your standard ones.</p>
-                <p>• Each stake &amp; every addition to a stake <strong>MUST BE A MINIMUM OF .4 YFKA WORTH OF LP TOKEN VALUE.</strong> (i.e. 0.2 YFKA + 0.2 YFKA worth of the other paired token). If you try to add less you will get an error and your wallet will show you an extremely high gas fee to send your transaction. <strong>DO NOT CONFIRM THE TRANSACTION, IT WILL FAIL!</strong></p>
-              
+                
+              </div>
             </div>
         
           
-        <div class="row pt-4 m-0">
+        <div class="row text-left pt-4 m-0">
             <div class="col-lg border rounded p-4 m-2">              
               <h5 style="text-align:center;"><a href="#redeem"><strong>REDEEM</strong></a></h5>
             <p>Claim all farming rewards for selected pool w/out un-staking or adding.</p>
@@ -239,9 +241,9 @@
         <!-- right -->
         <div class="col-lg-6 m-3">
           <div class="row">
-            <div class="col-4 text-left">Enter amount</div>
+            <div class="col-4 text-left" style="color:white;">Enter amount</div>
             <div class="col text-right">
-              <strong><small>Balance:</small></strong> <span id="stake-balance">0</span> UNI-V2
+              <span style="color:white;"><strong><small>Balance:</small></strong> <span id="stake-balance">0</span> UNI-V2</span>
             </div>
           </div>
           <div id="w-block" class="col border border-dark rounded p-3">
@@ -263,8 +265,8 @@
         <!-- left -->
         <div class="col-lg-6 m-3">
           <div class="col text-center p-0">
-            <label class="redeemTxt">Choose a pool to re-stake in order to redeem,You will lose your personal emission rate and will get <strong><span id="coin-emission">76.33</span>% APY</strong><br>
-            <small class="text-center">Minimum re-stake of 0.4 YFKA worth of LP Tokens (0.2 YFKA + 0.2 BTS token or ETH)</small></label>
+            <label class="redeemTxt">You will lose your personal emission rate and will get <strong><span id="coin-emission">76.33</span>% APY</strong><br>
+            <span>Choose a pool to redeem </span></label>
           </div>
           <div id="w-block" class="col border border-dark rounded p-3">
             <div class="form-check">
@@ -320,8 +322,9 @@
         </div>
         <!-- left -->
         <div class="col-lg-6 m-3">
-          <div class="">
-            <label>Choose a Pool to unstake</label>
+          <div class="col text-center p-0">
+            <label class="redeemTxt">You will lose your personal emission rate and will get <strong><span id="coin-emission">76.33</span>% APY</strong><br>
+            <span>Choose a pool to unstake </span></label>
           </div>
           <div id="b-block" class="col border border-dark rounded p-3">
             <div class="form-check">
@@ -371,10 +374,9 @@
       <div id="footer" class="row m-0 p-5 text-center border-dark rounded mb-1">
         <div class="col text-center pt-1">
           <a href="https://www.twitter.com/burn_the_state" target="_blank" rel="noreferrer noopener"><img class="icon" src="imgs/twitter.svg"></a>
-          <a href="https://discord.gg/86bgYh" target="_blank" rel="noreferrer noopener"><img class="icon" src="imgs/discord.svg"></a>
+          <a href="https://discord.gg/RE78xht" target="_blank" rel="noreferrer noopener"><img class="icon" src="imgs/discord.svg"></a>
           <a href="https://t.me/burnthestate" target="_blank" rel="noreferrer noopener"><img class="icon" src="imgs/telegram.svg"></a>
           <a href="https://medium.com/@burn_the_state/tokenomics-of-ash-a-new-type-of-yield-farming-e67c6de0bbe0" target="_blank" rel="noreferrer noopener"><img class="icon" src="imgs/medium.svg"></a>
-          <a href="https://github.com/Burn-The-State" target="_blank" rel="noreferrer noopener"><img class="icon" src="imgs/github.svg"/></a>
         </div>
       </div>
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
