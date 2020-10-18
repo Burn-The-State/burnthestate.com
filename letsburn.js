@@ -317,7 +317,7 @@ const updateUserStats = async () => {
   const bonusPoolIdx = await ashContract.methods.getActivePool().call();
 
 	// XAMP Personal emission rate
-	const xampPersonalEmissionRate = await ashContract.getPersonalEmissionRate(YFKA_POOL_INDEXES.XAMP, account).call();
+	const xampPersonalEmissionRate = await ashContract.methods.getPersonalEmissionRate(YFKA_POOL_INDEXES.XAMP, account).call();
 
 	let emissionRateToReadableXAMP = twoDecimals((xampPersonalEmissionRate / (10 ** 18)/2)* 100);
 	if (emissionRateToReadableXAMP < 0) {
@@ -331,7 +331,7 @@ const updateUserStats = async () => {
 
 
 	// TOB Personal emission rate
-	const tobPersonalEmissionRate = await ashContract.getPersonalEmissionRate(YFKA_POOL_INDEXES.TOB, account).call();
+	const tobPersonalEmissionRate = await ashContract.methods.getPersonalEmissionRate(YFKA_POOL_INDEXES.TOB, account).call();
 	let emissionRateToReadableTob = twoDecimals((tobPersonalEmissionRate / (10 ** 18)/2)* 100);
 	if (emissionRateToReadableTob < 0) {
 		emissionRateToReadableTob = 0;
@@ -342,7 +342,7 @@ const updateUserStats = async () => {
 	$('#personal-emission-TOB').html(`${emissionRateToReadableTob}`);
 
 	// BOA Personal emission rate
-	const boaPersonalEmissionRate = await ashContract.getPersonalEmissionRate(YFKA_POOL_INDEXES.BOA, account).call();
+	const boaPersonalEmissionRate = await ashContract.methods.getPersonalEmissionRate(YFKA_POOL_INDEXES.BOA, account).call();
 	let emissionRateToReadableBoa = twoDecimals((boaPersonalEmissionRate / (10 ** 18)/2)* 100);
 	if (emissionRateToReadableBoa < 0) {
 		emissionRateToReadableBoa = 0;
@@ -353,7 +353,7 @@ const updateUserStats = async () => {
 	$('#personal-emission-BOA').html(`${emissionRateToReadableBoa}`);
 
 	// ETH Personal emission rate
-	const ethPersonalEmissionRate = await ashContract.getPersonalEmissionRate(YFKA_POOL_INDEXES.ETH, account).call();
+	const ethPersonalEmissionRate = await ashContract.methods.getPersonalEmissionRate(YFKA_POOL_INDEXES.ETH, account).call();
 	let emissionRateToReadableEth = twoDecimals((ethPersonalEmissionRate / (10 ** 18)/2)* 100);
 	if (emissionRateToReadableEth < 0) {
 		emissionRateToReadableEth = 0;
@@ -365,37 +365,38 @@ const updateUserStats = async () => {
 
 
 
+	// TODO 18 decimals?
+	// current LP Tokens
+	// XAMP
+	const xampLpBalance = await ashContract.methods.stakes(YFKA_POOL_INDEXES.XAMP, account).call();
+	const XAMPBalance = fourDecimals(xampLpBalance / (10 ** 18));
+	console.log('Staked XAMP: ', XAMPBalance);
+	$('#balance-LP-XAMP').html(XAMPBalance);
 
-	//current LP Tokens
-	var XAMPbalance = 0;
-	await ashContract.stakes(0, account, function (err, res) {
-		XAMPbalance = fourDecimals(res / (10 ** 18));
-		console.log('Staked XAMP: ', XAMPbalance);
-		$('#balance-LP-XAMP').html(`${XAMPbalance}`);
-	});
-	var TOBbalance = 0;
-	await ashContract.stakes(1, account, function (err, res) {
-		TOBbalance = fourDecimals(res / (10 ** 18));
-		console.log('Staked TOB: ', TOBbalance);
-		$('#balance-LP-TOB').html(`${TOBbalance}`);
-	});
-	var BOAbalance = 0;
-	await ashContract.stakes(2, account, function (err, res) {
-		BOAbalance = fourDecimals(res / (10 ** 18));
-		console.log('Staked BOA: ', BOAbalance);
-		$('#balance-LP-BOA').html(`${BOAbalance}`);
-	});
-	var ETHbalance = 0;
-	await ashContract.stakes(3, account, function (err, res) {
-		ETHbalance = fourDecimals(res / (10 ** 18));
-		console.log('Staked ETH: ', ETHbalance);
-		$('#balance-LP-ETH').html(`${ETHbalance}`);
-	});
+	// TOB
+	const tobLpBalance = await ashContract.methods.stakes(YFKA_POOL_INDEXES.TOB, account).call();
+	const TOBBalance = fourDecimals(tobLpBalance / (10 ** 18));
+	console.log('Staked TOB: ', TOBBalance);
+	$('#balance-LP-TOB').html(TOBBalance);
+
+	// OBA
+	const boaLpBalance = await ashContract.methods.stakes(YFKA_POOL_INDEXES.BOA, account).call();
+	const BOABalance = fourDecimals(boaLpBalance / (10 ** 18));
+	console.log('Staked BOA: ', BOABalance);
+	$('#balance-LP-BOA').html(BOABalance);
+
+	// ETH
+	const ethLpBalance = await ashContract.methods.stakes(YFKA_POOL_INDEXES.ETH, account).call();
+	const ETHBalance = fourDecimals(ethLpBalance / (10 ** 18));
+	console.log('Staked ETH: ', ETHBalance);
+	$('#balance-LP-ETH').html(ETHBalance);
+
+
 	//% of pool
 	const TotalBalances = await getTotalBalances();
 
 	//XAMP
-	const TotalXAMPbalance = await TotalBalances.XAMP;
+	const TotalXAMPbalance = TotalBalances.XAMP;
 	const percentXAMP = (XAMPbalance/TotalXAMPbalance) *100;
 	console.log("XAMP Balance = ", XAMPbalance);
 	console.log("XAMP Total =", TotalXAMPbalance);
@@ -407,7 +408,7 @@ const updateUserStats = async () => {
 	$('#total-LP-XAMP').html(`${readableTotalXAMP}`);
 
 	//TOB
-	const TotalTOBbalance = await TotalBalances.TOB;
+	const TotalTOBbalance = TotalBalances.TOB;
 	const percentTOB = (TOBbalance/TotalTOBbalance) *100;
 	console.log("TOB Balance = ", TOBbalance);
 	console.log("TOB Total =", TotalTOBbalance);
@@ -418,7 +419,7 @@ const updateUserStats = async () => {
 	$('#total-LP-TOB').html(`${readableTotalTOB}`);
 
 	//BOA
-	const TotalBOAbalance = await TotalBalances.BOA;
+	const TotalBOAbalance = TotalBalances.BOA;
 	const percentBOA = (BOAbalance/TotalBOAbalance) *100;
 	var readableTotalBOA = twoDecimals(TotalBOAbalance);
 	var readablePercentageBOA = fourDecimals(percentBOA);
@@ -428,7 +429,7 @@ const updateUserStats = async () => {
 	$('#total-LP-BOA').html(`${readableTotalBOA}`);
 
 	//ETH
-	const TotalETHbalance = await TotalBalances.ETH;
+	const TotalETHbalance = TotalBalances.ETH;
 	const percentETH = (ETHbalance/TotalETHbalance) *100;
 	var readableTotalETH = twoDecimals(TotalETHbalance);
 	var readablePercentageETH = fourDecimals(percentETH);
@@ -690,7 +691,7 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	return balance || '';
 	});
 
-	ashContract.getPersonalEmissionRate(payload, account, function (err, res) {
+	ashContract.methods.getPersonalEmissionRate(payload, account, function (err, res) {
 		console.log("Personal Emission: " + res/ 10**18);
 		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
 		console.log('emissionRateToHuman: ', emissionRateToHuman);
