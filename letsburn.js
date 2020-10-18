@@ -686,7 +686,7 @@ $('#unstakeBTN').click(async () => {
   const value = $('[name=unstake][type=radio]:checked').val();
   const idx = getIndexBySymbol(value);
 
-	var amount = $('#stake-input').val();
+	var amount = $('#unstake-input').val();
 	amount = _.toInteger(amount) * 10**18;
 	ashContract.unstake(idx, amount, function (err, res) {
 		console.log("https://etherscan.io/tx/" + res);
