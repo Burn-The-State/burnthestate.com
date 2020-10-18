@@ -748,7 +748,7 @@ $('input[type=radio][name=unstake]').change(async (event) => {
 	var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
 	var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
 
-	await ashContract.stake(idx, account, function (err, res) {
+	await ashContract.stakes(idx, account, function (err, res) {
 		balance = fourDecimals(res / (10 ** 18));
 		console.log('Staked XAMP: ', balance);
 		$('#unstake-input').val(`${balance}`);
