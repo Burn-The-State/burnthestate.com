@@ -901,8 +901,9 @@ const getIndexBySymbol = (value) => {
   return YFKA_POOL_INDEXES[value];
 };
 
-function twoDecimals(number) {
-	return number;
+function twoDecimals(b) {
+	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
+	return balance;
 	// TODO add this back + test
   //returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
   const newNumber = Math.floor((number + Number.EPSILON) * 100) / 100;
