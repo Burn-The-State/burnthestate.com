@@ -34,6 +34,7 @@ mark
 #connectToMetamask
 {
 	background-color: #000;
+	font-size: 1em;
 }
 
 
@@ -47,6 +48,24 @@ mark
 	background-position: top center;
 	color: #fff;
 	border: 0px !important;
+}
+
+#header
+{
+	background-color: #000;
+	color: #fff;
+}
+
+#header a
+{
+	color: #fff;
+	text-decoration: underline;
+}
+
+#header a:hover
+{
+	color: #fff;
+	text-decoration: underline;
 }
 
 #buy
@@ -321,6 +340,7 @@ mark
 	margin-right: 15px;
 }
 
+
 .icon-fire
 {
 	width: 15px;
@@ -345,7 +365,7 @@ mark
 
 .coins
 {
-	width: 70px;
+	width: 70%;
 	margin-right: 7px;
 	padding-top: 15px;
 }
