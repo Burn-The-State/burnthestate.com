@@ -903,8 +903,8 @@ const getIndexBySymbol = (value) => {
 
 
 function twoDecimals(b) {
-	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
-	return balance;
+	// const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
+	return b; // balance;
 	// TODO add this back + test
   //returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
   const newNumber = Math.floor((number + Number.EPSILON) * 100) / 100;
@@ -912,8 +912,8 @@ function twoDecimals(b) {
 }
 
 function fourDecimals(b) {
-	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
-	return balance;
+	// const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
+	return b; // balance;
 	// TODO add this back + test
   console.log('input number:', number);
   //returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
