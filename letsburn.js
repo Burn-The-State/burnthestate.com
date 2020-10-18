@@ -1209,7 +1209,7 @@ const updateUserStats = async () => {
   if (bonusPoolIdx == YFKA_POOL_INDEXES.ETH) {
     emissionRateToReadableEth = emissionRateToReadableEth * 2;
   }
-  $('#personal-emission-ETH').html(`${_.ceil(emissionRateToReadableEth)}`);
+  $('#personal-emission-ETH').html(`${_.ceil(emissionRateToReadableEth / 2)}`);
 
   // TODO 18 decimals?
   // current LP Tokens
