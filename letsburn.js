@@ -118,6 +118,10 @@ const getAccount = async () => {
   return provider.utils.toChecksumAddress(accounts[0]);
 }
 
+const getIndexBySymbol = (value) => {
+	return YFKA_POOL_INDEXES[value];
+}
+
 /* NOT WOKRING NEEDS WORK
 const getReward = async () =>{
 	var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
@@ -302,15 +306,23 @@ const updateUserStats = async () => {
 	// TODO (!!) dont hardcode 18 decimals, call teh conntracts for it like getTotalBalances
 	//current Rewards
 	const xampReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP).call();
+	console.log('xampReward: ', xampReward);
+	console.log('xampReward: ', xampReward / (10**18));
 	$('#reward-XAMP').html(twoDecimals(xampReward / (10**18)));
 
 	const tobReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.TOB).call();
+	console.log('tobReward: ', tobReward);
+	console.log('tobReward: ', tobReward / (10**18));
 	$('#reward-TOB').html(twoDecimals(tobReward / (10**18)));
 
 	const boaReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA).call();
+	console.log('boaReward: ', boaReward);
+	console.log('boaReward: ', boaReward / (10**18));
 	$('#reward-BOA').html(twoDecimals(boaReward / (10**18)));
 
 	const ethReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.ETH).call();
+	console.log('ethReward: ', ethReward);
+	console.log('ethReward: ', ethReward / (10**18));
 	$('#reward-ETH').html(twoDecimals(ethReward / (10**18)));
 
 
@@ -551,7 +563,7 @@ function waitForApproval(tx, ashContract, payload, amount) {
 				console.log("Calling: Stake ");
       	ashContract.stake(payload, amount, function (err, res) {
 
-          document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
+          document.getElementById("stakeReceipt").innerHTML = '<a target="_blank" href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
           document.getElementById("stakeReceipt").style.opacity = "1";
           // updatePoolBalances();
       	});
@@ -659,52 +671,33 @@ window.addEventListener('load', async (event) => {
 $('input[type=radio][name=redeem]').change(async (event) => {
 	console.log('change radio redeem');
 	const value = $('[name=redeem][type=radio]:checked').val();
-	var payload;
 	const account = await getAccount();
 	const globalEmissionRate = await getGlobalEmissionRate();
 	const bonusEmissionRate = globalEmissionRate*2;
 	$('#coin-emission').html(`${globalEmissionRate}`);
-	const bonusAddress = await getBonusPool();
-//	const testing = getReward();
-//	const test = testing['XAMP'];
-//	console.log("TEST: ", test);
-	if(value == "XAMP"){
-		payload = 0;
-	}
-	else if(value == "TOB"){
-		payload = 1;
-	}
-	else if(value == "BOA")
-	{
-		payload = 2;
-	}
-	else if(value == "ETH"){
-		payload = 3;
-	}
-	console.log('Selected Coin: ',value,";Payload: ",payload);
+
+	const idx = getIndexBySymbol(value);
+	console.log('Selected Coin: ',value,";idx: ",idx);
 
 
-	ashContract.getCurrentReward(payload, function (err, res) {
-		console.log("Number Redeemed: " + res / 10**18);
-		const balance = fourDecimals(res / 10**18);
+	const ashContract = yfkaControllerContract();
+	const currentReward = await ashContract.methods.getCurrentReward(idx).call();
+	console.log("Number Redeemed: " + currentReward / 10**18);
+	const balance = fourDecimals(currentReward / 10**18);
 	$('#redeem-amount').html(`${balance}`);
 	$('#redeem-amount-button').html(`${balance}`);
-	return balance || '';
-	});
 
-	ashContract.methods.getPersonalEmissionRate(payload, account, function (err, res) {
-		console.log("Personal Emission: " + res/ 10**18);
-		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
-		console.log('emissionRateToHuman: ', emissionRateToHuman);
+	const personalEmission = ashContract.methods.getPersonalEmissionRate(idx, account).call();
+	console.log("Personal Emission: " + personalEmission / 10**18);
+	const emissionRateToHuman = (personalEmission / (10 ** 18)/2)*100;
+	console.log('emissionRateToHuman: ', emissionRateToHuman);
 
-		var emissionRateToReadable = twoDecimals(emissionRateToHuman);
-		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
-		console.log('emissionRateToReadable: ', emissionRateToReadable);
-		$('#personal-emission').html(`${emissionRateToReadable}`);
-	});
-
-
-
+	var emissionRateToReadable = twoDecimals(emissionRateToHuman);
+	if (emissionRateToReadable < 0) {
+		emissionRateToReadable = 0;
+	}
+	console.log('emissionRateToReadable: ', emissionRateToReadable);
+	$('#personal-emission').html(`${emissionRateToReadable}`);
 
 });
 
@@ -742,20 +735,20 @@ document.getElementById("unstakeButton").addEventListener('click', async () => {
 */
 
 
+
 $('input[type=radio][name=unstake]').change(async (event) => {
 	console.log('change radio unstake');
 	const value = $('[name=unstake][type=radio]:checked').val();
-	var payload;
 	const account = await getAccount();
-	if(value == "XAMP") payload = 0;
-	else if(value == "TOB") payload = 1;
-	else if(value == "BOA") payload = 2;
-	else if(value == "ETH") payload = 3;
-	console.log('Selected Coin: ',value,";Payload: ",payload);
+	const idx = getIndexBySymbol(value);
+	console.log('Selected Coin: ',value,";Payload: ",idx);
 
 	var balance;
 
-	await ashContract.stakes(payload, account, function (err, res) {
+	var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+	var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
+
+	await ashContract.stake(idx, account, function (err, res) {
 		balance = fourDecimals(res / (10 ** 18));
 		console.log('Staked XAMP: ', balance);
 		$('#unstake-input').val(`${balance}`);
@@ -766,74 +759,33 @@ $('input[type=radio][name=unstake]').change(async (event) => {
 
 
 $('#unstakeBTN').click(async () => {
-    var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-      var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
-
+	var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+	var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
 
   console.log('unstake btn click');
   const value = $('[name=unstake][type=radio]:checked').val();
-  var payload;
-  //PULL uniInstance info from radio button.
-  switch (value){
-	case 'XAMP':
-		  payload =0;
-		break;
-	case 'TOB':
-		  payload =1;
-		break;
-	case 'BOA':
-		  payload =2;
-		break;
-	case 'ETH':
-		  payload =3;
-		break;
-	default:
-		//do Nothing
-		console.log('Nothing Selected:');
-		break;
-  }
-	var amount = $('#stake-input').val();
-	amount =  amount * 10**18;
-      ashContract.unstake(payload,amount, function (err, res) {
-				console.log("https://etherscan.io/tx/" + res);
-        document.getElementById("unstakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res  +'">Unstake Receipt</a>';
-        document.getElementById("unstakeReceipt").style.opacity = "1";
-	});
+  const idx = getIndexBySymbol(value);
 
+	var amount = $('#stake-input').val();
+	amount = amount * 10**18;
+	ashContract.unstake(idx, amount, function (err, res) {
+		console.log("https://etherscan.io/tx/" + res);
+		document.getElementById("unstakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res  +'">Unstake Receipt</a>';
+		document.getElementById("unstakeReceipt").style.opacity = "1";
+	});
 });
 
 
 $('#redeemBTN').click(async () => {
-    var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-      var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
-
+	var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+	var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
 
   console.log('Redeem btn click');
   const value = $('[name=redeem][type=radio]:checked').val();
-  var payload;
-  //PULL uniInstance info from radio button.
-  switch (value){
-	case 'XAMP':
-		  payload =0;
-		break;
-	case 'TOB':
-		  payload =1;
-		break;
-	case 'BOA':
-		  payload =2;
-		break;
-	case 'ETH':
-		  payload =3;
-		break;
-	default:
-		//do Nothing
-		console.log('Nothing Selected:');
-		break;
-  }
+  const idx = getIndexBySymbol(value);
 
-	ashContract.redeem(payload, function (err, res) {
-        document.getElementById("withdrawResult").innerHTML = '<a href="https://etherscan.io/tx/"' + res  +'">Withdraw Receipt</a>';
-        document.getElementById("withdrawResult").style.opacity = "1";
-			});
-
+	ashContract.redeem(idx, function (err, res) {
+		document.getElementById("withdrawResult").innerHTML = '<a href="https://etherscan.io/tx/"' + res  +'">Withdraw Receipt</a>';
+		document.getElementById("withdrawResult").style.opacity = "1";
+	});
 });
