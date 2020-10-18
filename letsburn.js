@@ -500,7 +500,7 @@ await updateUserStats();
   $('#global-rate').html(`${globalEmissionRate}%`);
   $('#bonus-global-rate').html(`${bonusEmissionRate}%`);
 
-  $('#eth-apy').html(`${globalEmissionRate}`);
+  $('#eth-apy').html(`${globalEmissionRate / 2}`);
   $('#xamp-apy').html(`${globalEmissionRate}`);
   $('#tob-apy').html(`${globalEmissionRate}`);
   $('#boa-apy').html(`${globalEmissionRate}`);
