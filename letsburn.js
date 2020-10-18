@@ -20,6 +20,13 @@ const POOLS = [
   PAIRS.YFKA_ETH,
 ]
 
+const YFKA_POOL_INDEXES = {
+	XAMP: 0,
+	TOB: 1,
+	BOA: 2,
+	ETH: 3,
+}
+
 const UNISWAP_BASE_LP_ABI = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}];
 
 const YFKA_CONTROLLER_ADDRESS = "0x615983a35CF71D89F1B094e920151d7eA9Bf48bc";
@@ -86,7 +93,7 @@ const STANDARD_ERC20_ABI = JSON.parse(JSON.stringify([
 ]));
 
 const YFKA_CONTROLLER_ABI = [{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"previousPool","type":"uint256"},{"indexed":true,"internalType":"uint256","name":"newPool","type":"uint256"}],"name":"BonusPoolChange","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"previousRate","type":"uint256"},{"indexed":true,"internalType":"uint256","name":"newRate","type":"uint256"}],"name":"EmissionRateCut","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"_getBlocksSinceLastReduction","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"_getNextRateReduction","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"_getTotalNextRateReduction","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"_owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"addWhitelist","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"blocks_per_year","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decayDivisor","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decayPercent","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"emissionRate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getActivePool","outputs":[{"internalType":"uint8","name":"idx","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"}],"name":"getCurrentReward","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"}],"name":"getCurrentRewardPerYear","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"}],"name":"getLastBlockWithdrawn","outputs":[{"internalType":"uint256","name":"reward","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"},{"internalType":"address","name":"_addr","type":"address"}],"name":"getPersonalEmissionRate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lastBlockUpdated","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"","type":"uint8"},{"internalType":"address","name":"","type":"address"}],"name":"lastBlockWithdrawn","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"minimum_stake","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"multiplier","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"","type":"uint8"},{"internalType":"address","name":"","type":"address"}],"name":"personalEmissions","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"}],"name":"personalYFKAStaked","outputs":[{"internalType":"uint256","name":"points","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"pools","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"}],"name":"redeem","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"setOpen","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"},{"internalType":"address","name":"_addr","type":"address"}],"name":"setPool","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_addr","type":"address"}],"name":"setYFKA","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint8","name":"","type":"uint8"},{"internalType":"address","name":"","type":"address"}],"name":"stakes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"}],"name":"totalYFKAStaked","outputs":[{"internalType":"uint256","name":"points","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_addr","type":"address"}],"name":"transferOwnershipOfYFKA","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"yfka","outputs":[{"internalType":"contract IYFKA","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"idx","type":"uint8"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"yfkaPerLP","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
-const ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI, YFKA_CONTROLLER_ADDRESS);
+// const ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI, YFKA_CONTROLLER_ADDRESS);
 
 // HELPERS
 const isConnected = () => {
@@ -156,6 +163,7 @@ function twoDecimals(number){
 	const newNumber = Math.floor((number+ Number.EPSILON) * 100)/100;
 	return newNumber;
 }
+
 function fourDecimals(number){
 	console.log("input number:",number);
 	//returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
@@ -186,10 +194,11 @@ function fourDecimals(number){
 	}
 
 }
+
 const getTotalBalances = async () => {
   console.log('getBalances');
-  const account = await getAccount();
-  if (!account) return null;
+  // const account = await getAccount();
+  // if (!account) return null;
 
   const provider = getInfuraProvider();
 
@@ -284,76 +293,78 @@ const getPoolBalances = async () => {
   }
 }
 
+// TODO wrap in a try block
 const updateUserStats = async () => {
 	const account = await getAccount();
 
+	const ashContract = yfkaControllerContract();
+
+	// TODO (!!) dont hardcode 18 decimals, call teh conntracts for it like getTotalBalances
 	//current Rewards
-	ashContract.getCurrentReward(0, function (err, res) {
-		const balance = twoDecimals(res / (10**18));
-	$('#reward-XAMP').html(`${balance}`);
-	});
-	ashContract.getCurrentReward(1, function (err, res) {
-		const balance = twoDecimals(res / (10**18));
-	$('#reward-TOB').html(`${balance}`);
-	});
-	ashContract.getCurrentReward(2, function (err, res) {
-		const balance = twoDecimals(res / (10**18));
-	$('#reward-BOA').html(`${balance}`);
-	});
-	ashContract.getCurrentReward(3, function (err, res) {
-		const balance = twoDecimals(res / (10**18));
-	$('#reward-ETH').html(`${balance}`);
-	});
+	const xampReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP).call();
+	$('#reward-XAMP').html(twoDecimals(xampReward / (10**18)));
 
-	//Emission Rates
-	const bonusAddress = await getBonusPool();
-	var BonusPool = "";
-	  switch (bonusAddress) {
-	    case PAIRS.YFKA_XAMP:
-		BonusPool = "XAMP";
-	      break;
-	    case PAIRS.YFKA_TOB:
-		BonusPool = "TOB";
-	      break;
-	    case PAIRS.YFKA_BOA:
-		BonusPool = "BOA";
-	      break;
-	    case PAIRS.YFKA_ETH:
-	    default:
-	      // Dont do shit
-	      break;
-	  }
+	const tobReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.TOB).call();
+	$('#reward-TOB').html(twoDecimals(tobReward / (10**18)));
+
+	const boaReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA).call();
+	$('#reward-BOA').html(twoDecimals(boaReward / (10**18)));
+
+	const ethReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.ETH).call();
+	$('#reward-ETH').html(twoDecimals(ethReward / (10**18)));
+
+
+  const bonusPoolIdx = await ashContract.methods.getActivePool().call();
+
+	// XAMP Personal emission rate
+	const xampPersonalEmissionRate = await ashContract.getPersonalEmissionRate(YFKA_POOL_INDEXES.XAMP, account).call();
+
+	let emissionRateToReadableXAMP = twoDecimals((xampPersonalEmissionRate / (10 ** 18)/2)* 100);
+	if (emissionRateToReadableXAMP < 0) {
+		emissionRateToReadableXAMP = 0;
+	}
+	if (bonusPoolIdx === YFKA_POOL_INDEXES.XAMP)  {
+		emissionRateToReadableXAMP = emissionRateToReadableXAMP * 2;
+	}
+	$('#personal-emission-XAMP').html(`${emissionRateToReadableXAMP}`);
 
 
 
+	// TOB Personal emission rate
+	const tobPersonalEmissionRate = await ashContract.getPersonalEmissionRate(YFKA_POOL_INDEXES.TOB, account).call();
+	let emissionRateToReadableTob = twoDecimals((tobPersonalEmissionRate / (10 ** 18)/2)* 100);
+	if (emissionRateToReadableTob < 0) {
+		emissionRateToReadableTob = 0;
+	}
+	if (bonusPoolIdx === YFKA_POOL_INDEXES.TOB)  {
+		emissionRateToReadableTob = emissionRateToReadableTob * 2;
+	}
+	$('#personal-emission-TOB').html(`${emissionRateToReadableTob}`);
 
-	ashContract.getPersonalEmissionRate(0, account, function (err, res) {
-		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
-		var emissionRateToReadableXAMP = twoDecimals(emissionRateToHuman);
-		if (emissionRateToReadableXAMP < 0) {emissionRateToReadableXAMP = 0;}
-		if (BonusPool == "XAMP" ) emissionRateToReadableXAMP = emissionRateToReadableXAMP*2;
-		$('#personal-emission-XAMP').html(`${emissionRateToReadableXAMP}`);
-	});
-	ashContract.getPersonalEmissionRate(1, account, function (err, res) {
-		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
-		var emissionRateToReadableTOB = twoDecimals(emissionRateToHuman);
-		if (emissionRateToReadableTOB < 0) {emissionRateToReadableTOB = 0;}
-		if (BonusPool == "TOB" ) emissionRateToReadableTOB = emissionRateToReadableTOB*2;
-		$('#personal-emission-TOB').html(`${emissionRateToReadableTOB}`);
-	});
-	ashContract.getPersonalEmissionRate(2, account, function (err, res) {
-		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
-		var emissionRateToReadableBOA = twoDecimals(emissionRateToHuman);
-		if (emissionRateToReadableBOA < 0) {emissionRateToReadableBOA = 0;}
-		if (BonusPool == "BOA" ) emissionRateToReadableBOA = emissionRateToReadableBOA*2;
-		$('#personal-emission-BOA').html(`${emissionRateToReadableBOA}`);
-	});
-	ashContract.getPersonalEmissionRate(3, account, function (err, res) {
-		const emissionRateToHuman = (res / (10 ** 18)/2)*100;
-		const emissionRateToReadable = twoDecimals(emissionRateToHuman);
-		if (emissionRateToReadable < 0) {emissionRateToReadable = 0;}
-		$('#personal-emission-ETH').html(`${emissionRateToReadable}`);
-	});
+	// BOA Personal emission rate
+	const boaPersonalEmissionRate = await ashContract.getPersonalEmissionRate(YFKA_POOL_INDEXES.BOA, account).call();
+	let emissionRateToReadableBoa = twoDecimals((boaPersonalEmissionRate / (10 ** 18)/2)* 100);
+	if (emissionRateToReadableBoa < 0) {
+		emissionRateToReadableBoa = 0;
+	}
+	if (bonusPoolIdx === YFKA_POOL_INDEXES.BOA)  {
+		emissionRateToReadableBoa = emissionRateToReadableBoa * 2;
+	}
+	$('#personal-emission-BOA').html(`${emissionRateToReadableBoa}`);
+
+	// ETH Personal emission rate
+	const ethPersonalEmissionRate = await ashContract.getPersonalEmissionRate(YFKA_POOL_INDEXES.ETH, account).call();
+	let emissionRateToReadableEth = twoDecimals((ethPersonalEmissionRate / (10 ** 18)/2)* 100);
+	if (emissionRateToReadableEth < 0) {
+		emissionRateToReadableEth = 0;
+	}
+	if (bonusPoolIdx === YFKA_POOL_INDEXES.ETH)  {
+		emissionRateToReadableEth = emissionRateToReadableEth * 2;
+	}
+	$('#personal-emission-ETH').html(`${emissionRateToReadableEth}`);
+
+
+
 
 	//current LP Tokens
 	var XAMPbalance = 0;
