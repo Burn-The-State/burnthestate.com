@@ -580,7 +580,7 @@ function waitForApproval(tx, ashContract, payload, amount) {
 				console.log("Calling: Stake ");
       	ashContract.stake(payload, amount, function (err, res) {
 
-          document.getElementById("stakeReceipt").innerHTML = '<a target="_blank" href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
+          document.getElementById("stakeReceipt").innerHTML = '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
           document.getElementById("stakeReceipt").style.opacity = "1";
           // updatePoolBalances();
       	});
@@ -720,39 +720,6 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 
 });
 
-/*
-// UNSTAKE
-// EXECUTE UNSTAKE FUNCTION
-document.getElementById("unstakeButton").addEventListener('click', async () => {
-    // Modern dapp browsers...
-    if (web3.isConnected) {
-    	var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-      var ashContract = ashContract.at(ashAddress);
-
-      var e = document.getElementById("selectedTokenUnstake");
-      var value = e.options[e.selectedIndex].value;
-
-      var payload;
-
-			if(value == "XAMP") payload = 0;
-      else if(value == "TOB") payload = 1;
-      else if(value == "BOA") payload = 2;
-      else if(value == "ETH") payload = 3;
-
-
-      ashContract.unstake(payload,document.getElementById("unstakeAmount").value * 10**18, function (err, res) {
-				console.log("https://etherscan.io/tx/" + res);
-        document.getElementById("unstakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res  +'">Unstake Receipt</a>';
-        document.getElementById("unstakeReceipt").style.opacity = "1";
-			});
-    }
-
-});
-
-
-
-*/
-
 
 
 $('input[type=radio][name=unstake]').change(async (event) => {
@@ -789,7 +756,7 @@ $('#unstakeBTN').click(async () => {
 	amount = amount * 10**18;
 	ashContract.unstake(idx, amount, function (err, res) {
 		console.log("https://etherscan.io/tx/" + res);
-		document.getElementById("unstakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res  +'">Unstake Receipt</a>';
+		document.getElementById("unstakeReceipt").innerHTML = '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res  +'">Unstake Receipt</a>';
 		document.getElementById("unstakeReceipt").style.opacity = "1";
 	});
 });
@@ -804,7 +771,7 @@ $('#redeemBTN').click(async () => {
   const idx = getIndexBySymbol(value);
 
 	ashContract.redeem(idx, function (err, res) {
-		document.getElementById("withdrawResult").innerHTML = '<a href="https://etherscan.io/tx/"' + res  +'">Withdraw Receipt</a>';
+		document.getElementById("withdrawResult").innerHTML = '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/"' + res  +'">Withdraw Receipt</a>';
 		document.getElementById("withdrawResult").style.opacity = "1";
 	});
 });
