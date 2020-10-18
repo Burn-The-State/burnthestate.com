@@ -363,7 +363,7 @@ const updateUserStats = async () => {
 	if (emissionRateToReadableTob < 0) {
 		emissionRateToReadableTob = 0;
 	}
-	console.log('emissionRateToReadableTob: ', emissionRateToReadableTob);
+	console.log('bonusPoolIdx: ', bonusPoolIdx);
 	console.log('YFKA_POOL_INDEXES.TOB: ', YFKA_POOL_INDEXES.TOB);
 	if (bonusPoolIdx === YFKA_POOL_INDEXES.TOB)  {
 		emissionRateToReadableTob = emissionRateToReadableTob * 2;
