@@ -648,10 +648,10 @@ window.addEventListener('load', async (event) => {
     // Set defaults
     const poolBalances = await getPoolBalances();
     // TODO use const
-    const balance = twoDecimals(poolBalances['XAMP']);
-    $('#stake-input').val(`${balance}`);
-    $('#stake-input').attr('placeholder', `${balance}`);
-    $('#stake-balance').html(`${balance}`);
+		const balance = poolBalances.XAMP;
+    $('#stake-input').val(balance);
+    // $('#stake-input').attr('placeholder', `${balance}`);
+    $('#stake-balance').html(balance);
     console.log(poolBalances);
 });
 
