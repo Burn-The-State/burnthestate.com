@@ -1367,27 +1367,18 @@ function waitForApproval(tx, ashContract, payload, amount) {
   });
 }
 
-const setUnstakeBalance = async () => {
-  const value = $('[name=unstake][type=radio]:checked').val();
-  const account = await getAccount();
-  const idx = getIndexBySymbol(value);
-  console.log('Selected Coin: ', value, ';Payload: ', idx);
-
-  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
-// const res = await ashContract.stakes(idx, account).call();
-  await ashContract.stakes(idx, account, function (err, res) {
-		console.log(res);
-		console.log(_.toNumber(res));
-		console.log('_.toInteger(res)');
-		console.log(_.toInteger(res));
-
-		const balance = fourDecimals(_.toNumber(res) / 10 ** 18);
-    console.log('Staked XAMP: ', balance);
-    $('#unstake-input').val(`${balance}`);
-    $('#unstake-input').attr('placeholder', `${balance}`);
-    $('#unstake-balance').html(`${balance}`);
-  });
+const setStakeBalance = async (event)=> {
+  console.log('change radio stake');
+  const balances = await getPoolBalances();
+  console.log('balances: ', balances);
+  // const balance = twoDecimals(balances[event.currentTarget.value]);
+  const balance = balances[event.currentTarget.value];
+  console.log('balance: ', balance);
+  // TODO
+  $('#stake-input').val(balance);
+  // $('#stake-input').attr('placeholder', `${balance}`);
+  $('#stake-balance').html(balance);
+  return balance || '';
 };
 
 const setRedeemBalance = async () => {
@@ -1427,19 +1418,30 @@ const setRedeemBalance = async () => {
   $('#personal-emission').html(`${emissionRateToReadable}`);
 };
 
-const setStakeBalance = async (event)=> {
-  console.log('change radio stake');
-  const balances = await getPoolBalances();
-  console.log('balances: ', balances);
-  // const balance = twoDecimals(balances[event.currentTarget.value]);
-  const balance = balances[event.currentTarget.value];
-  console.log('balance: ', balance);
-  // TODO
-  $('#stake-input').val(balance);
-  // $('#stake-input').attr('placeholder', `${balance}`);
-  $('#stake-balance').html(balance);
-  return balance || '';
+const setUnstakeBalance = async () => {
+  const value = $('[name=unstake][type=radio]:checked').val();
+  const account = await getAccount();
+  const idx = getIndexBySymbol(value);
+  console.log('Selected Coin: ', value, ';Payload: ', idx);
+
+  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+  ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
+// const res = await ashContract.stakes(idx, account).call();
+  await ashContract.stakes(idx, account, function (err, res) {
+		console.log(res);
+		console.log(_.toNumber(res));
+		console.log('_.toInteger(res)');
+		console.log(_.toInteger(res));
+
+		const _balance = fourDecimals(_.toNumber(res) / 10 ** 18);
+		const balance = Number(_balance).toLocaleString('fullwide', {useGrouping:false});
+    console.log('Staked XAMP: ', balance);
+    $('#unstake-input').val(`${balance}`);
+    $('#unstake-input').attr('placeholder', `${balance}`);
+    $('#unstake-balance').html(`${balance}`);
+  });
 };
+
 
 /*
 *
