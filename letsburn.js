@@ -501,6 +501,8 @@ const updateActivePool = async () => {
 
 function waitForApproval(tx, ashContract, payload, amount) {
 	web3.eth.getTransaction(tx, function (err, response) {
+		console.log('response: ', response);
+		console.log('err: ', response);
 		if (!response || !_.isNil(response.blockNumber) || err) {
 			setTimeout(() => {
 				waitForApproval(tx, ashContract, payload, amount);
