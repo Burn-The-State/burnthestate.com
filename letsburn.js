@@ -901,7 +901,6 @@ const getIndexBySymbol = (value) => {
   return YFKA_POOL_INDEXES[value];
 };
 
-
 function twoDecimals(b) {
 	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
 	return _.toNumber(balance);
