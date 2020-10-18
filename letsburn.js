@@ -319,7 +319,7 @@ const updateUserStats = async () => {
 	console.log('tobReward: ', tobReward);
 	console.log('tobReward: ', tobReward / (10**18));
 	// $('#reward-TOB').html(twoDecimals(tobReward / (10**18)));
-	$('#reward-TOB').html(_.toInteger)(tobReward / (10**18));
+	$('#reward-TOB').html(_.toInteger(tobReward) / (10**18));
 
 	const boaReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA).call({
 		from: account
