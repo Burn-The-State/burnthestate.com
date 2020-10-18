@@ -353,7 +353,7 @@ const updateUserStats = async () => {
 	if (bonusPoolIdx == YFKA_POOL_INDEXES.XAMP)  {
 		emissionRateToReadableXAMP = emissionRateToReadableXAMP * 2;
 	}
-	$('#personal-emission-XAMP').html(`${emissionRateToReadableXAMP}`);
+	$('#personal-emission-XAMP').html(`${_.ceil(emissionRateToReadableXAMP)}`);
 
 
 
@@ -370,7 +370,7 @@ const updateUserStats = async () => {
 	if (bonusPoolIdx == YFKA_POOL_INDEXES.TOB)  {
 		emissionRateToReadableTob = emissionRateToReadableTob * 2;
 	}
-	$('#personal-emission-TOB').html(`${emissionRateToReadableTob}`);
+	$('#personal-emission-TOB').html(`${_.ceil(emissionRateToReadableTob)}`);
 
 	// BOA Personal emission rate
 	const boaPersonalEmissionRate = await ashContract.methods.getPersonalEmissionRate(YFKA_POOL_INDEXES.BOA, account).call();
@@ -381,7 +381,7 @@ const updateUserStats = async () => {
 	if (bonusPoolIdx == YFKA_POOL_INDEXES.BOA)  {
 		emissionRateToReadableBoa = emissionRateToReadableBoa * 2;
 	}
-	$('#personal-emission-BOA').html(`${emissionRateToReadableBoa}`);
+	$('#personal-emission-BOA').html(`${_.ceil(emissionRateToReadableBoa)}`);
 
 	// ETH Personal emission rate
 	const ethPersonalEmissionRate = await ashContract.methods.getPersonalEmissionRate(YFKA_POOL_INDEXES.ETH, account).call();
@@ -392,7 +392,7 @@ const updateUserStats = async () => {
 	if (bonusPoolIdx == YFKA_POOL_INDEXES.ETH)  {
 		emissionRateToReadableEth = emissionRateToReadableEth * 2;
 	}
-	$('#personal-emission-ETH').html(`${emissionRateToReadableEth}`);
+	$('#personal-emission-ETH').html(`${_.ceil(emissionRateToReadableEth)}`);
 
 
 
@@ -498,7 +498,9 @@ const updateActivePool = async () => {
   console.log('updateActivePool');
 	const _globalEmissionRate = await getGlobalEmissionRate();
 	const globalEmissionRate = Math.ceil(_globalEmissionRate);
+
 	await updateUserStats();
+
   const bonusEmissionRate = Math.round(globalEmissionRate * 2);
   $('#global-rate').html(`${globalEmissionRate}%`);
   $('#bonus-global-rate').html(`${bonusEmissionRate}%`);
@@ -508,13 +510,14 @@ const updateActivePool = async () => {
   $('#tob-apy').html(`${globalEmissionRate}`);
   $('#boa-apy').html(`${globalEmissionRate}`);
   $('#coin-emission').html(`${globalEmissionRate}`);
-  const bonusAddress = await getBonusPool();
+
+	const bonusAddress = await getBonusPool();
   switch (bonusAddress) {
     case PAIRS.YFKA_XAMP:
       $('#bonus-global-token').html('XAMP');
       $('#xamp-apy').html(`${bonusEmissionRate}`);
       //document.getElementById('pool-XAMP').style.backgroundImage="url(imgs/fireBG3.png)"; .setAttribute("id", "div_top2");
-	document.getElementById('pool-XAMP').setAttribute("id", "bonusPool");
+			document.getElementById('pool-XAMP').setAttribute("id", "bonusPool");
       break;
     case PAIRS.YFKA_TOB:
       $('#bonus-global-token').html('TOB');
@@ -533,15 +536,7 @@ const updateActivePool = async () => {
       // Dont do shit
       break;
   }
-  // ashContract.getActivePool(function (err, res) {
-  //     if(res == 0) document.getElementById("activePool").innerHTML = "Bonus Pool: XAMP";
-  //     else if(res == 1) document.getElementById("activePool").innerHTML = "Bonus Pool: TOB";
-  //     else if(res == 2) document.getElementById("activePool").innerHTML = "Bonus Pool: BOA";
-  // });
-
 }
-
-
 
 const getYFKASupply = async () => {
 
@@ -718,7 +713,6 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 	}
 	console.log('emissionRateToReadable: ', emissionRateToReadable);
 	$('#personal-emission').html(`${emissionRateToReadable}`);
-
 });
 
 
