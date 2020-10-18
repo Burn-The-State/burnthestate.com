@@ -1370,13 +1370,17 @@ const setUnstakeBalance = async () => {
   const idx = getIndexBySymbol(value);
   console.log('Selected Coin: ', value, ';Payload: ', idx);
 
-  var balance;
-
-  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
-
+  const ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+  const ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
+// const res = await ashContract.stakes(idx, account).call();
   await ashContract.stakes(idx, account, function (err, res) {
-    balance = fourDecimals(_.toNumber(res) / 10 ** 18);
+		console.log(res);
+		console.log(_.toNumber(res));
+		console.log('_.toInteger(res)');
+		console.log(_.toInteger(res));
+
+		const _balance = fourDecimals(_.toNumber(res) / 10 ** 18);
+		const balance = Number(_balance).toLocaleString('fullwide', {useGrouping:false});
     console.log('Staked XAMP: ', balance);
     $('#unstake-input').val(`${balance}`);
     $('#unstake-input').attr('placeholder', `${balance}`);
@@ -1401,7 +1405,8 @@ const setRedeemBalance = async () => {
   const currentReward = _.toNumber(_currentReward);
 
   console.log('Number Redeemed: ' + currentReward / 10 ** 18);
-  const balance = fourDecimals(currentReward / 10 ** 18);
+	const _balance = fourDecimals(currentReward / 10 ** 18);
+	const balance = Number(_balance).toLocaleString('fullwide', {useGrouping:false});
   $('#redeem-amount').html(`${balance}`);
   $('#redeem-amount-button').html(`${balance}`);
 
@@ -1421,6 +1426,23 @@ const setRedeemBalance = async () => {
   $('#personal-emission').html(`${emissionRateToReadable}`);
 };
 
+const setStakeBalance = async (event)=> {
+	async (event) => {
+  console.log('change radio stake');
+  const balances = await getPoolBalances();
+  console.log('balances: ', balances);
+  // const balance = twoDecimals(balances[event.currentTarget.value]);
+  const balance = balances[event.currentTarget.value];
+  console.log('balance: ', balance);
+  // TODO
+  $('#stake-input').val(balance);
+  // $('#stake-input').attr('placeholder', `${balance}`);
+  $('#stake-balance').html(balance);
+  return balance || '';
+}
+
+}
+
 
 /*
 *
@@ -1434,19 +1456,12 @@ const setRedeemBalance = async () => {
 *
 */
 
-$('input[type=radio][name=stake]').change(async (event) => {
-  console.log('change radio stake');
-  const balances = await getPoolBalances();
-  console.log('balances: ', balances);
-  // const balance = twoDecimals(balances[event.currentTarget.value]);
-  const balance = balances[event.currentTarget.value];
-  console.log('balance: ', balance);
-  // TODO
-  $('#stake-input').val(balance);
-  // $('#stake-input').attr('placeholder', `${balance}`);
-  $('#stake-balance').html(balance);
-  return balance || '';
-});
+
+$('input[type=radio][name=stake]').change(setStakeBalance);
+
+$('input[type=radio][name=redeem]').change(setRedeemBalance);
+
+$('input[type=radio][name=unstake]').change(setUnstakeBalance);
 
 $('#stakeBTN').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
@@ -1503,10 +1518,22 @@ $('#stakeBTN').click(async () => {
   });
 });
 
+$('#redeemBTN').click(async () => {
+  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+  var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
-$('input[type=radio][name=redeem]').change(setRedeemBalance);
+  console.log('Redeem btn click');
+  const value = $('[name=redeem][type=radio]:checked').val();
+  const idx = getIndexBySymbol(value);
 
-$('input[type=radio][name=unstake]').change(setUnstakeBalance);
+  ashContract.redeem(idx, function (err, res) {
+		$('#redeemReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Withdraw Receipt</a>');
+		const redeemReceipt = document.getElementById('redeemReceipt');
+		if (redeemReceipt && redeemReceipt.style) {
+			document.getElementById('redeemReceipt').style.opacity = '1';
+		}
+  });
+});
 
 $('#unstakeBTN').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
@@ -1529,22 +1556,7 @@ $('#unstakeBTN').click(async () => {
   });
 });
 
-$('#redeemBTN').click(async () => {
-  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
-  console.log('Redeem btn click');
-  const value = $('[name=redeem][type=radio]:checked').val();
-  const idx = getIndexBySymbol(value);
-
-  ashContract.redeem(idx, function (err, res) {
-		$('#redeemReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Withdraw Receipt</a>');
-		const redeemReceipt = document.getElementById('redeemReceipt');
-		if (redeemReceipt && redeemReceipt.style) {
-			document.getElementById('redeemReceipt').style.opacity = '1';
-		}
-  });
-});
 
 /*
 *
@@ -1565,14 +1577,14 @@ window.addEventListener('load', async (event) => {
   $('#isConnected').html('wallet connected');
 
   await updateActivePool();
-  await updateUserStats();
-  // Set defaults
-  const poolBalances = await getPoolBalances();
-  const balance = poolBalances.XAMP;
-  $('#stake-input').val(balance);
-  $('#stake-balance').html(balance);
-  console.log(poolBalances);
+	await updateUserStats();
 
+
+	await setStakeBalance({
+		currentTarget: {
+			value: 'XAMP',
+		}
+	});
 	await setRedeemBalance();
   await setUnstakeBalance();
 });
