@@ -122,46 +122,6 @@ const getIndexBySymbol = (value) => {
 	return YFKA_POOL_INDEXES[value];
 }
 
-/* NOT WOKRING NEEDS WORK
-const getReward = async () =>{
-	var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-	var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
-
-	var xampReward = 0;
-	var tobReward = 0;
-	var boaReward = 0;
-	var ethReward = 0;
-	xampReward = await ashContract.getCurrentReward(0);
-		xampReward = xampReward / 10**18;
-		console.log("XAMP TEST: " + res / 10**18);
-
-
-	await ashContract.getCurrentReward(1, function (err, res) {
-		tobReward = res / 10**18;
-		console.log("TOB TEST: " + res / 10**18);
-	});
-
-	await ashContract.getCurrentReward(2, function (err, res) {
-		boaReward = res / 10**18;
-		console.log("BOA TEST: " + res / 10**18);
-	});
-
-	await ashContract.getCurrentReward(3, function (err, res) {
-		ethReward = res / 10**18;
-		console.log("ETH TEST: " + res / 10**18);
-	});
-	console.log("Number Redeemable: " , xampReward);
-	console.log("Number Redeemable: " , tobReward);
-	console.log("Number Redeemable: " , boaReward);
-	console.log("Number Redeemable: " , ethReward);
-  return {
-    XAMP: xampReward,
-    TOB: tobReward,
-    BOA: boaReward,
-    ETH: ethReward,
-  }
-}
-*/
 function twoDecimals(number){
 	return number;
 	//returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
@@ -200,6 +160,9 @@ function fourDecimals(number){
 	}
 
 }
+
+
+// WEB3 Wrappers
 
 const getTotalBalances = async () => {
   console.log('getBalances');
@@ -499,8 +462,6 @@ const updateActivePool = async () => {
 	const _globalEmissionRate = await getGlobalEmissionRate();
 	const globalEmissionRate = Math.ceil(_globalEmissionRate);
 
-	await updateUserStats();
-
   const bonusEmissionRate = Math.round(globalEmissionRate * 2);
   $('#global-rate').html(`${globalEmissionRate}%`);
   $('#bonus-global-rate').html(`${bonusEmissionRate}%`);
@@ -538,34 +499,6 @@ const updateActivePool = async () => {
   }
 }
 
-const getYFKASupply = async () => {
-
-}
-
-/* function waitForApproval(tx, ashContract, payload) {
- 	web3.eth.getTransaction(tx,
- 		function (err, res2) {
-
-    	if(res2['blockNumber'] == null) setTimeout(() => { waitForApproval(tx, ashContract, payload)}, 5000);
- 			else {
-       	setTimeout(() => { console.log(res2);}, 5000);
-	console.log('Approval - Success.... Moving on');
-	const amount = 	document.getElementById("stake-input").value * (10**18);
-	console.log('Input ammount -',document.getElementById("stake-input").value);
-	console.log('UNIT256 ammount -',document.getElementById("stake-input").value * (10**18));
-
-       	ashContract.stake(payload, amount, function (err, res) {
-           document.getElementById("stakeReceipt").innerHTML = '<a href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
-           document.getElementById("stakeReceipt").style.opacity = "1";
-           // updatePoolBalances();
-       	});
-       }
-
-       console.log(res2);
-   	}
- 	);
-}
-*/
 function waitForApproval(tx, ashContract, payload, amount) {
 	web3.eth.getTransaction(tx, function (err, response) {
 		if (!response || !_.isNil(response.blockNumber) || err) {
@@ -664,61 +597,7 @@ $('#stakeBTN').click(async () => {
 });
 
 
-window.addEventListener('load', async (event) => {
-  if (!isConnected()) return;
-    console.log("connected");
-    //updatePoolBalances();
-    $("#isConnected").html("wallet connected");
-
-    await updateActivePool();
-    // Set defaults
-    const poolBalances = await getPoolBalances();
-    // TODO use const
-		const balance = poolBalances.XAMP;
-    $('#stake-input').val(balance);
-    // $('#stake-input').attr('placeholder', `${balance}`);
-    $('#stake-balance').html(balance);
-    console.log(poolBalances);
-});
-
-$('input[type=radio][name=redeem]').change(async (event) => {
-	console.log('change radio redeem');
-	const value = $('[name=redeem][type=radio]:checked').val();
-	const account = await getAccount();
-	const globalEmissionRate = await getGlobalEmissionRate();
-	const bonusEmissionRate = globalEmissionRate*2;
-	$('#coin-emission').html(`${globalEmissionRate}`);
-
-	const idx = getIndexBySymbol(value);
-	console.log('Selected Coin: ',value,";idx: ",idx);
-
-
-	const ashContract = yfkaControllerContract();
-	const currentReward = await ashContract.methods.getCurrentReward(idx).call({
-		from: account
-	});
-	console.log("Number Redeemed: " + currentReward / 10**18);
-	const balance = fourDecimals(currentReward / 10**18);
-	$('#redeem-amount').html(`${balance}`);
-	$('#redeem-amount-button').html(`${balance}`);
-
-	const personalEmission = ashContract.methods.getPersonalEmissionRate(idx, account).call();
-	console.log("Personal Emission: " + personalEmission / 10**18);
-	const emissionRateToHuman = (personalEmission / (10 ** 18)/2)*100;
-	console.log('emissionRateToHuman: ', emissionRateToHuman);
-
-	var emissionRateToReadable = twoDecimals(emissionRateToHuman);
-	if (emissionRateToReadable < 0) {
-		emissionRateToReadable = 0;
-	}
-	console.log('emissionRateToReadable: ', emissionRateToReadable);
-	$('#personal-emission').html(`${emissionRateToReadable}`);
-});
-
-
-
-$('input[type=radio][name=unstake]').change(async (event) => {
-	console.log('change radio unstake');
+const setUnstakeBalance = async () => {
 	const value = $('[name=unstake][type=radio]:checked').val();
 	const account = await getAccount();
 	const idx = getIndexBySymbol(value);
@@ -736,7 +615,67 @@ $('input[type=radio][name=unstake]').change(async (event) => {
 		$('#unstake-input').attr('placeholder', `${balance}`);
 		$('#unstake-balance').html(`${balance}`);
 	});
+}
+
+const setRedeemBalance = async () => {
+	console.log('change radio redeem');
+	const value = $('[name=redeem][type=radio]:checked').val();
+	const account = await getAccount();
+	const globalEmissionRate = await getGlobalEmissionRate();
+	$('#coin-emission').html(`${globalEmissionRate}`);
+
+	const idx = getIndexBySymbol(value);
+	console.log('Selected Coin: ', value, "; idx: ", idx);
+
+	const ashContract = yfkaControllerContract();
+	const _currentReward = await ashContract.methods.getCurrentReward(idx).call({
+		from: account
+	});
+	const currentReward = _.toInteger(_currentReward);
+
+	console.log("Number Redeemed: " + currentReward / 10**18);
+	const balance = fourDecimals(currentReward / 10**18);
+	$('#redeem-amount').html(`${balance}`);
+	$('#redeem-amount-button').html(`${balance}`);
+
+	const _personalEmission = ashContract.methods.getPersonalEmissionRate(idx, account).call();
+	const personalEmission = _.toInteger(_personalEmission);
+	console.log("Personal Emission: " + personalEmission / 10**18);
+	const emissionRateToHuman = (personalEmission / (10 ** 18)/2)*100;
+	console.log('emissionRateToHuman: ', emissionRateToHuman);
+
+	var emissionRateToReadable = twoDecimals(emissionRateToHuman);
+	if (emissionRateToReadable < 0) {
+		emissionRateToReadable = 0;
+	}
+	console.log('emissionRateToReadable: ', emissionRateToReadable);
+	$('#personal-emission').html(`${emissionRateToReadable}`);
+}
+
+
+window.addEventListener('load', async (event) => {
+  if (!isConnected()) return;
+    console.log("connected");
+    //updatePoolBalances();
+    $("#isConnected").html("wallet connected");
+
+		await updateActivePool();
+		await updateUserStats();
+    // Set defaults
+    const poolBalances = await getPoolBalances();
+    // TODO use const
+		const balance = poolBalances.XAMP;
+    $('#stake-input').val(balance);
+    // $('#stake-input').attr('placeholder', `${balance}`);
+    $('#stake-balance').html(balance);
+		console.log(poolBalances);
+
+		await setUnstakeBalance();
 });
+
+$('input[type=radio][name=redeem]').change(setRedeemBalance);
+
+$('input[type=radio][name=unstake]').change(setUnstakeBalance);
 
 
 $('#unstakeBTN').click(async () => {
