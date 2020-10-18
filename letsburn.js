@@ -369,27 +369,27 @@ const updateUserStats = async () => {
 	// current LP Tokens
 	// XAMP
 	const xampLpBalance = await ashContract.methods.stakes(YFKA_POOL_INDEXES.XAMP, account).call();
-	const XAMPBalance = fourDecimals(xampLpBalance / (10 ** 18));
-	console.log('Staked XAMP: ', XAMPBalance);
-	$('#balance-LP-XAMP').html(XAMPBalance);
+	const XAMPbalance = fourDecimals(xampLpBalance / (10 ** 18));
+	console.log('Staked XAMP: ', XAMPbalance);
+	$('#balance-LP-XAMP').html(XAMPbalance);
 
 	// TOB
 	const tobLpBalance = await ashContract.methods.stakes(YFKA_POOL_INDEXES.TOB, account).call();
-	const TOBBalance = fourDecimals(tobLpBalance / (10 ** 18));
-	console.log('Staked TOB: ', TOBBalance);
-	$('#balance-LP-TOB').html(TOBBalance);
+	const TOBbalance = fourDecimals(tobLpBalance / (10 ** 18));
+	console.log('Staked TOB: ', TOBbalance);
+	$('#balance-LP-TOB').html(TOBbalance);
 
 	// OBA
 	const boaLpBalance = await ashContract.methods.stakes(YFKA_POOL_INDEXES.BOA, account).call();
-	const BOABalance = fourDecimals(boaLpBalance / (10 ** 18));
-	console.log('Staked BOA: ', BOABalance);
-	$('#balance-LP-BOA').html(BOABalance);
+	const BOAbalance = fourDecimals(boaLpBalance / (10 ** 18));
+	console.log('Staked BOA: ', BOAbalance);
+	$('#balance-LP-BOA').html(BOAbalance);
 
 	// ETH
 	const ethLpBalance = await ashContract.methods.stakes(YFKA_POOL_INDEXES.ETH, account).call();
-	const ETHBalance = fourDecimals(ethLpBalance / (10 ** 18));
-	console.log('Staked ETH: ', ETHBalance);
-	$('#balance-LP-ETH').html(ETHBalance);
+	const ETHbalance = fourDecimals(ethLpBalance / (10 ** 18));
+	console.log('Staked ETH: ', ETHbalance);
+	$('#balance-LP-ETH').html(ETHbalance);
 
 
 	//% of pool
