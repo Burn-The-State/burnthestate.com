@@ -1370,8 +1370,8 @@ const setUnstakeBalance = async () => {
   const idx = getIndexBySymbol(value);
   console.log('Selected Coin: ', value, ';Payload: ', idx);
 
-  const ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  const ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
+  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+  ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 // const res = await ashContract.stakes(idx, account).call();
   await ashContract.stakes(idx, account, function (err, res) {
 		console.log(res);
@@ -1465,7 +1465,7 @@ $('input[type=radio][name=unstake]').change(setUnstakeBalance);
 
 $('#stakeBTN').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
+  ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
   let uniContract = web3.eth.contract(UNISWAP_BASE_LP_ABI);
 
   console.log('stake value: ', 'stake btn click');
@@ -1520,7 +1520,7 @@ $('#stakeBTN').click(async () => {
 
 $('#redeemBTN').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
+  ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
   console.log('Redeem btn click');
   const value = $('[name=redeem][type=radio]:checked').val();
@@ -1537,7 +1537,7 @@ $('#redeemBTN').click(async () => {
 
 $('#unstakeBTN').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
+  ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
   console.log('unstake btn click');
   const value = $('[name=unstake][type=radio]:checked').val();
