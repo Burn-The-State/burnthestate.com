@@ -34,6 +34,7 @@ mark
 #connectToMetamask
 {
 	background-color: #000;
+	font-size: 1em;
 }
 
 
@@ -49,13 +50,31 @@ mark
 	border: 0px !important;
 }
 
+#header
+{
+	background-color: #000;
+	color: #fff;
+}
+
+#header a
+{
+	color: #fff;
+	text-decoration: underline;
+}
+
+#header a:hover
+{
+	color: #fff;
+	text-decoration: underline;
+}
+
 #buy
 {
 	background-color: #fff;
-	/*color: #fff;*/	
+	/*color: #fff;*/
 }
 
-#buy img 
+#buy img
 {
 	width: 45px;
 }
@@ -100,7 +119,7 @@ mark
 
 #stake
 {
-	
+
 	background-image: url(imgs/flames2.png);
 	background-size: 100%;
 	background-repeat: no-repeat;
@@ -181,6 +200,7 @@ mark
 	color: #000;
 	border: 1px solid #b9b9b9 !important;
 	line-height: 15px;
+	background-repeat: no-repeat;
 }
 
 #pool-ETH
@@ -194,6 +214,7 @@ mark
 	color: #000;
 	border: 1px solid #b9b9b9 !important;
 	line-height: 15px;
+	background-repeat: no-repeat;
 }
 
 #pool-TOB
@@ -207,6 +228,7 @@ mark
 	color: #000;
 	border: 1px solid #b9b9b9 !important;
 	line-height: 15px;
+	background-repeat: no-repeat;
 }
 #pool-BOA
 {
@@ -219,6 +241,7 @@ mark
 	color: #000;
 	border: 1px solid #b9b9b9 !important;
 	line-height: 15px;
+	background-repeat: no-repeat;
 }
 
 #pool-ETH img
@@ -264,7 +287,12 @@ mark
 	line-height: 15px;
 }
 
-
+#bonusPool img
+{
+	width: 100px;
+	padding-top: 15px;
+	padding-bottom: 10px;
+}
 
 .bigNumber
 {
@@ -312,6 +340,7 @@ mark
 	margin-right: 15px;
 }
 
+
 .icon-fire
 {
 	width: 15px;
@@ -336,7 +365,7 @@ mark
 
 .coins
 {
-	width: 70px;
+	width: 70%;
 	margin-right: 7px;
 	padding-top: 15px;
 }
