@@ -581,7 +581,7 @@ $('#stakeBTN').click(async () => {
   console.log('idx: ', idx);
   const pool = POOLS[idx];
   console.log('pool: ', pool);
-  var amount = _.toInteger($('#stake-input').val());
+  var amount = _.toNumber($('#stake-input').val());
   console.log('amount ', amount);
 
 	if (amount === 0 || amount === '0') return;
@@ -631,7 +631,7 @@ const setRedeemBalance = async () => {
 	const _currentReward = await ashContract.methods.getCurrentReward(idx).call({
 		from: account
 	});
-	const currentReward = _.toInteger(_currentReward);
+	const currentReward = _.toNumber(_currentReward);
 
 	console.log("Number Redeemed: " + currentReward / 10**18);
 	const balance = fourDecimals(currentReward / 10**18);
@@ -639,7 +639,7 @@ const setRedeemBalance = async () => {
 	$('#redeem-amount-button').html(`${balance}`);
 
 	const _personalEmission = ashContract.methods.getPersonalEmissionRate(idx, account).call();
-	const personalEmission = _.toInteger(_personalEmission);
+	const personalEmission = _.toNumber(_personalEmission);
 	console.log("Personal Emission: " + personalEmission / 10**18);
 	const emissionRateToHuman = (personalEmission / (10 ** 18)/2)*100;
 	console.log('emissionRateToHuman: ', emissionRateToHuman);
@@ -687,7 +687,7 @@ $('#unstakeBTN').click(async () => {
   const idx = getIndexBySymbol(value);
 
 	var amount = $('#unstake-input').val();
-	amount = _.toInteger(amount) * 10**18;
+	amount = _.toNumber(amount) * 10**18;
 	ashContract.unstake(idx, amount, function (err, res) {
 		console.log("https://etherscan.io/tx/" + res);
 		document.getElementById("unstakeReceipt").innerHTML = '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res  +'">Unstake Receipt</a>';
