@@ -1439,8 +1439,7 @@ const setStakeBalance = async (event)=> {
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(balance);
   return balance || '';
-}
-
+};
 
 /*
 *
