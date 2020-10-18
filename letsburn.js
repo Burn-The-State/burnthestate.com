@@ -753,7 +753,7 @@ $('#unstakeBTN').click(async () => {
   const idx = getIndexBySymbol(value);
 
 	var amount = $('#stake-input').val();
-	amount = amount * 10**18;
+	amount = _.toInteger(amount) * 10**18;
 	ashContract.unstake(idx, amount, function (err, res) {
 		console.log("https://etherscan.io/tx/" + res);
 		document.getElementById("unstakeReceipt").innerHTML = '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res  +'">Unstake Receipt</a>';
