@@ -1511,10 +1511,10 @@ $('#redeemBTN').click(async () => {
   const idx = getIndexBySymbol(value);
 
   ashContract.redeem(idx, function (err, res) {
-		$('#withdrawResult').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Withdraw Receipt</a>');
-		const withdrawResult = document.getElementById('withdrawResult');
-		if (withdrawResult && withdrawResult.style) {
-			document.getElementById('withdrawResult').style.opacity = '1';
+		$('#redeemReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Withdraw Receipt</a>');
+		const redeemReceipt = document.getElementById('redeemReceipt');
+		if (redeemReceipt && redeemReceipt.style) {
+			document.getElementById('redeemReceipt').style.opacity = '1';
 		}
   });
 });
