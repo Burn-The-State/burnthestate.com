@@ -1367,9 +1367,9 @@ const setStakeBalance = async (event)=> {
   const balance = balances[event.currentTarget.value];
   console.log('balance: ', balance);
   // TODO
-  $('#stake-input').val(balance);
+  $('#stake-input').val(fourDecimals(balance));
   // $('#stake-input').attr('placeholder', `${balance}`);
-  $('#stake-balance').html(balance);
+  $('#stake-balance').html(fourDecimals(balance));
   return balance || '';
 };
 
@@ -1391,8 +1391,8 @@ const setRedeemBalance = async () => {
 
   console.log('Number Redeemed: ' + currentReward / 10 ** 18);
 	const balance = fourDecimals(currentReward / 10 ** 18);
-  $('#redeem-amount').html(`${balance}`);
-  $('#redeem-amount-button').html(`${balance}`);
+  $('#redeem-amount').html(balance);
+  $('#redeem-amount-button').html(balance);
 
   const _personalEmission = await ashContract.methods
     .getPersonalEmissionRate(idx, account)
@@ -1407,7 +1407,7 @@ const setRedeemBalance = async () => {
     emissionRateToReadable = 0;
   }
   console.log('emissionRateToReadable: ', emissionRateToReadable);
-  $('#personal-emission').html(`${emissionRateToReadable}`);
+  $('#personal-emission').html(emissionRateToReadable);
 };
 
 const setUnstakeBalance = async () => {
@@ -1425,8 +1425,7 @@ const setUnstakeBalance = async () => {
 		console.log('_.toInteger(res)');
 		console.log(_.toInteger(res));
 
-		const _balance = fourDecimals(_.toNumber(res) / 10 ** 18);
-		const balance = Number(_balance).toLocaleString('fullwide', {useGrouping:false});
+		const balance = fourDecimals(_.toNumber(res) / 10 ** 18);
     console.log('Staked XAMP: ', balance);
     $('#unstake-input').val(`${balance}`);
     $('#unstake-input').attr('placeholder', `${balance}`);
@@ -1546,7 +1545,6 @@ $('#unstakeBTN').click(async () => {
 		}
   });
 });
-
 
 
 /*
