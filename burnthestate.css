@@ -71,10 +71,10 @@ mark
 #buy
 {
 	background-color: #fff;
-	/*color: #fff;*/	
+	/*color: #fff;*/
 }
 
-#buy img 
+#buy img
 {
 	width: 45px;
 }
@@ -119,7 +119,7 @@ mark
 
 #stake
 {
-	
+
 	background-image: url(imgs/flames2.png);
 	background-size: 100%;
 	background-repeat: no-repeat;
