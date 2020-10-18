@@ -311,7 +311,7 @@ const updateUserStats = async () => {
 	console.log('xampReward: ', xampReward);
 	console.log('xampReward: ', xampReward / (10**18));
 	// $('#reward-XAMP').html(twoDecimals(xampReward / (10**18)));
-	$('#reward-XAMP').html(_.toInteger(xampReward / (10**18)));
+	$('#reward-XAMP').html(_.toInteger(xampReward) / (10**18));
 
 	const tobReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.TOB).call({
 		from: account
@@ -319,7 +319,7 @@ const updateUserStats = async () => {
 	console.log('tobReward: ', tobReward);
 	console.log('tobReward: ', tobReward / (10**18));
 	// $('#reward-TOB').html(twoDecimals(tobReward / (10**18)));
-	$('#reward-TOB').html(_.toInteger(tobReward / (10**18)));
+	$('#reward-TOB').html(_.toInteger)(tobReward / (10**18));
 
 	const boaReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA).call({
 		from: account
@@ -327,7 +327,7 @@ const updateUserStats = async () => {
 	console.log('boaReward: ', boaReward);
 	console.log('boaReward: ', boaReward / (10**18));
 	// $('#reward-BOA').html(twoDecimals(boaReward / (10**18)));
-	$('#reward-BOA').html(_.toInteger(boaReward / (10**18)));
+	$('#reward-BOA').html(_.toInteger(boaReward) / (10**18));
 
 	const ethReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.ETH).call({
 		from: account
@@ -335,7 +335,7 @@ const updateUserStats = async () => {
 	console.log('ethReward: ', ethReward);
 	console.log('ethReward: ', ethReward / (10**18));
 	// $('#reward-ETH').html(twoDecimals(ethReward / (10**18)));
-	$('#reward-ETH').html(_.toInteger(ethReward / (10**18)));
+	$('#reward-ETH').html(_.toInteger(ethReward) / (10**18));
 
 
   const bonusPoolIdx = await ashContract.methods.getActivePool().call();
