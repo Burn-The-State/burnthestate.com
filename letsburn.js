@@ -571,32 +571,32 @@ const getYFKASupply = async () => {
 }
 */
 function waitForApproval(tx, ashContract, payload, amount) {
-	web3.eth.getTransaction(tx,
-		function (err, res2) {
+	web3.eth.getTransaction(tx, function (err, response) {
+		if (!response || !_.isNil(response.blockNumber) || err) {
+			setTimeout(() => {
+				waitForApproval(tx, ashContract, payload, amount);
+			}, 5000);
+			return;
+		}
 
-    	if(res2['blockNumber'] == null) setTimeout(() => { waitForApproval(tx, ashContract, payload,amount)}, 5000);
-			else {
-      	setTimeout(() => { console.log(res2);}, 5000);
-				console.log("Amount: ",amount);
-				console.log("Payload: ",payload);
-				console.log("Calling: Stake ");
-      	ashContract.stake(payload, amount, function (err, res) {
+		setTimeout(() => { console.log(response); }, 5000);
 
-          document.getElementById("stakeReceipt").innerHTML = '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
-          document.getElementById("stakeReceipt").style.opacity = "1";
-          // updatePoolBalances();
-      	});
-      }
+		console.log("Amount: ",amount);
+		console.log("Payload: ",payload);
+		console.log("Calling: Stake ");
+		ashContract.stake(payload, amount, function (err, res) {
 
-      console.log(res2);
-  	}
-	);
-}
+			document.getElementById("stakeReceipt").innerHTML = '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Click here to view your transaction.</a>';
+			document.getElementById("stakeReceipt").style.opacity = "1";
+			// updatePoolBalances();
+		});
+	});
+};
 
-  var uniTokenAddressBOA = "0x5ecf87ff558f73d097eddfee35abde626c7aeab7";
-  var uniTokenAddressTOB = "0x34d0448a79f853d6e1f7ac117368c87bb7beea6b";
-  var uniTokenAddressXAMP = "0xaea4d6809375bb973c8036d53db9e90970942738";
-  var uniTokenAddressETH  = "0xc0cfb99342860725806f085046d0233fec876cd7";
+var uniTokenAddressBOA = "0x5ecf87ff558f73d097eddfee35abde626c7aeab7";
+var uniTokenAddressTOB = "0x34d0448a79f853d6e1f7ac117368c87bb7beea6b";
+var uniTokenAddressXAMP = "0xaea4d6809375bb973c8036d53db9e90970942738";
+var uniTokenAddressETH  = "0xc0cfb99342860725806f085046d0233fec876cd7";
 
 $('input[type=radio][name=stake]').change(async (event) => {
   console.log('change radio stake');
@@ -613,11 +613,9 @@ $('input[type=radio][name=stake]').change(async (event) => {
 });
 
 $('#stakeBTN').click(async () => {
-
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
-  var uniContract = web3.eth.contract(UNISWAP_BASE_LP_ABI);
-
+  let uniContract = web3.eth.contract(UNISWAP_BASE_LP_ABI);
 
   console.log('stake value: ', 'stake btn click');
   const keys = Object.keys(PAIRS);
@@ -625,27 +623,25 @@ $('#stakeBTN').click(async () => {
   const value = $('[name=stake][type=radio]:checked').val();
   var payload;
   //PULL uniInstance info from radio button.
-  switch (value){
-	case 'XAMP':
-		  payload =0;
-	uniInstance = uniContract.at(uniTokenAddressXAMP);
-		break;
-	case 'TOB':
-		  payload =1;
-	uniInstance = uniContract.at(uniTokenAddressTOB);
-		break;
-	case 'BOA':
-		  payload =2;
-	uniInstance = uniContract.at(uniTokenAddressBOA);
-		break;
-	case 'ETH':
-		  payload =3;
-	uniInstance = uniContract.at(uniTokenAddressETH);
-		break;
-	default:
-		//do Nothing
-		console.log('Nothing Selected:');
-		break;
+  switch (value) {
+		case 'XAMP':
+		  payload = 0;
+			uniInstance = uniContract.at(uniTokenAddressXAMP);
+			break;
+		case 'TOB':
+		  payload = 1;
+			uniInstance = uniContract.at(uniTokenAddressTOB);
+			break;
+		case 'BOA':
+		  payload = 2;
+			uniInstance = uniContract.at(uniTokenAddressBOA);
+			break;
+		case 'ETH':
+		  payload = 3;
+			uniInstance = uniContract.at(uniTokenAddressETH);
+			break;
+		default:
+			break;
   }
 
   console.log('value: ', value);
@@ -656,16 +652,18 @@ $('#stakeBTN').click(async () => {
   console.log('idx: ', idx);
   const pool = POOLS[idx];
   console.log('pool: ', pool);
-  var amount = $('#stake-input').val();
+  var amount = _.toInteger($('#stake-input').val());
   console.log('amount ', amount);
-  if (amount === 0 || amount === '0') return;
-  if (!window.ethereum) return;
+
+	if (amount === 0 || amount === '0') return;
+	if (!window.ethereum) return;
+
 	amount = amount * 10**18
 	uniInstance.approve(YFKA_CONTROLLER_ADDRESS, amount, function (err, res) {
-	console.log("APPROVE TX: https://etherscan.io/tx/" + res);
-	document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
-	document.getElementById("stakeReceipt").style.opacity = "1";
-	waitForApproval(res, ashContract, payload, amount);
+		console.log("APPROVE TX: https://etherscan.io/tx/" + res);
+		document.getElementById("stakeReceipt").innerHTML = "Awaiting approval...";
+		document.getElementById("stakeReceipt").style.opacity = "1";
+		waitForApproval(res, ashContract, payload, amount);
 	});
 });
 
