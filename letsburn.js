@@ -1428,7 +1428,6 @@ const setRedeemBalance = async () => {
 };
 
 const setStakeBalance = async (event)=> {
-	async (event) => {
   console.log('change radio stake');
   const balances = await getPoolBalances();
   console.log('balances: ', balances);
@@ -1440,8 +1439,6 @@ const setStakeBalance = async (event)=> {
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(balance);
   return balance || '';
-}
-
 }
 
 
