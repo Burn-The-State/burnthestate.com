@@ -1,4 +1,14 @@
-// CONSTANTS
+/*
+*
+*
+*
+*
+*------------------ CONSTANTS -------------------------------
+*
+*
+*
+*
+*/
 const TOKENS = {
   YFKA: '0x4086692d53262b2be0b13909d804f0491ff6ec3e',
   XAMP: '0xf911a7ec46a2c6fa49193212fe4a2a9b95851c27',
@@ -21,6 +31,8 @@ const YFKA_POOL_INDEXES = {
   BOA: 2,
   ETH: 3,
 };
+
+const YFKA_CONTROLLER_ADDRESS = '0x615983a35CF71D89F1B094e920151d7eA9Bf48bc';
 
 const UNISWAP_BASE_LP_ABI = [
   {
@@ -428,8 +440,6 @@ const UNISWAP_BASE_LP_ABI = [
   },
 ];
 
-const YFKA_CONTROLLER_ADDRESS = '0x615983a35CF71D89F1B094e920151d7eA9Bf48bc';
-
 // TODO parse/stringify prob not needed
 const STANDARD_ERC20_ABI = JSON.parse(
   JSON.stringify([
@@ -821,9 +831,18 @@ const YFKA_CONTROLLER_ABI = [
     type: 'function',
   },
 ];
-// const ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI, YFKA_CONTROLLER_ADDRESS);
 
-// HELPERS
+/*
+*
+*
+*
+*
+*------------------ HELPER UTILS -------------------------------
+*
+*
+*
+*
+*/
 const isConnected = () => {
   return !!web3.isConnected();
 };
@@ -835,11 +854,17 @@ const getInfuraProvider = () => {
   return new Web3(INFURA_PROVIDER);
 };
 
+
+const checksumAddress = (address) => {
+	const provider = getInfuraProvider();
+	return provider.utils.toChecksumAddress(address);
+}
+
 const yfkaControllerContract = () => {
   const infuraProvider = getInfuraProvider();
   const contract = new infuraProvider.eth.Contract(
     YFKA_CONTROLLER_ABI,
-    YFKA_CONTROLLER_ADDRESS
+    checksumAddress(YFKA_CONTROLLER_ADDRESS)
   );
   return contract;
 };
@@ -851,19 +876,42 @@ const getAccount = async () => {
   return provider.utils.toChecksumAddress(accounts[0]);
 };
 
+const getBonusPool = async () => {
+  console.log('getBonusPool');
+  const contract = yfkaControllerContract();
+  const idx = await contract.methods.getActivePool().call();
+  return POOLS[idx];
+};
+
+const getGlobalEmissionRate = async () => {
+  console.log('getGlobalEmissionRate');
+  const contract = yfkaControllerContract();
+  const emissionRate = await contract.methods.emissionRate().call();
+  console.log('emissionRate: ', emissionRate);
+  // TODO is it 18 tho
+  const emissionRateToHuman = (emissionRate / 10 ** 18 / 2) * 100;
+  console.log('emissionRateToHuman: ', emissionRateToHuman);
+
+  const emissionRateToReadable = twoDecimals(emissionRateToHuman);
+  console.log('emissionRateToReadable: ', emissionRateToReadable);
+  return emissionRateToReadable;
+};
+
 const getIndexBySymbol = (value) => {
   return YFKA_POOL_INDEXES[value];
 };
 
 function twoDecimals(number) {
-  return number;
+	return number;
+	// TODO add this back + test
   //returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
   const newNumber = Math.floor((number + Number.EPSILON) * 100) / 100;
   return newNumber;
 }
 
 function fourDecimals(number) {
-  return number;
+	return number;
+	// TODO add this back + test
   console.log('input number:', number);
   //returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
   if (number >= 1) {
@@ -889,13 +937,20 @@ function fourDecimals(number) {
   }
 }
 
-// WEB3 Wrappers
+/*
+*
+*
+*
+*
+*------------------ WEB3 WRAPPERS -------------------------------
+*
+*
+*
+*
+*/
 
 const getTotalBalances = async () => {
   console.log('getBalances');
-  // const account = await getAccount();
-  // if (!account) return null;
-
   const provider = getInfuraProvider();
 
   // YFKA_XAMP
@@ -942,7 +997,6 @@ const getTotalBalances = async () => {
   const ethContractDecimals = await ethContract.methods.decimals().call();
   console.log('ethContractDecimals: ', ethContractDecimals);
 
-  // TODO TOB showing NaN so figure that out
   return {
     XAMP: xampContractBalance
       ? xampContractBalance / 10 ** xampContractDecimals
@@ -1038,13 +1092,22 @@ const getPoolBalances = async () => {
   };
 };
 
-// TODO wrap in a try block
+/*
+*
+*
+*
+*
+*------------------ UI HELPERS -------------------------------
+*
+*
+*
+*
+*/
 const updateUserStats = async () => {
   const account = await getAccount();
 
   const ashContract = yfkaControllerContract();
 
-  // TODO (!!) dont hardcode 18 decimals, call teh conntracts for it like getTotalBalances
   //current Rewards
   const xampReward = await ashContract.methods
     .getCurrentReward(YFKA_POOL_INDEXES.XAMP)
@@ -1233,28 +1296,6 @@ const updateUserStats = async () => {
   $('#total-LP-ETH').html(`${readableTotalETH}`);
 };
 
-const getBonusPool = async () => {
-  console.log('getBonusPool');
-  const contract = yfkaControllerContract();
-  const idx = await contract.methods.getActivePool().call();
-  return POOLS[idx];
-};
-
-const getGlobalEmissionRate = async () => {
-  console.log('getGlobalEmissionRate');
-  const contract = yfkaControllerContract();
-  const emissionRate = await contract.methods.emissionRate().call();
-  console.log('emissionRate: ', emissionRate);
-  // TODO is it 18 tho
-  const emissionRateToHuman = (emissionRate / 10 ** 18 / 2) * 100;
-  console.log('emissionRateToHuman: ', emissionRateToHuman);
-
-  const emissionRateToReadable = twoDecimals(emissionRateToHuman);
-  console.log('emissionRateToReadable: ', emissionRateToReadable);
-  return emissionRateToReadable;
-};
-
-// UI FUNCTIONS
 const updateActivePool = async () => {
   console.log('updateActivePool');
   const _globalEmissionRate = await getGlobalEmissionRate();
@@ -1275,19 +1316,16 @@ const updateActivePool = async () => {
     case PAIRS.YFKA_XAMP:
       $('#bonus-global-token').html('XAMP');
       $('#xamp-apy').html(`${bonusEmissionRate}`);
-      //document.getElementById('pool-XAMP').style.backgroundImage="url(imgs/fireBG3.png)"; .setAttribute("id", "div_top2");
       document.getElementById('pool-XAMP').setAttribute('id', 'bonusPool');
       break;
     case PAIRS.YFKA_TOB:
       $('#bonus-global-token').html('TOB');
       $('#tob-apy').html(`${bonusEmissionRate}`);
-      // document.getElementById('pool-TOB').style.backgroundImage="url(imgs/fireBG3.png)";
       document.getElementById('pool-TOB').setAttribute('id', 'bonusPool');
       break;
     case PAIRS.YFKA_BOA:
       $('#bonus-global-token').html('BOA');
       $('#boa-apy').html(`${bonusEmissionRate}`);
-      //document.getElementById('pool-BOA').style.backgroundImage="url(imgs/fireBG3.png)";
       document.getElementById('pool-BOA').setAttribute('id', 'bonusPool');
       break;
     case PAIRS.YFKA_ETH:
@@ -1326,80 +1364,6 @@ function waitForApproval(tx, ashContract, payload, amount) {
   });
 }
 
-var uniTokenAddressBOA = '0x5ecf87ff558f73d097eddfee35abde626c7aeab7';
-var uniTokenAddressTOB = '0x34d0448a79f853d6e1f7ac117368c87bb7beea6b';
-var uniTokenAddressXAMP = '0xaea4d6809375bb973c8036d53db9e90970942738';
-var uniTokenAddressETH = '0xc0cfb99342860725806f085046d0233fec876cd7';
-
-$('input[type=radio][name=stake]').change(async (event) => {
-  console.log('change radio stake');
-  const balances = await getPoolBalances();
-  console.log('balances: ', balances);
-  // const balance = twoDecimals(balances[event.currentTarget.value]);
-  const balance = balances[event.currentTarget.value];
-  console.log('balance: ', balance);
-  // TODO
-  $('#stake-input').val(balance);
-  // $('#stake-input').attr('placeholder', `${balance}`);
-  $('#stake-balance').html(balance);
-  return balance || '';
-});
-
-$('#stakeBTN').click(async () => {
-  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
-  let uniContract = web3.eth.contract(UNISWAP_BASE_LP_ABI);
-
-  console.log('stake value: ', 'stake btn click');
-  const keys = Object.keys(PAIRS);
-  console.log('keys: ', keys);
-  const value = $('[name=stake][type=radio]:checked').val();
-  var payload;
-  //PULL uniInstance info from radio button.
-  switch (value) {
-    case 'XAMP':
-      payload = 0;
-      uniInstance = uniContract.at(uniTokenAddressXAMP);
-      break;
-    case 'TOB':
-      payload = 1;
-      uniInstance = uniContract.at(uniTokenAddressTOB);
-      break;
-    case 'BOA':
-      payload = 2;
-      uniInstance = uniContract.at(uniTokenAddressBOA);
-      break;
-    case 'ETH':
-      payload = 3;
-      uniInstance = uniContract.at(uniTokenAddressETH);
-      break;
-    default:
-      break;
-  }
-
-  console.log('value: ', value);
-  const indexOfValue = keys.map((key) => {
-    return key.indexOf(value) >= 0;
-  });
-  const idx = indexOfValue.indexOf(true);
-  console.log('idx: ', idx);
-  const pool = POOLS[idx];
-  console.log('pool: ', pool);
-  var amount = _.toNumber($('#stake-input').val());
-  console.log('amount ', amount);
-
-  if (amount === 0 || amount === '0') return;
-  if (!window.ethereum) return;
-
-  amount = amount * 10 ** 18;
-  uniInstance.approve(YFKA_CONTROLLER_ADDRESS, amount, function (err, res) {
-    console.log('APPROVE TX: https://etherscan.io/tx/' + res);
-    document.getElementById('stakeReceipt').innerHTML = 'Awaiting approval...';
-    document.getElementById('stakeReceipt').style.opacity = '1';
-    waitForApproval(res, ashContract, payload, amount);
-  });
-});
-
 const setUnstakeBalance = async () => {
   const value = $('[name=unstake][type=radio]:checked').val();
   const account = await getAccount();
@@ -1409,7 +1373,7 @@ const setUnstakeBalance = async () => {
   var balance;
 
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
+  var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
   await ashContract.stakes(idx, account, function (err, res) {
     balance = fourDecimals(res / 10 ** 18);
@@ -1457,25 +1421,88 @@ const setRedeemBalance = async () => {
   $('#personal-emission').html(`${emissionRateToReadable}`);
 };
 
-window.addEventListener('load', async (event) => {
-  if (!isConnected()) return;
-  console.log('connected');
-  //updatePoolBalances();
-  $('#isConnected').html('wallet connected');
 
-  await updateActivePool();
-  await updateUserStats();
-  // Set defaults
-  const poolBalances = await getPoolBalances();
-  // TODO use const
-  const balance = poolBalances.XAMP;
+/*
+*
+*
+*
+*
+*------------------ FORM ACTIONS -------------------------------
+*
+*
+*
+*
+*/
+
+$('input[type=radio][name=stake]').change(async (event) => {
+  console.log('change radio stake');
+  const balances = await getPoolBalances();
+  console.log('balances: ', balances);
+  // const balance = twoDecimals(balances[event.currentTarget.value]);
+  const balance = balances[event.currentTarget.value];
+  console.log('balance: ', balance);
+  // TODO
   $('#stake-input').val(balance);
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(balance);
-  console.log(poolBalances);
-
-  await setUnstakeBalance();
+  return balance || '';
 });
+
+$('#stakeBTN').click(async () => {
+  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+  var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
+  let uniContract = web3.eth.contract(UNISWAP_BASE_LP_ABI);
+
+  console.log('stake value: ', 'stake btn click');
+  const keys = Object.keys(PAIRS);
+  console.log('keys: ', keys);
+  const value = $('[name=stake][type=radio]:checked').val();
+  var payload;
+  //PULL uniInstance info from radio button.
+  switch (value) {
+    case 'XAMP':
+      payload = 0;
+      uniInstance = uniContract.at(checksumAddress(PAIRS.YFKA_XAMP));
+      break;
+    case 'TOB':
+      payload = 1;
+      uniInstance = uniContract.at(checksumAddress(PAIRS.YFKA_TOB));
+      break;
+    case 'BOA':
+      payload = 2;
+      uniInstance = uniContract.at(checksumAddress(PAIRS.YFKA_BOA));
+      break;
+    case 'ETH':
+      payload = 3;
+      uniInstance = uniContract.at(checksumAddress(PAIRS.YFKA_ETH));
+      break;
+    default:
+      break;
+  }
+
+  console.log('value: ', value);
+  const indexOfValue = keys.map((key) => {
+    return key.indexOf(value) >= 0;
+  });
+  const idx = indexOfValue.indexOf(true);
+  console.log('idx: ', idx);
+  const pool = POOLS[idx];
+  console.log('pool: ', pool);
+  var amount = _.toNumber($('#stake-input').val());
+  console.log('amount ', amount);
+
+  if (amount === 0 || amount === '0') return;
+  if (!window.ethereum) return;
+
+  amount = amount * 10 ** 18;
+  uniInstance.approve(checksumAddress(YFKA_CONTROLLER_ADDRESS), amount, function (err, res) {
+    console.log('APPROVE TX: https://etherscan.io/tx/' + res);
+    document.getElementById('stakeReceipt').innerHTML = 'Awaiting approval...';
+    document.getElementById('stakeReceipt').style.opacity = '1';
+    waitForApproval(res, ashContract, payload, amount);
+  });
+});
+
 
 $('input[type=radio][name=redeem]').change(setRedeemBalance);
 
@@ -1483,7 +1510,7 @@ $('input[type=radio][name=unstake]').change(setUnstakeBalance);
 
 $('#unstakeBTN').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
+  var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
   console.log('unstake btn click');
   const value = $('[name=unstake][type=radio]:checked').val();
@@ -1504,7 +1531,7 @@ $('#unstakeBTN').click(async () => {
 
 $('#redeemBTN').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
-  var ashContract = ashContract.at(YFKA_CONTROLLER_ADDRESS);
+  var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
   console.log('Redeem btn click');
   const value = $('[name=redeem][type=radio]:checked').val();
@@ -1517,4 +1544,35 @@ $('#redeemBTN').click(async () => {
 			document.getElementById('redeemReceipt').style.opacity = '1';
 		}
   });
+});
+
+/*
+*
+*
+*
+*
+*------------------ INITIAL LOAD -------------------------------
+*
+*
+*
+*
+*/
+
+window.addEventListener('load', async (event) => {
+  if (!isConnected()) return;
+  console.log('connected');
+  //updatePoolBalances();
+  $('#isConnected').html('wallet connected');
+
+  await updateActivePool();
+  await updateUserStats();
+  // Set defaults
+  const poolBalances = await getPoolBalances();
+  const balance = poolBalances.XAMP;
+  $('#stake-input').val(balance);
+  $('#stake-balance').html(balance);
+  console.log(poolBalances);
+
+	await setRedeemBalance();
+  await setUnstakeBalance();
 });
