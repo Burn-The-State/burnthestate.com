@@ -163,12 +163,14 @@ const getReward = async () =>{
 }
 */
 function twoDecimals(number){
+	return number;
 	//returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
 	const newNumber = Math.floor((number+ Number.EPSILON) * 100)/100;
 	return newNumber;
 }
 
 function fourDecimals(number){
+	return number;
 	console.log("input number:",number);
 	//returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
 	if (number >= 1){
