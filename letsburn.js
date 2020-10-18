@@ -1376,7 +1376,7 @@ const setUnstakeBalance = async () => {
   var ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
   await ashContract.stakes(idx, account, function (err, res) {
-    balance = fourDecimals(res / 10 ** 18);
+    balance = fourDecimals(_.toNumber(res) / 10 ** 18);
     console.log('Staked XAMP: ', balance);
     $('#unstake-input').val(`${balance}`);
     $('#unstake-input').attr('placeholder', `${balance}`);
