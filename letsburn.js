@@ -903,8 +903,8 @@ const getIndexBySymbol = (value) => {
 
 
 function twoDecimals(b) {
-	// const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
-	return b; // balance;
+	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
+	return _.toNumber(balance);
 	// TODO add this back + test
   //returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
   const newNumber = Math.floor((number + Number.EPSILON) * 100) / 100;
@@ -912,8 +912,8 @@ function twoDecimals(b) {
 }
 
 function fourDecimals(b) {
-	// const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
-	return b; // balance;
+	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
+	return _.toNumber(balance);
 	// TODO add this back + test
   console.log('input number:', number);
   //returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
@@ -1225,7 +1225,7 @@ const updateUserStats = async () => {
   const xampLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.XAMP, account)
     .call();
-  const XAMPbalance = fourDecimals(xampLpBalance / 10 ** 18);
+	const XAMPbalance = fourDecimals(xampLpBalance / 10 ** 18);
   console.log('Staked XAMP: ', XAMPbalance);
   $('#balance-LP-XAMP').html(XAMPbalance);
 
