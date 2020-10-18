@@ -305,25 +305,33 @@ const updateUserStats = async () => {
 
 	// TODO (!!) dont hardcode 18 decimals, call teh conntracts for it like getTotalBalances
 	//current Rewards
-	const xampReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP).call();
+	const xampReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP).call({
+		from: account
+	});
 	console.log('xampReward: ', xampReward);
 	console.log('xampReward: ', xampReward / (10**18));
 	// $('#reward-XAMP').html(twoDecimals(xampReward / (10**18)));
 	$('#reward-XAMP').html(xampReward / (10**18));
 
-	const tobReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.TOB).call();
+	const tobReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.TOB).call({
+		from: account
+	});
 	console.log('tobReward: ', tobReward);
 	console.log('tobReward: ', tobReward / (10**18));
 	// $('#reward-TOB').html(twoDecimals(tobReward / (10**18)));
 	$('#reward-TOB').html(tobReward / (10**18));
 
-	const boaReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA).call();
+	const boaReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA).call({
+		from: account
+	});
 	console.log('boaReward: ', boaReward);
 	console.log('boaReward: ', boaReward / (10**18));
 	// $('#reward-BOA').html(twoDecimals(boaReward / (10**18)));
 	$('#reward-BOA').html(boaReward / (10**18));
 
-	const ethReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.ETH).call();
+	const ethReward = await ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.ETH).call({
+		from: account
+	});
 	console.log('ethReward: ', ethReward);
 	console.log('ethReward: ', ethReward / (10**18));
 	// $('#reward-ETH').html(twoDecimals(ethReward / (10**18)));
@@ -685,7 +693,9 @@ $('input[type=radio][name=redeem]').change(async (event) => {
 
 
 	const ashContract = yfkaControllerContract();
-	const currentReward = await ashContract.methods.getCurrentReward(idx).call();
+	const currentReward = await ashContract.methods.getCurrentReward(idx).call({
+		from: account
+	});
 	console.log("Number Redeemed: " + currentReward / 10**18);
 	const balance = fourDecimals(currentReward / 10**18);
 	$('#redeem-amount').html(`${balance}`);
