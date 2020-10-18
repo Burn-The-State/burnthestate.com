@@ -56,6 +56,18 @@ mark
 	color: #fff;
 }
 
+#header a
+{
+	color: #fff;
+	text-decoration: underline;
+}
+
+#header a:hover
+{
+	color: #fff;
+	text-decoration: underline;
+}
+
 #buy
 {
 	background-color: #fff;
