@@ -262,10 +262,10 @@ const getPoolBalances = async () => {
 	}
 
 	return {
-		XAMP: _.toInteger(amounts.XAMP),
-		TOB: _.toInteger(amounts.TOB),
-		BOA: _.toInteger(amounts.BOA),
-		ETH: _.toInteger(amounts.ETH),
+		XAMP: _.toNumber(amounts.XAMP),
+		TOB: _.toNumber(amounts.TOB),
+		BOA: _.toNumber(amounts.BOA),
+		ETH: _.toNumber(amounts.ETH),
 	}
 }
 
