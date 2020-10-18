@@ -348,7 +348,7 @@ const updateUserStats = async () => {
 	if (emissionRateToReadableXAMP < 0) {
 		emissionRateToReadableXAMP = 0;
 	}
-	if (bonusPoolIdx === YFKA_POOL_INDEXES.XAMP)  {
+	if (bonusPoolIdx == YFKA_POOL_INDEXES.XAMP)  {
 		emissionRateToReadableXAMP = emissionRateToReadableXAMP * 2;
 	}
 	$('#personal-emission-XAMP').html(`${emissionRateToReadableXAMP}`);
@@ -363,9 +363,9 @@ const updateUserStats = async () => {
 	if (emissionRateToReadableTob < 0) {
 		emissionRateToReadableTob = 0;
 	}
-	console.log('bonusPoolIdx: ', bonusPoolIdx);
+	console.log('bonusPoolIdx: ', typeof bonusPoolIdx);
 	console.log('YFKA_POOL_INDEXES.TOB: ', YFKA_POOL_INDEXES.TOB);
-	if (bonusPoolIdx === YFKA_POOL_INDEXES.TOB)  {
+	if (bonusPoolIdx == YFKA_POOL_INDEXES.TOB)  {
 		emissionRateToReadableTob = emissionRateToReadableTob * 2;
 	}
 	$('#personal-emission-TOB').html(`${emissionRateToReadableTob}`);
@@ -376,7 +376,7 @@ const updateUserStats = async () => {
 	if (emissionRateToReadableBoa < 0) {
 		emissionRateToReadableBoa = 0;
 	}
-	if (bonusPoolIdx === YFKA_POOL_INDEXES.BOA)  {
+	if (bonusPoolIdx == YFKA_POOL_INDEXES.BOA)  {
 		emissionRateToReadableBoa = emissionRateToReadableBoa * 2;
 	}
 	$('#personal-emission-BOA').html(`${emissionRateToReadableBoa}`);
@@ -387,7 +387,7 @@ const updateUserStats = async () => {
 	if (emissionRateToReadableEth < 0) {
 		emissionRateToReadableEth = 0;
 	}
-	if (bonusPoolIdx === YFKA_POOL_INDEXES.ETH)  {
+	if (bonusPoolIdx == YFKA_POOL_INDEXES.ETH)  {
 		emissionRateToReadableEth = emissionRateToReadableEth * 2;
 	}
 	$('#personal-emission-ETH').html(`${emissionRateToReadableEth}`);
