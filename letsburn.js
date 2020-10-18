@@ -496,8 +496,9 @@ const getGlobalEmissionRate = async () => {
 // UI FUNCTIONS
 const updateActivePool = async () => {
   console.log('updateActivePool');
-  const globalEmissionRate = await getGlobalEmissionRate();
-await updateUserStats();
+	const _globalEmissionRate = await getGlobalEmissionRate();
+	const globalEmissionRate = Math.ceil(_globalEmissionRate);
+	await updateUserStats();
   const bonusEmissionRate = Math.round(globalEmissionRate * 2);
   $('#global-rate').html(`${globalEmissionRate}%`);
   $('#bonus-global-rate').html(`${bonusEmissionRate}%`);
