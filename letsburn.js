@@ -1391,8 +1391,8 @@ const setRedeemBalance = async () => {
 
   console.log('Number Redeemed: ' + currentReward / 10 ** 18);
 	const balance = fourDecimals(currentReward / 10 ** 18);
-  $('#redeem-amount').html(`${balance}`);
-  $('#redeem-amount-button').html(`${balance}`);
+  $('#redeem-amount').html(balance);
+  $('#redeem-amount-button').html(balance);
 
   const _personalEmission = await ashContract.methods
     .getPersonalEmissionRate(idx, account)
@@ -1407,7 +1407,7 @@ const setRedeemBalance = async () => {
     emissionRateToReadable = 0;
   }
   console.log('emissionRateToReadable: ', emissionRateToReadable);
-  $('#personal-emission').html(`${emissionRateToReadable}`);
+  $('#personal-emission').html(emissionRateToReadable);
 };
 
 const setUnstakeBalance = async () => {
