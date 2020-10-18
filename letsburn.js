@@ -1492,12 +1492,13 @@ $('#unstakeBTN').click(async () => {
   var amount = $('#unstake-input').val();
   amount = _.toNumber(amount) * 10 ** 18;
   ashContract.unstake(idx, amount, function (err, res) {
-    console.log('https://etherscan.io/tx/' + res);
-    document.getElementById('unstakeReceipt').innerHTML =
-      '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' +
-      res +
-      '">Unstake Receipt</a>';
-    document.getElementById('unstakeReceipt').style.opacity = '1';
+		console.log('https://etherscan.io/tx/' + res);
+		$('#unstakeReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Unstake Receipt</a>');
+
+		const unstakeReceipt = document.getElementById('unstakeReceipt');
+		if (unstakeReceipt && unstakeReceipt.style) {
+			document.getElementById('unstakeReceipt').style.opacity = '1';
+		}
   });
 });
 
@@ -1510,10 +1511,10 @@ $('#redeemBTN').click(async () => {
   const idx = getIndexBySymbol(value);
 
   ashContract.redeem(idx, function (err, res) {
-    document.getElementById('withdrawResult').innerHTML =
-      '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/"' +
-      res +
-      '">Withdraw Receipt</a>';
-    document.getElementById('withdrawResult').style.opacity = '1';
+		$('#withdrawResult').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Withdraw Receipt</a>');
+		const withdrawResult = document.getElementById('withdrawResult');
+		if (withdrawResult && withdrawResult.style) {
+			document.getElementById('withdrawResult').style.opacity = '1';
+		}
   });
 });
