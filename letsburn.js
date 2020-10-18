@@ -909,8 +909,8 @@ function twoDecimals(number) {
   return newNumber;
 }
 
-function fourDecimals(_balance) {
-	const balance = Number(_balance).toLocaleString('fullwide', {useGrouping:false});
+function fourDecimals(b) {
+	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
 	return balance;
 	// TODO add this back + test
   console.log('input number:', number);
@@ -1380,7 +1380,7 @@ const setUnstakeBalance = async () => {
 		console.log('_.toInteger(res)');
 		console.log(_.toInteger(res));
 
-		const _balance = fourDecimals(_.toNumber(res) / 10 ** 18);
+		const balance = fourDecimals(_.toNumber(res) / 10 ** 18);
     console.log('Staked XAMP: ', balance);
     $('#unstake-input').val(`${balance}`);
     $('#unstake-input').attr('placeholder', `${balance}`);
@@ -1405,7 +1405,7 @@ const setRedeemBalance = async () => {
   const currentReward = _.toNumber(_currentReward);
 
   console.log('Number Redeemed: ' + currentReward / 10 ** 18);
-	const _balance = fourDecimals(currentReward / 10 ** 18);
+	const balance = fourDecimals(currentReward / 10 ** 18);
   $('#redeem-amount').html(`${balance}`);
   $('#redeem-amount-button').html(`${balance}`);
 
