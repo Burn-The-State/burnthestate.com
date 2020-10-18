@@ -647,13 +647,13 @@ const setRedeemBalance = async () => {
 	$('#redeem-amount').html(`${balance}`);
 	$('#redeem-amount-button').html(`${balance}`);
 
-	const _personalEmission = ashContract.methods.getPersonalEmissionRate(idx, account).call();
+	const _personalEmission = await ashContract.methods.getPersonalEmissionRate(idx, account).call();
 	const personalEmission = _.toNumber(_personalEmission);
 	console.log("Personal Emission: " + personalEmission / 10**18);
-	const emissionRateToHuman = (personalEmission / (10 ** 18)/2)*100;
-	console.log('emissionRateToHuman: ', emissionRateToHuman);
+	// const emissionRateToHuman = (personalEmission / (10 ** 18)/2)*100;
+	// console.log('emissionRateToHuman: ', emissionRateToHuman);
 
-	var emissionRateToReadable = twoDecimals(emissionRateToHuman);
+	var emissionRateToReadable = twoDecimals(personalEmission);
 	if (emissionRateToReadable < 0) {
 		emissionRateToReadable = 0;
 	}
