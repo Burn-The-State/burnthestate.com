@@ -340,6 +340,7 @@ const updateUserStats = async () => {
 
   const bonusPoolIdx = await ashContract.methods.getActivePool().call();
 
+
 	// XAMP Personal emission rate
 	const xampPersonalEmissionRate = await ashContract.methods.getPersonalEmissionRate(YFKA_POOL_INDEXES.XAMP, account).call();
 
@@ -356,10 +357,14 @@ const updateUserStats = async () => {
 
 	// TOB Personal emission rate
 	const tobPersonalEmissionRate = await ashContract.methods.getPersonalEmissionRate(YFKA_POOL_INDEXES.TOB, account).call();
+	console.log('tobPersonalEmissionRate: ', tobPersonalEmissionRate);
 	let emissionRateToReadableTob = twoDecimals((tobPersonalEmissionRate / (10 ** 18)/2)* 100);
+	console.log('emissionRateToReadableTob: ', emissionRateToReadableTob);
 	if (emissionRateToReadableTob < 0) {
 		emissionRateToReadableTob = 0;
 	}
+	console.log('emissionRateToReadableTob: ', emissionRateToReadableTob);
+	console.log('YFKA_POOL_INDEXES.TOB: ', YFKA_POOL_INDEXES.TOB);
 	if (bonusPoolIdx === YFKA_POOL_INDEXES.TOB)  {
 		emissionRateToReadableTob = emissionRateToReadableTob * 2;
 	}
