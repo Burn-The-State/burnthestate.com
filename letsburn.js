@@ -571,12 +571,13 @@ $('input[type=radio][name=stake]').change(async (event) => {
   console.log('change radio stake');
   const balances = await getPoolBalances();
   console.log('balances: ', balances);
-  const balance = twoDecimals(balances[event.currentTarget.value]);
+	// const balance = twoDecimals(balances[event.currentTarget.value]);
+	const balance = balances[event.currentTarget.value];
   console.log('balance: ', balance);
   // TODO
-  $('#stake-input').val(`${balance}`);
-  $('#stake-input').attr('placeholder', `${balance}`);
-  $('#stake-balance').html(`${balance}`)
+  $('#stake-input').val(balance);
+  // $('#stake-input').attr('placeholder', `${balance}`);
+  $('#stake-balance').html(balance)
   return balance || '';
 });
 
