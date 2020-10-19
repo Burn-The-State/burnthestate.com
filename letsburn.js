@@ -902,15 +902,15 @@ const getIndexBySymbol = (value) => {
 };
 
 function twoDecimals(b) {
-	console.log('Two Decimals Recieved( ', b, ')');
+	console.log('Two Decimals Recieved = ', b);
 	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
 	// TODO add this back + test
-	console.log('Balance after to String( ', balance, ')');
+	console.log('Balance after to String = ', balance);
 	const numericalbalance = _.toNumber(balance);
-	console.log('Numerical Balance( ', numericalbalance, ')');
+	console.log('Numerical Balance = ', numericalbalance);
   //returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
   const newNumber = Math.floor((numericalbalance + Number.EPSILON) * 100) / 100;
-  console.log('Passing ( ', newNumber, ')');
+  console.log('Passing = ', newNumber);
   return newNumber;
 }
 
