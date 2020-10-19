@@ -943,9 +943,12 @@ function fourDecimals(b) {
 
 function belowZero(n)
 {	
+	console.log('belowZero Function called with:', n);
 	if (n < 0.00){
+		console.log('Below 0.00');
 		return '<0.00';
 	}else{
+		console.log('not Below 0.00');
 		return n;
 	}
 }
