@@ -1225,7 +1225,7 @@ const updateUserStats = async () => {
   }
   $('#personal-emission-ETH').html(`${emissionRateToReadableEth}`);// Removed _.ceil so we get two decimals for Personal Emission (Also Removed /2 for ETH)
 
-  // TODO 18 decimals?
+
   // current LP Tokens
   // XAMP
   const xampLpBalance = await ashContract.methods
@@ -1377,7 +1377,7 @@ const setStakeBalance = async (event)=> {
   const balance = balances[event.currentTarget.value];
   console.log('balance: ', balance);
   // TODO
-  $('#stake-input').val(fourDecimals(balance));
+  $('#stake-input').val(fourDecimals(balance)-0.001);
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(fourDecimals(balance));
   return balance || '';
