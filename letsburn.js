@@ -1423,7 +1423,7 @@ const setStakeBalance = async (event)=> {
   // TODO
   $('#stake-input').val(fourDecimals(balance));
   // $('#stake-input').attr('placeholder', `${balance}`);
-  $('#stake-balance').html(fourDecimals(balance));
+  $('#stake-balance').html(sixDecimals(balance));
   return balance || '';
 };
 
@@ -1467,32 +1467,6 @@ const setUnstakeBalance = async () => {
 	const idx = getIndexBySymbol(value);
 	const globalEmissionRate = await getGlobalEmissionRate();
 	$('#unstake-coin-emission').html(`${globalEmissionRate}`);
-/*	
-	const personalEmission = await getPersonalEmissions();
-	var coinEmission;
-	
-	switch (value){
-		case 'XAMP':
-			coinEmission = personalEmission.XAMP;
-		break;
-		
-		case 'TOB':
-			coinEmission = personalEmission.TOB;
-		break;
-		
-		case 'BOA':
-			coinEmission = personalEmission.BOA;
-		break;
-		
-		case 'ETH':
-			coinEmission = personalEmission.ETH;
-		break;
-		
-		default:
-		break;
-	}
-	
-	
 	$('#unstake-coin-emission').html(`${coinEmission}`);
   */
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
@@ -1505,7 +1479,7 @@ const setUnstakeBalance = async () => {
 		console.log(_.toInteger(res));
 
 		const balance = _.toNumber(res) / 10 ** 18;
-		const reablebalance = fourDecimals(balance);
+		const reablebalance = sixDecimals(balance);
     console.log('Staked XAMP: ', balance);
     $('#unstake-input').val(`${balance}`);
     $('#unstake-input').attr('placeholder', `${balance}`);
