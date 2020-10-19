@@ -1425,7 +1425,8 @@ const setUnstakeBalance = async () => {
 	const idx = getIndexBySymbol(value);
 	
 	const personalemission = await getPersonalEmissions();
-	$('#unstake-coin-emission').html(`${personalemission.value}`);
+	const coinEmission = personalemission.value
+	$('#unstake-coin-emission').html(`${coinEmission}`);
   
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
