@@ -907,7 +907,7 @@ function twoDecimals(b) {
 	// TODO add this back + test
 	console.log('Balance after to String( ', balance, ')');
   //returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
-  const newNumber = Math.floor((numericalbalance + Number.EPSILON) * 100) / 100;
+  const newNumber = Math.floor((balance + Number.EPSILON) * 100) / 100;
   console.log('Passing ( ', newNumber, ')');
   return newNumber;
 }
