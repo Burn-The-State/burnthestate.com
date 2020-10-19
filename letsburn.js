@@ -934,8 +934,6 @@ function MetaConnect(){
 
 		try{
 		if (!isConnected()){
-			console.log('METAMASK NOT CONNECTED!');
-			updateGlobal();
 			$('#isConnected').html('Wallet NOT Connected');
 		}else
 		{
