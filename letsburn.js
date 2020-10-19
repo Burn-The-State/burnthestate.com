@@ -916,7 +916,6 @@ function fourDecimals(b) {
 	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
 	const numericalBalance = _.toNumber(balance);
 	// TODO add this back + test
-  console.log('input number:', number);
   //returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
     console.log('input number >= 1');
     const newNumber = Math.floor((numericalBalance + Number.EPSILON) * 10000) / 10000;
