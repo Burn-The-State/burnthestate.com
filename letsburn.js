@@ -915,10 +915,12 @@ function twoDecimals(b) {
 function fourDecimals(b) {
 	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
 	const numericalBalance = _.toNumber(balance);
+	console.log('Numebrical Nalance FOUR:', numericalBalance);
 	// TODO add this back + test
   //returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
     console.log('input number >= 1');
     const newNumber = Math.floor((numericalBalance + Number.EPSILON) * 10000) / 10000;
+	console.log('Parsing FOUR:', newNumber);
     return newNumber;
 }
 
