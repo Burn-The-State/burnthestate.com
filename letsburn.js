@@ -1600,6 +1600,7 @@ $('#connectToMetamask').click(async () => {
 
 
 window.addEventListener('load', async (event) => {
+	console.log("PAGE LOAD");
 	try{
 		if (isConnected() == false){
 			console.log('METAMASK NOT CONNECTED!');
@@ -1634,4 +1635,7 @@ window.addEventListener('load', async (event) => {
 	{
 		console.log(error);
 	}
-});
+}catch(error)
+	{
+		console.log(error);
+	});
