@@ -1421,20 +1421,23 @@ const setUnstakeBalance = async () => {
 	const value = $('[name=unstake][type=radio]:checked').val();
 	const account = await getAccount();
 	const idx = getIndexBySymbol(value);
-    const ashContract = yfkaControllerContract();
-    const _personalEmission = await ashContract.methods
+    const ashContract_ = yfkaControllerContract();
+    const _personalEmission = await ashContract_.methods
     .getPersonalEmissionRate(idx, account)
     .call();
 	const personalEmission = _.toNumber(_personalEmission);
 	console.log('Personal Emission: ' + personalEmission / 10 ** 18);
-	var emissionRateToReadable = twoDecimals(personalEmission);
+	var emissionRateToReadable = twoDecimals(personalEmission / 10 ** 18)*100;
 	if (emissionRateToReadable < 0) {
 		emissionRateToReadable = 0;
-}
+	}
   
   console.log('Selected Coin: ', value, ';Payload: ', idx);
   const globalEmissionRate = await getGlobalEmissionRate();
   $('#unstake-coin-emission').html(`${emissionRateToReadable}`);
+  
+  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+  ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 // const res = await ashContract.stakes(idx, account).call();
   await ashContract.stakes(idx, account, function (err, res) {
 		console.log(res);
