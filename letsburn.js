@@ -903,20 +903,20 @@ const getIndexBySymbol = (value) => {
 
 function twoDecimals(b) {
     const newNumber = Math.floor((b + Number.EPSILON) * 100) / 100;
-	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
-    return _.toNumber(b);
+	const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(balance);
 }
 
 function fourDecimals(b) {
     const newNumber = Math.floor((b + Number.EPSILON) * 10000) / 10000;
-	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
-    return _.toNumber(b);
+	const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(balance);
 }
 
 function sixDecimals(b) {
     const newNumber = Math.floor((b + Number.EPSILON) * 1000000) / 1000000;
-	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
-    return _.toNumber(b);
+	const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(balance);
 }
 
 function belowZero(n)
@@ -1275,7 +1275,7 @@ const updateUserStats = async () => {
   const xampLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.XAMP, account)
     .call();
-	const XAMPbalance = belowZero(fourDecimals(xampLpBalance / 10 ** 18));
+	const XAMPbalance = belowZero(sixDecimals(xampLpBalance / 10 ** 18));
 	console.log('Staked XAMP: ', XAMPbalance);
 	$('#balance-LP-XAMP').html(XAMPbalance);
 
@@ -1283,7 +1283,7 @@ const updateUserStats = async () => {
   const tobLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.TOB, account)
     .call();
-	const TOBbalance = belowZero(fourDecimals(tobLpBalance / 10 ** 18));
+	const TOBbalance = belowZero(sixDecimals(tobLpBalance / 10 ** 18));
 	console.log('Staked TOB: ', TOBbalance);
 	$('#balance-LP-TOB').html(TOBbalance);
 
@@ -1291,7 +1291,7 @@ const updateUserStats = async () => {
   const boaLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.BOA, account)
     .call();
-	const BOAbalance = belowZero(fourDecimals(boaLpBalance / 10 ** 18));
+	const BOAbalance = belowZero(sixDecimals(boaLpBalance / 10 ** 18));
 	console.log('Staked BOA: ', BOAbalance);
 	$('#balance-LP-BOA').html(BOAbalance);
 
@@ -1299,7 +1299,7 @@ const updateUserStats = async () => {
 	const ethLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.ETH, account)
     .call();
-	const ETHbalance = belowZero(fourDecimals(ethLpBalance / 10 ** 18));
+	const ETHbalance = belowZero(sixDecimals(ethLpBalance / 10 ** 18));
 	console.log('Staked ETH: ', ETHbalance);
 	$('#balance-LP-ETH').html(ETHbalance);
 
