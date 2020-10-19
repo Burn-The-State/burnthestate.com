@@ -1607,7 +1607,7 @@ $('#connectToMetamask').click(async () => {
 
 
 
-window.addEventListener('load', async (event) => {
+window.addEventListener('load', async (event,error) => {
 	
 	if (!isConnected()){
 		console.log('METAMASK NOT CONNECTED!');
@@ -1638,4 +1638,9 @@ window.addEventListener('load', async (event) => {
 		}
 	});
 	}
+	
+	if (error.message.includes("User denied transaction signature")) {
+    console.log("user Denied connection to metamask");
+  }
+	
 });
