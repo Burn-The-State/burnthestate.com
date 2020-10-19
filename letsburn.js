@@ -1596,13 +1596,13 @@ window.addEventListener('load', async (event) => {
 	if (!isConnected()){
 		updateGlobal();
 		$('#isConnected').html('Wallet NOT Connected');
-		document.getElementById('connectToMetamask').style.background-color = "#cd2012";
+		document.getElementById('connectToMetamask').style.background = "#cd2012";
 	}else
 	{
 		console.log('connected');
 		//updatePoolBalances();
 		$('#isConnected').html('wallet connected');
-		document.getElementById('connectToMetamask').style.backgroundColor = "#000";
+		document.getElementById('connectToMetamask').style.background = "#000";
 		await updateActivePool();
 		await updateUserStats();
 	await setStakeBalance({
