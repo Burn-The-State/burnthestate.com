@@ -1377,7 +1377,7 @@ const setStakeBalance = async (event)=> {
   const balance = balances[event.currentTarget.value];
   console.log('balance: ', balance);
   // TODO
-  $('#stake-input').val(fourDecimals(balance)-0.001);
+  $('#stake-input').val(fourDecimals(balance));
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(fourDecimals(balance));
   return balance || '';
@@ -1435,7 +1435,7 @@ const setUnstakeBalance = async () => {
 		console.log('_.toInteger(res)');
 		console.log(_.toInteger(res));
 
-		const balance = fourDecimals(_.toNumber(res) / 10 ** 18);
+		const balance = _.toNumber(res) / 10 ** 18;
     console.log('Staked XAMP: ', balance);
     $('#unstake-input').val(`${balance}`);
     $('#unstake-input').attr('placeholder', `${balance}`);
