@@ -927,7 +927,7 @@ function belowZero(n)
 
 function updateGlobal()
 {
-	await updateActivePool();
+	updateActivePool();
 }
 
 /*
