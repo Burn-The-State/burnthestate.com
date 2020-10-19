@@ -1388,7 +1388,7 @@ const setRedeemBalance = async () => {
   const value = $('[name=redeem][type=radio]:checked').val();
   const account = await getAccount();
   const globalEmissionRate = await getGlobalEmissionRate();
-  $('#coin-emission').html(`${globalEmissionRate}`);
+  $('#redeem-coin-emission').html(`${globalEmissionRate}`);
 
   const idx = getIndexBySymbol(value);
   console.log('Selected Coin: ', value, '; idx: ', idx);
@@ -1409,9 +1409,6 @@ const setRedeemBalance = async () => {
     .call();
   const personalEmission = _.toNumber(_personalEmission);
   console.log('Personal Emission: ' + personalEmission / 10 ** 18);
-  // const emissionRateToHuman = (personalEmission / (10 ** 18)/2)*100;
-  // console.log('emissionRateToHuman: ', emissionRateToHuman);
-
   var emissionRateToReadable = twoDecimals(personalEmission);
   if (emissionRateToReadable < 0) {
     emissionRateToReadable = 0;
@@ -1424,9 +1421,20 @@ const setUnstakeBalance = async () => {
   const value = $('[name=unstake][type=radio]:checked').val();
   const account = await getAccount();
   const idx = getIndexBySymbol(value);
+  
+    const _personalEmission = await ashContract.methods
+    .getPersonalEmissionRate(idx, account)
+    .call();
+  const personalEmission = _.toNumber(_personalEmission);
+  console.log('Personal Emission: ' + personalEmission / 10 ** 18);
+  var emissionRateToReadable = twoDecimals(personalEmission);
+  if (emissionRateToReadable < 0) {
+    emissionRateToReadable = 0;
+  }
+  
   console.log('Selected Coin: ', value, ';Payload: ', idx);
   const globalEmissionRate = await getGlobalEmissionRate();
-  $('#coin-emission').html(`${globalEmissionRate}`);
+  $('#unstake-coin-emission').html(`${emissionRateToReadable}`);
   
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
