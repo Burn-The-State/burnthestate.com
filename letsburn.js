@@ -1427,7 +1427,8 @@ const setUnstakeBalance = async () => {
 	
 	const personalEmission = await getPersonalEmissions();
 	const coinEmission = personalEmission.value;
-	console.log('UNSTAKE coin Emission : ', value);
+	console.log('UNSTAKE coin Emission : ', coinEmission);
+	console.log('personalEmission : ', personalEmission);
 	$('#unstake-coin-emission').html(`${coinEmission}`);
   
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
