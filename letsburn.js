@@ -1421,11 +1421,13 @@ const setRedeemBalance = async () => {
 
 const setUnstakeBalance = async () => {
 	const value = $('[name=unstake][type=radio]:checked').val();
+	console.log('seclected Coin UNSTAKE: ', value);
 	const account = await getAccount();
 	const idx = getIndexBySymbol(value);
 	
-	const personalemission = await getPersonalEmissions();
-	const coinEmission = personalemission.value
+	const personalEmission = await getPersonalEmissions();
+	const coinEmission = personalEmission.value;
+	console.log('UNSTAKE coin Emission : ', value);
 	$('#unstake-coin-emission').html(`${coinEmission}`);
   
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
