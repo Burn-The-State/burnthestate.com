@@ -903,11 +903,10 @@ const getIndexBySymbol = (value) => {
 
 function twoDecimals(b) {
 	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
-	return _.toNumber(balance);
 	// TODO add this back + test
   //returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
-  const newNumber = Math.floor((number + Number.EPSILON) * 100) / 100;
-  return newNumber;
+  const newNumber = Math.floor((balance + Number.EPSILON) * 100) / 100;
+  return _.toNumber(newNumber);
 }
 
 function fourDecimals(b) {
@@ -1154,7 +1153,7 @@ const updateUserStats = async () => {
   let emissionRateToReadableXAMP = twoDecimals(
     (xampPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
-  if (emissionRateToReadableXAMP < 0) {
+  if (emissionRateToReadableXAMP <= "<0.00") {
     emissionRateToReadableXAMP = 0;
   }
   if (bonusPoolIdx == YFKA_POOL_INDEXES.XAMP) {
@@ -1171,7 +1170,7 @@ const updateUserStats = async () => {
     (tobPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
   console.log('emissionRateToReadableTob: ', emissionRateToReadableTob);
-  if (emissionRateToReadableTob < 0) {
+  if (emissionRateToReadableTob <= "<0.00") {
     emissionRateToReadableTob = 0;
   }
   console.log('bonusPoolIdx: ', typeof bonusPoolIdx);
@@ -1188,7 +1187,7 @@ const updateUserStats = async () => {
   let emissionRateToReadableBoa = twoDecimals(
     (boaPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
-  if (emissionRateToReadableBoa < 0) {
+  if (emissionRateToReadableBoa <= "<0.00") {
     emissionRateToReadableBoa = 0;
   }
   if (bonusPoolIdx == YFKA_POOL_INDEXES.BOA) {
@@ -1203,7 +1202,7 @@ const updateUserStats = async () => {
   let emissionRateToReadableEth = twoDecimals(
     (ethPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
-  if (emissionRateToReadableEth < 0) {
+  if (emissionRateToReadableEth <= "<0.00") {
     emissionRateToReadableEth = 0;
   }
   if (bonusPoolIdx == YFKA_POOL_INDEXES.ETH) {
