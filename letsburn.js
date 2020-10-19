@@ -1593,15 +1593,18 @@ $('#unstakeBTN').click(async () => {
 
 window.addEventListener('load', async (event) => {
 	window.web3.currentProvider.enable();
-  if (!isConnected()) updateGlobal();
-  console.log('connected');
-  //updatePoolBalances();
-  $('#isConnected').html('wallet connected');
-
-  await updateActivePool();
-	await updateUserStats();
-
-
+	if (!isConnected()){
+		updateGlobal();
+		$('#isConnected').html('Wallet NOT Connected');
+		document.getElementById('connectToMetamask').style.background-color = "#cd2012";
+	}else
+	{
+		console.log('connected');
+		//updatePoolBalances();
+		$('#isConnected').html('wallet connected');
+		document.getElementById('connectToMetamask').style.backgroundColor = "#000";
+		await updateActivePool();
+		await updateUserStats();
 	await setStakeBalance({
 		currentTarget: {
 			value: 'XAMP',
@@ -1612,9 +1615,10 @@ window.addEventListener('load', async (event) => {
 			value: 'XAMP',
 		}
 	});
-  await setUnstakeBalance({
-	  		currentTarget: {
+	await setUnstakeBalance({
+			currentTarget: {
 			value: 'XAMP',
 		}
 	});
+	}
 });
