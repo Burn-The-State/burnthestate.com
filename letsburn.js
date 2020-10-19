@@ -1418,19 +1418,19 @@ const setRedeemBalance = async () => {
 };
 
 const setUnstakeBalance = async () => {
-  const value = $('[name=unstake][type=radio]:checked').val();
-  const account = await getAccount();
-  const idx = getIndexBySymbol(value);
-  
+	const value = $('[name=unstake][type=radio]:checked').val();
+	const account = await getAccount();
+	const idx = getIndexBySymbol(value);
+    const ashContract = yfkaControllerContract();
     const _personalEmission = await ashContract.methods
     .getPersonalEmissionRate(idx, account)
     .call();
-  const personalEmission = _.toNumber(_personalEmission);
-  console.log('Personal Emission: ' + personalEmission / 10 ** 18);
-  var emissionRateToReadable = twoDecimals(personalEmission);
-  if (emissionRateToReadable < 0) {
-    emissionRateToReadable = 0;
-  }
+	const personalEmission = _.toNumber(_personalEmission);
+	console.log('Personal Emission: ' + personalEmission / 10 ** 18);
+	var emissionRateToReadable = twoDecimals(personalEmission);
+	if (emissionRateToReadable < 0) {
+		emissionRateToReadable = 0;
+}
   
   console.log('Selected Coin: ', value, ';Payload: ', idx);
   const globalEmissionRate = await getGlobalEmissionRate();
@@ -1446,10 +1446,11 @@ const setUnstakeBalance = async () => {
 		console.log(_.toInteger(res));
 
 		const balance = _.toNumber(res) / 10 ** 18;
+		const reablebalance = fourDecimals(balance);
     console.log('Staked XAMP: ', balance);
     $('#unstake-input').val(`${balance}`);
     $('#unstake-input').attr('placeholder', `${balance}`);
-    $('#unstake-balance').html(`${balance}`);
+    $('#unstake-balance').html(`${reablebalance}`);
   });
 };
 
