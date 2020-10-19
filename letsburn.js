@@ -919,7 +919,7 @@ function fourDecimals(b) {
   console.log('input number:', number);
   //returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
     console.log('input number >= 1');
-    const newNumber = Math.floor((number + Number.EPSILON) * 10000) / 10000;
+    const newNumber = Math.floor((number + Number.EPSILON) * 100000) / 100000;
     return newNumber;
 }
 
