@@ -1599,7 +1599,7 @@ $('#connectToMetamask').click(async () => {
 
 
 
-window.addEventListener('load', async (event) => {
+window.addEventListener('load', async (event,err) => {
 	console.log("PAGE LOAD");
 	try{
 		if (isConnected() == false){
@@ -1631,11 +1631,11 @@ window.addEventListener('load', async (event) => {
 			}
 		});
 		}
-	}catch(error)
+	}catch(err)
 	{
 		console.log(error);
 	}
-}catch(error)
-	{
-		console.log(error);
-	});
+	if(!err){
+		console.log("error Occured");
+	}
+});
