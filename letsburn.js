@@ -1092,75 +1092,76 @@ const getPoolBalances = async () => {
 
 
 const getPersonalEmissions= async () => {
- const bonusPoolIdx = await ashContract.methods.getActivePool().call();
+	const ashContract = yfkaControllerContract();
+	const bonusPoolIdx = await ashContract.methods.getActivePool().call();
 
-  // XAMP Personal emission rate
-  const xampPersonalEmissionRate = await ashContract.methods
-    .getPersonalEmissionRate(YFKA_POOL_INDEXES.XAMP, account)
-    .call();
+	// XAMP Personal emission rate
+	const xampPersonalEmissionRate = await ashContract.methods
+	.getPersonalEmissionRate(YFKA_POOL_INDEXES.XAMP, account)
+	.call();
 
-  let emissionRateToReadableXAMP = twoDecimals(
-    (xampPersonalEmissionRate / 10 ** 18 / 2) * 100
-  );
-  if (emissionRateToReadableXAMP <= 0.00) {
-    emissionRateToReadableXAMP = 0;
-  }
-  if (bonusPoolIdx == YFKA_POOL_INDEXES.XAMP) {
-    emissionRateToReadableXAMP = emissionRateToReadableXAMP * 2;
-  }
-  // TOB Personal emission rate
-  const tobPersonalEmissionRate = await ashContract.methods
-    .getPersonalEmissionRate(YFKA_POOL_INDEXES.TOB, account)
-    .call();
-  console.log('tobPersonalEmissionRate: ', tobPersonalEmissionRate);
-  let emissionRateToReadableTob = twoDecimals(
-    (tobPersonalEmissionRate / 10 ** 18 / 2) * 100
-  );
-  console.log('emissionRateToReadableTob: ', emissionRateToReadableTob);
-  if (emissionRateToReadableTob <= 0.00) {
-    emissionRateToReadableTob = 0;
-  }
-  console.log('bonusPoolIdx: ', typeof bonusPoolIdx);
-  console.log('YFKA_POOL_INDEXES.TOB: ', YFKA_POOL_INDEXES.TOB);
-  if (bonusPoolIdx == YFKA_POOL_INDEXES.TOB) {
-    emissionRateToReadableTob = emissionRateToReadableTob * 2;
-  }
-  // BOA Personal emission rate
-  const boaPersonalEmissionRate = await ashContract.methods
-    .getPersonalEmissionRate(YFKA_POOL_INDEXES.BOA, account)
-    .call();
-  let emissionRateToReadableBoa = twoDecimals(
-    (boaPersonalEmissionRate / 10 ** 18 / 2) * 100
-  );
-  if (emissionRateToReadableBoa <= 0.00) {
-    emissionRateToReadableBoa = 0;
-  }
-  if (bonusPoolIdx == YFKA_POOL_INDEXES.BOA) {
-    emissionRateToReadableBoa = emissionRateToReadableBoa * 2;
-  }
+	let emissionRateToReadableXAMP = twoDecimals(
+	(xampPersonalEmissionRate / 10 ** 18 / 2) * 100
+	);
+	if (emissionRateToReadableXAMP <= 0.00) {
+		emissionRateToReadableXAMP = 0;
+	}
+	if (bonusPoolIdx == YFKA_POOL_INDEXES.XAMP) {
+		emissionRateToReadableXAMP = emissionRateToReadableXAMP * 2;
+	}
+	// TOB Personal emission rate
+	const tobPersonalEmissionRate = await ashContract.methods
+	.getPersonalEmissionRate(YFKA_POOL_INDEXES.TOB, account)
+	.call();
+	console.log('tobPersonalEmissionRate: ', tobPersonalEmissionRate);
+	let emissionRateToReadableTob = twoDecimals(
+	(tobPersonalEmissionRate / 10 ** 18 / 2) * 100
+	);
+	console.log('emissionRateToReadableTob: ', emissionRateToReadableTob);
+		if (emissionRateToReadableTob <= 0.00) {
+	emissionRateToReadableTob = 0;
+	}
+	console.log('bonusPoolIdx: ', typeof bonusPoolIdx);
+	console.log('YFKA_POOL_INDEXES.TOB: ', YFKA_POOL_INDEXES.TOB);
+	if (bonusPoolIdx == YFKA_POOL_INDEXES.TOB) {
+		emissionRateToReadableTob = emissionRateToReadableTob * 2;
+	}
+	// BOA Personal emission rate
+	const boaPersonalEmissionRate = await ashContract.methods
+	.getPersonalEmissionRate(YFKA_POOL_INDEXES.BOA, account)
+	.call();
+	let emissionRateToReadableBoa = twoDecimals(
+	(boaPersonalEmissionRate / 10 ** 18 / 2) * 100
+	);
+	if (emissionRateToReadableBoa <= 0.00) {
+		emissionRateToReadableBoa = 0;
+	}
+	if (bonusPoolIdx == YFKA_POOL_INDEXES.BOA) {
+		emissionRateToReadableBoa = emissionRateToReadableBoa * 2;
+	}
 
 
-  // ETH Personal emission rate
-  const ethPersonalEmissionRate = await ashContract.methods
-    .getPersonalEmissionRate(YFKA_POOL_INDEXES.ETH, account)
-    .call();
-  let emissionRateToReadableEth = twoDecimals(
-    (ethPersonalEmissionRate / 10 ** 18 / 2) * 100
-  );
-  if (emissionRateToReadableEth <= 0.00) {
-    emissionRateToReadableEth = 0;
-  }
-  if (bonusPoolIdx == YFKA_POOL_INDEXES.ETH) {
-    emissionRateToReadableEth = emissionRateToReadableEth * 2;
-  }
-  
+	// ETH Personal emission rate
+	const ethPersonalEmissionRate = await ashContract.methods
+	.getPersonalEmissionRate(YFKA_POOL_INDEXES.ETH, account)
+	.call();
+	let emissionRateToReadableEth = twoDecimals(
+	(ethPersonalEmissionRate / 10 ** 18 / 2) * 100
+	);
+	if (emissionRateToReadableEth <= 0.00) {
+		emissionRateToReadableEth = 0;
+	}
+	if (bonusPoolIdx == YFKA_POOL_INDEXES.ETH) {
+		emissionRateToReadableEth = emissionRateToReadableEth * 2;
+	}
 
-  return {
-    XAMP: _.toNumber(emissionRateToReadableXAMP),
-    TOB: _.toNumber(emissionRateToReadableTob),
-    BOA: _.toNumber(emissionRateToReadableBoa),
-    ETH: _.toNumber(emissionRateToReadableEth),
-  };
+
+	return {
+		XAMP: _.toNumber(emissionRateToReadableXAMP),
+		TOB: _.toNumber(emissionRateToReadableTob),
+		BOA: _.toNumber(emissionRateToReadableBoa),
+		ETH: _.toNumber(emissionRateToReadableEth),
+	};
 
 
 
