@@ -902,14 +902,14 @@ const getIndexBySymbol = (value) => {
 };
 
 function twoDecimals(b) {
-	//console.log('Two Decimals Recieved( ', b, ')');
-	const balance = b;
-	// TODO add this back + test
-	console.log('Balance after to String( ', balance, ')');
-  //returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
-  const newNumber = Math.floor((balance + Number.EPSILON) * 100) / 100;
-  console.log('Passing ( ', newNumber, ')');
-  return newNumber;
+	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
+	console.log('Two Decimals Recieved( ', b, ')');
+	const numericalBalance = _.toNumber(balance);
+	console.log('Balance after to String( ', numericalBalance, ')');
+	//returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
+	const newNumber = Math.floor((numericalBalance + Number.EPSILON) * 100) / 100;
+	console.log('Passing ( ', newNumber, ')');
+	return newNumber;
 }
 
 function fourDecimals(b) {
@@ -1156,8 +1156,8 @@ const updateUserStats = async () => {
   let emissionRateToReadableXAMP = twoDecimals(
     (xampPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
-  if (emissionRateToReadableXAMP <= "<0.00") {
-    emissionRateToReadableXAMP = 0;
+  if (emissionRateToReadableXAMP <= 0.00) {
+    emissionRateToReadableXAMP = '<0.00';
   }
   if (bonusPoolIdx == YFKA_POOL_INDEXES.XAMP) {
     emissionRateToReadableXAMP = emissionRateToReadableXAMP * 2;
@@ -1173,8 +1173,8 @@ const updateUserStats = async () => {
     (tobPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
   console.log('emissionRateToReadableTob: ', emissionRateToReadableTob);
-  if (emissionRateToReadableTob <= "<0.00") {
-    emissionRateToReadableTob = 0;
+  if (emissionRateToReadableTob <= 0.00) {
+    emissionRateToReadableTob = '<0.00';
   }
   console.log('bonusPoolIdx: ', typeof bonusPoolIdx);
   console.log('YFKA_POOL_INDEXES.TOB: ', YFKA_POOL_INDEXES.TOB);
@@ -1190,8 +1190,8 @@ const updateUserStats = async () => {
   let emissionRateToReadableBoa = twoDecimals(
     (boaPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
-  if (emissionRateToReadableBoa <= "<0.00") {
-    emissionRateToReadableBoa = 0;
+  if (emissionRateToReadableBoa <= 0.00) {
+    emissionRateToReadableBoa = '<0.00';
   }
   if (bonusPoolIdx == YFKA_POOL_INDEXES.BOA) {
     emissionRateToReadableBoa = emissionRateToReadableBoa * 2;
@@ -1205,8 +1205,8 @@ const updateUserStats = async () => {
   let emissionRateToReadableEth = twoDecimals(
     (ethPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
-  if (emissionRateToReadableEth <= "<0.00") {
-    emissionRateToReadableEth = 0;
+  if (emissionRateToReadableEth <= 0.00) {
+    emissionRateToReadableEth = '<0.00';
   }
   if (bonusPoolIdx == YFKA_POOL_INDEXES.ETH) {
     emissionRateToReadableEth = emissionRateToReadableEth * 2;
