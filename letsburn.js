@@ -1631,9 +1631,9 @@ window.addEventListener('load', async (event,err) => {
 			}
 		});
 		}
-	}catch(err)
+	}catch(error)
 	{
-		console.log(error);
+		console.log("Error",error);
 	}
 	if(!err){
 		console.log("error Occured");
