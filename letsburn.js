@@ -903,20 +903,20 @@ const getIndexBySymbol = (value) => {
 
 function twoDecimals(b) {
     const newNumber = Math.floor((b + Number.EPSILON) * 100) / 100;
-	const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
-    return _.toNumber(balance);
+	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(newNumber);
 }
 
 function fourDecimals(b) {
     const newNumber = Math.floor((b + Number.EPSILON) * 10000) / 10000;
-	const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
-    return _.toNumber(balance);
+	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(newNumber);
 }
 
 function sixDecimals(b) {
     const newNumber = Math.floor((b + Number.EPSILON) * 1000000) / 1000000;
-	const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
-    return _.toNumber(balance);
+	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(newNumber);
 }
 
 function belowZero(n)
