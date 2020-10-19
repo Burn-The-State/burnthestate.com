@@ -1467,8 +1467,6 @@ const setUnstakeBalance = async () => {
 	const idx = getIndexBySymbol(value);
 	const globalEmissionRate = await getGlobalEmissionRate();
 	$('#unstake-coin-emission').html(`${globalEmissionRate}`);
-	$('#unstake-coin-emission').html(`${coinEmission}`);
- 
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 // const res = await ashContract.stakes(idx, account).call();
@@ -1479,7 +1477,7 @@ const setUnstakeBalance = async () => {
 		console.log(_.toInteger(res));
 
 		const balance = _.toNumber(res) / 10 ** 18;
-		const reablebalance = sixDecimals(balance);
+		const reablebalance = fourDecimals(balance);
     console.log('Staked XAMP: ', balance);
     $('#unstake-input').val(`${balance}`);
     $('#unstake-input').attr('placeholder', `${balance}`);
