@@ -1424,22 +1424,23 @@ const setUnstakeBalance = async () => {
 	const account = await getAccount();
 	const idx = getIndexBySymbol(value);
 	const personalEmission = await getPersonalEmissions();
+	var coinEmission;
 	
 	switch (value){
 		case 'XAMP':
-		const coinEmission = personalEmission.XAMP;
+			coinEmission = personalEmission.XAMP;
 		break;
 		
 		case 'TOB':
-		const coinEmission = personalEmission.TOB;
+			coinEmission = personalEmission.TOB;
 		break;
 		
 		case 'BOA':
-		const coinEmission = personalEmission.BOA;
+			coinEmission = personalEmission.BOA;
 		break;
 		
 		case 'ETH':
-		const coinEmission = personalEmission.ETH;
+			coinEmission = personalEmission.ETH;
 		break;
 		
 		default:
