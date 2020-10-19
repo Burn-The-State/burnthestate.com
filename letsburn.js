@@ -913,8 +913,8 @@ function twoDecimals(b) {
 }
 
 function fourDecimals(b) {
-	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
-	const numericalBalance = _.toNumber(balance);
+	//const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
+	const numericalBalance = _.toNumber(b);
 	console.log('Numebrical Nalance FOUR:', numericalBalance);
 	// TODO add this back + test
   //returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
