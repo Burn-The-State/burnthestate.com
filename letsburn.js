@@ -1638,8 +1638,9 @@ window.addEventListener('load', async (event,error) => {
 			value: 'XAMP',
 		}
 	});
-	}
 	*/
+	}
+	
 	
 	if (error.message.includes("User denied transaction signature")) {
     console.log("user Denied connection to metamask");
