@@ -1092,6 +1092,7 @@ const getPoolBalances = async () => {
 
 
 const getPersonalEmissions= async () => {
+	const account = await getAccount();
 	const ashContract = yfkaControllerContract();
 	const bonusPoolIdx = await ashContract.methods.getActivePool().call();
 
