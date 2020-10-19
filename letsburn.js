@@ -1590,10 +1590,10 @@ window.addEventListener('load', async (event) => {
 		currentTarget: {
 			value: 'XAMP',
 		}
-	)};
+	});
   await setUnstakeBalance({
 	  		currentTarget: {
 			value: 'XAMP',
 		}
-  )};
+	});
 });
