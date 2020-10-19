@@ -1609,9 +1609,9 @@ $('#connectToMetamask').click(async () => {
 
 window.addEventListener('load', async (event,error) => {
 	
-	if (!isConnected()){
+	if (isConnected() == false){
 		console.log('METAMASK NOT CONNECTED!');
-		updateGlobal();
+		//updateGlobal();
 		$('#isConnected').html('Wallet NOT Connected');
 		document.getElementById('connectToMetamask').style.background = "#cd2012";
 	}else
