@@ -1602,12 +1602,13 @@ $('#connectToMetamask').click(async () => {
 window.addEventListener('load', async (event) => {
 	
 	if (!isConnected()){
+		console.log('METAMASK NOT CONNECTED!');
 		updateGlobal();
 		$('#isConnected').html('Wallet NOT Connected');
 		document.getElementById('connectToMetamask').style.background = "#cd2012";
 	}else
 	{
-		console.log('connected');
+		console.log('METAMASK NOT CONNECTED!');
 		//updatePoolBalances();
 		$('#isConnected').html('wallet connected');
 		document.getElementById('connectToMetamask').style.background = "#000";
