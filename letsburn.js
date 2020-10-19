@@ -937,6 +937,8 @@ function MetaConnect(){
 			console.log('METAMASK NOT CONNECTED!');
 			//updateGlobal();
 			$('#isConnected').html('Wallet NOT Connected');
+			window.web3.currentProvider.enable();
+			setTimeout(() => {  MetaConnect();; }, 5000);
 		}else
 		{
 			console.log('METAMASK NOT CONNECTED!');
@@ -1623,7 +1625,7 @@ $('#connectToMetamask').click(async () => {
 	
 	window.web3.currentProvider.enable();
 	
-	setTimeout(() => {  MetaConnect();; }, 15000);
+	setTimeout(() => {  MetaConnect();; }, 5000);
 });
 
 
