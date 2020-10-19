@@ -1430,7 +1430,7 @@ const setUnstakeBalance = async () => {
 		const coinEmission = personalEmission.XAMP;
 		break;
 		
-		case'TOB':
+		case 'TOB':
 		const coinEmission = personalEmission.TOB;
 		break;
 		
