@@ -844,7 +844,7 @@ const YFKA_CONTROLLER_ABI = [
 *
 */
 
-const Web3 = require("web3");
+
 
 const isConnected = () => {
    if (window.ethereum) {
