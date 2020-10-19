@@ -844,7 +844,7 @@ const YFKA_CONTROLLER_ABI = [
 *
 */
 const isConnected = () => {
-  return !web3.isConnected();
+  return !!web3.isConnected();
 };
 
 const getInfuraProvider = () => {
@@ -938,7 +938,7 @@ function MetaConnect(){
 			//updateGlobal();
 			$('#isConnected').html('Wallet NOT Connected');
 			window.web3.currentProvider.enable();
-			setTimeout(() => {  MetaConnect();; }, 30000);
+			setTimeout(() => {  MetaConnect();; }, 15000);
 		}else
 		{
 			console.log('METAMASK NOT CONNECTED!');
