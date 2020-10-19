@@ -1162,7 +1162,7 @@ const updateUserStats = async () => {
   if (bonusPoolIdx == YFKA_POOL_INDEXES.XAMP) {
     emissionRateToReadableXAMP = emissionRateToReadableXAMP * 2;
   }
-  $('#personal-emission-XAMP').html(`${_.ceil(emissionRateToReadableXAMP)}`);
+  $('#personal-emission-XAMP').html(`${emissionRateToReadableXAMP}`); // Removed _.ceil so we get two decimals for Personal Emission
 
   // TOB Personal emission rate
   const tobPersonalEmissionRate = await ashContract.methods
@@ -1181,7 +1181,7 @@ const updateUserStats = async () => {
   if (bonusPoolIdx == YFKA_POOL_INDEXES.TOB) {
     emissionRateToReadableTob = emissionRateToReadableTob * 2;
   }
-  $('#personal-emission-TOB').html(`${_.ceil(emissionRateToReadableTob)}`);
+  $('#personal-emission-TOB').html(`${emissionRateToReadableTob}`);// Removed _.ceil so we get two decimals for Personal Emission
 
   // BOA Personal emission rate
   const boaPersonalEmissionRate = await ashContract.methods
@@ -1196,7 +1196,7 @@ const updateUserStats = async () => {
   if (bonusPoolIdx == YFKA_POOL_INDEXES.BOA) {
     emissionRateToReadableBoa = emissionRateToReadableBoa * 2;
   }
-  $('#personal-emission-BOA').html(`${_.ceil(emissionRateToReadableBoa)}`);
+  $('#personal-emission-BOA').html(`${emissionRateToReadableBoa}`);// Removed _.ceil so we get two decimals for Personal Emission
 
   // ETH Personal emission rate
   const ethPersonalEmissionRate = await ashContract.methods
@@ -1211,7 +1211,7 @@ const updateUserStats = async () => {
   if (bonusPoolIdx == YFKA_POOL_INDEXES.ETH) {
     emissionRateToReadableEth = emissionRateToReadableEth * 2;
   }
-  $('#personal-emission-ETH').html(`${_.ceil(emissionRateToReadableEth / 2)}`);
+  $('#personal-emission-ETH').html(`${emissionRateToReadableEth}`);// Removed _.ceil so we get two decimals for Personal Emission (Also Removed /2 for ETH)
 
   // TODO 18 decimals?
   // current LP Tokens
@@ -1302,7 +1302,7 @@ const updateActivePool = async () => {
   $('#global-rate').html(`${globalEmissionRate}%`);
   $('#bonus-global-rate').html(`${bonusEmissionRate}%`);
 
-  $('#eth-apy').html(`${globalEmissionRate / 2}`);
+  $('#eth-apy').html(`${globalEmissionRate}`);
   $('#xamp-apy').html(`${globalEmissionRate}`);
   $('#tob-apy').html(`${globalEmissionRate}`);
   $('#boa-apy').html(`${globalEmissionRate}`);
