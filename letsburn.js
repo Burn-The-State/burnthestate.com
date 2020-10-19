@@ -1616,6 +1616,7 @@ window.addEventListener('load', async (event,error) => {
 		document.getElementById('connectToMetamask').style.background = "#cd2012";
 	}else
 	{
+		/*
 		console.log('METAMASK NOT CONNECTED!');
 		//updatePoolBalances();
 		$('#isConnected').html('wallet connected');
@@ -1638,6 +1639,7 @@ window.addEventListener('load', async (event,error) => {
 		}
 	});
 	}
+	*/
 	
 	if (error.message.includes("User denied transaction signature")) {
     console.log("user Denied connection to metamask");
