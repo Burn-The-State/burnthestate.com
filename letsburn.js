@@ -1468,7 +1468,7 @@ const setUnstakeBalance = async () => {
 	const globalEmissionRate = await getGlobalEmissionRate();
 	$('#unstake-coin-emission').html(`${globalEmissionRate}`);
 	$('#unstake-coin-emission').html(`${coinEmission}`);
-  */
+ 
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 // const res = await ashContract.stakes(idx, account).call();
