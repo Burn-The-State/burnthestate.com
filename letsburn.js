@@ -941,6 +941,15 @@ function fourDecimals(b) {
   }
 }
 
+function belowZero(n)
+{	
+	if (n < 0.00){
+		return '<0.00';
+	}else{
+		return n;
+	}
+}
+
 /*
 *
 *
@@ -1157,7 +1166,7 @@ const updateUserStats = async () => {
     (xampPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
   if (emissionRateToReadableXAMP <= 0.00) {
-    emissionRateToReadableXAMP = '<0.00';
+    emissionRateToReadableXAMP = 0;
   }
   if (bonusPoolIdx == YFKA_POOL_INDEXES.XAMP) {
     emissionRateToReadableXAMP = emissionRateToReadableXAMP * 2;
@@ -1174,7 +1183,7 @@ const updateUserStats = async () => {
   );
   console.log('emissionRateToReadableTob: ', emissionRateToReadableTob);
   if (emissionRateToReadableTob <= 0.00) {
-    emissionRateToReadableTob = '<0.00';
+    emissionRateToReadableTob = 0;
   }
   console.log('bonusPoolIdx: ', typeof bonusPoolIdx);
   console.log('YFKA_POOL_INDEXES.TOB: ', YFKA_POOL_INDEXES.TOB);
@@ -1191,7 +1200,7 @@ const updateUserStats = async () => {
     (boaPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
   if (emissionRateToReadableBoa <= 0.00) {
-    emissionRateToReadableBoa = '<0.00';
+    emissionRateToReadableBoa = 0;
   }
   if (bonusPoolIdx == YFKA_POOL_INDEXES.BOA) {
     emissionRateToReadableBoa = emissionRateToReadableBoa * 2;
@@ -1206,7 +1215,7 @@ const updateUserStats = async () => {
     (ethPersonalEmissionRate / 10 ** 18 / 2) * 100
   );
   if (emissionRateToReadableEth <= 0.00) {
-    emissionRateToReadableEth = '<0.00';
+    emissionRateToReadableEth = 0;
   }
   if (bonusPoolIdx == YFKA_POOL_INDEXES.ETH) {
     emissionRateToReadableEth = emissionRateToReadableEth * 2;
@@ -1219,78 +1228,74 @@ const updateUserStats = async () => {
   const xampLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.XAMP, account)
     .call();
-	const XAMPbalance = fourDecimals(xampLpBalance / 10 ** 18);
-  console.log('Staked XAMP: ', XAMPbalance);
-  $('#balance-LP-XAMP').html(XAMPbalance);
+	const XAMPbalance = belowZero(fourDecimals(xampLpBalance / 10 ** 18));
+	console.log('Staked XAMP: ', XAMPbalance);
+	$('#balance-LP-XAMP').html(XAMPbalance);
 
   // TOB
   const tobLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.TOB, account)
     .call();
-  const TOBbalance = fourDecimals(tobLpBalance / 10 ** 18);
-  console.log('Staked TOB: ', TOBbalance);
-  $('#balance-LP-TOB').html(TOBbalance);
+	const TOBbalance = belowZero(fourDecimals(tobLpBalance / 10 ** 18));
+	console.log('Staked TOB: ', TOBbalance);
+	$('#balance-LP-TOB').html(TOBbalance);
 
-  // OBA
+  // BOA
   const boaLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.BOA, account)
     .call();
-  const BOAbalance = fourDecimals(boaLpBalance / 10 ** 18);
-  console.log('Staked BOA: ', BOAbalance);
-  $('#balance-LP-BOA').html(BOAbalance);
+	const BOAbalance = belowZero(fourDecimals(boaLpBalance / 10 ** 18));
+	console.log('Staked BOA: ', BOAbalance);
+	$('#balance-LP-BOA').html(BOAbalance);
 
   // ETH
-  const ethLpBalance = await ashContract.methods
+	const ethLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.ETH, account)
     .call();
-  const ETHbalance = fourDecimals(ethLpBalance / 10 ** 18);
-  console.log('Staked ETH: ', ETHbalance);
-  $('#balance-LP-ETH').html(ETHbalance);
+	const ETHbalance = belowZero(fourDecimals(ethLpBalance / 10 ** 18));
+	console.log('Staked ETH: ', ETHbalance);
+	$('#balance-LP-ETH').html(ETHbalance);
 
-  //% of pool
-  const TotalBalances = await getTotalBalances();
+	//% of pool
+	const TotalBalances = await getTotalBalances();
 
-  //XAMP
-  const TotalXAMPbalance = TotalBalances.XAMP;
-  const percentXAMP = (XAMPbalance / TotalXAMPbalance) * 100;
-  console.log('XAMP Balance = ', XAMPbalance);
-  console.log('XAMP Total =', TotalXAMPbalance);
-  var readableTotalXAMP = twoDecimals(TotalXAMPbalance);
-  var readablePercentage = fourDecimals(percentXAMP);
-  //if (readablePercent <= 0) readablePercentage = "<0.00%";
-  console.log('XAMP % = ', readablePercentage);
-  $('#pool-Share-XAMP').html(`${readablePercentage}`);
-  $('#total-LP-XAMP').html(`${readableTotalXAMP}`);
+	//XAMP
+	const TotalXAMPbalance = TotalBalances.XAMP;
+	const percentXAMP = (XAMPbalance / TotalXAMPbalance) * 100;
+	console.log('XAMP Balance = ', XAMPbalance);
+	console.log('XAMP Total =', TotalXAMPbalance);
+	var readableTotalXAMP = twoDecimals(TotalXAMPbalance);
+	var readablePercentage = belowZero(fourDecimals(percentXAMP));
+	console.log('XAMP % = ', readablePercentage);
+	$('#pool-Share-XAMP').html(`${readablePercentage}`);
+	$('#total-LP-XAMP').html(`${readableTotalXAMP}`);
 
-  //TOB
-  const TotalTOBbalance = TotalBalances.TOB;
-  const percentTOB = (TOBbalance / TotalTOBbalance) * 100;
-  console.log('TOB Balance = ', TOBbalance);
-  console.log('TOB Total =', TotalTOBbalance);
-  var readableTotalTOB = twoDecimals(TotalTOBbalance);
-  var readablePercentTOB = fourDecimals(percentTOB);
-  //if (readablePercentTOB <= 0) readablePercentage = "<0.00%";
-  $('#pool-Share-TOB').html(`${readablePercentTOB}`);
-  $('#total-LP-TOB').html(`${readableTotalTOB}`);
+	//TOB
+	const TotalTOBbalance = TotalBalances.TOB;
+	const percentTOB = (TOBbalance / TotalTOBbalance) * 100;
+	console.log('TOB Balance = ', TOBbalance);
+	console.log('TOB Total =', TotalTOBbalance);
+	var readableTotalTOB = twoDecimals(TotalTOBbalance);
+	var readablePercentTOB = belowZero(fourDecimals(percentTOB));
+	$('#pool-Share-TOB').html(`${readablePercentTOB}`);
+	$('#total-LP-TOB').html(`${readableTotalTOB}`);
 
-  //BOA
-  const TotalBOAbalance = TotalBalances.BOA;
-  const percentBOA = (BOAbalance / TotalBOAbalance) * 100;
-  var readableTotalBOA = twoDecimals(TotalBOAbalance);
-  var readablePercentageBOA = fourDecimals(percentBOA);
-  //if (readablePercentageBOA <= 0) readablePercentage = "<0.00%";
-  console.log('BOA % = ', readablePercentage);
-  $('#pool-Share-BOA').html(`${readablePercentageBOA}`);
-  $('#total-LP-BOA').html(`${readableTotalBOA}`);
+	//BOA
+	const TotalBOAbalance = TotalBalances.BOA;
+	const percentBOA = (BOAbalance / TotalBOAbalance) * 100;
+	var readableTotalBOA = twoDecimals(TotalBOAbalance);
+	var readablePercentageBOA = belowZero(fourDecimals(percentBOA));
+	console.log('BOA % = ', readablePercentage);
+	$('#pool-Share-BOA').html(`${readablePercentageBOA}`);
+	$('#total-LP-BOA').html(`${readableTotalBOA}`);
 
-  //ETH
-  const TotalETHbalance = TotalBalances.ETH;
-  const percentETH = (ETHbalance / TotalETHbalance) * 100;
-  var readableTotalETH = twoDecimals(TotalETHbalance);
-  var readablePercentageETH = fourDecimals(percentETH);
-  //if (readablePercentageETH <= 0) readablePercentage = "<0.00%";
-  $('#pool-Share-ETH').html(`${readablePercentageETH}`);
-  $('#total-LP-ETH').html(`${readableTotalETH}`);
+	//ETH
+	const TotalETHbalance = TotalBalances.ETH;
+	const percentETH = (ETHbalance / TotalETHbalance) * 100;
+	var readableTotalETH = twoDecimals(TotalETHbalance);
+	var readablePercentageETH = belowZero(fourDecimals(percentETH));
+	$('#pool-Share-ETH').html(`${readablePercentageETH}`);
+	$('#total-LP-ETH').html(`${readableTotalETH}`);
 };
 
 const updateActivePool = async () => {
