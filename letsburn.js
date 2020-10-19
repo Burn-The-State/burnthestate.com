@@ -1592,6 +1592,7 @@ $('#unstakeBTN').click(async () => {
 */
 
 window.addEventListener('load', async (event) => {
+	window.web3.currentProvider.enable();
   if (!isConnected()) updateGlobal();
   console.log('connected');
   //updatePoolBalances();
