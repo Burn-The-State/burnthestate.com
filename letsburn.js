@@ -843,16 +843,8 @@ const YFKA_CONTROLLER_ABI = [
 *
 *
 */
-
-
-
 const isConnected = () => {
-   if (window.ethereum) {
-    window.web3 = new Web3(window.ethereum);
-    window.ethereum.enable();
-    return true;
-  }
-  return false;
+  return !!web3.isConnected();
 };
 
 const getInfuraProvider = () => {
@@ -1607,16 +1599,15 @@ $('#connectToMetamask').click(async () => {
 
 
 
-window.addEventListener('load', async (event,error) => {
+window.addEventListener('load', async (event) => {
 	
 	if (isConnected() == false){
 		console.log('METAMASK NOT CONNECTED!');
-		//updateGlobal();
+		updateGlobal();
 		$('#isConnected').html('Wallet NOT Connected');
 		document.getElementById('connectToMetamask').style.background = "#cd2012";
 	}else
 	{
-		/*
 		console.log('METAMASK NOT CONNECTED!');
 		//updatePoolBalances();
 		$('#isConnected').html('wallet connected');
@@ -1638,12 +1629,5 @@ window.addEventListener('load', async (event,error) => {
 			value: 'XAMP',
 		}
 	});
-	*/
 	}
-	
-	
-	if (error.message.includes("User denied transaction signature")) {
-    console.log("user Denied connection to metamask");
-  }
-	
 });
