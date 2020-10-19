@@ -962,15 +962,6 @@ function MetaConnect(){
 		}
 	}catch(error)
 	{
-		if (error) {
-		  setTimeout(() => {
-			console.log("Error",error);
-			$('#isConnected').html('Wallet NOT Connected');
-			MetaConnect();
-		  }, 5000);
-		  return;
-		}
-
 	}
 }
 
