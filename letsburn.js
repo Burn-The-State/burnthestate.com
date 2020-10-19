@@ -930,7 +930,7 @@ function updateGlobal()
 	updateActivePool();
 }
 
-function MetaConnect{
+function MetaConnect(){
 
 		try{
 		if (!isConnected()){
