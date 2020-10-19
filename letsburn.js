@@ -902,26 +902,15 @@ const getIndexBySymbol = (value) => {
 };
 
 function twoDecimals(b) {
-	const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
-	console.log('Two Decimals Recieved( ', b, ')');
-	const numericalBalance = _.toNumber(balance);
-	console.log('Balance after to String( ', numericalBalance, ')');
-	//returns the input with 2 Decimal places. ALWAYS WORKS OUT FLOOR
-	const newNumber = Math.floor((numericalBalance + Number.EPSILON) * 100) / 100;
-	console.log('Passing ( ', newNumber, ')');
-	return newNumber;
+    const newNumber = Math.floor((b + Number.EPSILON) * 100) / 100;
+	const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(b);
 }
 
 function fourDecimals(b) {
-	//const balance = Number(b).toLocaleString('fullwide', {useGrouping:false});
-	const numericalBalance = _.toNumber(b);
-	console.log('Numebrical Nalance FOUR:', numericalBalance);
-	// TODO add this back + test
-  //returns the input with 4 Decimal places. ALWAYS WORKS OUT FLOOR
-    console.log('input number >= 1');
-    const newNumber = Math.floor((numericalBalance + Number.EPSILON) * 10000) / 10000;
-	console.log('Parsing FOUR:', newNumber);
-    return newNumber;
+    const newNumber = Math.floor((b + Number.EPSILON) * 10000) / 10000;
+	const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(b);
 }
 
 function belowZero(n)
@@ -934,6 +923,11 @@ function belowZero(n)
 		console.log('not Below 0.00');
 		return n;
 	}
+}
+
+function updateGlobal()
+{
+	await updateActivePool();
 }
 
 /*
@@ -1313,7 +1307,7 @@ const updateActivePool = async () => {
   $('#global-rate').html(`${globalEmissionRate}%`);
   $('#bonus-global-rate').html(`${bonusEmissionRate}%`);
 
-  $('#eth-apy').html(`${globalEmissionRate}`);
+  $('#eth-apy').html(`${globalEmissionRate/2}`);
   $('#xamp-apy').html(`${globalEmissionRate}`);
   $('#tob-apy').html(`${globalEmissionRate}`);
   $('#boa-apy').html(`${globalEmissionRate}`);
@@ -1598,7 +1592,7 @@ $('#unstakeBTN').click(async () => {
 */
 
 window.addEventListener('load', async (event) => {
-  if (!isConnected()) return;
+  if (!isConnected()) updateGlobal();
   console.log('connected');
   //updatePoolBalances();
   $('#isConnected').html('wallet connected');
