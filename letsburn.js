@@ -1600,34 +1600,38 @@ $('#connectToMetamask').click(async () => {
 
 
 window.addEventListener('load', async (event) => {
-	
-	if (isConnected() == false){
-		console.log('METAMASK NOT CONNECTED!');
-		updateGlobal();
-		$('#isConnected').html('Wallet NOT Connected');
-		document.getElementById('connectToMetamask').style.background = "#cd2012";
-	}else
-	{
-		console.log('METAMASK NOT CONNECTED!');
-		//updatePoolBalances();
-		$('#isConnected').html('wallet connected');
-		document.getElementById('connectToMetamask').style.background = "#000";
-		await updateActivePool();
-		await updateUserStats();
-	await setStakeBalance({
-		currentTarget: {
-			value: 'XAMP',
-		}
-	});
-	await setRedeemBalance({
-		currentTarget: {
-			value: 'XAMP',
-		}
-	});
-	await setUnstakeBalance({
+	try{
+		if (isConnected() == false){
+			console.log('METAMASK NOT CONNECTED!');
+			updateGlobal();
+			$('#isConnected').html('Wallet NOT Connected');
+			document.getElementById('connectToMetamask').style.background = "#cd2012";
+		}else
+		{
+			console.log('METAMASK NOT CONNECTED!');
+			//updatePoolBalances();
+			$('#isConnected').html('wallet connected');
+			document.getElementById('connectToMetamask').style.background = "#000";
+			await updateActivePool();
+			await updateUserStats();
+		await setStakeBalance({
 			currentTarget: {
-			value: 'XAMP',
+				value: 'XAMP',
+			}
+		});
+		await setRedeemBalance({
+			currentTarget: {
+				value: 'XAMP',
+			}
+		});
+		await setUnstakeBalance({
+				currentTarget: {
+				value: 'XAMP',
+			}
+		});
 		}
-	});
+	}catch(error)
+	{
+		console.log(error);
 	}
 });
