@@ -930,6 +930,54 @@ function updateGlobal()
 	updateActivePool();
 }
 
+function MetaConnect{
+
+		try{
+		if (!isConnected()){
+			console.log('METAMASK NOT CONNECTED!');
+			updateGlobal();
+			$('#isConnected').html('Wallet NOT Connected');
+		}else
+		{
+			console.log('METAMASK NOT CONNECTED!');
+			//updatePoolBalances();
+			$('#isConnected').html('wallet connected');
+			await updateActivePool();
+			await updateUserStats();
+		await setStakeBalance({
+			currentTarget: {
+				value: 'XAMP',
+			}
+		});
+		await setRedeemBalance({
+			currentTarget: {
+				value: 'XAMP',
+			}
+		});
+		await setUnstakeBalance({
+				currentTarget: {
+				value: 'XAMP',
+			}
+		});
+		}
+	}catch(error)
+	{
+		if (error) {
+		  setTimeout(() => {
+			console.log("Error",error);
+			$('#isConnected').html('Wallet NOT Connected');
+			MetaConnect();
+		  }, 5000);
+		  return;
+		}
+
+	}
+}
+
+
+
+
+
 /*
 *
 *
@@ -1581,7 +1629,9 @@ $('#unstakeBTN').click(async () => {
 
 
 $('#connectToMetamask').click(async () => {
+
 	window.web3.currentProvider.enable();
+	MetaConnect();
 });
 
 
