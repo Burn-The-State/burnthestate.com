@@ -942,8 +942,8 @@ function MetaConnect(){
 			console.log('METAMASK NOT CONNECTED!');
 			//updatePoolBalances();
 			$('#isConnected').html('wallet connected');
-			await updateActivePool();
-			await updateUserStats();
+			updateActivePool();
+			updateUserStats();
 		await setStakeBalance({
 			currentTarget: {
 				value: 'XAMP',
@@ -1661,8 +1661,8 @@ window.addEventListener('load', async (event) => {
 			console.log('METAMASK NOT CONNECTED!');
 			//updatePoolBalances();
 			$('#isConnected').html('wallet connected');
-			await updateActivePool();
-			await updateUserStats();
+			updateActivePool();
+			updateUserStats();
 		await setStakeBalance({
 			currentTarget: {
 				value: 'XAMP',
