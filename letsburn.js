@@ -934,6 +934,8 @@ function MetaConnect(){
 
 		try{
 		if (!isConnected()){
+			console.log('METAMASK NOT CONNECTED!');
+			//updateGlobal();
 			$('#isConnected').html('Wallet NOT Connected');
 		}else
 		{
@@ -1627,9 +1629,10 @@ $('#unstakeBTN').click(async () => {
 
 
 $('#connectToMetamask').click(async () => {
-
+	
 	window.web3.currentProvider.enable();
-	MetaConnect();
+	
+	setTimeout(() => {  MetaConnect();; }, 15000);
 });
 
 
