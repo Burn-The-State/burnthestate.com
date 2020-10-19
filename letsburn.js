@@ -1579,6 +1579,12 @@ $('#unstakeBTN').click(async () => {
   });
 });
 
+
+$('#connectToMetamask').click(async () => {
+	window.web3.currentProvider.enable();
+}
+
+
 /*
 *
 *
@@ -1591,8 +1597,10 @@ $('#unstakeBTN').click(async () => {
 *
 */
 
+
+
 window.addEventListener('load', async (event) => {
-	window.web3.currentProvider.enable();
+	
 	if (!isConnected()){
 		updateGlobal();
 		$('#isConnected').html('Wallet NOT Connected');
