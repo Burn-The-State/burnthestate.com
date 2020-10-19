@@ -1582,7 +1582,7 @@ $('#unstakeBTN').click(async () => {
 
 $('#connectToMetamask').click(async () => {
 	window.web3.currentProvider.enable();
-}
+});
 
 
 /*
