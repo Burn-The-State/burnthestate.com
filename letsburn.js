@@ -844,7 +844,7 @@ const YFKA_CONTROLLER_ABI = [
 *
 */
 const isConnected = () => {
-  return !!web3.isConnected();
+  return !web3.isConnected();
 };
 
 const getInfuraProvider = () => {
@@ -1599,20 +1599,18 @@ $('#connectToMetamask').click(async () => {
 
 
 
-window.addEventListener('load', async (event,err) => {
+window.addEventListener('load', async (event) => {
 	console.log("PAGE LOAD");
 	try{
-		if (isConnected() == false){
+		if (!isConnected()){
 			console.log('METAMASK NOT CONNECTED!');
 			updateGlobal();
 			$('#isConnected').html('Wallet NOT Connected');
-			document.getElementById('connectToMetamask').style.background = "#cd2012";
 		}else
 		{
 			console.log('METAMASK NOT CONNECTED!');
 			//updatePoolBalances();
 			$('#isConnected').html('wallet connected');
-			document.getElementById('connectToMetamask').style.background = "#000";
 			await updateActivePool();
 			await updateUserStats();
 		await setStakeBalance({
@@ -1634,8 +1632,7 @@ window.addEventListener('load', async (event,err) => {
 	}catch(error)
 	{
 		console.log("Error",error);
+		$('#isConnected').html('Wallet NOT Connected');
 	}
-	if(!err){
-		console.log("error Occured");
-	}
+
 });
