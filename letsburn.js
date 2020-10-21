@@ -1644,6 +1644,7 @@ window.addEventListener('load', async (event) => {
 		{
 			console.log('METAMASK NOT CONNECTED!');
 			//updatePoolBalances();
+			ethereum.autoRefreshOnNetworkChange = false;
 			$('#isConnected').html('wallet connected');
 			await updateActivePool().catch(e => console.log('Error (UpdateActive Pool): ', e.message));;
 			await updateUserStats().catch(e => console.log('Error (updateUserStats: ', e.message));;
