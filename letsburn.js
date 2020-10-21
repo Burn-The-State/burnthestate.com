@@ -1623,18 +1623,19 @@ $('#connectToMetamask').click(async () => {
 
 window.addEventListener('load', async (event) => {
 	console.log("PAGE LOAD");
-	try{
+	
 		if (!isConnected()){
 			console.log('METAMASK NOT CONNECTED!');
-			updateGlobal();
+			updateGlobal().catch(e => console.log('Error: ', e.message));;
 			$('#isConnected').html('Wallet NOT Connected');
 		}else
 		{
+			window.web3.currentProvider;
 			console.log('METAMASK NOT CONNECTED!');
 			//updatePoolBalances();
 			$('#isConnected').html('wallet connected');
-			await updateActivePool();
-			await updateUserStats();
+			await updateActivePool().catch(e => console.log('Error (UpdateActive Pool): ', e.message));;
+			await updateUserStats().catch(e => console.log('Error (updateUserStats: ', e.message));;
 		await setStakeBalance({
 			currentTarget: {
 				value: 'XAMP',
@@ -1651,10 +1652,7 @@ window.addEventListener('load', async (event) => {
 			}
 		});
 		}
-	}catch(error)
-	{
-		console.log("Error",error);
-		$('#isConnected').html('Wallet NOT Connected');
-	}
+	
+	
 
 });
