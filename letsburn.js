@@ -1434,10 +1434,10 @@ const setRedeemBalance = async () => {
   const globalEmissionRate = await getGlobalEmissionRate();
 	if (value == "ETH")
 	{
-		$('#unstake-coin-emission').html(`${globalEmissionRate/2}`);
+		$('#redeem-coin-emission').html(`${globalEmissionRate/2}`);
 	}else
 	{
-		$('#unstake-coin-emission').html(`${globalEmissionRate}`);
+		$('#redeem-coin-emission').html(`${globalEmissionRate}`);
 	}
 
   const idx = getIndexBySymbol(value);
