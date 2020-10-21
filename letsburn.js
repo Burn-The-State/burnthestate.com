@@ -1432,7 +1432,13 @@ const setRedeemBalance = async () => {
   const value = $('[name=redeem][type=radio]:checked').val();
   const account = await getAccount();
   const globalEmissionRate = await getGlobalEmissionRate();
-  $('#redeem-coin-emission').html(`${globalEmissionRate}`);
+	if (value == "ETH")
+	{
+		$('#unstake-coin-emission').html(`${globalEmissionRate/2}`);
+	}else
+	{
+		$('#unstake-coin-emission').html(`${globalEmissionRate}`);
+	}
 
   const idx = getIndexBySymbol(value);
   console.log('Selected Coin: ', value, '; idx: ', idx);
@@ -1466,7 +1472,13 @@ const setUnstakeBalance = async () => {
 	const account = await getAccount();
 	const idx = getIndexBySymbol(value);
 	const globalEmissionRate = await getGlobalEmissionRate();
-	$('#unstake-coin-emission').html(`${globalEmissionRate}`);
+	if (value == "ETH")
+	{
+		$('#unstake-coin-emission').html(`${globalEmissionRate/2}`);
+	}else
+	{
+		$('#unstake-coin-emission').html(`${globalEmissionRate}`);
+	}
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 // const res = await ashContract.stakes(idx, account).call();
