@@ -1642,7 +1642,6 @@ window.addEventListener('load', async (event) => {
 			$('#isConnected').html('Wallet NOT Connected');
 		}else
 		{
-			web3.currentProvider();
 			console.log('METAMASK NOT CONNECTED!');
 			//updatePoolBalances();
 			$('#isConnected').html('wallet connected');
