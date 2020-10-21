@@ -16,6 +16,9 @@ const TOKENS = {
   TOB: '0x7777770f8a6632ff043c8833310e245eba9209e6',
 };
 
+const DISPLAY_CONSOLE = true;
+const DISPLAY_ERRORS = true;
+
 const PAIRS = {
   YFKA_XAMP: '0xaea4d6809375bb973c8036d53db9e90970942738',
   YFKA_TOB: '0x34d0448A79F853d6E1f7ac117368C87BB7bEeA6B',
@@ -843,6 +846,7 @@ const YFKA_CONTROLLER_ABI = [
 *
 *
 */
+
 const isConnected = () => {
   return !!web3.isConnected();
 };
@@ -1644,10 +1648,9 @@ window.addEventListener('load', async (event) => {
 		{
 			console.log('METAMASK NOT CONNECTED!');
 			//updatePoolBalances();
-			ethereum.autoRefreshOnNetworkChange = false;
 			$('#isConnected').html('wallet connected');
-			await updateActivePool().catch(e => console.log('Error (UpdateActive Pool): ', e.message));;
-			await updateUserStats().catch(e => console.log('Error (updateUserStats: ', e.message));;
+			await updateActivePool().catch(e => if (DISPLAY_ERRORS) console.log('Error (UpdateActive Pool): ', e.message));;
+			await updateUserStats().catch(e => if (DISPLAY_ERRORS) console.log('Error (UpdateUserStats: ', e.message));;
 		await setStakeBalance({
 			currentTarget: {
 				value: 'XAMP',
