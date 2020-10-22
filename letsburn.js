@@ -1741,10 +1741,11 @@ window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	
-	
-	var test = await web3.isConnected().catch(e => {
-			errorHandling(e, 'IsConnected()');
-	});
+	try{
+	var test = await web3.isConnected();
+	}catch(e){
+		errorHandling(e, 'IsConnected()');
+	};
 	
 	
 	if (DISPLAY_CONSOLE) console.log('Web3.Connect(): ', test);
@@ -1794,6 +1795,5 @@ window.addEventListener('load', async (event) => {
 
 		}
 });
-
 
 
