@@ -888,8 +888,8 @@ const yfkaControllerContract = () => {
 };
 
 const getAccount = async () => {
-	const connected = await ethereum.enable().catch(e =>.catch(e => {
-		errorHandling(e, 'updateUserStats()');
+	const connected = await ethereum.enable().catch(e => {
+		errorHandling(e, 'connectedConnect to ETH Account');
 		return (false);
 	});
 	
