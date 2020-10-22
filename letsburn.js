@@ -887,19 +887,12 @@ const yfkaControllerContract = () => {
   return contract;
 };
 
-
-
-
-
 const getAccount = async () => {
-
-
 	// START BACK HERE....
 		const accounts = await ethereum.request({method: 'eth_requestAccounts'});
 		if (DISPLAY_CONSOLE) console.log('accounts:', accounts);
 		const provider = getInfuraProvider();
 		return provider.utils.toChecksumAddress(accounts[0]);
-
 };
 
 const getBonusPool = async () => {
@@ -962,54 +955,52 @@ function updateGlobal()
 	updateActivePool();
 }
 
-function MetaConnect(){
-		if (!isConnected()){
-			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
-			$('#isConnected').html('Wallet NOT Connected');
-			window.web3.currentProvider.enable().catch(e => {
-					errorHandling(e, 'setStakeBalance()');
-				});;
-			setTimeout(() => {  MetaConnect();; }, 10000);			
-			
-		}else{
-			
-			var updateAP = await updateActivePool().catch(e => {
-					errorHandling(e, 'updateActivePool()');
-			});
-			
-			if (updateAP != "error"){
-				var updateUS = await updateUserStats().catch(e => {
-					errorHandling(e, 'updateUserStats()');
-				});
-			}
-
-			if (updateUS != "error"){
-				await setStakeBalance({
-					currentTarget: {
-						value: 'XAMP',
-					}
-				}).catch(e => {
-					errorHandling(e, 'setStakeBalance()');
-				});
-				await setRedeemBalance({
-					currentTarget: {
-						value: 'XAMP',
-					}
-				}).catch(e => {
-					errorHandling(e, 'setRedeemBalance()');
-				});
-				await setUnstakeBalance({
-						currentTarget: {
-						value: 'XAMP',
-					}
-				}).catch(e => {
-					errorHandling(e, 'setUnstakeBalance()');
-				});
-				$('#isConnected').html('wallet connected');
-			}
-
-		}		
+async function MetaConnect(){
+	if (!isConnected()){
+		if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
+		$('#isConnected').html('Wallet NOT Connected');
+		window.web3.currentProvider.enable().catch(e => {
+				errorHandling(e, 'setStakeBalance()');
+			});;
+		setTimeout(() => {  MetaConnect();; }, 10000);			
 		
+	}else{
+		
+		var updateAP = await updateActivePool().catch(e => {
+				errorHandling(e, 'updateActivePool()');
+		});
+		
+		if (updateAP != "error"){
+			var updateUS = await updateUserStats().catch(e => {
+				errorHandling(e, 'updateUserStats()');
+			});
+		}
+
+		if (updateUS != "error"){
+			await setStakeBalance({
+				currentTarget: {
+					value: 'XAMP',
+				}
+			}).catch(e => {
+				errorHandling(e, 'setStakeBalance()');
+			});
+			await setRedeemBalance({
+				currentTarget: {
+					value: 'XAMP',
+				}
+			}).catch(e => {
+				errorHandling(e, 'setRedeemBalance()');
+			});
+			await setUnstakeBalance({
+					currentTarget: {
+					value: 'XAMP',
+				}
+			}).catch(e => {
+				errorHandling(e, 'setUnstakeBalance()');
+			});
+			$('#isConnected').html('wallet connected');
+		}
+	}		
 }
 
 
@@ -1790,3 +1781,4 @@ window.addEventListener('load', async (event) => {
 
 		}
 });
+
