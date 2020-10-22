@@ -1516,7 +1516,7 @@ const setStakeBalance = async (event)=> {
   const balance = balances[event.currentTarget.value];
   if (DISPLAY_CONSOLE) console.log('balance: ', balance);
   // TODO
-  $('#stake-input').val(fourDecimals(balance));
+  $('#stake-input').val(sixDecimals(balance));
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
   return balance || '';
@@ -1676,7 +1676,7 @@ $('#redeemBTN').click(async () => {
   const idx = getIndexBySymbol(value);
 
   ashContract.redeem(idx, function (err, res) {
-		$('#redeemReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Withdraw Receipt</a>');
+		$('#redeemReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Redeem Receipt</a>');
 		const redeemReceipt = document.getElementById('redeemReceipt');
 		if (redeemReceipt && redeemReceipt.style) {
 			document.getElementById('redeemReceipt').style.opacity = '1';
@@ -1737,6 +1737,16 @@ window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	
+	//Mobile Detection.
+	setTimeout(function(){
+		if((screen.width<480) || (screen.height <480)){
+			if (DISPLAY_CONSOLE) console.log('User appears to be on a mobile.');
+		}
+	}, 100);
+	
+	
+	
+	
 	web3.eth.getAccounts(async function(err, accounts){
 		try {
 			if (err != null) console.error("An error occurred: "+err);
@@ -1790,5 +1800,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
