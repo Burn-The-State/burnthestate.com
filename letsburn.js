@@ -1742,56 +1742,57 @@ window.addEventListener('load', async (event) => {
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	
 	web3.eth.getAccounts(async function(err, accounts){
-		if (err != null) console.error("An error occurred: "+err);
-		else if (accounts.length == 0){
-			if (DISPLAY_CONSOLE) console.log('NO ACCOUNTS CONNECTED!');
-			await updateGlobal().catch(e => {
-				errorHandling(e, 'updateGlobal()');
-			});
-		}			
-		else {
-			console.log("User is logged in to MetaMask");
-			if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
-			var updateAP = await updateActivePool().catch(e => {
-					errorHandling(e, 'updateActivePool()');
-			});
-			
-			if (updateAP != "error"){
-				var updateUS = await updateUserStats().catch(e => {
-					errorHandling(e, 'updateUserStats()');
+		try{
+			if (err != null) console.error("An error occurred: "+err);
+			else if (accounts.length == 0){
+				if (DISPLAY_CONSOLE) console.log('NO ACCOUNTS CONNECTED!');
+				await updateGlobal().catch(e => {
+					errorHandling(e, 'updateGlobal()');
 				});
-			}
+			}			
+			else {
+				console.log("User is logged in to MetaMask");
+				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
+				var updateAP = await updateActivePool().catch(e => {
+						errorHandling(e, 'updateActivePool()');
+				});
+				
+				if (updateAP != "error"){
+					var updateUS = await updateUserStats().catch(e => {
+						errorHandling(e, 'updateUserStats()');
+					});
+				}
 
-			if (updateUS != "error"){
-				await setStakeBalance({
-					currentTarget: {
-						value: 'XAMP',
-					}
-				}).catch(e => {
-					errorHandling(e, 'setStakeBalance()');
-				});
-				await setRedeemBalance({
-					currentTarget: {
-						value: 'XAMP',
-					}
-				}).catch(e => {
-					errorHandling(e, 'setRedeemBalance()');
-				});
-				await setUnstakeBalance({
+				if (updateUS != "error"){
+					await setStakeBalance({
 						currentTarget: {
-						value: 'XAMP',
-					}
-				}).catch(e => {
-					errorHandling(e, 'setUnstakeBalance()');
-				});
-				$('#isConnected').html('wallet connected');
+							value: 'XAMP',
+						}
+					}).catch(e => {
+						errorHandling(e, 'setStakeBalance()');
+					});
+					await setRedeemBalance({
+						currentTarget: {
+							value: 'XAMP',
+						}
+					}).catch(e => {
+						errorHandling(e, 'setRedeemBalance()');
+					});
+					await setUnstakeBalance({
+							currentTarget: {
+							value: 'XAMP',
+						}
+					}).catch(e => {
+						errorHandling(e, 'setUnstakeBalance()');
+					});
+					$('#isConnected').html('wallet connected');
+				}
 			}
+		}catch(e){
+			errorHandling(e, 'Account logic Test');
 		}
-	});
 	
 });
-
-
 
 
 
