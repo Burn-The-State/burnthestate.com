@@ -1658,13 +1658,13 @@ window.addEventListener('load', async (event) => {
 			await updateActivePool().catch(e => {
 				if (e.message != null && DISPLAY_ERRORS) {
 					console.log('ERROR (updateActivePool): ',e.message);
-					if (e.message ==  'User rejected the request.') $('#isConnected').html('Wallet NOT Connected');
+					if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.') $('#isConnected').html('Wallet NOT Connected');
 				}
 			});
 			await updateUserStats().catch(e => {
 				if (e.message != null && DISPLAY_ERRORS) {
 					console.log('ERROR (updateUserStats): ',e.message);
-					if (e.message ==  'User rejected the request.') $('#isConnected').html('Wallet NOT Connected');
+					if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.') $('#isConnected').html('Wallet NOT Connected');
 				}
 			});
 			
