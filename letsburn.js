@@ -887,10 +887,14 @@ const yfkaControllerContract = () => {
   return contract;
 };
 
-const getAccount = async () => {
-	import detectEthereumProvider from '@metamask/detect-provider';
 
-	const provider = await detectEthereumProvider();
+import detectEthereumProvider from '@metamask/detect-provider';
+
+const provider = await detectEthereumProvider();
+
+
+const getAccount = async () => {
+
 
 	if (provider) {
 	
