@@ -1327,6 +1327,7 @@ const updateUserStats = async () => {
 		}else return("error");
 
 		// current LP Tokens
+		var XAMPbalance, TOBbalance, BOAbalance, ETHbalance;
 		// XAMP LP token balance
 		const xampLpBalance = await ashContract.methods
 		.stakes(YFKA_POOL_INDEXES.XAMP, account)
@@ -1334,8 +1335,9 @@ const updateUserStats = async () => {
 			errorHandling(e, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.XAMP, account)');
 			return("error");
 		});
+		
 		if (xampLpBalance != "error"){
-			const XAMPbalance = belowZero(sixDecimals(xampLpBalance / 10 ** 18));
+			XAMPbalance = belowZero(sixDecimals(xampLpBalance / 10 ** 18));
 			if (DISPLAY_CONSOLE) console.log('Staked XAMP: ', XAMPbalance);
 			$('#balance-LP-XAMP').html(XAMPbalance);
 		}
@@ -1348,7 +1350,7 @@ const updateUserStats = async () => {
 			return("error");
 		});
 		if (tobLpBalance != "error"){
-			const TOBbalance = belowZero(sixDecimals(tobLpBalance / 10 ** 18));
+			TOBbalance = belowZero(sixDecimals(tobLpBalance / 10 ** 18));
 			if (DISPLAY_CONSOLE) console.log('Staked TOB: ', TOBbalance);
 			$('#balance-LP-TOB').html(TOBbalance);
 		}else return("error");
@@ -1361,7 +1363,7 @@ const updateUserStats = async () => {
 			return("error");
 		});
 		if (boaLpBalance != "error"){
-			const BOAbalance = belowZero(sixDecimals(boaLpBalance / 10 ** 18));
+			BOAbalance = belowZero(sixDecimals(boaLpBalance / 10 ** 18));
 			if (DISPLAY_CONSOLE) console.log('Staked BOA: ', BOAbalance);
 			$('#balance-LP-BOA').html(BOAbalance);
 		}else return("error");
@@ -1374,7 +1376,7 @@ const updateUserStats = async () => {
 			return("error");
 		});
 		if (ethLpBalance != "error"){
-			const ETHbalance = belowZero(sixDecimals(ethLpBalance / 10 ** 18));
+			ETHbalance = belowZero(sixDecimals(ethLpBalance / 10 ** 18));
 			if (DISPLAY_CONSOLE) console.log('Staked ETH: ', ETHbalance);
 			$('#balance-LP-ETH').html(ETHbalance);
 		}else return("error");
@@ -1788,6 +1790,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
