@@ -848,12 +848,6 @@ const YFKA_CONTROLLER_ABI = [
 *
 */
 
-
-function silentHandler() {return true}
-
-function defaultHandler() {return false}
-
-
 function errorHandling(error, functionCall)
 {
 	const errorCode = error.code;
@@ -1735,8 +1729,19 @@ $('#connectToMetamask').click(async () => {
 window.addEventListener('load', async (event) => {
 	
 	if (!DISPLAY_ERROR_TO_CONSOLE) {
-		silentHandler();
-		defaultHandler();
+		function defaultHandler() {return false}
+		function silentHandler()  {return true}
+		function customHandler(desc,page,line,chr)  {
+		 alert(
+		  'JavaScript error occurred! \n'
+		 +'The error was handled by '
+		 +'a customized error handler.\n'
+		 +'\nError description: \t'+desc
+		 +'\nPage address:      \t'+page
+		 +'\nLine number:       \t'+line
+		 )
+		 return true
+		}
 	}
 	
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
@@ -1787,9 +1792,3 @@ window.addEventListener('load', async (event) => {
 		
 
 });
-
-    window.onerror = function(message, url, lineNumber) {  
-        // code to execute on an error  
-        return true; // prevents browser error messages  
-    };
-
