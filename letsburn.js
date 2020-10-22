@@ -848,6 +848,9 @@ const YFKA_CONTROLLER_ABI = [
 */
 
 
+function silentHandler()  {return true}
+
+
 function errorHandling(error, functionCall)
 {
 	const errorCode = error.code;
@@ -1727,6 +1730,9 @@ $('#connectToMetamask').click(async () => {
 
 
 window.addEventListener('load', async (event) => {
+	
+	if (!DISPLAY_ERRORS) silentHandler();
+	
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 		if (!isConnected()){
 			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
