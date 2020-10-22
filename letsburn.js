@@ -1712,11 +1712,14 @@ $('#unstakeBTN').click(async () => {
 
 $('#connectToMetamask').click(async () => {
 	
-	await window.web3.currentProvider.enable().catch(e => {
-			errorHandling(e, 'updateActivePool()');
+	const provider = await window.web3.currentProvider.enable().catch(e => {
+			errorHandling(e, 'currentProvider.enable()');
+			return("error");
 	});
-	
-	setTimeout(() => {  MetaConnect();; }, 20000);
+	if (provider != "error")
+	{
+		setTimeout(() => {  MetaConnect();; }, 20000);
+	}
 });
 
 
@@ -1781,4 +1784,5 @@ window.addEventListener('load', async (event) => {
 
 		}
 });
+
 
