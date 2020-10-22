@@ -862,7 +862,7 @@ function errorHandling(error, functionCall)
 
 
 const isConnected = () => {
-  return !!web3.isConnected();
+  return web3.isConnected();
 };
 
 const getInfuraProvider = () => {
@@ -1021,7 +1021,7 @@ async function MetaConnect(){
 
 const getTotalBalances = async () => {
 	if (DISPLAY_CONSOLE) console.log('getBalances');
-	const provider = getInfuraProvider().catch(e => {
+	const provider = await getInfuraProvider().catch(e => {
 		errorHandling(e, 'getInfuraProvider()');
 		return("error");
 	});
