@@ -1741,7 +1741,7 @@ window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	
-	web3.eth.getAccounts(function(err, accounts){
+	web3.eth.getAccounts(async function(err, accounts){
 		if (err != null) console.error("An error occurred: "+err);
 		else if (accounts.length == 0){
 			if (DISPLAY_CONSOLE) console.log('NO ACCOUNTS CONNECTED!');
@@ -1790,5 +1790,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
+
 
 
