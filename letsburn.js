@@ -1752,7 +1752,7 @@ try{
 			
 
 	})
-}catch(e => {
+}catch(e){
 	if (e.message != null && DISPLAY_ERRORS) {
 		if (DISPLAY_CONSOLE) console.log('ERROR (updateGlobal): ',e.message);
 	}
