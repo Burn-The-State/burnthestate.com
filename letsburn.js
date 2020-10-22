@@ -1695,63 +1695,64 @@ $('#connectToMetamask').click(async () => {
 */
 
 
-
-window.addEventListener('load', async (event) => {
-	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
-		if (!isConnected()){
-			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
-			updateGlobal().catch(e => {
-				if (e.message != null && DISPLAY_ERRORS) {
-					if (DISPLAY_CONSOLE) console.log('ERROR (updateGlobal): ',e.message);
-				}
-			});
-			
-			$('#isConnected').html('Wallet NOT Connected');
-		}else{
-			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
-			//updatePoolBalances();
-			$('#isConnected').html('wallet connected');
-			
-			var updateAP = await updateActivePool().catch(e => {
-				if (e.message != null && DISPLAY_ERRORS) {
-					if (DISPLAY_CONSOLE) console.log('ERROR (updateActivePool): ',e.message);
-					if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){
-						$('#isConnected').html('Wallet NOT Connected');
-					}
-				}
-			});
-			if (updateAP){
-				var updateUS = await updateUserStats().catch(e => {
+try{
+	window.addEventListener('load', async (event) => {
+		if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
+			if (!isConnected()){
+				if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
+				updateGlobal().catch(e => {
 					if (e.message != null && DISPLAY_ERRORS) {
-						if (DISPLAY_CONSOLE) console.log('ERROR (updateUserStats): ',e.message);
-						if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){ 
+						if (DISPLAY_CONSOLE) console.log('ERROR (updateGlobal): ',e.message);
+					}
+				});
+				
+				$('#isConnected').html('Wallet NOT Connected');
+			}else{
+				if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
+				//updatePoolBalances();
+				$('#isConnected').html('wallet connected');
+				
+				var updateAP = await updateActivePool().catch(e => {
+					if (e.message != null && DISPLAY_ERRORS) {
+						if (DISPLAY_CONSOLE) console.log('ERROR (updateActivePool): ',e.message);
+						if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){
 							$('#isConnected').html('Wallet NOT Connected');
 						}
 					}
 				});
-			}
+				if (updateAP){
+					var updateUS = await updateUserStats().catch(e => {
+						if (e.message != null && DISPLAY_ERRORS) {
+							if (DISPLAY_CONSOLE) console.log('ERROR (updateUserStats): ',e.message);
+							if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){ 
+								$('#isConnected').html('Wallet NOT Connected');
+							}
+						}
+					});
+				}
 
-			
-			await setStakeBalance({
-				currentTarget: {
-					value: 'XAMP',
-				}
-			});
-			await setRedeemBalance({
-				currentTarget: {
-					value: 'XAMP',
-				}
-			});
-			await setUnstakeBalance({
+				
+				await setStakeBalance({
 					currentTarget: {
-					value: 'XAMP',
-				}
-			});
-		}
-	
+						value: 'XAMP',
+					}
+				});
+				await setRedeemBalance({
+					currentTarget: {
+						value: 'XAMP',
+					}
+				});
+				await setUnstakeBalance({
+						currentTarget: {
+						value: 'XAMP',
+					}
+				});
+			}
 		
+			
 
-}).catch(e => {
+	})
+}catch(e => {
 	if (e.message != null && DISPLAY_ERRORS) {
 		if (DISPLAY_CONSOLE) console.log('ERROR (updateGlobal): ',e.message);
 	}
