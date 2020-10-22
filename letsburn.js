@@ -1743,14 +1743,13 @@ window.addEventListener('load', async (event) => {
 	
 	web3.eth.getAccounts(async function(err, accounts){
 		if (err != null) console.error("An error occurred: "+err);
-		else if (typeof accounts == 'undefined'){
+		else if (accounts.length == 0){
 			if (DISPLAY_CONSOLE) console.log('NO ACCOUNTS CONNECTED!');
 			await updateGlobal().catch(e => {
 				errorHandling(e, 'updateGlobal()');
 			});
 		}			
 		else {
-			console.log("type of account" , typeof accounts);
 			console.log("User is logged in to MetaMask");
 			if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 			var updateAP = await updateActivePool().catch(e => {
@@ -1791,6 +1790,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
 
