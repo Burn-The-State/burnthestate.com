@@ -1749,7 +1749,7 @@ window.addEventListener('load', async (event) => {
 	
 	
 	if (DISPLAY_CONSOLE) console.log('Web3.Connect(): ', test);
-		if (!test){
+		if (test == false){
 			
 			
 			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
@@ -1795,5 +1795,3 @@ window.addEventListener('load', async (event) => {
 
 		}
 });
-
-
