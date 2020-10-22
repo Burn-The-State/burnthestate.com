@@ -18,7 +18,6 @@ const TOKENS = {
 
 const DISPLAY_CONSOLE = true;
 const DISPLAY_ERRORS = true;
-const DISPLAY_ERROR_TO_CONSOLE = false;
 
 const PAIRS = {
   YFKA_XAMP: '0xaea4d6809375bb973c8036d53db9e90970942738',
@@ -889,12 +888,18 @@ const yfkaControllerContract = () => {
 };
 
 const getAccount = async () => {
-	if (typeof web3 !== 'undefined') {
+	const connected = await ethereum.enable().catch(e =>.catch(e => {
+		errorHandling(e, 'updateUserStats()');
+		return (false);
+	});
+	
+	if (connected != false){
+	
 		const accounts = await ethereum.request({method: 'eth_requestAccounts'});
 		if (DISPLAY_CONSOLE) console.log('accounts:', accounts);
 		const provider = getInfuraProvider();
 		return provider.utils.toChecksumAddress(accounts[0]);
-	} else {
+	}else{
 		return (false);
 	}
 
@@ -1727,23 +1732,7 @@ $('#connectToMetamask').click(async () => {
 
 
 window.addEventListener('load', async (event) => {
-	
-	if (!DISPLAY_ERROR_TO_CONSOLE) {
-		function defaultHandler() {return false}
-		function silentHandler()  {return true}
-		function customHandler(desc,page,line,chr)  {
-		 alert(
-		  'JavaScript error occurred! \n'
-		 +'The error was handled by '
-		 +'a customized error handler.\n'
-		 +'\nError description: \t'+desc
-		 +'\nPage address:      \t'+page
-		 +'\nLine number:       \t'+line
-		 )
-		 return true
-		}
-	}
-	
+
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 		if (!isConnected()){
 			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
