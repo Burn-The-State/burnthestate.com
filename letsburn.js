@@ -847,6 +847,18 @@ const YFKA_CONTROLLER_ABI = [
 *
 */
 
+
+function errorHandling(errorMessage, functionCall)
+{
+	if (DISPLAY_ERRORS) {
+		console.log('ERROR (',functionCall,'): ',errorMessage);
+		if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){
+			$('#isConnected').html('Wallet NOT Connected');
+		}
+	}
+}
+
+
 const isConnected = () => {
   return !!web3.isConnected();
 };
@@ -1230,7 +1242,10 @@ const getPersonalEmissions= async () => {
 *
 */
 const updateUserStats = async () => {
-  const account = await getAccount();
+  const account = await getAccount().catch(e => {
+	  errorHandling(e.message, 'Get Accounts');
+		return('error');
+	});
 
   const ashContract = yfkaControllerContract();
 
@@ -1239,7 +1254,11 @@ const updateUserStats = async () => {
     .getCurrentReward(YFKA_POOL_INDEXES.XAMP)
     .call({
       from: account,
-    });
+    }).catch(e => {
+		errorHandling(e.message, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP)');
+		return('error');
+	});
+	
   console.log('xampReward: ', xampReward);
   $('#reward-XAMP').html(fourDecimals(_.toInteger(xampReward) / 10 ** 18));
 
@@ -1247,7 +1266,12 @@ const updateUserStats = async () => {
     .getCurrentReward(YFKA_POOL_INDEXES.TOB)
     .call({
       from: account,
-    });
+    }).catch(e => {
+		errorHandling(e.message, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.TOB)');
+		return('error');
+	});
+	
+	
   console.log('tobReward: ', tobReward);
 	$('#reward-TOB').html(fourDecimals(_.toInteger(tobReward) / 10 ** 18));
 
@@ -1255,7 +1279,10 @@ const updateUserStats = async () => {
     .getCurrentReward(YFKA_POOL_INDEXES.BOA)
     .call({
       from: account,
-    });
+    }).catch(e => {
+		errorHandling(e.message, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA)');
+		return('error');
+	});
   console.log('boaReward: ', boaReward);
 	$('#reward-BOA').html(fourDecimals(_.toInteger(boaReward) / 10 ** 18));
 
@@ -1263,12 +1290,18 @@ const updateUserStats = async () => {
     .getCurrentReward(YFKA_POOL_INDEXES.ETH)
     .call({
       from: account,
-    });
+    }).catch(e => {
+		errorHandling(e.message, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.ETH)');
+		return('error');
+	});
   console.log('ethReward: ', ethReward);
 	$('#reward-ETH').html(_.toInteger(ethReward) / 10 ** 18);
 	$('#reward-ETH').html(fourDecimals(_.toInteger(ethReward) / 10 ** 18));
 
-	const personalemission = await getPersonalEmissions();
+	const personalemission = await getPersonalEmissions().catch(e => {
+		errorHandling(e.message, 'getPersonalEmissions()');
+		return('error');
+	});
 	$('#personal-emission-XAMP').html(`${personalemission.XAMP}`);
 	$('#personal-emission-TOB').html(`${personalemission.TOB}`);
 	$('#personal-emission-BOA').html(`${personalemission.BOA}`);
@@ -1278,7 +1311,10 @@ const updateUserStats = async () => {
   // XAMP
   const xampLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.XAMP, account)
-    .call();
+    .call().catch(e => {
+		errorHandling(e.message, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.XAMP, account)');
+		return('error');
+	});
 	const XAMPbalance = belowZero(sixDecimals(xampLpBalance / 10 ** 18));
 	console.log('Staked XAMP: ', XAMPbalance);
 	$('#balance-LP-XAMP').html(XAMPbalance);
@@ -1286,7 +1322,10 @@ const updateUserStats = async () => {
   // TOB
   const tobLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.TOB, account)
-    .call();
+    .call().catch(e => {
+		errorHandling(e.message, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.TOB, account)');
+		return('error');
+	});
 	const TOBbalance = belowZero(sixDecimals(tobLpBalance / 10 ** 18));
 	console.log('Staked TOB: ', TOBbalance);
 	$('#balance-LP-TOB').html(TOBbalance);
@@ -1294,7 +1333,10 @@ const updateUserStats = async () => {
   // BOA
   const boaLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.BOA, account)
-    .call();
+    .call().catch(e => {
+		errorHandling(e.message, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.BOA, account)');
+		return('error');
+	});
 	const BOAbalance = belowZero(sixDecimals(boaLpBalance / 10 ** 18));
 	console.log('Staked BOA: ', BOAbalance);
 	$('#balance-LP-BOA').html(BOAbalance);
@@ -1302,13 +1344,19 @@ const updateUserStats = async () => {
   // ETH
 	const ethLpBalance = await ashContract.methods
     .stakes(YFKA_POOL_INDEXES.ETH, account)
-    .call();
+    .call().catch(e => {
+		errorHandling(e.message, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.ETH, account)');
+		return('error');
+	});
 	const ETHbalance = belowZero(sixDecimals(ethLpBalance / 10 ** 18));
 	console.log('Staked ETH: ', ETHbalance);
 	$('#balance-LP-ETH').html(ETHbalance);
 
 	//% of pool
-	const TotalBalances = await getTotalBalances();
+	const TotalBalances = await getTotalBalances().catch(e => {
+		errorHandling(e.message, 'getTotalBalances()');
+		return('error');
+	});;
 
 	//XAMP
 	const TotalXAMPbalance = TotalBalances.XAMP;
@@ -1348,6 +1396,7 @@ const updateUserStats = async () => {
 	$('#pool-Share-ETH').html(`${readablePercentageETH}`);
 	$('#total-LP-ETH').html(`${readableTotalETH}`);
 };
+
 
 const updateActivePool = async () => {
   console.log('updateActivePool');
@@ -1655,18 +1704,26 @@ window.addEventListener('load', async (event) => {
 			//updatePoolBalances();
 			$('#isConnected').html('wallet connected');
 			
-			await updateActivePool().catch(e => {
+			var updateAP = await updateActivePool().catch(e => {
 				if (e.message != null && DISPLAY_ERRORS) {
 					console.log('ERROR (updateActivePool): ',e.message);
-					if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.') $('#isConnected').html('Wallet NOT Connected');
+					if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){
+						$('#isConnected').html('Wallet NOT Connected');
+						Promise.resolve();
+					}
 				}
 			});
-			await updateUserStats().catch(e => {
+			if (updateAP == 'error') continue breaker;
+			var updateUS = await updateUserStats().catch(e => {
 				if (e.message != null && DISPLAY_ERRORS) {
 					console.log('ERROR (updateUserStats): ',e.message);
-					if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.') $('#isConnected').html('Wallet NOT Connected');
+					if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){ 
+						$('#isConnected').html('Wallet NOT Connected');
+						Promise.resolve();
+					}
 				}
 			});
+			if (updateAP == 'error') continue breaker;
 			
 		await setStakeBalance({
 			currentTarget: {
@@ -1685,6 +1742,6 @@ window.addEventListener('load', async (event) => {
 		});
 		}
 	
-	
+		breaker:
 
 });
