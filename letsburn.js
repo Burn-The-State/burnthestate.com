@@ -1729,10 +1729,11 @@ try{
 						errorHandling(e, 'updateGlobal()');
 				});
 			}else{
+				
 				var updateAP = await updateActivePool().catch(e => {
 						errorHandling(e, 'updateActivePool()');
-					}
 				});
+				
 				if (updateAP != false){
 					var updateUS = await updateUserStats().catch(e => {
 						errorHandling(e, 'updateUserStats()');
