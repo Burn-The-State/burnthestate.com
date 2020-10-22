@@ -1741,6 +1741,9 @@ window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 		if (!isConnected()){
+			const web3connect await web3.isConnected();
+			if (DISPLAY_CONSOLE) console.log('Web3.Connect(): ', web3connect);
+			
 			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
 			updateGlobal().catch(e => {
 					errorHandling(e, 'updateGlobal()');
@@ -1784,5 +1787,6 @@ window.addEventListener('load', async (event) => {
 
 		}
 });
+
 
 
