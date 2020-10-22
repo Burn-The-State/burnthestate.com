@@ -1649,10 +1649,9 @@ window.addEventListener('load', async (event) => {
 			console.log('METAMASK NOT CONNECTED!');
 			//updatePoolBalances();
 			$('#isConnected').html('wallet connected');
-			await updateActivePool().catch(e => var e = e.message);
-			if (e != null && DISPLAY_ERRORS) console.log('ERROR (updateActivePool): ',e);
-			await updateUserStats().catch(e => var e = e.message);
-			if (e != null && DISPLAY_ERRORS) console.log('ERROR (updateActivePool): ',e);
+			await updateActivePool().catch(e) {if (e != null && DISPLAY_ERRORS) console.log('ERROR (updateActivePool): ',e)};
+			await updateUserStats().catch(e => var e = e.message){if (e != null && DISPLAY_ERRORS) console.log('ERROR (updateActivePool): ',e)};
+			
 		await setStakeBalance({
 			currentTarget: {
 				value: 'XAMP',
