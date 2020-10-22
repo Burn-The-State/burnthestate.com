@@ -849,7 +849,9 @@ const YFKA_CONTROLLER_ABI = [
 */
 
 
-function silentHandler()  {return true}
+function silentHandler() {return true}
+
+function defaultHandler() {return false}
 
 
 function errorHandling(error, functionCall)
@@ -1732,7 +1734,10 @@ $('#connectToMetamask').click(async () => {
 
 window.addEventListener('load', async (event) => {
 	
-	if (!DISPLAY_ERROR_TO_CONSOLE) silentHandler();
+	if (!DISPLAY_ERROR_TO_CONSOLE) {
+		silentHandler();
+		defaultHandler();
+	}
 	
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 		if (!isConnected()){
@@ -1782,4 +1787,3 @@ window.addEventListener('load', async (event) => {
 		
 
 })
-
