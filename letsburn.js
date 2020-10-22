@@ -1742,22 +1742,22 @@ window.addEventListener('load', async (event) => {
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	
 	try{
-	var test = web3.currentProvider;
+	var test = web3.eth.getAccounts();
 	}catch(e){
-		errorHandling(e, 'currentProvider()');
+		errorHandling(e, 'web3.eth.getAccounts()');
 	};
 	
 	
 	if (DISPLAY_CONSOLE) console.log('Web3.currentProvider(): ', test);
-		if (typeof test == 'undefined'){
+		if (test.length == 0){
 			
 			
-			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
-			updateGlobal().catch(e => {
+			if (DISPLAY_CONSOLE) console.log('NO ACCOUNTS CONNECTED!');
+			await updateGlobal().catch(e => {
 					errorHandling(e, 'updateGlobal()');
 			});
 		}else{
-			if (DISPLAY_CONSOLE) console.log('METAMASK CONNECTED!');
+			if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 			var updateAP = await updateActivePool().catch(e => {
 					errorHandling(e, 'updateActivePool()');
 			});
