@@ -1718,7 +1718,6 @@ window.addEventListener('load', async (event) => {
 					if (DISPLAY_CONSOLE) console.log('ERROR (updateActivePool): ',e.message);
 					if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){
 						$('#isConnected').html('Wallet NOT Connected');
-						Promise.resolve(updateActivePool);
 					}
 				}
 			});
@@ -1728,7 +1727,6 @@ window.addEventListener('load', async (event) => {
 						if (DISPLAY_CONSOLE) console.log('ERROR (updateUserStats): ',e.message);
 						if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){ 
 							$('#isConnected').html('Wallet NOT Connected');
-							Promise.resolve(updateUserStats);
 						}
 					}
 				});
