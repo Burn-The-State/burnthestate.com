@@ -1743,7 +1743,7 @@ window.addEventListener('load', async (event) => {
 	
 	web3.eth.getAccounts(async function(err, accounts){
 		if (err != null) console.error("An error occurred: "+err);
-		else if (accounts.length == 0){
+		else if (typeof accounts == 'undefined'){
 			if (DISPLAY_CONSOLE) console.log('NO ACCOUNTS CONNECTED!');
 			await updateGlobal().catch(e => {
 				errorHandling(e, 'updateGlobal()');
