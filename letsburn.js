@@ -1642,15 +1642,29 @@ window.addEventListener('load', async (event) => {
 	
 		if (!isConnected()){
 			console.log('METAMASK NOT CONNECTED!');
-			updateGlobal().catch(e => console.log('Error: ', e.message));;
+			updateGlobal().catch(e => {
+				if (e.message != null && DISPLAY_ERRORS) {
+					console.log('ERROR (updateGlobal): ',e.message);
+			});
+			
 			$('#isConnected').html('Wallet NOT Connected');
 		}else
 		{
 			console.log('METAMASK NOT CONNECTED!');
 			//updatePoolBalances();
 			$('#isConnected').html('wallet connected');
-			await updateActivePool().catch(e => {if (e.message != null && DISPLAY_ERRORS) console.log('ERROR (updateActivePool): ',e.message)});
-			await updateUserStats().catch(e => {if (e.message != null && DISPLAY_ERRORS) console.log('ERROR (updateUserStats): ',e.message)});
+			
+			await updateActivePool().catch(e => {
+				if (e.message != null && DISPLAY_ERRORS) {
+					console.log('ERROR (updateActivePool): ',e.message);
+					if (e.message ==  'User rejected the request.') $('#isConnected').html('Wallet NOT Connected');
+				}
+			});
+			await updateUserStats().catch(e => {
+				if (e.message != null && DISPLAY_ERRORS) {
+					console.log('ERROR (updateUserStats): ',e.message);
+					if (e.message ==  'User rejected the request.') $('#isConnected').html('Wallet NOT Connected');
+			});
 			
 		await setStakeBalance({
 			currentTarget: {
