@@ -848,19 +848,11 @@ const YFKA_CONTROLLER_ABI = [
 */
 
 
-function errorHandling(errorCode, functionCall)
+function errorHandling(error, functionCall)
 {
+	const errorCode = error.code;
+	const errorMessage = error.message;
 	if (DISPLAY_ERRORS) {
-		var errorMessage = '';
-		switch (errorCode){
-			case -32002:
-				errorMessage = 'Pending Metamask Request already Submitted';
-			break;
-			
-			default:
-				errorMessage = 'Unknown error!';
-			break;
-		}
 		const Message = 'ERROR (' + functionCall + '): ' + errorMessage;
 		if (DISPLAY_CONSOLE) console.log(Message);
 		if (errorCode ==  'User rejected the request.' || errorCode == -32002){
@@ -1019,7 +1011,7 @@ function MetaConnect(){
 const getTotalBalances = async () => {
 	if (DISPLAY_CONSOLE) console.log('getBalances');
 	const provider = getInfuraProvider().catch(e => {
-		errorHandling(e.message, 'getInfuraProvider()');
+		errorHandling(e, 'getInfuraProvider()');
 		return(false);
 	});
 	if (provider != false)
@@ -1251,7 +1243,7 @@ const getPersonalEmissions= async () => {
 */
 const updateUserStats = async () => {
 	const account = await getAccount().catch(e => {
-		errorHandling(e.message, 'Get Accounts');
+		errorHandling(e, 'Get Accounts');
 		return(false);
 	});
 	
@@ -1266,7 +1258,7 @@ const updateUserStats = async () => {
 		.call({
 			from: account,
 		}).catch(e => {
-			errorHandling(e.message, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP)');
+			errorHandling(e, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP)');
 			return(false);
 		});
 		if (xampReward != false)
@@ -1281,7 +1273,7 @@ const updateUserStats = async () => {
 		.call({
 			from: account,
 		}).catch(e => {
-			errorHandling(e.message, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.TOB)');
+			errorHandling(e, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.TOB)');
 			return(false);
 		});
 		if (tobReward != false)
@@ -1296,7 +1288,7 @@ const updateUserStats = async () => {
 		.call({
 			from: account,
 		}).catch(e => {
-			errorHandling(e.message, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA)');
+			errorHandling(e, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA)');
 			return(false);
 		});
 		if (boaReward != false){
@@ -1309,7 +1301,7 @@ const updateUserStats = async () => {
 		.call({
 			from: account,
 		}).catch(e => {
-			errorHandling(e.message, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.ETH)');
+			errorHandling(e, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.ETH)');
 			return(false);
 		});
 		if (ethReward != false){
@@ -1319,7 +1311,7 @@ const updateUserStats = async () => {
 		}else return(false);
 		
 		const personalemission = await getPersonalEmissions().catch(e => {
-			errorHandling(e.message, 'getPersonalEmissions()');
+			errorHandling(e, 'getPersonalEmissions()');
 			return(false);
 		});
 		if (personalemission != false){
@@ -1334,7 +1326,7 @@ const updateUserStats = async () => {
 		const xampLpBalance = await ashContract.methods
 		.stakes(YFKA_POOL_INDEXES.XAMP, account)
 		.call().catch(e => {
-			errorHandling(e.message, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.XAMP, account)');
+			errorHandling(e, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.XAMP, account)');
 			return(false);
 		});
 		if (xampLpBalance != false){
@@ -1347,7 +1339,7 @@ const updateUserStats = async () => {
 		const tobLpBalance = await ashContract.methods
 		.stakes(YFKA_POOL_INDEXES.TOB, account)
 		.call().catch(e => {
-			errorHandling(e.message, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.TOB, account)');
+			errorHandling(e, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.TOB, account)');
 			return(false);
 		});
 		if (tobLpBalance != false){
@@ -1360,7 +1352,7 @@ const updateUserStats = async () => {
 		const boaLpBalance = await ashContract.methods
 		.stakes(YFKA_POOL_INDEXES.BOA, account)
 		.call().catch(e => {
-			errorHandling(e.message, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.BOA, account)');
+			errorHandling(e, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.BOA, account)');
 			return(false);
 		});
 		if (boaLpBalance != false){
@@ -1373,7 +1365,7 @@ const updateUserStats = async () => {
 		const ethLpBalance = await ashContract.methods
 		.stakes(YFKA_POOL_INDEXES.ETH, account)
 		.call().catch(e => {
-			errorHandling(e.message, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.ETH, account)');
+			errorHandling(e, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.ETH, account)');
 			return(false);
 		});
 		if (ethLpBalance != false){
@@ -1384,7 +1376,7 @@ const updateUserStats = async () => {
 
 		//% of pool
 		const TotalBalances = await getTotalBalances().catch(e => {
-			errorHandling(e.message, 'getTotalBalances()');
+			errorHandling(e, 'getTotalBalances()');
 			return(false);
 		});
 		
@@ -1435,7 +1427,7 @@ const updateUserStats = async () => {
 const updateActivePool = async () => {
 	if (DISPLAY_CONSOLE) console.log('updateActivePool');
 	const _globalEmissionRate = await getGlobalEmissionRate().catch(e => {
-		errorHandling(e.message, 'getGlobalEmissionRate()');
+		errorHandling(e, 'getGlobalEmissionRate()');
 		return(false);
 	});
 	if (_globalEmissionRate != false){
@@ -1451,7 +1443,7 @@ const updateActivePool = async () => {
 		$('#coin-emission').html(`${globalEmissionRate}`);
 
 		const bonusAddress = await getBonusPool().catch(e => {
-			errorHandling(e.message, 'getGlobalEmissionRate()');
+			errorHandling(e, 'getGlobalEmissionRate()');
 			return(false != false);
 		});
 		if (bonusAddress != false){
@@ -1787,7 +1779,5 @@ try{
 
 	})
 }catch(e){
-	if (e.message != null && DISPLAY_ERRORS) {
-		if (DISPLAY_CONSOLE) console.log('ERROR (updateGlobal): ',e.message);
-	}
+	errorHandling(e, 'ON LOAD FUNCTION');
 };
