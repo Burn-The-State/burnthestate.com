@@ -1786,4 +1786,10 @@ window.addEventListener('load', async (event) => {
 	
 		
 
-})
+});
+
+    window.onerror = function(message, url, lineNumber) {  
+        // code to execute on an error  
+        return true; // prevents browser error messages  
+    };
+
