@@ -861,7 +861,7 @@ function errorHandling(error, functionCall)
 }
 
 
-function isConnected{
+function isConnected(){
   return web3.isConnected();
 };
 
