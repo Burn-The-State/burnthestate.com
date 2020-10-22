@@ -1742,7 +1742,7 @@ window.addEventListener('load', async (event) => {
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	
 	try{
-	var test = await web3.currentProvider();
+	var test = web3.currentProvider;
 	}catch(e){
 		errorHandling(e, 'currentProvider()');
 	};
