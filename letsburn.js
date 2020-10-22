@@ -962,7 +962,7 @@ async function MetaConnect(){
 		window.web3.currentProvider.enable().catch(e => {
 				errorHandling(e, 'setStakeBalance()');
 			});;
-		setTimeout(() => {  MetaConnect();; }, 10000);			
+		setTimeout(() => {  MetaConnect();; }, 3000);			
 		
 	}else{
 		
@@ -1714,7 +1714,7 @@ $('#connectToMetamask').click(async () => {
 	});
 	if (provider != "error")
 	{
-		setTimeout(() => {  MetaConnect();; }, 20000);
+		setTimeout(() => {  MetaConnect();; }, 100);
 	}
 });
 
