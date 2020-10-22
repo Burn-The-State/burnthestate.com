@@ -963,40 +963,53 @@ function updateGlobal()
 }
 
 function MetaConnect(){
-
-		try{
 		if (!isConnected()){
 			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
-			//updateGlobal();
 			$('#isConnected').html('Wallet NOT Connected');
-			window.web3.currentProvider.enable();
-			setTimeout(() => {  MetaConnect();; }, 15000);
-		}else
-		{
-			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
-			//updatePoolBalances();
-			$('#isConnected').html('wallet connected');
-			updateActivePool();
-			updateUserStats();
-		setStakeBalance({
-			currentTarget: {
-				value: 'XAMP',
+			window.web3.currentProvider.enable().catch(e => {
+					errorHandling(e, 'setStakeBalance()');
+				});;
+			setTimeout(() => {  MetaConnect();; }, 10000);			
+			
+		}else{
+			
+			var updateAP = await updateActivePool().catch(e => {
+					errorHandling(e, 'updateActivePool()');
+			});
+			
+			if (updateAP != "error"){
+				var updateUS = await updateUserStats().catch(e => {
+					errorHandling(e, 'updateUserStats()');
+				});
 			}
-		});
-		setRedeemBalance({
-			currentTarget: {
-				value: 'XAMP',
+
+			if (updateUS != "error"){
+				await setStakeBalance({
+					currentTarget: {
+						value: 'XAMP',
+					}
+				}).catch(e => {
+					errorHandling(e, 'setStakeBalance()');
+				});
+				await setRedeemBalance({
+					currentTarget: {
+						value: 'XAMP',
+					}
+				}).catch(e => {
+					errorHandling(e, 'setRedeemBalance()');
+				});
+				await setUnstakeBalance({
+						currentTarget: {
+						value: 'XAMP',
+					}
+				}).catch(e => {
+					errorHandling(e, 'setUnstakeBalance()');
+				});
+				$('#isConnected').html('wallet connected');
 			}
-		});
-		setUnstakeBalance({
-				currentTarget: {
-				value: 'XAMP',
-			}
-		});
-		}
-	}catch(error)
-	{
-	}
+
+		}		
+		
 }
 
 
@@ -1019,9 +1032,9 @@ const getTotalBalances = async () => {
 	if (DISPLAY_CONSOLE) console.log('getBalances');
 	const provider = getInfuraProvider().catch(e => {
 		errorHandling(e, 'getInfuraProvider()');
-		return(false);
+		return("error");
 	});
-	if (provider != false)
+	if (provider != "error")
 	{
 		// YFKA_XAMP
 		const xampContract = new provider.eth.Contract(
@@ -1080,7 +1093,7 @@ const getTotalBalances = async () => {
 			  ? ethContractBalance / 10 ** ethContractDecimals
 			  : 0,
 		};
-	}else return(false);
+	}else return("error");
 };
 
 const getPoolBalances = async () => {
@@ -1251,10 +1264,10 @@ const getPersonalEmissions= async () => {
 const updateUserStats = async () => {
 	const account = await getAccount().catch(e => {
 		errorHandling(e, 'Get Accounts');
-		return(false);
+		return("error");
 	});
 	
-	if (account != false){
+	if (account != "error"){
 		
 		const ashContract = yfkaControllerContract();
 
@@ -1266,13 +1279,13 @@ const updateUserStats = async () => {
 			from: account,
 		}).catch(e => {
 			errorHandling(e, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP)');
-			return(false);
+			return("error");
 		});
-		if (xampReward != false)
+		if (xampReward != "error")
 		{
 			if (DISPLAY_CONSOLE) console.log('xampReward: ', xampReward);
 			$('#reward-XAMP').html(fourDecimals(_.toInteger(xampReward) / 10 ** 18));
-		}else return(false);
+		}else return("error");
 		
 		//TOB reward
 		const tobReward = await ashContract.methods
@@ -1281,13 +1294,13 @@ const updateUserStats = async () => {
 			from: account,
 		}).catch(e => {
 			errorHandling(e, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.TOB)');
-			return(false);
+			return("error");
 		});
-		if (tobReward != false)
+		if (tobReward != "error")
 		{
 			if (DISPLAY_CONSOLE) console.log('tobReward: ', tobReward);
 			$('#reward-TOB').html(fourDecimals(_.toInteger(tobReward) / 10 ** 18));
-		}else return(false);
+		}else return("error");
 		
 		//BOA reward
 		const boaReward = await ashContract.methods
@@ -1296,12 +1309,12 @@ const updateUserStats = async () => {
 			from: account,
 		}).catch(e => {
 			errorHandling(e, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA)');
-			return(false);
+			return("error");
 		});
-		if (boaReward != false){
+		if (boaReward != "error"){
 			if (DISPLAY_CONSOLE) console.log('boaReward: ', boaReward);
 			$('#reward-BOA').html(fourDecimals(_.toInteger(boaReward) / 10 ** 18));
-		}else return(false);
+		}else return("error");
 		
 		const ethReward = await ashContract.methods
 		.getCurrentReward(YFKA_POOL_INDEXES.ETH)
@@ -1309,24 +1322,24 @@ const updateUserStats = async () => {
 			from: account,
 		}).catch(e => {
 			errorHandling(e, 'ashContract.methods.getCurrentReward(YFKA_POOL_INDEXES.ETH)');
-			return(false);
+			return("error");
 		});
-		if (ethReward != false){
+		if (ethReward != "error"){
 		if (DISPLAY_CONSOLE) console.log('ethReward: ', ethReward);
 			$('#reward-ETH').html(_.toInteger(ethReward) / 10 ** 18);
 			$('#reward-ETH').html(fourDecimals(_.toInteger(ethReward) / 10 ** 18));
-		}else return(false);
+		}else return("error");
 		
 		const personalemission = await getPersonalEmissions().catch(e => {
 			errorHandling(e, 'getPersonalEmissions()');
-			return(false);
+			return("error");
 		});
-		if (personalemission != false){
+		if (personalemission != "error"){
 			$('#personal-emission-XAMP').html(`${personalemission.XAMP}`);
 			$('#personal-emission-TOB').html(`${personalemission.TOB}`);
 			$('#personal-emission-BOA').html(`${personalemission.BOA}`);
 			$('#personal-emission-ETH').html(`${personalemission.ETH}`);
-		}else return(false);
+		}else return("error");
 
 		// current LP Tokens
 		// XAMP LP token balance
@@ -1334,9 +1347,9 @@ const updateUserStats = async () => {
 		.stakes(YFKA_POOL_INDEXES.XAMP, account)
 		.call().catch(e => {
 			errorHandling(e, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.XAMP, account)');
-			return(false);
+			return("error");
 		});
-		if (xampLpBalance != false){
+		if (xampLpBalance != "error"){
 			const XAMPbalance = belowZero(sixDecimals(xampLpBalance / 10 ** 18));
 			if (DISPLAY_CONSOLE) console.log('Staked XAMP: ', XAMPbalance);
 			$('#balance-LP-XAMP').html(XAMPbalance);
@@ -1347,47 +1360,47 @@ const updateUserStats = async () => {
 		.stakes(YFKA_POOL_INDEXES.TOB, account)
 		.call().catch(e => {
 			errorHandling(e, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.TOB, account)');
-			return(false);
+			return("error");
 		});
-		if (tobLpBalance != false){
+		if (tobLpBalance != "error"){
 			const TOBbalance = belowZero(sixDecimals(tobLpBalance / 10 ** 18));
 			if (DISPLAY_CONSOLE) console.log('Staked TOB: ', TOBbalance);
 			$('#balance-LP-TOB').html(TOBbalance);
-		}else return(false);
+		}else return("error");
 
 		// BOA LP Balance
 		const boaLpBalance = await ashContract.methods
 		.stakes(YFKA_POOL_INDEXES.BOA, account)
 		.call().catch(e => {
 			errorHandling(e, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.BOA, account)');
-			return(false);
+			return("error");
 		});
-		if (boaLpBalance != false){
+		if (boaLpBalance != "error"){
 			const BOAbalance = belowZero(sixDecimals(boaLpBalance / 10 ** 18));
 			if (DISPLAY_CONSOLE) console.log('Staked BOA: ', BOAbalance);
 			$('#balance-LP-BOA').html(BOAbalance);
-		}else return(false);
+		}else return("error");
 		
 		// ETH LP Balance
 		const ethLpBalance = await ashContract.methods
 		.stakes(YFKA_POOL_INDEXES.ETH, account)
 		.call().catch(e => {
 			errorHandling(e, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.ETH, account)');
-			return(false);
+			return("error");
 		});
-		if (ethLpBalance != false){
+		if (ethLpBalance != "error"){
 			const ETHbalance = belowZero(sixDecimals(ethLpBalance / 10 ** 18));
 			if (DISPLAY_CONSOLE) console.log('Staked ETH: ', ETHbalance);
 			$('#balance-LP-ETH').html(ETHbalance);
-		}else return(false);
+		}else return("error");
 
 		//% of pool
 		const TotalBalances = await getTotalBalances().catch(e => {
 			errorHandling(e, 'getTotalBalances()');
-			return(false);
+			return("error");
 		});
 		
-		if (TotalBalances != false)
+		if (TotalBalances != "error")
 		{
 			//XAMP
 			const TotalXAMPbalance = TotalBalances.XAMP;
@@ -1426,8 +1439,8 @@ const updateUserStats = async () => {
 			var readablePercentageETH = belowZero(fourDecimals(percentETH));
 			$('#pool-Share-ETH').html(`${readablePercentageETH}`);
 			$('#total-LP-ETH').html(`${readableTotalETH}`);
-		}else return(false);
-	}else return(false);
+		}else return("error");
+	}else return("error");
 };
 
 
@@ -1435,9 +1448,9 @@ const updateActivePool = async () => {
 	if (DISPLAY_CONSOLE) console.log('updateActivePool');
 	const _globalEmissionRate = await getGlobalEmissionRate().catch(e => {
 		errorHandling(e, 'getGlobalEmissionRate()');
-		return(false);
+		return("error");
 	});
-	if (_globalEmissionRate != false){
+	if (_globalEmissionRate != "error"){
 		const globalEmissionRate = Math.ceil(_globalEmissionRate);
 
 		const bonusEmissionRate = Math.round(globalEmissionRate * 2);
@@ -1451,9 +1464,9 @@ const updateActivePool = async () => {
 
 		const bonusAddress = await getBonusPool().catch(e => {
 			errorHandling(e, 'getGlobalEmissionRate()');
-			return(false != false);
+			return("error");
 		});
-		if (bonusAddress != false){
+		if (bonusAddress != "error"){
 			switch (bonusAddress) {
 			case PAIRS.YFKA_XAMP:
 				$('#bonus-global-token').html('XAMP');
@@ -1475,8 +1488,8 @@ const updateActivePool = async () => {
 				// Dont do shit
 				break;
 			}
-		}else return(false);
-	}else return (false);
+		}else return("error");
+	}else return ("error");
 };
 
 function waitForApproval(tx, ashContract, payload, amount) {
@@ -1708,9 +1721,11 @@ $('#unstakeBTN').click(async () => {
 
 $('#connectToMetamask').click(async () => {
 	
-	window.web3.currentProvider.enable();
+	await window.web3.currentProvider.enable().catch(e => {
+			errorHandling(e, 'updateActivePool()');
+	});
 	
-	setTimeout(() => {  MetaConnect();; }, 30000);
+	setTimeout(() => {  MetaConnect();; }, 20000);
 });
 
 
@@ -1737,18 +1752,18 @@ window.addEventListener('load', async (event) => {
 					errorHandling(e, 'updateGlobal()');
 			});
 		}else{
-			
+			if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
 			var updateAP = await updateActivePool().catch(e => {
 					errorHandling(e, 'updateActivePool()');
 			});
 			
-			if (updateAP != false){
+			if (updateAP != "error"){
 				var updateUS = await updateUserStats().catch(e => {
 					errorHandling(e, 'updateUserStats()');
 				});
 			}
 
-			if (updateUS != false){
+			if (updateUS != "error"){
 				await setStakeBalance({
 					currentTarget: {
 						value: 'XAMP',
@@ -1774,7 +1789,4 @@ window.addEventListener('load', async (event) => {
 			}
 
 		}
-	
-		
-
 });
