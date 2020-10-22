@@ -1007,65 +1007,71 @@ function MetaConnect(){
 */
 
 const getTotalBalances = async () => {
-  if (DISPLAY_CONSOLE) console.log('getBalances');
-  const provider = getInfuraProvider();
+	if (DISPLAY_CONSOLE) console.log('getBalances');
+	const provider = getInfuraProvider().catch(e => {
+		errorHandling(e.message, 'getInfuraProvider()');
+		return(false);
+	});
+	if (provider != false)
+	{
+		// YFKA_XAMP
+		const xampContract = new provider.eth.Contract(
+		UNISWAP_BASE_LP_ABI,
+		PAIRS.YFKA_XAMP
+		);
+		const xampContractBalance = await xampContract.methods.totalSupply().call();
+		if (DISPLAY_CONSOLE) console.log('xampTotalBalance: ', xampContractBalance);
 
-  // YFKA_XAMP
-  const xampContract = new provider.eth.Contract(
-    UNISWAP_BASE_LP_ABI,
-    PAIRS.YFKA_XAMP
-  );
-  const xampContractBalance = await xampContract.methods.totalSupply().call();
-  if (DISPLAY_CONSOLE) console.log('xampTotalBalance: ', xampContractBalance);
+		const xampContractDecimals = await xampContract.methods.decimals().call();
+		if (DISPLAY_CONSOLE) console.log('xampContractDecimals: ', xampContractDecimals);
 
-  const xampContractDecimals = await xampContract.methods.decimals().call();
-  if (DISPLAY_CONSOLE) console.log('xampContractDecimals: ', xampContractDecimals);
+		// YFKA_TOB
+		const tobContract = new provider.eth.Contract(
+		UNISWAP_BASE_LP_ABI,
+		PAIRS.YFKA_TOB
+		);
+		const tobContractBalance = await tobContract.methods.totalSupply().call();
+		if (DISPLAY_CONSOLE) console.log('tobTotalBalance: ', tobContractBalance);
 
-  // YFKA_TOB
-  const tobContract = new provider.eth.Contract(
-    UNISWAP_BASE_LP_ABI,
-    PAIRS.YFKA_TOB
-  );
-  const tobContractBalance = await tobContract.methods.totalSupply().call();
-  if (DISPLAY_CONSOLE) console.log('tobTotalBalance: ', tobContractBalance);
+		const tobContractDecimals = await tobContract.methods.decimals().call();
+		if (DISPLAY_CONSOLE) console.log('tobContractDecimals: ', tobContractDecimals);
 
-  const tobContractDecimals = await tobContract.methods.decimals().call();
-  if (DISPLAY_CONSOLE) console.log('tobContractDecimals: ', tobContractDecimals);
+		// YFKA_BOA
+		const boaContract = new provider.eth.Contract(
+		UNISWAP_BASE_LP_ABI,
+		PAIRS.YFKA_BOA
+		);
+		const boaContractBalance = await boaContract.methods.totalSupply().call();
+		if (DISPLAY_CONSOLE) console.log('boaTotalBalance: ', boaContractBalance);
 
-  // YFKA_BOA
-  const boaContract = new provider.eth.Contract(
-    UNISWAP_BASE_LP_ABI,
-    PAIRS.YFKA_BOA
-  );
-  const boaContractBalance = await boaContract.methods.totalSupply().call();
-  if (DISPLAY_CONSOLE) console.log('boaTotalBalance: ', boaContractBalance);
+		const boaContractDecimals = await boaContract.methods.decimals().call();
+		if (DISPLAY_CONSOLE) console.log('boaContractDecimals: ', boaContractDecimals);
 
-  const boaContractDecimals = await boaContract.methods.decimals().call();
-  if (DISPLAY_CONSOLE) console.log('boaContractDecimals: ', boaContractDecimals);
+		// YFKA_ETH
+		const ethContract = new provider.eth.Contract(
+		UNISWAP_BASE_LP_ABI,
+		PAIRS.YFKA_ETH
+		);
+		
+		const ethContractBalance = await ethContract.methods.totalSupply().call();
+		if (DISPLAY_CONSOLE) console.log('ethTotalBalance: ', ethContractBalance);
 
-  // YFKA_ETH
-  const ethContract = new provider.eth.Contract(
-    UNISWAP_BASE_LP_ABI,
-    PAIRS.YFKA_ETH
-  );
-  const ethContractBalance = await ethContract.methods.totalSupply().call();
-  if (DISPLAY_CONSOLE) console.log('ethTotalBalance: ', ethContractBalance);
+		const ethContractDecimals = await ethContract.methods.decimals().call();
+		if (DISPLAY_CONSOLE) console.log('ethContractDecimals: ', ethContractDecimals);
 
-  const ethContractDecimals = await ethContract.methods.decimals().call();
-  if (DISPLAY_CONSOLE) console.log('ethContractDecimals: ', ethContractDecimals);
-
-  return {
-    XAMP: xampContractBalance
-      ? xampContractBalance / 10 ** xampContractDecimals
-      : 0,
-    TOB: tobContract ? tobContractBalance / 10 ** tobContractDecimals : 0,
-    BOA: boaContractBalance
-      ? boaContractBalance / 10 ** boaContractDecimals
-      : 0,
-    ETH: ethContractBalance
-      ? ethContractBalance / 10 ** ethContractDecimals
-      : 0,
-  };
+		return {
+			XAMP: xampContractBalance
+			  ? xampContractBalance / 10 ** xampContractDecimals
+			  : 0,
+			TOB: tobContract ? tobContractBalance / 10 ** tobContractDecimals : 0,
+			BOA: boaContractBalance
+			  ? boaContractBalance / 10 ** boaContractDecimals
+			  : 0,
+			ETH: ethContractBalance
+			  ? ethContractBalance / 10 ** ethContractDecimals
+			  : 0,
+		};
+	}else return(false);
 };
 
 const getPoolBalances = async () => {
@@ -1358,44 +1364,47 @@ const updateUserStats = async () => {
 		errorHandling(e.message, 'getTotalBalances()');
 		return(false);
 	});
+	
+	if (!TotalBalances)
+	{
+		//XAMP
+		const TotalXAMPbalance = TotalBalances.XAMP;
+		const percentXAMP = (fourDecimals(xampLpBalance / 10 ** 18) / TotalXAMPbalance) * 100;
+		if (DISPLAY_CONSOLE) console.log('XAMP Balance = ', XAMPbalance);
+		if (DISPLAY_CONSOLE) console.log('XAMP Total =', TotalXAMPbalance);
+		var readableTotalXAMP = twoDecimals(TotalXAMPbalance);
+		var readablePercentage = belowZero(fourDecimals(percentXAMP));
+		if (DISPLAY_CONSOLE) console.log('XAMP % = ', readablePercentage);
+		$('#pool-Share-XAMP').html(`${readablePercentage}`);
+		$('#total-LP-XAMP').html(`${readableTotalXAMP}`);
 
-	//XAMP
-	const TotalXAMPbalance = TotalBalances.XAMP;
-	const percentXAMP = (fourDecimals(xampLpBalance / 10 ** 18) / TotalXAMPbalance) * 100;
-	if (DISPLAY_CONSOLE) console.log('XAMP Balance = ', XAMPbalance);
-	if (DISPLAY_CONSOLE) console.log('XAMP Total =', TotalXAMPbalance);
-	var readableTotalXAMP = twoDecimals(TotalXAMPbalance);
-	var readablePercentage = belowZero(fourDecimals(percentXAMP));
-	if (DISPLAY_CONSOLE) console.log('XAMP % = ', readablePercentage);
-	$('#pool-Share-XAMP').html(`${readablePercentage}`);
-	$('#total-LP-XAMP').html(`${readableTotalXAMP}`);
+		//TOB
+		const TotalTOBbalance = TotalBalances.TOB;
+		const percentTOB = (fourDecimals(tobLpBalance / 10 ** 18) / TotalTOBbalance) * 100;
+		if (DISPLAY_CONSOLE) console.log('TOB Balance = ', TOBbalance);
+		if (DISPLAY_CONSOLE) console.log('TOB Total =', TotalTOBbalance);
+		var readableTotalTOB = twoDecimals(TotalTOBbalance);
+		var readablePercentTOB = belowZero(fourDecimals(percentTOB));
+		$('#pool-Share-TOB').html(`${readablePercentTOB}`);
+		$('#total-LP-TOB').html(`${readableTotalTOB}`);
 
-	//TOB
-	const TotalTOBbalance = TotalBalances.TOB;
-	const percentTOB = (fourDecimals(tobLpBalance / 10 ** 18) / TotalTOBbalance) * 100;
-	if (DISPLAY_CONSOLE) console.log('TOB Balance = ', TOBbalance);
-	if (DISPLAY_CONSOLE) console.log('TOB Total =', TotalTOBbalance);
-	var readableTotalTOB = twoDecimals(TotalTOBbalance);
-	var readablePercentTOB = belowZero(fourDecimals(percentTOB));
-	$('#pool-Share-TOB').html(`${readablePercentTOB}`);
-	$('#total-LP-TOB').html(`${readableTotalTOB}`);
+		//BOA
+		const TotalBOAbalance = TotalBalances.BOA;
+		const percentBOA = (fourDecimals(boaLpBalance / 10 ** 18) / TotalBOAbalance) * 100;
+		var readableTotalBOA = twoDecimals(TotalBOAbalance);
+		var readablePercentageBOA = belowZero(fourDecimals(percentBOA));
+		if (DISPLAY_CONSOLE) console.log('BOA % = ', readablePercentage);
+		$('#pool-Share-BOA').html(`${readablePercentageBOA}`);
+		$('#total-LP-BOA').html(`${readableTotalBOA}`);
 
-	//BOA
-	const TotalBOAbalance = TotalBalances.BOA;
-	const percentBOA = (fourDecimals(boaLpBalance / 10 ** 18) / TotalBOAbalance) * 100;
-	var readableTotalBOA = twoDecimals(TotalBOAbalance);
-	var readablePercentageBOA = belowZero(fourDecimals(percentBOA));
-	if (DISPLAY_CONSOLE) console.log('BOA % = ', readablePercentage);
-	$('#pool-Share-BOA').html(`${readablePercentageBOA}`);
-	$('#total-LP-BOA').html(`${readableTotalBOA}`);
-
-	//ETH
-	const TotalETHbalance = TotalBalances.ETH;
-	const percentETH = (fourDecimals(ethLpBalance / 10 ** 18) / TotalETHbalance) * 100;
-	var readableTotalETH = twoDecimals(TotalETHbalance);
-	var readablePercentageETH = belowZero(fourDecimals(percentETH));
-	$('#pool-Share-ETH').html(`${readablePercentageETH}`);
-	$('#total-LP-ETH').html(`${readableTotalETH}`);
+		//ETH
+		const TotalETHbalance = TotalBalances.ETH;
+		const percentETH = (fourDecimals(ethLpBalance / 10 ** 18) / TotalETHbalance) * 100;
+		var readableTotalETH = twoDecimals(TotalETHbalance);
+		var readablePercentageETH = belowZero(fourDecimals(percentETH));
+		$('#pool-Share-ETH').html(`${readablePercentageETH}`);
+		$('#total-LP-ETH').html(`${readableTotalETH}`);
+	}else return(false);
 };
 
 
@@ -1405,7 +1414,7 @@ const updateActivePool = async () => {
 		errorHandling(e.message, 'getGlobalEmissionRate()');
 		return(false);
 	});
-	if (_globalEmissionRate){
+	if (_globalEmissionRate != false){
 		const globalEmissionRate = Math.ceil(_globalEmissionRate);
 
 		const bonusEmissionRate = Math.round(globalEmissionRate * 2);
@@ -1419,9 +1428,9 @@ const updateActivePool = async () => {
 
 		const bonusAddress = await getBonusPool().catch(e => {
 			errorHandling(e.message, 'getGlobalEmissionRate()');
-			return(false);
+			return(false != false);
 		});
-		if (bonusAddress){
+		if (bonusAddress != false){
 			switch (bonusAddress) {
 			case PAIRS.YFKA_XAMP:
 				$('#bonus-global-token').html('XAMP');
@@ -1720,7 +1729,7 @@ try{
 						}
 					}
 				});
-				if (updateAP){
+				if (updateAP != false){
 					var updateUS = await updateUserStats().catch(e => {
 						if (e.message != null && DISPLAY_ERRORS) {
 							if (DISPLAY_CONSOLE) console.log('ERROR (updateUserStats): ',e.message);
