@@ -1742,7 +1742,7 @@ window.addEventListener('load', async (event) => {
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	
 	web3.eth.getAccounts(async function(err, accounts){
-		try{
+		try {
 			if (err != null) console.error("An error occurred: "+err);
 			else if (accounts.length == 0){
 				if (DISPLAY_CONSOLE) console.log('NO ACCOUNTS CONNECTED!');
@@ -1789,11 +1789,10 @@ window.addEventListener('load', async (event) => {
 				}
 			}
 		}catch(e){
-			errorHandling(e, 'Account logic Test');
+			errorHandling(e, 'setUnstakeBalance()');
 		}
+	});
 	
 });
-
-
 
 
