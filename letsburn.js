@@ -1021,12 +1021,7 @@ async function MetaConnect(){
 
 const getTotalBalances = async () => {
 	if (DISPLAY_CONSOLE) console.log('getBalances');
-	const provider = await getInfuraProvider().catch(e => {
-		errorHandling(e, 'getInfuraProvider()');
-		return("error");
-	});
-	if (provider != "error")
-	{
+		const provider = await getInfuraProvider();
 		// YFKA_XAMP
 		const xampContract = new provider.eth.Contract(
 		UNISWAP_BASE_LP_ABI,
@@ -1084,7 +1079,6 @@ const getTotalBalances = async () => {
 			  ? ethContractBalance / 10 ** ethContractDecimals
 			  : 0,
 		};
-	}else return("error");
 };
 
 const getPoolBalances = async () => {
@@ -1794,5 +1788,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
