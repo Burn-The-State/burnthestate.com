@@ -1733,7 +1733,7 @@ try{
 			}else{
 				if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
 				//updatePoolBalances();
-				$('#isConnected').html('wallet connected');
+
 				
 				var updateAP = await updateActivePool().catch(e => {
 					if (e.message != null && DISPLAY_ERRORS) {
@@ -1770,6 +1770,7 @@ try{
 						value: 'XAMP',
 					}
 				});
+				$('#isConnected').html('wallet connected');
 			}
 		
 			
