@@ -1738,7 +1738,7 @@ try{
 				var updateAP = await updateActivePool().catch(e => {
 					if (e.message != null && DISPLAY_ERRORS) {
 						if (DISPLAY_CONSOLE) console.log('ERROR (updateActivePool): ',e.message);
-						if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){
+						if (e.message ==  'User rejected the request.' || e.code == -32002){
 							$('#isConnected').html('Wallet NOT Connected');
 						}
 					}
@@ -1747,7 +1747,7 @@ try{
 					var updateUS = await updateUserStats().catch(e => {
 						if (e.message != null && DISPLAY_ERRORS) {
 							if (DISPLAY_CONSOLE) console.log('ERROR (updateUserStats): ',e.message);
-							if (e.message ==  'User rejected the request.' || e.message == 'Permissions request already pending; please wait.'){ 
+							if (e.message ==  'User rejected the request.' || e.code == -32002){ 
 								$('#isConnected').html('Wallet NOT Connected');
 							}
 						}
