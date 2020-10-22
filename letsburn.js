@@ -889,10 +889,15 @@ const yfkaControllerContract = () => {
 };
 
 const getAccount = async () => {
-  const accounts = await ethereum.request({method: 'eth_requestAccounts'});
-  if (DISPLAY_CONSOLE) console.log('accounts:', accounts);
-  const provider = getInfuraProvider();
-  return provider.utils.toChecksumAddress(accounts[0]);
+	if (typeof web3 !== 'undefined') {
+		const accounts = await ethereum.request({method: 'eth_requestAccounts'});
+		if (DISPLAY_CONSOLE) console.log('accounts:', accounts);
+		const provider = getInfuraProvider();
+		return provider.utils.toChecksumAddress(accounts[0]);
+	} else {
+		return (false);
+	}
+
 };
 
 const getBonusPool = async () => {
