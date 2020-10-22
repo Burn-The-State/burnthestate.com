@@ -1645,6 +1645,7 @@ window.addEventListener('load', async (event) => {
 			updateGlobal().catch(e => {
 				if (e.message != null && DISPLAY_ERRORS) {
 					console.log('ERROR (updateGlobal): ',e.message);
+				}
 			});
 			
 			$('#isConnected').html('Wallet NOT Connected');
@@ -1664,6 +1665,7 @@ window.addEventListener('load', async (event) => {
 				if (e.message != null && DISPLAY_ERRORS) {
 					console.log('ERROR (updateUserStats): ',e.message);
 					if (e.message ==  'User rejected the request.') $('#isConnected').html('Wallet NOT Connected');
+				}
 			});
 			
 		await setStakeBalance({
