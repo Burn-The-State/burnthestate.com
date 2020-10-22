@@ -888,12 +888,11 @@ const yfkaControllerContract = () => {
 };
 
 const getAccount = async () => {
-	const connected = await ethereum.enable().catch(e => {
-		errorHandling(e, 'connectedConnect to ETH Account');
-		return (false);
-	});
-	
-	if (connected != false){
+	import detectEthereumProvider from '@metamask/detect-provider';
+
+	const provider = await detectEthereumProvider();
+
+	if (provider) {
 	
 		const accounts = await ethereum.request({method: 'eth_requestAccounts'});
 		if (DISPLAY_CONSOLE) console.log('accounts:', accounts);
