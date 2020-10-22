@@ -861,7 +861,7 @@ function errorHandling(error, functionCall)
 }
 
 
-function isConnected(){
+const isConnected = () => {
   return web3.isConnected();
 };
 
@@ -1742,7 +1742,7 @@ window.addEventListener('load', async (event) => {
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	
 	
-	var test = await isConnected().catch(e => {
+	var test = await web3.isConnected().catch(e => {
 			errorHandling(e, 'IsConnected()');
 	});
 	
