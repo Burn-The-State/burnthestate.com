@@ -18,6 +18,7 @@ const TOKENS = {
 
 const DISPLAY_CONSOLE = true;
 const DISPLAY_ERRORS = true;
+const DISPLAY_ERROR_TO_CONSOLE = false;
 
 const PAIRS = {
   YFKA_XAMP: '0xaea4d6809375bb973c8036d53db9e90970942738',
@@ -1731,7 +1732,7 @@ $('#connectToMetamask').click(async () => {
 
 window.addEventListener('load', async (event) => {
 	
-	if (!DISPLAY_ERRORS) silentHandler();
+	if (!DISPLAY_ERROR_TO_CONSOLE) silentHandler();
 	
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 		if (!isConnected()){
