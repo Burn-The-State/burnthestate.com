@@ -848,12 +848,22 @@ const YFKA_CONTROLLER_ABI = [
 */
 
 
-function errorHandling(errorMessage, functionCall)
+function errorHandling(errorCode, functionCall)
 {
 	if (DISPLAY_ERRORS) {
+		var errorMessage = '';
+		switch (errorCode){
+			case -32002:
+				errorMessage = 'Pending Metamask Request already Submitted';
+			break;
+			
+			default:
+				errorMessage = 'Unknown error!';
+			break;
+		}
 		const Message = 'ERROR (' + functionCall + '): ' + errorMessage;
 		if (DISPLAY_CONSOLE) console.log(Message);
-		if (errorMessage ==  'User rejected the request.' || errorMessage == 'Permissions request already pending; please wait.'){
+		if (errorCode ==  'User rejected the request.' || errorCode == -32002){
 			$('#isConnected').html('Wallet NOT Connected');
 		}
 	}
