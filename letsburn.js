@@ -1774,8 +1774,9 @@ window.addEventListener('load', async (event) => {
 				}).catch(e => {
 					errorHandling(e, 'setUnstakeBalance()');
 				});
+				$('#isConnected').html('wallet connected');
 			}
-			$('#isConnected').html('wallet connected');
+
 		}
 	
 		
