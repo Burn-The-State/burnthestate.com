@@ -1741,22 +1741,16 @@ window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	
-	try{
-	var test = web3.eth.getAccounts();
-	}catch(e){
-		errorHandling(e, 'web3.eth.getAccounts()');
-	};
-	
-	
-	if (DISPLAY_CONSOLE) console.log('Web3.currentProvider(): ', test);
-		if (test.length == 0){
-			
-			
+	web3.eth.getAccounts(function(err, accounts){
+		if (err != null) console.error("An error occurred: "+err);
+		else if (accounts.length == 0){
 			if (DISPLAY_CONSOLE) console.log('NO ACCOUNTS CONNECTED!');
 			await updateGlobal().catch(e => {
-					errorHandling(e, 'updateGlobal()');
+				errorHandling(e, 'updateGlobal()');
 			});
-		}else{
+		}			
+		else {
+			console.log("User is logged in to MetaMask");
 			if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 			var updateAP = await updateActivePool().catch(e => {
 					errorHandling(e, 'updateActivePool()');
@@ -1792,9 +1786,9 @@ window.addEventListener('load', async (event) => {
 				});
 				$('#isConnected').html('wallet connected');
 			}
-
 		}
+	});
+	
 });
-
 
 
