@@ -888,23 +888,17 @@ const yfkaControllerContract = () => {
 };
 
 
-import detectEthereumProvider from '@metamask/detect-provider';
 
-const provider = await detectEthereumProvider();
 
 
 const getAccount = async () => {
 
 
-	if (provider) {
-	
+	// START BACK HERE....
 		const accounts = await ethereum.request({method: 'eth_requestAccounts'});
 		if (DISPLAY_CONSOLE) console.log('accounts:', accounts);
 		const provider = getInfuraProvider();
 		return provider.utils.toChecksumAddress(accounts[0]);
-	}else{
-		return (false);
-	}
 
 };
 
