@@ -855,7 +855,7 @@ function errorHandling(error, functionCall)
 	if (DISPLAY_ERRORS) {
 		const Message = 'ERROR (' + functionCall + '): ' + errorMessage;
 		if (DISPLAY_CONSOLE) console.log(Message);
-		if (errorCode ==  'User rejected the request.' || errorCode == -32002){
+		if (errorCode == 4001 || errorCode == -32002){
 			$('#isConnected').html('Wallet NOT Connected');
 		}
 	}
@@ -1726,33 +1726,16 @@ try{
 			if (!isConnected()){
 				if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
 				updateGlobal().catch(e => {
-					if (e.message != null && DISPLAY_ERRORS) {
-						if (DISPLAY_CONSOLE) console.log('ERROR (updateGlobal): ',e.message);
-					}
+						errorHandling(e, 'updateGlobal()');
 				});
-				
-				$('#isConnected').html('Wallet NOT Connected');
 			}else{
-				if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
-				//updatePoolBalances();
-
-				
 				var updateAP = await updateActivePool().catch(e => {
-					if (e.message != null && DISPLAY_ERRORS) {
-						if (DISPLAY_CONSOLE) console.log('ERROR (updateActivePool): ',e.message);
-						if (e.message ==  'User rejected the request.' || e.code == -32002){
-							$('#isConnected').html('Wallet NOT Connected');
-						}
+						errorHandling(e, 'updateActivePool()');
 					}
 				});
 				if (updateAP != false){
 					var updateUS = await updateUserStats().catch(e => {
-						if (e.message != null && DISPLAY_ERRORS) {
-							if (DISPLAY_CONSOLE) console.log('ERROR (updateUserStats): ',e.message);
-							if (e.message ==  'User rejected the request.' || e.code == -32002){ 
-								$('#isConnected').html('Wallet NOT Connected');
-							}
-						}
+						errorHandling(e, 'updateUserStats()');
 					});
 				}
 
