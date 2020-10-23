@@ -1220,7 +1220,7 @@ const getPersonalEmissions= async () => {
 	.call();
 	let emissionRateToReadableEth = twoDecimals(
 	(ethPersonalEmissionRate / 10 ** 18 / 2) * 100
-	);
+	)/2;
 	if (emissionRateToReadableEth <= 0.00) {
 		emissionRateToReadableEth = 0;
 	}
