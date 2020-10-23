@@ -36,7 +36,7 @@ var BALANCES = {
 	XAMP_LP: 	0,
 	TOB_LP:		0,
 	BOA_LP:		0,
-	ETH_LP		0,
+	ETH_LP:		0,
 }
 
 
@@ -1831,5 +1831,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
