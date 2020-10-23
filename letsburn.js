@@ -16,7 +16,7 @@ const TOKENS = {
   TOB: '0x7777770f8a6632ff043c8833310e245eba9209e6',
 };
 
-const DISPLAY_CONSOLE = false;
+const DISPLAY_CONSOLE = true;
 const DISPLAY_ERRORS = true;
 
 const PAIRS = {
@@ -1720,11 +1720,13 @@ $('#connectToMetamask').click(async () => {
 
 
 $('#dropDownInfo').click(async () => {
-	
+	if (DISPLAY_CONSOLE) console.log('more info Clicked');
 	var x = document.getElementById("moreinfodiv");
 	if (x.style.display === "none") {
+		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to fixed');
 		x.style.display = "fixed";
 	} else {
+		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to none');
 		x.style.display = "none";
 	}
 });
