@@ -1721,25 +1721,23 @@ $('#connectToMetamask').click(async () => {
 
 $('#dropDownInfo').click(async () => {
 	if (DISPLAY_CONSOLE) console.log('more info Clicked');
-	var x = document.getElementById('moreinfodiv');
-	if (x.style.display == 'none') {
+	if (document.getElementById('moreinfodiv').style.display == 'none') {
 		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to fixed');
-		x.style.display = 'fixed';
+		document.getElementById('moreinfodiv').style.display = 'fixed';
 	} else {
 		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to none');
-		x.style.display = 'none';
+		document.getElementById('moreinfodiv').style.display = 'none';
 	}
 });
 
 $('#dropDownInfoClose').click(async () => {
 	if (DISPLAY_CONSOLE) console.log('more info Close Clicked');
-	var x = document.getElementById('moreinfodiv');
-	if (x.style.display == 'none') {
+	if (document.getElementById('moreinfodiv').style.display == 'none') {
 		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to fixed');
-		x.style.display = 'fixed';
+		document.getElementById('moreinfodiv').style.display = 'fixed';
 	} else {
 		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to none');
-		x.style.display = 'none';
+		document.getElementById('moreinfodiv').style.display = 'none';
 	}
 });
 
