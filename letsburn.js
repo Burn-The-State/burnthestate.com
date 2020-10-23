@@ -873,7 +873,7 @@ function errorHandling(error, functionCall)
 		}
 	}
 }
-//WEB3MODAL
+/* WEB3MODAL
 const Web3Modal = window.Web3Modal.default;
 const providerOptions = {
 	walletconnect:{
@@ -889,6 +889,9 @@ const web3Modal = new Web3Modal({
 	cacheProvider: true,
 	providerOptions
 });
+
+*/
+
 
 const isConnected = () => {
   return web3.isConnected();
@@ -1834,6 +1837,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
