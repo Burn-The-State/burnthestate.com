@@ -1725,9 +1725,11 @@ $('#dropDownInfo').click(async () => {
 	if (document.getElementById('moreInfodiv').style.display === 'none') {
 		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to fixed');
 		document.getElementById('moreInfodiv').style.display = 'fixed';
+		if (DISPLAY_CONSOLE) console.log('Style.Display = ', document.getElementById('moreInfodiv').style.display);
 	} else {
 		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
 		document.getElementById('moreInfodiv').style.display = 'none';
+		if (DISPLAY_CONSOLE) console.log('Style.Display = ', document.getElementById('moreInfodiv').style.display);
 	}
 });
 
