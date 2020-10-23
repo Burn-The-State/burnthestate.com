@@ -26,6 +26,20 @@ const PAIRS = {
   YFKA_ETH: '0xc0cfb99342860725806f085046d0233fec876cd7',
 };
 
+var BALANCES = {
+	XAMP:		0,
+	TOB:		0,
+	BOA:		0,
+	ETH:		0,
+	YFKA:		0,
+	
+	XAMP_LP: 	0,
+	TOB_LP:		0,
+	BOA_LP:		0,
+	ETH_LP		0,
+}
+
+
 const POOLS = [PAIRS.YFKA_XAMP, PAIRS.YFKA_TOB, PAIRS.YFKA_BOA, PAIRS.YFKA_ETH];
 
 const YFKA_POOL_INDEXES = {
@@ -859,16 +873,35 @@ function errorHandling(error, functionCall)
 		}
 	}
 }
+//WEB3MODAL
+const Web3Modal = window.Web3Modal.default;
+const providerOptions = {
+	walletconnect:{
+		package: WalletConnectProvider,
+		options: {
+			infuraId: "INFURA_ID"
+		}
+	}
+}
 
+const web3Modal = new Web3Modal({
+	network: "mainnet",
+	cacheProvider: true,
+	providerOptions
+});
 
 const isConnected = () => {
   return web3.isConnected();
 };
 
 const getInfuraProvider = () => {
-  const INFURA_PROVIDER = new Web3.providers.HttpProvider(
-    'https://mainnet.infura.io/v3/91298a4448d34edf884df8b28db5f9ea'
-  );
+	if ((screen.width<480) || (screen.height <480)){
+		INFURA_PROVIDER = await web3Modal.connect();
+	}else{
+		INFURA_PROVIDER = new Web3.providers.HttpProvider(
+	    'https://mainnet.infura.io/v3/91298a4448d34edf884df8b28db5f9ea'
+	    );
+	}
   return new Web3(INFURA_PROVIDER);
 };
 
@@ -1741,10 +1774,9 @@ window.addEventListener('load', async (event) => {
 	setTimeout(function(){
 		if((screen.width<480) || (screen.height <480)){
 			if (DISPLAY_CONSOLE) console.log('User appears to be on a mobile.');
+			document.getElementById('walletIcon').src = 'imgs/WalletConnect.ico';
 		}
 	}, 100);
-	
-	
 	
 	
 	web3.eth.getAccounts(async function(err, accounts){
@@ -1757,7 +1789,6 @@ window.addEventListener('load', async (event) => {
 				});
 			}			
 			else {
-				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 				var updateAP = await updateActivePool().catch(e => {
 						errorHandling(e, 'updateActivePool()');
@@ -1800,6 +1831,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
