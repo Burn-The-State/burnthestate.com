@@ -38,6 +38,7 @@ mark
 }
 
 #moreInfodiv {
+    display: none;
     position: fixed;
     background-color: #e31ff5;
     width: 80%;
