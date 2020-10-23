@@ -1731,6 +1731,19 @@ $('#dropDownInfo').click(async () => {
 	}
 });
 
+$('#dropDownInfoClose').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('more info Close Clicked');
+	var x = document.getElementById("moreinfodiv");
+	if (x.style.display === "none") {
+		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to fixed');
+		x.style.display = "fixed";
+	} else {
+		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to none');
+		x.style.display = "none";
+	}
+});
+
+
 
 /*
 *
