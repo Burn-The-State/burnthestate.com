@@ -904,9 +904,9 @@ setTimeout(function(){
 		
 	if ((screen.width<480) || (screen.height <480)){
 		//INFURA_PROVIDER = await web3Modal.connect();
-		INFURA_PROVIDER = new Web3.providers.HttpProvider(
-		'https://mainnet.infura.io/v3/27e484dcd9e3efcfd25a83a78777cdf1'
-		);
+		INFURA_PROVIDER = new WalletConnectProvider({
+			infuraId: '27e484dcd9e3efcfd25a83a78777cdf1'
+		});
 	}else{
 		INFURA_PROVIDER = new Web3.providers.HttpProvider(
 	    'https://mainnet.infura.io/v3/91298a4448d34edf884df8b28db5f9ea'
@@ -1856,5 +1856,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
