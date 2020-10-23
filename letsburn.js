@@ -16,7 +16,7 @@ const TOKENS = {
   TOB: '0x7777770f8a6632ff043c8833310e245eba9209e6',
 };
 
-const DISPLAY_CONSOLE = false;
+const DISPLAY_CONSOLE = true;
 const DISPLAY_ERRORS = true;
 
 const PAIRS = {
@@ -898,9 +898,13 @@ const isConnected = () => {
 };
 
 const getInfuraProvider = () => {
+var INFURA_PROVIDER;
+
+setTimeout(function(){
+		
 	if ((screen.width<480) || (screen.height <480)){
 		//INFURA_PROVIDER = await web3Modal.connect();
-		const INFURA_PROVIDER = new Web3.providers.HttpProvider(
+		INFURA_PROVIDER = new Web3.providers.HttpProvider(
 		'https://mainnet.infura.io/v3/27e484dcd9e3efcfd25a83a78777cdf1'
 		);
 	}else{
@@ -908,6 +912,7 @@ const getInfuraProvider = () => {
 	    'https://mainnet.infura.io/v3/91298a4448d34edf884df8b28db5f9ea'
 	    );
 	}
+}, 500);
   return new Web3(INFURA_PROVIDER);
 };
 
@@ -998,9 +1003,23 @@ async function MetaConnect(){
 	if (!isConnected()){
 		if (DISPLAY_CONSOLE) console.log('METAMASK NOT CONNECTED!');
 		$('#isConnected').html('Wallet NOT Connected');
-		window.web3.currentProvider.enable().catch(e => {
-				errorHandling(e, 'setStakeBalance()');
+		
+		var provider;
+		setTimeout(function(){	
+			if((screen.width<480) || (screen.height <480)){
+				provider = new WalletConnectProvider({
+					infuraId: '27e484dcd9e3efcfd25a83a78777cdf1'
+				});
+			}else{
+				window.web3.currentProvider.enable().catch(e => {
+				errorHandling(e, 'window.web3.currentProvider.enable()');
 			});;
+			}
+		}, 100);
+		await provider.enable();
+		
+		const web3 = new Web3(provider);
+		
 		setTimeout(() => {  MetaConnect();; }, 3000);			
 		
 	}else{
