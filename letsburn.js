@@ -1720,16 +1720,18 @@ $('#connectToMetamask').click(async () => {
 
 
 $('#dropDownInfo').click(async () => {
+	var x = document.getElementById('moreInfodiv');
 	if (DISPLAY_CONSOLE) console.log('more info Clicked');
-	if (DISPLAY_CONSOLE) console.log('Style.Display = ', document.getElementById('moreInfodiv').style.display);
-	if (document.getElementById('moreInfodiv').style.display === 'none') {
+	if (DISPLAY_CONSOLE) console.log('Style.Display = ', x.style.display);
+	
+	if (x.style.display == 'none') {
 		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to fixed');
-		document.getElementById('moreInfodiv').style.display = fixed;
-		if (DISPLAY_CONSOLE) console.log('Style.Display = ', document.getElementById('moreInfodiv').style.display);
+		x.style.display = "fixed";
+		if (DISPLAY_CONSOLE) console.log('Style.Display = ', x.style.display);
 	} else {
 		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
-		document.getElementById('moreInfodiv').style.display = none;
-		if (DISPLAY_CONSOLE) console.log('Style.Display = ', document.getElementById('moreInfodiv').style.display);
+		x.style.display = "none";
+		if (DISPLAY_CONSOLE) console.log('Style.Display = ', x.style.display);
 	}
 });
 
