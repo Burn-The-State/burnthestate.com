@@ -892,7 +892,6 @@ const web3Modal = new Web3Modal({
 
 */
 
-
 const isConnected = () => {
   return web3.isConnected();
 };
@@ -905,7 +904,7 @@ setTimeout(function(){
 	if ((screen.width<480) || (screen.height <480)){
 		//INFURA_PROVIDER = await web3Modal.connect();
 		INFURA_PROVIDER = new WalletConnectProvider({
-			infuraId: '27e484dcd9e3efcfd25a83a78777cdf1'
+			infuraId: '91298a4448d34edf884df8b28db5f9ea'
 		});
 	}else{
 		INFURA_PROVIDER = new Web3.providers.HttpProvider(
@@ -1856,6 +1855,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
