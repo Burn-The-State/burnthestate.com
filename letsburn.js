@@ -1721,24 +1721,24 @@ $('#connectToMetamask').click(async () => {
 
 $('#dropDownInfo').click(async () => {
 	if (DISPLAY_CONSOLE) console.log('more info Clicked');
-	if (DISPLAY_CONSOLE) console.log('Style.Display = ', document.getElementById('moreinfodiv').style.display);
-	if (document.getElementById('moreinfodiv').style.display == 'none') {
-		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to fixed');
-		document.getElementById('moreinfodiv').style.display = 'fixed';
+	if (DISPLAY_CONSOLE) console.log('Style.Display = ', document.getElementById('moreInfodiv').style.display);
+	if (document.getElementById('moreInfodiv').style.display == 'none') {
+		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to fixed');
+		document.getElementById('moreInfodiv').style.display = 'fixed';
 	} else {
-		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to none');
-		document.getElementById('moreinfodiv').style.display = 'none';
+		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
+		document.getElementById('moreInfodiv').style.display = 'none';
 	}
 });
 
 $('#dropDownInfoClose').click(async () => {
 	if (DISPLAY_CONSOLE) console.log('more info Close Clicked');
-	if (document.getElementById('moreinfodiv').style.display == 'none') {
-		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to fixed');
-		document.getElementById('moreinfodiv').style.display = 'fixed';
+	if (document.getElementById('moreInfodiv').style.display == 'none') {
+		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to fixed');
+		document.getElementById('moreInfodiv').style.display = 'fixed';
 	} else {
-		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to none');
-		document.getElementById('moreinfodiv').style.display = 'none';
+		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
+		document.getElementById('moreInfodiv').style.display = 'none';
 	}
 });
 
