@@ -1719,6 +1719,17 @@ $('#connectToMetamask').click(async () => {
 });
 
 
+$('#dropDownInfo').click(async () => {
+	
+	var x = document.getElementById("moreinfodiv");
+	if (x.style.display === "none") {
+		x.style.display = "fixed";
+	} else {
+		x.style.display = "none";
+	}
+});
+
+
 /*
 *
 *
@@ -1800,6 +1811,3 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
-
