@@ -1726,7 +1726,7 @@ $('#dropDownInfo').click(async () => {
 	
 	if (x.style.display == 'none') {
 		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to fixed');
-		x.style.display = "fixed";
+		x.style.display = "block";
 		if (DISPLAY_CONSOLE) console.log('Style.Display = ', x.style.display);
 	} else {
 		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
