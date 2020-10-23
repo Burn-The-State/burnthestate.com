@@ -1721,6 +1721,7 @@ $('#connectToMetamask').click(async () => {
 
 $('#dropDownInfo').click(async () => {
 	if (DISPLAY_CONSOLE) console.log('more info Clicked');
+	if (DISPLAY_CONSOLE) console.log('Style.Display = ', document.getElementById('moreinfodiv').style.display);
 	if (document.getElementById('moreinfodiv').style.display == 'none') {
 		if (DISPLAY_CONSOLE) console.log('set moreinfodiv to fixed');
 		document.getElementById('moreinfodiv').style.display = 'fixed';
