@@ -37,6 +37,16 @@ mark
 	font-size: 1em;
 }
 
+#moreInfodiv {
+    display: none;
+    position: fixed;
+    background-color: #e31ff5;
+    width: 80%;
+    height: 80%;
+    z-index: 999999;
+}
+
+
 
 #banner
 {
