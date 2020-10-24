@@ -995,8 +995,8 @@ PAIRS.YFKA_BOA
 	if (DISPLAY_CONSOLE) console.log("YFKA/XAMP reserves: ", YFKAXAMPReserves);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]);
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]);
-	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]/(10**18));
-	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]/(10**18));
+	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAReserve);
+	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", XAMPReserve);
 	if (DISPLAY_CONSOLE) console.log("XAMP to LP: ", XAMPtoLP);
 	if (DISPLAY_CONSOLE) console.log("LP to XAMP: ", eightDecimals((XAMPtoLP-(LPtoXAMP*feeCalc)))*100);
 	//----------------------------------------------------------------------------------------------------
@@ -1015,8 +1015,8 @@ PAIRS.YFKA_BOA
 	if (DISPLAY_CONSOLE) console.log("YFKA/TOB reserves: ", YFKATOBReserves);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKATOBReserves[0]);
 	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", YFKATOBReserves[1]);
-	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKATOBReserves[0]/(10**18));
-	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", YFKATOBReserves[1]/(10**18));
+	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ",  YFKAReserveTOB);
+	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", TOBReserve);
 	if (DISPLAY_CONSOLE) console.log("TOB to LP: ", TOBtoLP);
 	if (DISPLAY_CONSOLE) console.log("LP to TOB: ", eightDecimals((LPtoTOB-(LPtoTOB*feeCalc))));
 	
@@ -1038,8 +1038,8 @@ PAIRS.YFKA_BOA
 	if (DISPLAY_CONSOLE) console.log("YFKA/BOA reserves: ", YFKABOAReserves);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKABOAReserves[0]);
 	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", YFKABOAReserves[1]);
-	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKABOAReserves[0]/(10**18));
-	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", YFKABOAReserves[1]/(10**18));
+	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAReserveBOA);
+	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", BOAReserve);
 	if (DISPLAY_CONSOLE) console.log("BOA to LP: ", BOAtoLP);
 	if (DISPLAY_CONSOLE) console.log("LP to BOA: ", eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
 	
@@ -2046,4 +2046,3 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
