@@ -1001,7 +1001,7 @@ PAIRS.YFKA_TOB
 	//lptotal/2/yfka-0.6%
 	const halfLPTOB = (totalLP/(10**18))/2;
 	const TOBtoLP = halfLPTOB/TOBReserve
-	const randomcalc = 1.15118;
+	const randomcalc = TOBReserve/totalLPTOB;
 	const moveDecimal = randomcalc*10;
 	
 	if (DISPLAY_CONSOLE) console.log("TOB to LP: ",(TOBReserve/totalLPTOB)*10);
