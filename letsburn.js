@@ -1,6 +1,3 @@
-
-
-
 /*
 *
 *
@@ -961,7 +958,24 @@ const getPricesETH = async () => {
   }
 }
 
+const getReserves = async () => {
+  if (DISPLAY_CONSOLE) console.log('getBalances');
+  const account = await getAccount();
+  if (!account) return null;
 
+  const provider = getInfuraProvider();
+
+  // YFKA_XAMP
+  const xampContract = new provider.eth.Contract(
+    STANDARD_ERC20_ABI,
+    PAIRS.YFKA_XAMP
+  );
+  
+  const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
+  
+  if (DISPLAY_CONSOLE) console.log("YFKA/XAMP reserves: ", YFKAXAMPReserves);
+  
+};
 
 
 
@@ -1885,6 +1899,10 @@ window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	await stakeMinimumPrice();
+	
+	await getReserves();
+	
+	
 	//Mobile Detection.
 	setTimeout(function(){
 		if((screen.width<480) || (screen.height <480)){
