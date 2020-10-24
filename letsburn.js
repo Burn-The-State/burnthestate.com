@@ -1019,7 +1019,7 @@ const getPrices = async () => {
   }
 }
 
-// Gets the min
+// Gets the min size for BTS tokens to stake YFKA
 const stakeMinimumPriceForStaking = async () => {
   const MIN_STAKE_AMOUNT = 0.2;
 
