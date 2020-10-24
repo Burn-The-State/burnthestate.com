@@ -976,7 +976,7 @@ PAIRS.YFKA_XAMP
 	const XAMPReserve = YFKAXAMPReserves[1]/(10**9);
 	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
 	//lptotal/2/yfka-0.6%
-	const halfLP = totalLP/2;
+	const halfLP = (totalLP/(10**18))/2;
 	const XAMPtoLP = halfLP/XAMPReserve
 	const feeCalc = 0.6;
 
