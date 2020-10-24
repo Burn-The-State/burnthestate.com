@@ -1022,7 +1022,7 @@ PAIRS.YFKA_BOA
 	const BOAtoLP = (BOAReserve/totalLPBOA)*(10**18);
 	
 	if (DISPLAY_CONSOLE) console.log("----------------BOA---------------------");
-	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPBOA/(10**18));
+	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPBOA);
 	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", Number(BOAReserve).toLocaleString() );
 	if (DISPLAY_CONSOLE) console.log("BOA per 1 LP: ", Number(BOAtoLP).toLocaleString());
 	if (DISPLAY_CONSOLE) console.log("LP per 1 BOA: ", eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
@@ -1938,6 +1938,47 @@ $('#dropDownInfoClose').click(async () => {
 		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
 		document.getElementById('moreInfodiv').style.display = 'none';
 	}
+
+		document.getElementById('XampInfoPanel').style.display = 'block';
+	document.getElementById('TobInfoPanel').style.display = 'none';
+	document.getElementById('BoaInfoPanel').style.display = 'none';
+	document.getElementById('EthInfoPanel').style.display = 'none';
+	
+	
+});
+
+
+$('#XAMPInfo').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('XAMP Info Clicked');
+	document.getElementById('XampInfoPanel').style.display = 'block';
+	document.getElementById('TobInfoPanel').style.display = 'none';
+	document.getElementById('BoaInfoPanel').style.display = 'none';
+	document.getElementById('EthInfoPanel').style.display = 'none';
+
+});
+$('#TOBInfo').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('TOB Info Clicked');
+	document.getElementById('XampInfoPanel').style.display = 'none';
+	document.getElementById('TobInfoPanel').style.display = 'block';
+	document.getElementById('BoaInfoPanel').style.display = 'none';
+	document.getElementById('EthInfoPanel').style.display = 'none';
+
+});
+$('#BOAInfo').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('BOA Info Clicked');
+	document.getElementById('XampInfoPanel').style.display = 'none';
+	document.getElementById('TobInfoPanel').style.display = 'none';
+	document.getElementById('BoaInfoPanel').style.display = 'block';
+	document.getElementById('EthInfoPanel').style.display = 'none';
+
+});
+$('#ETHInfo').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('ETH Info Clicked');
+	document.getElementById('XampInfoPanel').style.display = 'none';
+	document.getElementById('TobInfoPanel').style.display = 'none';
+	document.getElementById('BoaInfoPanel').style.display = 'none';
+	document.getElementById('EthInfoPanel').style.display = 'block';
+
 });
 
 
