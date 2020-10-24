@@ -966,10 +966,10 @@ const getReserves = async () => {
   const provider = getInfuraProvider();
 
   // YFKA_XAMP
-  const xampContract = new provider.eth.Contract(
-    STANDARD_ERC20_ABI,
-    PAIRS.YFKA_XAMP
-  );
+const xampContract = new provider.eth.Contract(
+UNISWAP_BASE_LP_ABI,
+PAIRS.YFKA_XAMP
+);
   
   const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
   
