@@ -1019,11 +1019,26 @@ const getPrices = async () => {
   }
 }
 
-// TODO remove
-const prices = await getPrices();
-console.log(prices);
-console.log(prices.YFKA.eth);
-console.log(prices.YFKA.usd);
+const stakeMinimumPrice = async () => {
+  const MIN_STAKE_AMOUNT = 0.2;
+
+  const prices = await getPrices();
+
+  const yfkaPrices = prices.YFKA;
+  const yfkaEth = yfkaPrices.eth;
+  const yfkaMinInEth = yfkaEth * MIN_STAKE_AMOUNT;
+  const xampMinEth = yfkaMinInEth / prices.XAMP.eth;
+
+  const yfkaUsd = yfkaPrices.usd;
+  const yfkaMinInUsd = yfkaUsd * MIN_STAKE_AMOUNT;
+  const xampMinUsd = yfkaMinInUsd / prices.XAMP.usd;
+
+
+  return {
+    eth: xampMinEth,
+    usd: xampMinUsd,
+  }
+}
 
 
 
