@@ -1898,7 +1898,7 @@ $('#dropDownInfoClose').click(async () => {
 window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
-	await stakeMinimumPrice();
+	//await stakeMinimumPrice();
 	
 	await getReserves();
 	
