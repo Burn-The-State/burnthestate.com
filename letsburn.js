@@ -859,7 +859,7 @@ function errorHandling(error, functionCall)
 		}
 	}
 }
-
+/*
 const stakeMinimumPrice = async () => {
 	const MIN_STAKE_AMOUNT = 0.2;
 
@@ -885,7 +885,7 @@ const stakeMinimumPrice = async () => {
 
 }
 
-
+*/
 const Totals = async () => {
 	const MIN_STAKE_AMOUNT = 0.2;
 
