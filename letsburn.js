@@ -970,6 +970,10 @@ const xampContract = new provider.eth.Contract(
 UNISWAP_BASE_LP_ABI,
 PAIRS.YFKA_XAMP
 );
+const tobContract = new provider.eth.Contract(
+UNISWAP_BASE_LP_ABI,
+PAIRS.YFKA_TOB
+);
 
 	const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
 	const totalLP = await xampContract.methods.totalSupply().call();
@@ -988,6 +992,27 @@ PAIRS.YFKA_XAMP
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]/(10**9));
 	
 	if (DISPLAY_CONSOLE) console.log("LP to XAMP: ", eightDecimals((XAMPtoLP-(XAMPtoLP*feeCalc)))*100);
+	
+	
+	const YFKATOBReserves = await tobContract.methods.getReserves().call();
+	const totalLPTOB = await tobContract.methods.totalSupply().call();
+	const TOBReserve = YFKATOBReserves[1]/(10**9);
+	const YFKAReserve= YFKATOBReserves[0]/(10**18);
+	//lptotal/2/yfka-0.6%
+	const halfLP = (totalLP/(10**18))/2;
+	const TOBtoLP = halfLP/TOBReserve
+	const feeCalc = 0.6;
+
+
+	if (DISPLAY_CONSOLE) console.log("YFKA/TOB reserves: ", YFKATOBReserves);
+	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKATOBReserves[0]);
+	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", YFKATOBReserves[1]);
+	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKATOBReserves[0]/(10**18));
+	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", YFKATOBReserves[1]/(10**9));
+	
+	if (DISPLAY_CONSOLE) console.log("LP to TOB: ", eightDecimals((TOBtoLP-(TOBtoLP*feeCalc)))*100);
+	
+	
 	
 	
 };
