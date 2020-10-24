@@ -990,7 +990,7 @@ PAIRS.YFKA_BOA
 	
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", XAMPReserve);
 	if (DISPLAY_CONSOLE) console.log("XAMP per 1 LP: ", XAMPtoLP);
-	if (DISPLAY_CONSOLE) console.log("LP per 1 XAMP: ", eightDecimals(LPperXAMPFinal));
+	if (DISPLAY_CONSOLE) console.log("LP per 1 XAMP: ", eightDecimals(LPperXAMPFinal*100));
 	//----------------------------------------------------------------------------------------------------
 	
 	const YFKATOBReserves = await tobContract.methods.getReserves().call();
