@@ -974,36 +974,43 @@ const tobContract = new provider.eth.Contract(
 UNISWAP_BASE_LP_ABI,
 PAIRS.YFKA_TOB
 );
-
+const boaContract = new provider.eth.Contract(
+UNISWAP_BASE_LP_ABI,
+PAIRS.YFKA_BOA
+);
+	//0.6 % fee on UNI.
+	const feeCalc = 0.6;
+	
+	
 	const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
-	const totalLP = await xampContract.methods.totalSupply().call();
+	const totalLPXAMP = await xampContract.methods.totalSupply().call();
 	const XAMPReserve = YFKAXAMPReserves[1]/(10**9);
 	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
 	//lptotal/2/yfka-0.6%
-	const halfLP = (totalLP/(10**18))/2;
-	const XAMPtoLP = halfLP/XAMPReserve
-	const feeCalc = 0.6;
-
-
+	const halfLP = (totalLPXAMP/(10**18))/2;
+	const LPtoXAMP = halfLP/XAMPReserve
+	const XAMPtoLP = (XAMPReserve/totalLPXAMP)*(10**9);
+	
+	
 	if (DISPLAY_CONSOLE) console.log("YFKA/XAMP reserves: ", YFKAXAMPReserves);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]);
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]/(10**18));
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]/(10**9));
-	
-	if (DISPLAY_CONSOLE) console.log("LP to XAMP: ", eightDecimals((XAMPtoLP-(XAMPtoLP*feeCalc)))*100);
-	
+	if (DISPLAY_CONSOLE) console.log("XAMP to LP: ", XAMPtoLP);
+	if (DISPLAY_CONSOLE) console.log("LP to XAMP: ", eightDecimals((XAMPtoLP-(LPtoXAMP*feeCalc)))*100);
+	//----------------------------------------------------------------------------------------------------
 	
 	const YFKATOBReserves = await tobContract.methods.getReserves().call();
 	const totalLPTOB = await tobContract.methods.totalSupply().call();
 	const TOBReserve = YFKATOBReserves[1]/(10**18);
 	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);
 	//lptotal/2/yfka-0.6%
-	const halfLPTOB = (totalLP/(10**18))/2;
-	const TOBtoLP = halfLPTOB/TOBReserve
-
+	const halfLPTOB = (totalLPTOB/(10**18))/2;
+	const LPtoTOB = halfLPTOB/TOBReserve
+	const TOBtoLP = (TOBReserve/totalLPTOB)*(10**18);
 	
-	if (DISPLAY_CONSOLE) console.log("TOB to LP: ",(TOBReserve/totalLPTOB)*(10**18));
+	
 	if (DISPLAY_CONSOLE) console.log("TOB to 0.01 LP: ",((TOBReserve/totalLPTOB)*(10**18))/100);
 	if (DISPLAY_CONSOLE) console.log("YFKA/TOB reserves: ", YFKATOBReserves);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKATOBReserves[0]);
@@ -1011,9 +1018,30 @@ PAIRS.YFKA_TOB
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKATOBReserves[0]/(10**18));
 	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", YFKATOBReserves[1]/(10**18));
 	if (DISPLAY_CONSOLE) console.log("TOB to LP: ", TOBtoLP);
-	if (DISPLAY_CONSOLE) console.log("LP to TOB: ", eightDecimals((TOBtoLP-(TOBtoLP*feeCalc))));
+	if (DISPLAY_CONSOLE) console.log("LP to TOB: ", eightDecimals((LPtoTOB-(LPtoTOB*feeCalc))));
 	
 	
+	///------------------------------------------------------------------------------------------------------
+	
+	
+	const YFKABOAReserves = await boaContract.methods.getReserves().call();
+	const totalLPBOA = await boaContract.methods.totalSupply().call();
+	const BOAReserve = YFKABOAReserves[1]/(10**18);
+	const YFKAReserveTOB= YFKABOAReserves[0]/(10**18);
+	//lptotal/2/yfka-0.6%
+	const halfLPBOA = (totalLPBOA/(10**18))/2;
+	const LPtoBOA = halfLPBOA/BOAReserve
+	const BOAtoLP = (BOAReserve/totalLPBOA)*(10**18);
+	
+	
+	if (DISPLAY_CONSOLE) console.log("BOA to 0.01 LP: ",((BOAReserve/totalLPBOA)*(10**18))/100);
+	if (DISPLAY_CONSOLE) console.log("YFKA/BOA reserves: ", YFKABOAReserves);
+	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKABOAReserves[0]);
+	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", YFKABOAReserves[1]);
+	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKABOAReserves[0]/(10**18));
+	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", YFKABOAReserves[1]/(10**18));
+	if (DISPLAY_CONSOLE) console.log("BOA to LP: ", BOAtoLP);
+	if (DISPLAY_CONSOLE) console.log("LP to BOA: ", eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
 	
 	
 };
