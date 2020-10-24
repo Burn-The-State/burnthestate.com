@@ -1001,11 +1001,9 @@ PAIRS.YFKA_TOB
 	//lptotal/2/yfka-0.6%
 	const halfLPTOB = (totalLP/(10**18))/2;
 	const TOBtoLP = halfLPTOB/TOBReserve
-	const randomcalc = TOBReserve/totalLPTOB;
-	const moveDecimal = randomcalc*(10**18);
+
 	
-	if (DISPLAY_CONSOLE) console.log("TOB to LP: ",(TOBReserve/totalLPTOB)*10);
-	if (DISPLAY_CONSOLE) console.log("Moved point: ",moveDecimal);
+	if (DISPLAY_CONSOLE) console.log("TOB to LP: ",(TOBReserve/totalLPTOB)*(10**18));
 	if (DISPLAY_CONSOLE) console.log("YFKA/TOB reserves: ", YFKATOBReserves);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKATOBReserves[0]);
 	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", YFKATOBReserves[1]);
