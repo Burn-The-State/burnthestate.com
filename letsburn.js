@@ -970,14 +970,26 @@ const xampContract = new provider.eth.Contract(
 UNISWAP_BASE_LP_ABI,
 PAIRS.YFKA_XAMP
 );
-  
-  const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
-  
-  if (DISPLAY_CONSOLE) console.log("YFKA/XAMP reserves: ", YFKAXAMPReserves);
-	  if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]);
+
+	const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
+	const totalLP = await xampContract.methods.totalSupply().call();
+	const XAMPReserve = YFKAXAMPReserves[1]/(10**9);
+	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
+	//lptotal/2/yfka-0.6%
+	const halfLP = totalLP/2;
+	const XAMPtoLP = halfLP/XAMPReserve
+	const feeCalc = 0.6;
+
+
+	if (DISPLAY_CONSOLE) console.log("YFKA/XAMP reserves: ", YFKAXAMPReserves);
+	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]);
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]);
-  if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]/(10**18));
+	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]/(10**18));
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]/(10**9));
+	
+	if (DISPLAY_CONSOLE) console.log("XAMP to LP: ", XAMPtoLP-(XAMPtoLP*feeCalc));
+	
+	
 };
 
 
