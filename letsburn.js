@@ -983,7 +983,7 @@ PAIRS.YFKA_BOA
 	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
 	const halfLP = (totalLPXAMP/(10**18))/2;
 	const LPtoXAMP = halfLP/XAMPReserve;
-	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**9);
+	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
 	const LPtoXAMPFees = LPtoXAMP*feeCalc;
 	const LPperXAMPFinal =  LPtoXAMP-LPtoXAMPFees;
 	
