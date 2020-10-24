@@ -1027,7 +1027,7 @@ PAIRS.YFKA_BOA
 	const YFKABOAReserves = await boaContract.methods.getReserves().call();
 	const totalLPBOA = await boaContract.methods.totalSupply().call();
 	const BOAReserve = YFKABOAReserves[1]/(10**18);
-	const YFKAReserveTOB= YFKABOAReserves[0]/(10**18);
+	const YFKAReserveBOA= YFKABOAReserves[0]/(10**18);
 	//lptotal/2/yfka-0.6%
 	const halfLPBOA = (totalLPBOA/(10**18))/2;
 	const LPtoBOA = halfLPBOA/BOAReserve
@@ -2046,3 +2046,4 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
