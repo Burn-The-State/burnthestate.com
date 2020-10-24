@@ -1002,7 +1002,7 @@ PAIRS.YFKA_TOB
 	const halfLPTOB = (totalLP/(10**18))/2;
 	const TOBtoLP = halfLPTOB/TOBReserve
 	const randomcalc = TOBReserve/totalLPTOB;
-	const moveDecimal = randomcalc*10;
+	const moveDecimal = randomcalc*(10**18);
 	
 	if (DISPLAY_CONSOLE) console.log("TOB to LP: ",(TOBReserve/totalLPTOB)*10);
 	if (DISPLAY_CONSOLE) console.log("Moved point: ",moveDecimal);
