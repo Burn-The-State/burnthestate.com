@@ -990,7 +990,7 @@ PAIRS.YFKA_BOA
 	
 	if (DISPLAY_CONSOLE) console.log("---------------XAMP------------------");
 	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPXAMP/(10**18));
-	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", XAMPReserve);
+	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", Number(XAMPReserve).toLocaleString());
 	if (DISPLAY_CONSOLE) console.log("XAMP per 1 LP: ", Number(XAMPtoLP).toLocaleString() );
 	if (DISPLAY_CONSOLE) console.log("LP per 1 XAMP: ", eightDecimals(LPperXAMPFinal*100));
 	//----------------------------------------------------------------------------------------------------
@@ -1005,8 +1005,8 @@ PAIRS.YFKA_BOA
 	
 	if (DISPLAY_CONSOLE) console.log("--------------TOB---------------------");
 	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPTOB/(10**18));
-	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", TOBReserve);
-	if (DISPLAY_CONSOLE) console.log("TOB per 1 LP: ", TOBtoLP);
+	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", Number(TOBReserve).toLocaleString());
+	if (DISPLAY_CONSOLE) console.log("TOB per 1 LP: ", Number(TOBtoLP).toLocaleString());
 	if (DISPLAY_CONSOLE) console.log("LP per 1 TOB: ", eightDecimals((LPtoTOB-(LPtoTOB*feeCalc))));
 	
 	
@@ -1022,12 +1022,9 @@ PAIRS.YFKA_BOA
 	const BOAtoLP = (BOAReserve/totalLPBOA)*(10**18);
 	
 	if (DISPLAY_CONSOLE) console.log("----------------BOA---------------------");
-	if (DISPLAY_CONSOLE) console.log("YFKA/BOA reserves: ", YFKABOAReserves);
-	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKABOAReserves[0]);
-	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", YFKABOAReserves[1]);
-	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAReserveBOA);
-	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", BOAReserve);
-	if (DISPLAY_CONSOLE) console.log("BOA per 1 LP: ", BOAtoLP);
+	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPBOA/(10**18));
+	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", Number(BOAReserve).toLocaleString() );
+	if (DISPLAY_CONSOLE) console.log("BOA per 1 LP: ", Number(BOAtoLP).toLocaleString());
 	if (DISPLAY_CONSOLE) console.log("LP per 1 BOA: ", eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
 	
 	
