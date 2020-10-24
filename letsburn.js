@@ -1010,7 +1010,6 @@ const getPrices = async () => {
   const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenKeys.map(k => TOKENS[k]).join(',')}&vs_currencies=usd,eth`);
   const tokenPrices = await response.json();
 
-  // USD
   return {
     YFKA: tokenPrices[TOKENS.YFKA],
     XAMP: tokenPrices[TOKENS.XAMP],
@@ -1046,7 +1045,69 @@ const stakeMinimumPriceForStaking = async () => {
   }, {});
 }
 
-console.log(await stakeMinimumPriceForStaking());
+// console.log(await stakeMinimumPriceForStaking());
+const getPositionSize = async () => {
+  const provider = await getInfuraProvider();
+  const prices = await getPrices();
+
+  const tokenKeys = Object.keys(TOKENS);
+  const totalSupply = await Promise.all(POOLS.map(async (key, idx) => {
+    const contract = new provider.eth.Contract(
+      UNISWAP_BASE_LP_ABI,
+      key
+    );
+    const reserves = await contract.methods.getReserves().call();
+
+    const token0 = await contract.methods.token0().call();
+    const token1 = await contract.methods.token1().call();
+
+    const token0Key = _.head(_.filter(tokenKeys, (tokenKey) => {
+      return checksumAddress(TOKENS[tokenKey]) === checksumAddress(token0);
+    }));
+
+    const token1Key = _.head(_.filter(tokenKeys, (tokenKey) => {
+      return checksumAddress(TOKENS[tokenKey]) === checksumAddress(token1);
+    }));
+
+    // TODO technically weth, TODO decimals(!!)
+    console.log('prices[token0Key]: ', prices[token0Key]);
+    const multiple0 = _.toNumber(prices[token0Key] ? prices[token0Key].eth : 0);
+    const multiple1 = _.toNumber(prices[token1Key] ? prices[token1Key].eth : 0);
+
+    console.log('multiple0: ', multiple0);
+    console.log('multiple1: ', multiple1);
+    return {
+      [token0Key || 'ETH']: (_.toNumber(reserves._reserve0) / 10 ** 18) * multiple0,
+      [token1Key || 'ETH']: (_.toNumber(reserves._reserve1) / 10 ** 18) * multiple1,
+    }
+  }));
+
+  // const poolBalances = await getPoolBalances();
+
+  const getTotalValue = _.map(totalSupply, (supply) => {
+    const keys = Object.keys(supply);
+    // {yfka: 1, xamp: 0.5};
+    return {
+       // TODO est, use reserves
+      [keys[1]]: supply.YFKA * prices.YFKA.eth * 2,
+    }
+  });
+
+  console.log('getTotalValue: ', getTotalValue);
+
+  return totalSupply;
+}
+
+// lptoken ===== xamp/yfka
+// x = lptoken.balance of xamp
+// y = lptoken.balance of yfka
+// x_total = x * prices.xamp.eth
+// y_toal = y prices.yfka.eth
+// total = x2 + y7;
+// total * pool_share === sized staked in eth
+// console.log(await getPositionSize());
+
+
 
 
 
