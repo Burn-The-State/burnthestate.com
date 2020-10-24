@@ -939,7 +939,7 @@ function sixDecimals(b) {
 }
 
 function belowZero(n)
-{	
+{
 	if (DISPLAY_CONSOLE) console.log('belowZero Function called with:', n);
 	if (n <= 0.00){
 		if (DISPLAY_CONSOLE) console.log('Below 0.00');
@@ -962,14 +962,14 @@ async function MetaConnect(){
 		window.web3.currentProvider.enable().catch(e => {
 				errorHandling(e, 'setStakeBalance()');
 			});;
-		setTimeout(() => {  MetaConnect();; }, 3000);			
-		
+		setTimeout(() => {  MetaConnect();; }, 3000);
+
 	}else{
-		
+
 		var updateAP = await updateActivePool().catch(e => {
 				errorHandling(e, 'updateActivePool()');
 		});
-		
+
 		if (updateAP != "error"){
 			var updateUS = await updateUserStats().catch(e => {
 				errorHandling(e, 'updateUserStats()');
@@ -1000,10 +1000,30 @@ async function MetaConnect(){
 			});
 			$('#isConnected').html('wallet connected');
 		}
-	}		
+	}
 }
 
+// Get BTS token prices in USD and ETH
+const getPrices = async () => {
+  const tokenKeys = Object.keys(TOKENS);
 
+  const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenKeys.map(k => TOKENS[k]).join(',')}&vs_currencies=usd,eth`);
+  const tokenPrices = await response.json();
+
+  // USD
+  return {
+    YFKA: tokenPrices[TOKENS.YFKA],
+    XAMP: tokenPrices[TOKENS.XAMP],
+    BOA: tokenPrices[TOKENS.BOA],
+    TOB: tokenPrices[TOKENS.TOB],
+  }
+}
+
+// TODO remove
+const prices = await getPrices();
+console.log(prices);
+console.log(prices.YFKA.eth);
+console.log(prices.YFKA.usd);
 
 
 
@@ -1060,7 +1080,7 @@ const getTotalBalances = async () => {
 		UNISWAP_BASE_LP_ABI,
 		PAIRS.YFKA_ETH
 		);
-		
+
 		const ethContractBalance = await ethContract.methods.totalSupply().call();
 		if (DISPLAY_CONSOLE) console.log('ethTotalBalance: ', ethContractBalance);
 
@@ -1251,9 +1271,9 @@ const updateUserStats = async () => {
 		errorHandling(e, 'Get Accounts');
 		return("error");
 	});
-	
+
 	if (account != "error"){
-		
+
 		const ashContract = yfkaControllerContract();
 
 		//current Rewards
@@ -1271,7 +1291,7 @@ const updateUserStats = async () => {
 			if (DISPLAY_CONSOLE) console.log('xampReward: ', xampReward);
 			$('#reward-XAMP').html(fourDecimals(_.toInteger(xampReward) / 10 ** 18));
 		}else return("error");
-		
+
 		//TOB reward
 		const tobReward = await ashContract.methods
 		.getCurrentReward(YFKA_POOL_INDEXES.TOB)
@@ -1286,7 +1306,7 @@ const updateUserStats = async () => {
 			if (DISPLAY_CONSOLE) console.log('tobReward: ', tobReward);
 			$('#reward-TOB').html(fourDecimals(_.toInteger(tobReward) / 10 ** 18));
 		}else return("error");
-		
+
 		//BOA reward
 		const boaReward = await ashContract.methods
 		.getCurrentReward(YFKA_POOL_INDEXES.BOA)
@@ -1300,7 +1320,7 @@ const updateUserStats = async () => {
 			if (DISPLAY_CONSOLE) console.log('boaReward: ', boaReward);
 			$('#reward-BOA').html(fourDecimals(_.toInteger(boaReward) / 10 ** 18));
 		}else return("error");
-		
+
 		const ethReward = await ashContract.methods
 		.getCurrentReward(YFKA_POOL_INDEXES.ETH)
 		.call({
@@ -1314,7 +1334,7 @@ const updateUserStats = async () => {
 			$('#reward-ETH').html(_.toInteger(ethReward) / 10 ** 18);
 			$('#reward-ETH').html(fourDecimals(_.toInteger(ethReward) / 10 ** 18));
 		}else return("error");
-		
+
 		const personalemission = await getPersonalEmissions().catch(e => {
 			errorHandling(e, 'getPersonalEmissions()');
 			return("error");
@@ -1335,7 +1355,7 @@ const updateUserStats = async () => {
 			errorHandling(e, 'ashContract.methods.stakes(YFKA_POOL_INDEXES.XAMP, account)');
 			return("error");
 		});
-		
+
 		if (xampLpBalance != "error"){
 			XAMPbalance = belowZero(sixDecimals(xampLpBalance / 10 ** 18));
 			if (DISPLAY_CONSOLE) console.log('Staked XAMP: ', XAMPbalance);
@@ -1367,7 +1387,7 @@ const updateUserStats = async () => {
 			if (DISPLAY_CONSOLE) console.log('Staked BOA: ', BOAbalance);
 			$('#balance-LP-BOA').html(BOAbalance);
 		}else return("error");
-		
+
 		// ETH LP Balance
 		const ethLpBalance = await ashContract.methods
 		.stakes(YFKA_POOL_INDEXES.ETH, account)
@@ -1386,7 +1406,7 @@ const updateUserStats = async () => {
 			errorHandling(e, 'getTotalBalances()');
 			return("error");
 		});
-		
+
 		if (TotalBalances != "error")
 		{
 			//XAMP
@@ -1707,7 +1727,7 @@ $('#unstakeBTN').click(async () => {
 
 
 $('#connectToMetamask').click(async () => {
-	
+
 	const provider = await window.web3.currentProvider.enable().catch(e => {
 			errorHandling(e, 'currentProvider.enable()');
 			return("error");
@@ -1736,17 +1756,17 @@ $('#connectToMetamask').click(async () => {
 window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
-	
+
 	//Mobile Detection.
 	setTimeout(function(){
 		if((screen.width<480) || (screen.height <480)){
 			if (DISPLAY_CONSOLE) console.log('User appears to be on a mobile.');
 		}
 	}, 100);
-	
-	
-	
-	
+
+
+
+
 	web3.eth.getAccounts(async function(err, accounts){
 		try {
 			if (err != null) console.error("An error occurred: "+err);
@@ -1755,14 +1775,14 @@ window.addEventListener('load', async (event) => {
 				await updateGlobal().catch(e => {
 					errorHandling(e, 'updateGlobal()');
 				});
-			}			
+			}
 			else {
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 				var updateAP = await updateActivePool().catch(e => {
 						errorHandling(e, 'updateActivePool()');
 				});
-				
+
 				if (updateAP != "error"){
 					var updateUS = await updateUserStats().catch(e => {
 						errorHandling(e, 'updateUserStats()');
@@ -1798,8 +1818,5 @@ window.addEventListener('load', async (event) => {
 			errorHandling(e, 'GetAccounts()');
 		}
 	});
-	
+
 });
-
-
-
