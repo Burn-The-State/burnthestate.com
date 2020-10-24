@@ -974,8 +974,8 @@ PAIRS.YFKA_XAMP
   const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
   
   if (DISPLAY_CONSOLE) console.log("YFKA/XAMP reserves: ", YFKAXAMPReserves);
-  if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]);
-	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]);
+  if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]/(10**18));
+	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1](10**18));
 };
 
 
