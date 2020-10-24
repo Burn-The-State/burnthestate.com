@@ -1776,19 +1776,15 @@ window.addEventListener('load', async (event) => {
 		}
 	}, 100);
 	
+	const response = await fetch('https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0xf911a7ec46a2c6fa49193212fe4a2a9b95851c27&vs_currencies=usd');
+	const data = await response.json();
 	
+	if (DISPLAY_CONSOLE) console.log('USD amount = $', data);
 	
 	
 	web3.eth.getAccounts(async function(err, accounts){
 		try {
-			$.ajax({
-  url: "https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0xf911a7ec46a2c6fa49193212fe4a2a9b95851c27&vs_currencies=usd",
-})
-  .done(function( data ) {
-    if ( console && console.log ) {
-      console.log( "Sample of data:", data);
-    }
-  });
+			
 			
 			if (err != null) console.error("An error occurred: "+err);
 			else if (accounts.length == 0){
