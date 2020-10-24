@@ -1,3 +1,6 @@
+import { ChainId } from '@uniswap/sdk';
+console.log('ChainId: ', ChainId);
+
 // TODO https://wweb.dev/blog/how-to-create-static-website-npm-scripts
 
 /*
