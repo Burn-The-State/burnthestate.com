@@ -1,5 +1,6 @@
 
 
+
 /*
 *
 *
@@ -863,20 +864,54 @@ function errorHandling(error, functionCall)
 }
 
 const stakeMinimumPrice = async () => {
-  const MIN_STAKE_AMOUNT = 0.2;
+	const MIN_STAKE_AMOUNT = 0.2;
 
-  const prices = await getPricesETH();
+	const prices = await getPricesETH();
 
-  const yfkaPrices = prices.YFKA;
-  const yfkaEth = yfkaPrices.eth;
-  const yfkaMinInEth = yfkaEth * MIN_STAKE_AMOUNT;
-  const xampMin = yfkaMinInEth / prices.XAMP.eth;
+	const yfkaPrices = prices.YFKA;
+	const yfkaEth = yfkaPrices.eth;
+	const yfkaMinInEth = yfkaEth * MIN_STAKE_AMOUNT;
 
-  console.log('xampMin: ', xampMin);
+	//XAMP
+	const xampMin = yfkaMinInEth / prices.XAMP.eth;
+	//TOB
+	const tobMin = yfkaMinInEth / prices.TOB.eth;
+	//BOA
+	const boaMin = yfkaMinInEth / prices.BOA.eth;
+	
+	return {
+    YFKA: tokenPrices[TOKENS.YFKA],
+    XAMP: tokenPrices[TOKENS.XAMP],
+    BOA: tokenPrices[TOKENS.BOA],
+    TOB: tokenPrices[TOKENS.TOB],
+  }
 
-  console.log(prices);
-  console.log(prices.YFKA.eth);
-  console.log(prices.YFKA.usd);
+}
+
+
+const Totals = async () => {
+	const MIN_STAKE_AMOUNT = 0.2;
+
+	const prices = await getPricesETH();
+
+	const yfkaPrices = prices.YFKA;
+	const yfkaEth = yfkaPrices.eth;
+	const yfkaMinInEth = yfkaEth * MIN_STAKE_AMOUNT;
+
+	//XAMP
+	const xampMin = yfkaPrices.eth / prices.XAMP.eth;
+	//TOB
+	const tobMin = yfkaMinInEth / prices.TOB.eth;
+	//BOA
+	const boaMin = yfkaMinInEth / prices.BOA.eth;
+	
+	return {
+    YFKA: tokenPrices[TOKENS.YFKA],
+    XAMP: tokenPrices[TOKENS.XAMP],
+    BOA: tokenPrices[TOKENS.BOA],
+    TOB: tokenPrices[TOKENS.TOB],
+  }
+
 }
 
 const getPricesUSD = async () => {
@@ -893,6 +928,23 @@ const getPricesUSD = async () => {
     TOB: tokenPrices[TOKENS.TOB],
   }
 }
+
+const getPricesYFKA = async () => {
+  const tokenKeys = Object.keys(TOKENS);
+
+  const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenKeys.map(k => TOKENS[k]).join(',')}&vs_currencies=eth`);
+  const tokenPrices = await response.json();
+
+  // ETH
+  return {
+    XAMP: tokenPrices[TOKENS.XAMP],
+    BOA: tokenPrices[TOKENS.BOA],
+    TOB: tokenPrices[TOKENS.TOB],
+  }
+}
+
+
+
 
 const getPricesETH = async () => {
   const tokenKeys = Object.keys(TOKENS);
@@ -1071,6 +1123,22 @@ async function MetaConnect(){
 *
 *
 */
+
+
+const fillMoreInfo = async () =>{
+	const EthPrices = await getPricesETH();
+	const USDPrices = await getPricesUSD();
+	const MinStakes = await stakeMinimumPrice();
+	const Totals = await Totals();
+	
+	$('#XAMPETH').html(sixDecimals(EthPrices.XAMP));
+	$('#XAMPUSD').html(sixDecimals(USDPrices.XAMP));
+	$('#XAMPMinStake').html(sixDecimals(MinStakes.XAMP));
+	$('#XAMPTOTAL').html(sixDecimals(Totals.XAMP));
+}
+
+
+
 
 const getTotalBalances = async () => {
 	if (DISPLAY_CONSOLE) console.log('getBalances');
