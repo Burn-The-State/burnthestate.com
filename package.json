@@ -25,6 +25,11 @@
     "webpack-cli": "^4.1.0"
   },
   "dependencies": {
+    "@ethersproject/address": "^5.0.5",
+    "@ethersproject/contracts": "^5.0.5",
+    "@ethersproject/networks": "^5.0.4",
+    "@ethersproject/providers": "^5.0.14",
+    "@ethersproject/solidity": "^5.0.5",
     "@uniswap/sdk": "^3.0.3"
   }
 }
