@@ -996,7 +996,7 @@ PAIRS.YFKA_TOB
 	
 	const YFKATOBReserves = await tobContract.methods.getReserves().call();
 	const totalLPTOB = await tobContract.methods.totalSupply().call();
-	const TOBReserve = YFKATOBReserves[1]/(10**9);
+	const TOBReserve = YFKATOBReserves[1]/(10**18);
 	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);
 	//lptotal/2/yfka-0.6%
 	const halfLPTOB = (totalLP/(10**18))/2;
