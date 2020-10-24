@@ -1,0 +1,19 @@
+{
+  "name": "burnthestate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "letsburn.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zer0cache/burnthestate.com.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zer0cache/burnthestate.com/issues"
+  },
+  "homepage": "https://github.com/zer0cache/burnthestate.com#readme"
+}
