@@ -1011,7 +1011,7 @@ PAIRS.YFKA_BOA
 	const TOBtoLP = (TOBReserve/totalLPTOB)*(10**18);
 	
 	
-	if (DISPLAY_CONSOLE) console.log("TOB to 0.01 LP: ",(TOBtoLP/100);
+	if (DISPLAY_CONSOLE) console.log("TOB to 0.01 LP: ",TOBtoLP/100);
 	if (DISPLAY_CONSOLE) console.log("YFKA/TOB reserves: ", YFKATOBReserves);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKATOBReserves[0]);
 	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", YFKATOBReserves[1]);
@@ -1034,7 +1034,7 @@ PAIRS.YFKA_BOA
 	const BOAtoLP = (BOAReserve/totalLPBOA)*(10**18);
 	
 	
-	if (DISPLAY_CONSOLE) console.log("BOA to 0.01 LP: ",(TOBtoLP/100);
+	if (DISPLAY_CONSOLE) console.log("BOA to 0.01 LP: ",TOBtoLP/100);
 	if (DISPLAY_CONSOLE) console.log("YFKA/BOA reserves: ", YFKABOAReserves);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKABOAReserves[0]);
 	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", YFKABOAReserves[1]);
@@ -2046,5 +2046,4 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
