@@ -1001,7 +1001,7 @@ PAIRS.YFKA_TOB
 	//lptotal/2/yfka-0.6%
 	const halfLPTOB = (totalLP/(10**18))/2;
 	const TOBtoLP = halfLPTOB/TOBReserve
-	const feeCalc = 0.6;
+
 
 
 	if (DISPLAY_CONSOLE) console.log("YFKA/TOB reserves: ", YFKATOBReserves);
