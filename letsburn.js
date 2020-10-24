@@ -1003,7 +1003,7 @@ PAIRS.YFKA_TOB
 	const TOBtoLP = halfLPTOB/TOBReserve
 
 	
-	if (DISPLAY_CONSOLE) console.log("TOB to LP: ",(TOBReserve/(totalLPTOB/2));
+	if (DISPLAY_CONSOLE) console.log("TOB to LP: ",(TOBReserve/(totalLPTOB/2)));
 	if (DISPLAY_CONSOLE) console.log("YFKA/TOB reserves: ", YFKATOBReserves);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKATOBReserves[0]);
 	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", YFKATOBReserves[1]);
