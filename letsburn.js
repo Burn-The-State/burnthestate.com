@@ -999,8 +999,8 @@ PAIRS.YFKA_TOB
 	const TOBReserve = YFKATOBReserves[1]/(10**9);
 	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);
 	//lptotal/2/yfka-0.6%
-	const halfLP = (totalLP/(10**18))/2;
-	const TOBtoLP = halfLP/TOBReserve
+	const halfLPTOB = (totalLP/(10**18))/2;
+	const TOBtoLP = halfLPTOB/TOBReserve
 	const feeCalc = 0.6;
 
 
