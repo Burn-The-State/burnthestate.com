@@ -1010,7 +1010,7 @@ PAIRS.YFKA_TOB
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKATOBReserves[0]/(10**18));
 	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", YFKATOBReserves[1]/(10**18));
 	
-	if (DISPLAY_CONSOLE) console.log("LP to TOB: ", eightDecimals((TOBtoLP-(TOBtoLP*feeCalc)))*100);
+	if (DISPLAY_CONSOLE) console.log("LP to TOB: ", eightDecimals((TOBtoLP-(TOBtoLP*feeCalc))));
 	
 	
 	
