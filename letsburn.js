@@ -987,7 +987,7 @@ PAIRS.YFKA_XAMP
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]/(10**18));
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]/(10**9));
 	
-	if (DISPLAY_CONSOLE) console.log("XAMP to LP: ", XAMPtoLP-(XAMPtoLP*feeCalc));
+	if (DISPLAY_CONSOLE) console.log("XAMP to LP: ", eightDecimals(XAMPtoLP-(XAMPtoLP*feeCalc)));
 	
 	
 };
@@ -1068,6 +1068,12 @@ function fourDecimals(b) {
 
 function sixDecimals(b) {
     const newNumber = Math.floor((b + Number.EPSILON) * 1000000) / 1000000;
+	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(newNumber);
+}
+
+function eightDecimals(b) {
+    const newNumber = Math.floor((b + Number.EPSILON) * 100000000) / 100000000;
 	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
     return _.toNumber(newNumber);
 }
