@@ -862,13 +862,10 @@ function errorHandling(error, functionCall)
 /*
 const stakeMinimumPrice = async () => {
 	const MIN_STAKE_AMOUNT = 0.2;
-
 	const prices = await getPricesETH();
-
 	const yfkaPrices = prices.YFKA;
 	const yfkaEth = yfkaPrices.eth;
 	const yfkaMinInEth = yfkaEth * MIN_STAKE_AMOUNT;
-
 	//XAMP
 	const xampMin = yfkaMinInEth / prices.XAMP.eth;
 	//TOB
@@ -882,9 +879,7 @@ const stakeMinimumPrice = async () => {
     BOA: tokenPrices[TOKENS.BOA],
     TOB: tokenPrices[TOKENS.TOB],
   }
-
 }
-
 */
 const Totals = async () => {
 	const MIN_STAKE_AMOUNT = 0.2;
@@ -989,14 +984,14 @@ PAIRS.YFKA_BOA
 	//lptotal/2/yfka-0.6%
 	const halfLP = (totalLPXAMP/(10**18))/2;
 	const LPtoXAMP = halfLP/XAMPReserve;
-const XAMPtoLP = (YFKAXAMPReserves[1]/(10**9))/(totalLPXAMP*(10**18));
+const XAMPtoLP = (YFKAXAMPReserves[1]/(10**9))/(totalLPXAMP/(10**9));
 	
 	if (DISPLAY_CONSOLE) console.log("XAMP to 0.01 LP: ",XAMPtoLP/100);
 	if (DISPLAY_CONSOLE) console.log("YFKA/XAMP reserves: ", YFKAXAMPReserves);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]);
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]);
 	if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAReserve);
-	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", XAMPReserve);
+	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", XAMPReserve * (10**9));
 	if (DISPLAY_CONSOLE) console.log("XAMP to LP: ", XAMPtoLP);
 	if (DISPLAY_CONSOLE) console.log("LP to XAMP: ", eightDecimals((XAMPtoLP-(LPtoXAMP*feeCalc)))*100);
 	//----------------------------------------------------------------------------------------------------
@@ -2046,4 +2041,3 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
