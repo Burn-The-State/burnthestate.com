@@ -1019,26 +1019,34 @@ const getPrices = async () => {
   }
 }
 
-const stakeMinimumPrice = async () => {
+// Gets the min
+const stakeMinimumPriceForStaking = async () => {
   const MIN_STAKE_AMOUNT = 0.2;
 
   const prices = await getPrices();
 
   const yfkaPrices = prices.YFKA;
-  const yfkaEth = yfkaPrices.eth;
-  const yfkaMinInEth = yfkaEth * MIN_STAKE_AMOUNT;
-  const xampMinEth = yfkaMinInEth / prices.XAMP.eth;
 
-  const yfkaUsd = yfkaPrices.usd;
-  const yfkaMinInUsd = yfkaUsd * MIN_STAKE_AMOUNT;
-  const xampMinUsd = yfkaMinInUsd / prices.XAMP.usd;
+  const tokenKeys = Object.keys(TOKENS);
+  const mappedTokens = tokenKeys.map((key) => {
+    const yfkaMinInEth = yfkaPrices.eth * MIN_STAKE_AMOUNT;
+    const yfkaMinInUsd = yfkaPrices.usd * MIN_STAKE_AMOUNT;
 
+    return {
+      eth: yfkaMinInEth / prices[key].eth,
+      usd: yfkaMinInUsd / prices[key].usd,
+    }
+  });
 
-  return {
-    eth: xampMinEth,
-    usd: xampMinUsd,
-  }
+  return mappedTokens.reduce((acc, token, idx) => {
+    return {
+      ...acc,
+      [tokenKeys[idx]]: token,
+    };
+  }, {});
 }
+
+console.log(await stakeMinimumPriceForStaking());
 
 
 
