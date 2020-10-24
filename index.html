@@ -11,8 +11,13 @@
   </head>
   <body>
     <div class="container p-3">
-<div class="row m-0 pt-5 pb-5 mt-3 mb-3 pl-4 pr-4 border rounded" id="moreInfodiv" style="display: block;">
-    <div class="col-lg mb-3 mt-3 ml-1 mr-1 text-center">
+<div class="row m-0 pt-5 pb-5 mt-3 mb-3 pl-4 pr-4 border rounded" id="moreInfodiv" style="display: inline;">
+    <button id="XAMPInfo" type="button" class="btn-sm btn-dark ">XAMP/YFKA</button>
+<button id="TOBInfo" type="button" class="btn-sm btn-dark ">TOB/YFKA</button>
+<button id="BOAInfo" type="button" class="btn-sm btn-dark ">BOA/YFKA</button>
+<button id="ETHInfo" type="button" class="btn-sm btn-dark ">ETH/YFKA</button>
+    <div id="XampInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center" style="
+">
           <h6><strong>YFKA/XAMP</strong></h6>
           <div id="pool-XAMP" class="row border rounded pt-1 pb-4 pl-2 text-left">
             <div class="col p-0">
@@ -20,20 +25,20 @@
                 <div class="col pr-0 pb-3"><img class="" src="imgs/poolXamp.png"></div>
                 <div class="col pt-5 text-left"></div>
               </div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="personal-emission-XAMP">0</span> UNI-V2</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL XAMP in POOL: </strong><span id="balance-LP-XAMP">0</span> XAMP</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="personal-emission-XAMP">99.89</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL XAMP in POOL: </strong><span id="balance-LP-XAMP">0.00189</span> XAMP</small></span></div>
                               <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL YFKA in POOL: </strong><span id="balance-LP-XAMP">0</span> YFKA</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>XAMP per LP: </strong><span id="total-LP-XAMP">0</span> XAMP</small></span></div>
-              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per XAMP: </strong><span id="pool-Share-XAMP">0</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>XAMP per LP: </strong><span id="total-LP-XAMP">13.22</span> XAMP</small></span></div>
+              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per XAMP: </strong><span id="pool-Share-XAMP">0.0136</span> UNI-V2</small></span></div>
 
 
 </div></div></div> 
         
         
        <!-- YFKA/TOB --> 
-<div class="col-lg mb-3 mt-3 ml-1 mr-1 text-center">
+<div id="TobInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center">
           <h6><strong>YFKA/TOB</strong></h6>
-          <div id="pool-TOB" class="row border rounded pt-1 pb-4 pl-2 text-left">
+          <div id="bonusPool" class="row border rounded pt-1 pb-4 pl-2 text-left">
             <div class="col p-0">
               <div class="row pl-2">
                 <div class="col pr-0 pb-3"><img class="" src="imgs/poolTob.png"></div>
@@ -50,7 +55,7 @@
     
     
            <!-- YFKA/TOB --> 
-<div class="col-lg mb-3 mt-3 ml-1 mr-1 text-center">
+<div id="BoaInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center">
           <h6><strong>YFKA/BOA</strong></h6>
           <div id="pool-BOA" class="row border rounded pt-1 pb-4 pl-2 text-left">
             <div class="col p-0">
@@ -65,8 +70,24 @@
               <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per BOA: </strong><span id="pool-Share-XAMP">0</span> UNI-V2</small></span></div>
 
 
-</div>   </div>   
+              </div>   </div>   </div>
     
+<div id="EthInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center">
+          <h6><strong>YFKA/BOA</strong></h6>
+          <div id="pool-ETH" class="row border rounded pt-1 pb-4 pl-2 text-left">
+            <div class="col p-0">
+              <div class="row pl-2">
+                <div class="col pr-0 pb-3"><img class="" src="imgs/poolEth.png"></div>
+                <div class="col pt-5 text-left"></div>
+              </div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="personal-emission-XAMP">0</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL ETH in POOL: </strong><span id="balance-LP-XAMP">0</span> ETH</small></span></div>
+                              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL YFKA in POOL: </strong><span id="balance-LP-XAMP">0</span> YFKA</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>ETH per LP: </strong><span id="total-LP-XAMP">0</span> ETH</small></span></div>
+              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per ETH: </strong><span id="pool-Share-XAMP">0</span> UNI-V2</small></span></div>
+
+
+</div>   </div>       
     
     <button id="dropDownInfoClose" type="button" class="btn-sm btn-dark ">Close</button></div></div>
       
