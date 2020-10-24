@@ -1,6 +1,5 @@
 
 
-
 /*
 *
 *
@@ -862,6 +861,57 @@ function errorHandling(error, functionCall)
 		}
 	}
 }
+
+const stakeMinimumPrice = async () => {
+  const MIN_STAKE_AMOUNT = 0.2;
+
+  const prices = await getPricesETH();
+
+  const yfkaPrices = prices.YFKA;
+  const yfkaEth = yfkaPrices.eth;
+  const yfkaMinInEth = yfkaEth * MIN_STAKE_AMOUNT;
+  const xampMin = yfkaMinInEth / prices.XAMP.eth;
+
+  console.log('xampMin: ', xampMin);
+
+  console.log(prices);
+  console.log(prices.YFKA.eth);
+  console.log(prices.YFKA.usd);
+}
+
+const getPricesUSD = async () => {
+  const tokenKeys = Object.keys(TOKENS);
+
+  const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenKeys.map(k => TOKENS[k]).join(',')}&vs_currencies=usd`);
+  const tokenPrices = await response.json();
+
+  // USD
+  return {
+    YFKA: tokenPrices[TOKENS.YFKA],
+    XAMP: tokenPrices[TOKENS.XAMP],
+    BOA: tokenPrices[TOKENS.BOA],
+    TOB: tokenPrices[TOKENS.TOB],
+  }
+}
+
+const getPricesETH = async () => {
+  const tokenKeys = Object.keys(TOKENS);
+
+  const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenKeys.map(k => TOKENS[k]).join(',')}&vs_currencies=eth`);
+  const tokenPrices = await response.json();
+
+  // ETH
+  return {
+    YFKA: tokenPrices[TOKENS.YFKA],
+    XAMP: tokenPrices[TOKENS.XAMP],
+    BOA: tokenPrices[TOKENS.BOA],
+    TOB: tokenPrices[TOKENS.TOB],
+  }
+}
+
+
+
+
 
 
 const isConnected = () => {
@@ -1763,12 +1813,10 @@ $('#dropDownInfoClose').click(async () => {
 *
 */
 
-
-
 window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
-	
+	await stakeMinimumPrice();
 	//Mobile Detection.
 	setTimeout(function(){
 		if((screen.width<480) || (screen.height <480)){
