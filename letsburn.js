@@ -975,7 +975,7 @@ PAIRS.YFKA_XAMP
   
   if (DISPLAY_CONSOLE) console.log("YFKA/XAMP reserves: ", YFKAXAMPReserves);
   if (DISPLAY_CONSOLE) console.log("YFKA reserves: ", YFKAXAMPReserves[0]/(10**18));
-	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1](10**18));
+	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", YFKAXAMPReserves[1]/(10**18));
 };
 
 
