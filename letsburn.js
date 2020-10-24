@@ -988,7 +988,7 @@ PAIRS.YFKA_BOA
 	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
 	//lptotal/2/yfka-0.6%
 	const halfLP = (totalLPXAMP/(10**18))/2;
-	const LPtoXAMP = halfLP/XAMPReserve
+	const LPtoXAMP = halfLP/XAMPReserve;
 	const XAMPtoLP = ((YFKAXAMPReserves[1]/(10**9)/(totalLPXAMP*(10**18));
 	
 	if (DISPLAY_CONSOLE) console.log("XAMP to 0.01 LP: ",XAMPtoLP/100);
