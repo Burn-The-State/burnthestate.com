@@ -1213,10 +1213,20 @@ const FillInfo = async () => {
 	
 	
 	//XAMP LOGIC
-	const halfLP = (totalLPXAMP/(10**18))/2;
-	const LPtoXAMP = halfLP/XAMPReserve;
+	const halfLPXAMP = (totalLPXAMP/(10**18))/2;
+	if (DISPLAY_CONSOLE) console.log("--------------- XAMP LP CALC ------------------");
+	if (DISPLAY_CONSOLE) console.log("totalLPXAMP: ", totalLPXAMP);
+	if (DISPLAY_CONSOLE) console.log("totalLPXAMP(READABLE): ", totalLPXAMP/(10**18));
+	if (DISPLAY_CONSOLE) console.log("halfLPXAMP: ", halfLPXAMP);
+	const LPtoXAMP = halfLPXAMP/XAMPReserve;
+	if (DISPLAY_CONSOLE) console.log("XAMPReserve: ", XAMPReserve);
+	if (DISPLAY_CONSOLE) console.log("HalfXAMP/XAMPReserve: ", LPtoXAMP);
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**9);
+	if (DISPLAY_CONSOLE) console.log("XAMPtoLP =(XAMPReserve/totalLPXAMP) *(10**9): ", XAMPtoLP);
+	if (DISPLAY_CONSOLE) console.log("XAMPtoLP =(XAMPReserve/totalLPXAMP): ", (XAMPReserve/totalLPXAMP));
 	
+	
+	if (DISPLAY_CONSOLE) console.log("------------------------------------------------");
 	//const LPtoXAMPFees = LPtoXAMP*feeCalc;
 	//const LPperXAMPFinal =  LPtoXAMP-LPtoXAMPFees;
 	
@@ -1232,11 +1242,11 @@ const FillInfo = async () => {
 	
 	//XAMP LOGIC
 	const halfLPETH = (totalLPETH/(10**18))/2;
-	const LPtoETH = halfLP/ETHReserve;
+	const LPtoETH = halfLPETH/ETHReserve;
 	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH) *(10**18);	
 	
 	//WORK OUT YFKA TO LP
-	const YFKALPXAMP = halfLP/YFKAXAMPReserves;
+	const YFKALPXAMP = halfLPXAMP/YFKAXAMPReserves;
 	const YFKALPTOB = halfLPTOB/YFKAReserveTOB;
 	const YFKALPBOA = LPtoBOA/YFKAReserveBOA;
 	const YFKALPETH = halfLPETH/YFKAReserveETH;
@@ -1284,7 +1294,7 @@ const FillInfo = async () => {
 	$('#YFKAPOOLEDBPERCENT').html(twoDecimals(BOAYFKAPercent));
 	$('#YFKAPOOLEDEPERCENT').html(twoDecimals(ETHYFKAPercent));
 	
-	$('#XAMPLP').html(Number(XAMPtoLP).toLocaleString());
+	$('#XAMPLP').html(Number(fourDecimals(XAMPtoLP)).toLocaleString());
 	$('#TOBLP').html(Number(twoDecimals(TOBtoLP)).toLocaleString());
 	$('#BOALP').html(Number(twoDecimals(BOAtoLP)).toLocaleString());
 	$('#ETHLP').html(Number(twoDecimals(ETHtoLP)).toLocaleString());
