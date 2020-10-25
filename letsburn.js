@@ -1217,8 +1217,8 @@ const FillInfo = async () => {
 	const LPtoXAMP = halfLP/XAMPReserve;
 	const XAMPtoLP = (YFKAXAMPReserves[1]/totalLPXAMP) *(10**9);
 	
-	const LPtoXAMPFees = LPtoXAMP*feeCalc;
-	const LPperXAMPFinal =  LPtoXAMP-LPtoXAMPFees;
+	//const LPtoXAMPFees = LPtoXAMP*feeCalc;
+	//const LPperXAMPFinal =  LPtoXAMP-LPtoXAMPFees;
 	
 	//TOB LOGIC
 	const halfLPTOB = (totalLPTOB/(10**18))/2;
@@ -1289,7 +1289,7 @@ const FillInfo = async () => {
 	$('#BOALP').html(Number(twoDecimals(BOAtoLP)).toLocaleString());
 	$('#ETHLP').html(Number(twoDecimals(ETHtoLP)).toLocaleString());
 	
-	$('#LPXAMP').html(eightDecimals(LPperXAMPFinal*100));
+	$('#LPXAMP').html(eightDecimals((LPtoXAMP-(LPtoXAMP*feeCalc))));
 	$('#LPTOB').html(eightDecimals((LPtoTOB-(LPtoTOB*feeCalc))));
 	$('#LPBOA').html(eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
 	$('#LPETH').html(eightDecimals((LPtoETH-(LPtoETH*feeCalc))));
@@ -1361,7 +1361,7 @@ const FillInfo = async () => {
 	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPXAMP/(10**18));
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", Number(XAMPReserve).toLocaleString());
 	if (DISPLAY_CONSOLE) console.log("XAMP per 1 LP: ", Number(XAMPtoLP).toLocaleString() );
-	if (DISPLAY_CONSOLE) console.log("LP per 1 XAMP: ", eightDecimals(LPperXAMPFinal*100));
+	if (DISPLAY_CONSOLE) console.log("LP per 1 XAMP: ", eightDecimals((LPtoXAMP-(LPtoXAMP*feeCalc)));
 	
 	if (DISPLAY_CONSOLE) console.log("--------------TOB---------------------");
 	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPTOB/(10**18));
