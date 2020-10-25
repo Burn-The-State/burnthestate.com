@@ -953,6 +953,13 @@ const getReserves = async () => {
 		.stakes(YFKA_POOL_INDEXES.XAMP, account)
 		.call()/(10**18);
 	
+	const xampReward = await ashContract.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.XAMP)
+		.call({
+			from: account,
+		});
+	
+	
 	//GET PRICES
 	const coinPrices = await getPrices();
 	const YFKAPrice = coinPrices.YFKA; //use .usd  or .eth
@@ -1105,9 +1112,11 @@ const getReserves = async () => {
 	$('#LPPRICEXAMPTOTAL').html(Number(twoDecimals(XAMPLPUSDTOTAL)).toLocaleString());
 	console.log("XAMP REWARD = ", $('#reward-XAMP').val());
 	console.log("XAMP LP $ = ", twoDecimals(XAMPLPUSD));
-	$('#reward-XAMP-USD').html(twoDecimals($('reward-XAMP').val() * XAMPPrice.usd));
 	
+	$('#reward-XAMP-USD').html(XAMPPrice.usd*xampReward);
 	$('#UserLPUSD').html(twoDecimals(USERXAMPLPPRICE));
+	
+	
 	
 	
 	//LOGGING
