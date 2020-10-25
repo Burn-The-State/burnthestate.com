@@ -1062,7 +1062,7 @@ const getReserves = async () => {
 	const ETHLPUSD = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
 
 	//CALCULATE USERS LP $
-	const USERXAMPLPPRICE =   XAMPLPUSD * userOwnedLP.XAMP;
+	const USERXAMPLPPRICE =   XAMPLPUSD * (userOwnedLP.XAMP/(10**18));
 	
 	
 	//UPDATE HTML
