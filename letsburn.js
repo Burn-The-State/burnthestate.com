@@ -1092,7 +1092,7 @@ const getReserves = async () => {
 	$('#LPBOA').html(eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
 	$('#LPETH').html(eightDecimals((LPtoETH-(LPtoETH*feeCalc))));
 	
-	$('#LPPRICEXAMP').html(Number(XAMPLPUSD)).toLocaleString());
+	$('#LPPRICEXAMP').html(Number(XAMPLPUSD).toLocaleString());
 	$('#LPPRICEXAMPTOTAL').html(Number(twoDecimals(XAMPLPUSDTOTAL)).toLocaleString());
 	console.log("XAMP REWARD = ", $('#reward-XAMP').val());
 	console.log("XAMP LP $ = ", twoDecimals(XAMPLPUSD));
