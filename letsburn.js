@@ -1117,6 +1117,31 @@ const FillInfo = async () => {
 	const userRewards = await getRewards();
 	const BTSTOT = await getBTSTotals();
 	
+	const provider = getInfuraProvider();
+
+	// YFKA_XAMP
+	const xampContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_XAMP
+	);
+	const tobContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_TOB
+	);
+	const boaContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_BOA
+	);
+	const ethContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_ETH
+
+	);
+	
+	
+	
+	
+	
 	//PULL RESERVES
 	const reserves = await getReserves();
 	const YFKAXAMPReserves = reserves.XAMP;
