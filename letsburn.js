@@ -1122,8 +1122,8 @@ const getReserves = async () => {
 	
 	return {
     XAMP: YFKAXAMPReserves,
-    BOA: YFKATOBReserves,
-    TOB: YFKABOAReserves,
+    BOA: YFKABOAReserves,
+    TOB: YFKATOBReserves,
 	ETH: YFKAETHReserves,
 	}
 	
