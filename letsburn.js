@@ -1144,7 +1144,7 @@ const getReserves = async () => {
 	const USERXAMPLPPRICE =   XAMPLPUSD * userLPS.fXAMP;
 	const USERTOBLPPRICE =   TOBLPUSD * userLPS.fTOB;
 	const USERBOALPPRICE =   BOALPUSD * userLPS.fBOA;
-	const USERBOALPPRICE =   BOALPUSD * userLPS.fETH;
+	const USERETHLPPRICE =   BOALPUSD * userLPS.fETH;
 	
 	
 	//UPDATE HTML
