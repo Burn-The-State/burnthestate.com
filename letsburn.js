@@ -1213,7 +1213,7 @@ const FillInfo = async () => {
 	
 	
 	//XAMP LOGIC
-	const halfLP = totalLPXAMP/2;
+	const halfLP = (totalLPXAMP/(10**18))/2;
 	const LPtoXAMP = halfLP/XAMPReserve;
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**9);
 	
