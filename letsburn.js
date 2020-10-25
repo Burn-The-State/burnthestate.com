@@ -947,8 +947,11 @@ const getReserves = async () => {
 	if (DISPLAY_CONSOLE) console.log('getReserves');
 	const account = await getAccount();
 	if (!account) return null;
-
-	const userOwnedLP = await getTotalBalances();
+	const ashContract = yfkaControllerContract();
+	
+	const userOwnedLPXAMP = await ashContract.methods
+		.stakes(YFKA_POOL_INDEXES.XAMP, account)
+		.call()/(10**18);
 	
 	//GET PRICES
 	const coinPrices = await getPrices();
@@ -1062,9 +1065,9 @@ const getReserves = async () => {
 	const ETHLPUSD = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
 
 	//CALCULATE USERS LP $
-	if (DISPLAY_CONSOLE) console.log("XAMP OWNED: ", userOwnedLP.XAMP);
+	if (DISPLAY_CONSOLE) console.log("XAMP OWNED: ", userOwnedLPXAMP);
 	if (DISPLAY_CONSOLE) console.log("USD LP PRICE: ", XAMPLPUSD );
-	const USERXAMPLPPRICE =   XAMPLPUSD * (userOwnedLP.XAMP/(10**18));
+	const USERXAMPLPPRICE =   XAMPLPUSD * userOwnedLPXAMP;
 	
 	
 	//UPDATE HTML
