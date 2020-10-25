@@ -17,7 +17,7 @@ const TOKENS = {
 };
 
 const DISPLAY_CONSOLE = false;
-const DISPLAY_ERRORS = true;
+const DISPLAY_ERRORS = false;
 
 const PAIRS = {
   YFKA_XAMP: '0xaea4d6809375bb973c8036d53db9e90970942738',
