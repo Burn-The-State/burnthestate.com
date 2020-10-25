@@ -1039,7 +1039,7 @@ PAIRS.YFKA_ETH
 	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH) *(10**18);	
 	
 	//UPDATE HTML
-	$('#XAMPLP').html(totalLPXAMP/(10**18));
+	$('#XAMPLP').html(totalLPXAMP);
 	$('#TOBLP').html(totalLPTOB/(10**18));
 	$('#BOALP').html(totalLPBOA/(10**18));
 	$('#ETHLP').html(totalLPETH/(10**18));
