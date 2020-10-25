@@ -1198,6 +1198,11 @@ const getReserves = async () => {
 	$('#UserLPUSDBOA').html(twoDecimals(USERBOALPPRICE));
 	$('#UserLPUSDETH').html(twoDecimals(USERETHLPPRICE));
 	
+	$('#balance-LP-XAMP-1').html(twoDecimals(userLPS.fXAMP));
+	$('#balance-LP-TOB-1').html(twoDecimals(userLPS.fTOB));
+	$('#balance-LP-BOA-1').html(twoDecimals(userLPS.fBOA));
+	$('#balance-LP-ETH-1').html(twoDecimals(userLPS.fETH));
+	
 	
 	//LOGGING
 	if (DISPLAY_CONSOLE) console.log("---------------XAMP------------------");
