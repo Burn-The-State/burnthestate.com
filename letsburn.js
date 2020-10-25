@@ -1047,6 +1047,27 @@ const getBTSTotals = async () => {
 	const YFKATOTAL = WalletBalances.YFKA + YFKAfromLP;
 	
 	
+	if (DISPLAY_CONSOLE) console.log("XAMP WALLET: ",WalletBalances.XAMP );
+	if (DISPLAY_CONSOLE) console.log("TOB WALLET: ",WalletBalances.TOB );
+	if (DISPLAY_CONSOLE) console.log("BOA WALLET: ",WalletBalances.BOA );
+	if (DISPLAY_CONSOLE) console.log("YFKA WALLET: ",WalletBalances.YFKA );
+	if (DISPLAY_CONSOLE) console.log("ETH WALLET: ",WalletBalances.XAMP );
+	
+	if (DISPLAY_CONSOLE) console.log("XAMP TOTAL: ",XampTOTAL );
+	if (DISPLAY_CONSOLE) console.log("TOB TOTAL: ",TobTOTAL );
+	if (DISPLAY_CONSOLE) console.log("BOA TOTAL: ",BoaTOTAL );
+	if (DISPLAY_CONSOLE) console.log("YFKA TOTAL: ",YFKATOTAL );
+	if (DISPLAY_CONSOLE) console.log("ETH TOTAL: ",ETHRTOTAL );
+	
+	if (DISPLAY_CONSOLE) console.log("XAMP FROM LP: ",XAMPfromLP );
+	if (DISPLAY_CONSOLE) console.log("TOB FROM LP: ",TOBfromLP );
+	if (DISPLAY_CONSOLE) console.log("BOA FROM LP: ",BOAfromLP );
+	if (DISPLAY_CONSOLE) console.log("YFKA FROM LP: ",YFKAfromLP );
+	if (DISPLAY_CONSOLE) console.log("ETH FROM LP: ",ETHfromLP );
+	
+	if (DISPLAY_CONSOLE) console.log("TOTAL YFKA REWARDS: ",yfkaRewardTotal );
+	
+	
   return {
     fXAMPWallet: WalletBalances.XAMP,
     fBOAWallet: WalletBalances.BOA,
@@ -1299,10 +1320,10 @@ const FillInfo = async () => {
 	$('#balance-LP-ETH-1').html(twoDecimals(userLPS.fETH));
 	
 	
-	$('#reward-XAMP1').html(twoDecimals(userRewards.fXAMP));
-	$('#reward-TOB1').html(twoDecimals(userRewards.fTOB));
-	$('#reward-BOA1').html(twoDecimals(userRewards.fBOA));
-	$('#reward-ETH1').html(twoDecimals(userRewards.fETH));
+	$('#reward-XAMP1').html(fourDecimals(userRewards.fXAMP));
+	$('#reward-TOB1').html(fourDecimals(userRewards.fTOB));
+	$('#reward-BOA1').html(fourDecimals(userRewards.fBOA));
+	$('#reward-ETH1').html(fourDecimals(userRewards.fETH));
 	
 	/*TODO PRINT TO USER BTS LP TOTAL, BTS WALLET TOTAL, BTS TOTAL TOTAL. WORK OUT ($) for each. 
 	fXAMPWallet: WalletBalances.XAMP,
