@@ -1359,7 +1359,7 @@ const FillInfo = async () => {
 	
 	//XAMP
 	$('#TOTXAMP').html(fourDecimals(BTSTOT.fXAMPTotal));
-	//$('#LPXAMP').html(fourDecimals(BTSTOT.fXAMPLP));
+	$('#LPXAMPuser').html(fourDecimals(BTSTOT.fXAMPLP));
 	$('#WALXAMP').html(fourDecimals(BTSTOT.fXAMPWallet));
 	//XAMP $
 	$('#XAMPP1').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPTotal));
