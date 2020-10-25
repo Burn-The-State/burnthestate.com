@@ -972,7 +972,7 @@ PAIRS.YFKA_TOB
 const boaContract = new provider.eth.Contract(
 UNISWAP_BASE_LP_ABI,
 PAIRS.YFKA_BOA
-
+);
 const ethContract = new provider.eth.Contract(
 UNISWAP_BASE_LP_ABI,
 PAIRS.YFKA_ETH
