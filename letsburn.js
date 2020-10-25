@@ -1136,7 +1136,7 @@ const getReserves = async () => {
 	
 	//LP PRICING
 	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL/(totalLPXAMP/(10**18)));
-	const TOBLPUSD = twoDecimals((TOBReserve * TOBPrice.usd) + (YFKALPTOB * YFKAPrice.usd));
+	const TOBLPUSD = twoDecimals(TOBLPUSDTOTAL/(totalLPTOB/(10**18)));
 	const BOALPUSD = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
 	const ETHLPUSD = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
 
