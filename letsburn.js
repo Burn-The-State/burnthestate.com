@@ -1215,13 +1215,13 @@ const FillInfo = async () => {
 	//XAMP LOGIC
 	const halfLPXAMP = (totalLPXAMP/(10**18))/2;
 	if (DISPLAY_CONSOLE) console.log("--------------- XAMP LP CALC ------------------");
-	if (DISPLAY_CONSOLE) console.log("totalLPXAMP: ", totalLPXAMP);
-	if (DISPLAY_CONSOLE) console.log("totalLPXAMP(READABLE): ", totalLPXAMP/(10**18));
-	if (DISPLAY_CONSOLE) console.log("halfLPXAMP: ", halfLPXAMP);
+	//if (DISPLAY_CONSOLE) console.log("totalLPXAMP: ", totalLPXAMP);
+	//if (DISPLAY_CONSOLE) console.log("totalLPXAMP(READABLE): ", totalLPXAMP/(10**18));
+	//if (DISPLAY_CONSOLE) console.log("halfLPXAMP: ", halfLPXAMP);
 	const LPtoXAMP = (halfLPXAMP/XAMPReserve)* (10*18);
-	if (DISPLAY_CONSOLE) console.log("XAMPReserve: ", XAMPReserve);
-	if (DISPLAY_CONSOLE) console.log("HalfXAMP/XAMPReserve: ", LPtoXAMP);
-	if (DISPLAY_CONSOLE) console.log("HalfXAMP/XAMPReserve * (10*18): ", LPtoXAMP * (10*18));
+	//if (DISPLAY_CONSOLE) console.log("XAMPReserve: ", XAMPReserve);
+	//if (DISPLAY_CONSOLE) console.log("HalfXAMP/XAMPReserve: ", LPtoXAMP);
+	//if (DISPLAY_CONSOLE) console.log("HalfXAMP/XAMPReserve * (10*18): ", LPtoXAMP * (10*18));
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
 	if (DISPLAY_CONSOLE) console.log("1 XAMP : ", LPtoXAMP, " LP");
 	if (DISPLAY_CONSOLE) console.log("1 LP : ", XAMPtoLP, " XAMP");
