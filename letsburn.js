@@ -1044,11 +1044,7 @@ const getReserves = async () => {
 	const YFKALPBOA = LPtoBOA/YFKAReserveBOA;
 	const YFKALPETH = halfLPETH/YFKAReserveETH;
 	
-	//LP PRICING
-	const XAMPLPUSD = twoDecimals((XAMPtoLP * XAMPPrice.usd) + (YFKALPXAMP * YFKAPrice.usd));
-	const TOBLPUSD = twoDecimals((TOBReserve * TOBPrice.usd) + (YFKALPTOB * YFKAPrice.usd));
-	const BOALPUSD = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
-	const ETHLPUSD = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
+
 	
 	//POOL PRICING
 	const XAMPLPUSDTOTAL = twoDecimals((XAMPReserve * XAMPPrice.usd) + (YFKAReserve * YFKAPrice.usd));
@@ -1056,6 +1052,12 @@ const getReserves = async () => {
 	const BOALPUSDTOTAL = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
 	const ETHLPUSDTOTAL = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
 	
+	
+	//LP PRICING
+	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL/totalLPXAMP);
+	const TOBLPUSD = twoDecimals((TOBReserve * TOBPrice.usd) + (YFKALPTOB * YFKAPrice.usd));
+	const BOALPUSD = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
+	const ETHLPUSD = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
 
 	
 	
@@ -1094,7 +1096,7 @@ const getReserves = async () => {
 	$('#LPPRICEXAMPTOTAL').html(Number(twoDecimals(XAMPLPUSDTOTAL)).toLocaleString());
 	console.log("XAMP REWARD = ", $('#reward-XAMP').val());
 	console.log("XAMP LP $ = ", twoDecimals(XAMPLPUSD));
-	$('#reward-XAMP-USD').html(twoDecimals($('#reward-XAMP').val() * XAMPPrice.usd));
+	$('#reward-XAMP-USD').html(twoDecimals($('reward-XAMP').val() * XAMPPrice.usd));
 	
 	
 	
