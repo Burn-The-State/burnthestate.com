@@ -11,33 +11,43 @@
   </head>
   <body>
     <div class="container p-3">
-<div class="row m-0 pt-5 pb-5 mt-3 mb-3 pl-4 pr-4 border rounded" id="moreInfodiv" style="display: none;">
+<div class="row m-0 pt-5 pb-5 mt-3 mb-3 pl-4 pr-4 border rounded" id="moreInfodiv" style="display: block;">
         <button id="XAMPInfo" type="button" class="btn-sm btn-dark ">YFKA/XAMP</button>
     <button id="TOBInfo" type="button" class="btn-sm btn-dark ">YFKA/TOB</button>
 <button id="BOAInfo" type="button" class="btn-sm btn-dark ">YFKA/BOA</button>
 <button id="ETHInfo" type="button" class="btn-sm btn-dark ">YFKA/ETH</button>
-    <div id="XampInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center" style="
-">
+    <div id="XampInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center" style="display: block;">
           <h6><strong>YFKA/XAMP</strong></h6>
-          <div id="pool-XAMP" class="row border rounded pt-1 pb-4 pl-2 text-left"style = "display:block;">
+          <div id="pool-XAMP" class="row border rounded pt-1 pb-4 pl-2 text-left" style="display:block;">
             <div class="col p-0">
               <div class="row pl-2">
                 <div class="col pr-0 pb-3"><img class="" src="imgs/poolXamp.png"></div>
                 <div class="col pt-5 text-left"></div>
               </div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="XAMPLPTOTAL">0</span> UNI-V2</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL XAMP in POOL: </strong><span id="XAMPPOOLED">0</span> XAMP</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL YFKA in POOL: </strong><span id="YFKAPOOLEDX">0</span> YFKA</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>% of TOTAL YFKA POOLED: </strong><span id="YFKAPOOLEDXPERCENT">0</span> %</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>XAMP per LP: </strong><span id="XAMPLP">0</span> XAMP</small></span></div>
-              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per XAMP: </strong><span id="LPXAMP">0</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="XAMPLPTOTAL">13.22711855733271</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL XAMP in POOL: </strong><span id="XAMPPOOLED">53,701,292.566</span> XAMP</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL YFKA in POOL: </strong><span id="YFKAPOOLEDX">2,712.174</span> YFKA</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>% of TOTAL YFKA POOLED: </strong><span id="YFKAPOOLEDXPERCENT">46.82176184373717</span> %</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>XAMP per LP: </strong><span id="XAMPLP">4,059,938.855</span> XAMP</small></span></div>
+              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per XAMP: </strong><span id="LPXAMP">0.00000492</span> UNI-V2</small></span></div>
+              <div id="poolShare0" class="col text-center"><h6><strong>USD INFO</strong></h6></div>
+        
+   <div id="staked0" class="col"><span class="text-left"><small><strong>Estimated Price Per LP: </strong>$<span id="balance-LP-XAMP">0</span></small></span></div>                  <div id="staked0" class="col"><span class="text-left"><small><strong>Total $ in Pool (estimated): </strong>$<span id="total-LP-XAMP">13.22</span></small></span></div> 
+                
+                
+ <div id="staked0" class="col"><span class="text-left"><small><strong>Your LP tokens: </strong><span id="balance-LP-XAMP">0.00189</span> UNI-V2</small></span></div>  
+ <div id="staked0" class="col"><span class="text-left"><small><strong>Your Estimated LP/$: </strong>$<span id="balance-LP-XAMP">0.00189</span></small></span></div> 
+                
+              <div id="estimateResult0" class="col"><span class="text-left"><small><strong>Earnings: </strong><span id="reward-XAMP">0.0587</span> YFKA ($<span id="reward-XAMP">0.0587</span>)</small></span></div>
+
+          
 
 
 </div></div></div> 
         
         
        <!-- YFKA/TOB --> 
-<div id="TobInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center" style = "display:none;">
+<div id="TobInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center" style="display: none;">
           <h6><strong>YFKA/TOB</strong></h6>
           <div id="bonusPool" class="row border rounded pt-1 pb-4 pl-2 text-left">
             <div class="col p-0">
@@ -45,19 +55,19 @@
                 <div class="col pr-0 pb-3"><img class="" src="imgs/poolTob.png"></div>
                 <div class="col pt-5 text-left"></div>
               </div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="TOBLPTOTAL">0</span> UNI-V2</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL TOB in POOL: </strong><span id="TOBPOOLED">0</span> TOB</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL YFKA in POOL: </strong><span id="YFKAPOOLEDT">0</span> YFKA</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>% of TOTAL YFKA POOLED: </strong><span id="YFKAPOOLEDTPERCENT">0</span> %</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOB per LP: </strong><span id="TOBLP">0</span> TOB</small></span></div>
-              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per TOB: </strong><span id="LPTOB">0</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="TOBLPTOTAL">17712.854804948718</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL TOB in POOL: </strong><span id="TOBPOOLED">203,907.127</span> TOB</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL YFKA in POOL: </strong><span id="YFKAPOOLEDT">1,346.688</span> YFKA</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>% of TOTAL YFKA POOLED: </strong><span id="YFKAPOOLEDTPERCENT">23.248619658662484</span> %</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOB per LP: </strong><span id="TOBLP">11.512</span> TOB</small></span></div>
+              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per TOB: </strong><span id="LPTOB">0.01737345</span> UNI-V2</small></span></div>
 
 
 </div>   </div>   </div>
     
     
            <!-- YFKA/BOA --> 
-<div id="BoaInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center" style = "display:none;">
+<div id="BoaInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center" style="display: none;">
           <h6><strong>YFKA/BOA</strong></h6>
           <div id="pool-BOA" class="row border rounded pt-1 pb-4 pl-2 text-left">
             <div class="col p-0">
@@ -65,17 +75,17 @@
                 <div class="col pr-0 pb-3"><img class="" src="imgs/poolBoa.png"></div>
                 <div class="col pt-5 text-left"></div>
               </div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="BOALPTOTAL">0</span> UNI-V2</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL BOA in POOL: </strong><span id="BOAPOOLED">0</span> BOA</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL YFKA in POOL: </strong><span id="YFKAPOOLEDB">0</span> YFKA</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>% of TOTAL YFKA POOLED: </strong><span id="YFKAPOOLEDBPERCENT">0</span> %</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>BOA per LP: </strong><span id="BOALP">0</span> BOA</small></span></div>
-              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per BOA: </strong><span id="LPBOA">0</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="BOALPTOTAL">145.99208495391878</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL BOA in POOL: </strong><span id="BOAPOOLED">15.597</span> BOA</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL YFKA in POOL: </strong><span id="YFKAPOOLEDB">1,470.359</span> YFKA</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>% of TOTAL YFKA POOLED: </strong><span id="YFKAPOOLEDBPERCENT">25.38362312969438</span> %</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>BOA per LP: </strong><span id="BOALP">0.107</span> BOA</small></span></div>
+              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per BOA: </strong><span id="LPBOA">1.87209226</span> UNI-V2</small></span></div>
 
 
               </div>   </div>   </div>
     <!-- YFKA/ETH -->
-<div id="EthInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center" style = "display:none;">
+<div id="EthInfoPanel" class="col-lg mb-3 mt-3 ml-1 mr-1 text-center" style="display: none;">
           <h6><strong>YFKA/ETH</strong></h6>
           <div id="pool-ETH" class="row border rounded pt-1 pb-4 pl-2 text-left">
             <div class="col p-0">
@@ -83,12 +93,12 @@
                 <div class="col pr-0 pb-3"><img class="" src="imgs/poolEth.png"></div>
                 <div class="col pt-5 text-left"></div>
               </div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="ETHLPTOTAL">0</span> UNI-V2</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL ETH in POOL: </strong><span id="ETHPOOLED">0</span> ETH</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL YFKA in POOL: </strong><span id="YFKAPOOLEDE">0</span> YFKA</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>% of TOTAL YFKA POOLED: </strong><span id="YFKAPOOLEDEPERCENT">0</span> %</small></span></div>
-              <div id="staked0" class="col"><span class="text-left"><small><strong>ETH per LP: </strong><span id="ETHLP">0</span> ETH</small></span></div>
-              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per ETH: </strong><span id="LPETH">0</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL LP in POOL: </strong><span id="ETHLPTOTAL">81.46093512168741</span> UNI-V2</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL ETH in POOL: </strong><span id="ETHPOOLED">38.649</span> ETH</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>TOTAL YFKA in POOL: </strong><span id="YFKAPOOLEDE">263.329</span> YFKA</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>% of TOTAL YFKA POOLED: </strong><span id="YFKAPOOLEDEPERCENT">4.545995367905968</span> %</small></span></div>
+              <div id="staked0" class="col"><span class="text-left"><small><strong>ETH per LP: </strong><span id="ETHLP">474,450,749,660,315,000</span> ETH</small></span></div>
+              <div id="poolShare0" class="col"><span class="text-left"><small><strong>LP per ETH: </strong><span id="LPETH">0.06844704</span> UNI-V2</small></span></div>
 
 
 </div>   </div>       </div>
