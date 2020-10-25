@@ -1054,7 +1054,7 @@ const getReserves = async () => {
 	
 	
 	//LP PRICING
-	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL/totalLPXAMP);
+	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL*totalLPXAMP);
 	const TOBLPUSD = twoDecimals((TOBReserve * TOBPrice.usd) + (YFKALPTOB * YFKAPrice.usd));
 	const BOALPUSD = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
 	const ETHLPUSD = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
@@ -1092,7 +1092,7 @@ const getReserves = async () => {
 	$('#LPBOA').html(eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
 	$('#LPETH').html(eightDecimals((LPtoETH-(LPtoETH*feeCalc))));
 	
-	$('#LPPRICEXAMP').html(Number(twoDecimals(XAMPLPUSD)).toLocaleString());
+	$('#LPPRICEXAMP').html(Number(XAMPLPUSD)).toLocaleString());
 	$('#LPPRICEXAMPTOTAL').html(Number(twoDecimals(XAMPLPUSDTOTAL)).toLocaleString());
 	console.log("XAMP REWARD = ", $('#reward-XAMP').val());
 	console.log("XAMP LP $ = ", twoDecimals(XAMPLPUSD));
