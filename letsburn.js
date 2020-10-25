@@ -972,61 +972,123 @@ PAIRS.YFKA_TOB
 const boaContract = new provider.eth.Contract(
 UNISWAP_BASE_LP_ABI,
 PAIRS.YFKA_BOA
+
+const ethContract = new provider.eth.Contract(
+UNISWAP_BASE_LP_ABI,
+PAIRS.YFKA_ETH
+
 );
+	//PULL RESERVES
+	const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
+	const YFKATOBReserves = await tobContract.methods.getReserves().call();
+	const YFKABOAReserves = await boaContract.methods.getReserves().call();
+	const YFKAETHReserves = await ethContract.methods.getReserves().call();
+	
+	
+	//GET TOTAL LP IN POOLS
+	const totalLPXAMP = await xampContract.methods.totalSupply().call();
+	const totalLPTOB = await tobContract.methods.totalSupply().call();
+	const totalLPBOA = await boaContract.methods.totalSupply().call();
+	const totalLPETH = await ethContract.methods.totalSupply().call();
+
+	//GET XAMP POOLED
+	const XAMPReserve = YFKAXAMPReserves[1]/(10**9);
+	const TOBReserve = YFKATOBReserves[1]/(10**18);
+	const BOAReserve = YFKABOAReserves[1]/(10**18);
+	const ETHReserve = YFKAETHReserves[1]/(10**18);
+	
+	//GET YFKA POOLED
+	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
+	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);	
+	const YFKAReserveBOA= YFKABOAReserves[0]/(10**18);
+	const YFKAReserveETH= YFKAETHReserves[0]/(10**18);
+	
+	const TotalYFKAPooled = YFKAReserve + YFKAReserveTOB + YFKAReserveBOA + YFKAReserveETH;
+
+	//WORK OUT POOL % of YFKA	
+	const XAMPYFKAPercent = (YFKAReserve/TotalYFKAPooled)*100;
+	const TOBYFKAPercent = (YFKAReserveTOB/TotalYFKAPooled)*100;
+	const BOAYFKAPercent = (YFKAReserveBOA/TotalYFKAPooled)*100;
+	const ETHYFKAPercent = (YFKAReserveETH/TotalYFKAPooled)*100;
+
 	//0.6 % fee on UNI.
 	const feeCalc = 0.6;
 	
 	
-	const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
-	const totalLPXAMP = await xampContract.methods.totalSupply().call();
-	const XAMPReserve = YFKAXAMPReserves[1]/(10**9);
-	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
+	//XAMP LOGIC
 	const halfLP = (totalLPXAMP/(10**18))/2;
 	const LPtoXAMP = halfLP/XAMPReserve;
 	const XAMPtoLP = (YFKAXAMPReserves[1]/totalLPXAMP) *(10**9);
+	
 	const LPtoXAMPFees = LPtoXAMP*feeCalc;
 	const LPperXAMPFinal =  LPtoXAMP-LPtoXAMPFees;
 	
+	//TOB LOGIC
+	const halfLPTOB = (totalLPTOB/(10**18))/2;
+	const LPtoTOB = halfLPTOB/TOBReserve
+	const TOBtoLP = (TOBReserve/totalLPTOB)*(10**18);
 	
+	//BOA LOGIC
+	const halfLPBOA = (totalLPBOA/(10**18))/2;
+	const LPtoBOA = halfLPBOA/BOAReserve
+	const BOAtoLP = (BOAReserve/totalLPBOA)*(10**18);
+	
+	//XAMP LOGIC
+	const halfLPETH = (totalLPETH/(10**18))/2;
+	const LPtoETH = halfLP/ETHReserve;
+	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH) *(10**18);	
+	
+	//UPDATE HTML
+	$('#XAMPLP').html(totalLPXAMP/(10**18));
+	$('#TOBLP').html(totalLPTOB/(10**18));
+	$('#BOALP').html(totalLPBOA/(10**18));
+	$('#ETHLP').html(totalLPETH/(10**18));
+	
+	$('#XAMPPOOLED').html(Number(XAMPReserve).toLocaleString());
+	$('#TOBPOOLED').html(Number(TOBReserve).toLocaleString());
+	$('#BOAPOOLED').html(Number(BOAReserve).toLocaleString());
+	$('#ETHPOOLED').html(Number(ETHReserve).toLocaleString());
+	
+	$('#YFKAPOOLEDX').html(Number(YFKAReserve).toLocaleString());
+	$('#YFKAPOOLEDT').html(Number(YFKAReserveTOB).toLocaleString());
+	$('#YFKAPOOLEDB').html(Number(YFKAReserveBOA).toLocaleString());
+	$('#YFKAPOOLEDE').html(Number(YFKAReserveETH).toLocaleString());
+	
+	$('#YFKAPOOLEDXPERCENT').html(XAMPYFKAPercent);
+	$('#YFKAPOOLEDTPERCENT').html(TOBYFKAPercent);
+	$('#YFKAPOOLEDBPERCENT').html(BOAYFKAPercent);
+	$('#YFKAPOOLEDEPERCENT').html(ETHYFKAPercent);
+	
+	$('#XAMPLP').html(Number(XAMPtoLP).toLocaleString());
+	$('#TOBLP').html(Number(TOBtoLP).toLocaleString());
+	$('#BOALP').html(Number(BOAtoLP).toLocaleString());
+	$('#ETHLP').html(Number(ETHtoLP).toLocaleString());
+	
+	$('#LPXAMP').html(eightDecimals(LPperXAMPFinal*100));
+	$('#LPTOB').html(eightDecimals((LPtoTOB-(LPtoTOB*feeCalc))));
+	$('#LPBOA').html(eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
+	$('#LPETH').html(eightDecimals((LPtoETH-(LPtoETH*feeCalc))));
+	
+	
+	
+	//LOGGING
 	if (DISPLAY_CONSOLE) console.log("---------------XAMP------------------");
 	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPXAMP/(10**18));
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", Number(XAMPReserve).toLocaleString());
 	if (DISPLAY_CONSOLE) console.log("XAMP per 1 LP: ", Number(XAMPtoLP).toLocaleString() );
 	if (DISPLAY_CONSOLE) console.log("LP per 1 XAMP: ", eightDecimals(LPperXAMPFinal*100));
-	//----------------------------------------------------------------------------------------------------
-	
-	const YFKATOBReserves = await tobContract.methods.getReserves().call();
-	const totalLPTOB = await tobContract.methods.totalSupply().call();
-	const TOBReserve = YFKATOBReserves[1]/(10**18);
-	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);
-	const halfLPTOB = (totalLPTOB/(10**18))/2;
-	const LPtoTOB = halfLPTOB/TOBReserve
-	const TOBtoLP = (TOBReserve/totalLPTOB)*(10**18);
 	
 	if (DISPLAY_CONSOLE) console.log("--------------TOB---------------------");
 	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPTOB/(10**18));
 	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", Number(TOBReserve).toLocaleString());
 	if (DISPLAY_CONSOLE) console.log("TOB per 1 LP: ", Number(TOBtoLP).toLocaleString());
 	if (DISPLAY_CONSOLE) console.log("LP per 1 TOB: ", eightDecimals((LPtoTOB-(LPtoTOB*feeCalc))));
-	
-	
-	///------------------------------------------------------------------------------------------------------
-	
-	
-	const YFKABOAReserves = await boaContract.methods.getReserves().call();
-	const totalLPBOA = await boaContract.methods.totalSupply().call();
-	const BOAReserve = YFKABOAReserves[1]/(10**18);
-	const YFKAReserveBOA= YFKABOAReserves[0]/(10**18);
-	const halfLPBOA = (totalLPBOA/(10**18))/2;
-	const LPtoBOA = halfLPBOA/BOAReserve
-	const BOAtoLP = (BOAReserve/totalLPBOA)*(10**18);
-	
+
 	if (DISPLAY_CONSOLE) console.log("----------------BOA---------------------");
 	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPBOA);
 	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", Number(BOAReserve).toLocaleString() );
 	if (DISPLAY_CONSOLE) console.log("BOA per 1 LP: ", Number(BOAtoLP).toLocaleString());
 	if (DISPLAY_CONSOLE) console.log("LP per 1 BOA: ", eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
-	
 	
 };
 
@@ -1933,16 +1995,21 @@ $('#dropDownInfoClose').click(async () => {
 	if (DISPLAY_CONSOLE) console.log('more info Close Clicked');
 	if (document.getElementById('moreInfodiv').style.display === 'none') {
 		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to fixed');
-		document.getElementById('moreInfodiv').style.display = 'fixed';
-	} else {
-		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
-		document.getElementById('moreInfodiv').style.display = 'none';
-	}
-
-		document.getElementById('XampInfoPanel').style.display = 'block';
+		document.getElementById('moreInfodiv').style.display = 'inline';
+				document.getElementById('XampInfoPanel').style.display = 'block';
 	document.getElementById('TobInfoPanel').style.display = 'none';
 	document.getElementById('BoaInfoPanel').style.display = 'none';
 	document.getElementById('EthInfoPanel').style.display = 'none';
+	} else {
+		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
+		document.getElementById('moreInfodiv').style.display = 'none';
+		document.getElementById('XampInfoPanel').style.display = 'none';
+		document.getElementById('TobInfoPanel').style.display = 'none';
+		document.getElementById('BoaInfoPanel').style.display = 'none';
+		document.getElementById('EthInfoPanel').style.display = 'none';
+	}
+
+
 	
 	
 });
