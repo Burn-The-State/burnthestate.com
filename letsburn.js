@@ -14,6 +14,7 @@ const TOKENS = {
   XAMP: '0xf911a7ec46a2c6fa49193212fe4a2a9b95851c27',
   BOA: '0xf9c36c7ad7fa0f0862589c919830268d1a2581a1',
   TOB: '0x7777770f8a6632ff043c8833310e245eba9209e6',
+  ETH: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
 };
 
 const DISPLAY_CONSOLE = true;
@@ -906,20 +907,7 @@ const Totals = async () => {
 
 }
 
-const getPricesUSD = async () => {
-  const tokenKeys = Object.keys(TOKENS);
 
-  const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenKeys.map(k => TOKENS[k]).join(',')}&vs_currencies=usd`);
-  const tokenPrices = await response.json();
-
-  // USD
-  return {
-    YFKA: tokenPrices[TOKENS.YFKA],
-    XAMP: tokenPrices[TOKENS.XAMP],
-    BOA: tokenPrices[TOKENS.BOA],
-    TOB: tokenPrices[TOKENS.TOB],
-  }
-}
 
 const getPricesYFKA = async () => {
   const tokenKeys = Object.keys(TOKENS);
@@ -935,29 +923,38 @@ const getPricesYFKA = async () => {
   }
 }
 
-
-
-
-const getPricesETH = async () => {
+// Get BTS token prices in USD and ETH
+const getPrices = async () => {
   const tokenKeys = Object.keys(TOKENS);
 
-  const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenKeys.map(k => TOKENS[k]).join(',')}&vs_currencies=eth`);
+  const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenKeys.map(k => TOKENS[k]).join(',')}&vs_currencies=usd,eth`);
   const tokenPrices = await response.json();
 
-  // ETH
   return {
     YFKA: tokenPrices[TOKENS.YFKA],
     XAMP: tokenPrices[TOKENS.XAMP],
     BOA: tokenPrices[TOKENS.BOA],
     TOB: tokenPrices[TOKENS.TOB],
+	ETH: tokenPrices[TOKENS.ETH],
   }
 }
+
+
+
+
 
 const getReserves = async () => {
 	if (DISPLAY_CONSOLE) console.log('getReserves');
 	const account = await getAccount();
 	if (!account) return null;
 
+	//GET PRICES
+	const coinPrices = await getPrices();
+	const YFKAPrice = coinPrices.YFKA; //use .usd  or .eth
+	const XAMPPrice = coinPrices.XAMP;
+	const TOBPrice = coinPrices.TOB;
+	const BOAPrice = coinPrices.BOA;
+	
 	const provider = getInfuraProvider();
 
 	// YFKA_XAMP
@@ -1003,6 +1000,12 @@ const getReserves = async () => {
 	const YFKAReserveBOA= YFKABOAReserves[0]/(10**18);
 	const YFKAReserveETH= YFKAETHReserves[0]/(10**18);
 	
+	//WORK OUT YFKA TO LP
+	const YFKALPXAMP = halfLP/YFKAXAMPReserves;
+	const YFKALPTOB = halfLPTOB/YFKAReserveTOB;
+	const YFKALPBOA = LPtoBOA/YFKAReserveBOA;
+	const YFKALPETH = halfLPETH/YFKAReserveETH;
+	
 	const TotalYFKAPooled = YFKAReserve + YFKAReserveTOB + YFKAReserveBOA + YFKAReserveETH;
 
 	//WORK OUT POOL % of YFKA	
@@ -1038,6 +1041,19 @@ const getReserves = async () => {
 	const LPtoETH = halfLP/ETHReserve;
 	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH) *(10**18);	
 	
+	//LP PRICING
+	const XAMPLPUSD = twoDecimals((XAMPtoLP * XAMPPrice.usd) + (YFKALPXAMP * YFKAPrice.usd));
+	const TOBLPUSD = twoDecimals((TOBReserve * TOBPrice.usd) + (YFKALPTOB * YFKAPrice.usd));
+	const BOALPUSD = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
+	const ETHLPUSD = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
+	
+	//POOL PRICING
+	const XAMPLPUSDTOTAL = twoDecimals((XAMPReserve * XAMPPrice.usd) + (YFKAReserve * YFKAPrice.usd));
+	const TOBLPUSDTOTAL = twoDecimals((TOBReserve * TOBPrice.usd) + (YFKALPTOB * YFKAPrice.usd));
+	const BOALPUSDTOTAL = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
+	const ETHLPUSDTOTAL = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
+	
+	
 	//UPDATE HTML
 	$('#XAMPLPTOTAL').html(twoDecimals(totalLPXAMP/(10**18)));
 	$('#TOBLPTOTAL').html(twoDecimals(totalLPTOB/(10**18)));
@@ -1069,6 +1085,10 @@ const getReserves = async () => {
 	$('#LPBOA').html(eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
 	$('#LPETH').html(eightDecimals((LPtoETH-(LPtoETH*feeCalc))));
 	
+	$('#LPPRICEXAMP').html(twoDecimals(XAMPLPUSD));
+	$('#LPPRICEXAMPTOTAL').html(twoDecimals(XAMPLPUSDTOTAL));
+	$('#reward-XAMP-USD').html(twoDecimals($('#reward-XAMP').val() * XAMPPrice.usd));
+	
 	
 	
 	//LOGGING
@@ -1091,6 +1111,8 @@ const getReserves = async () => {
 	if (DISPLAY_CONSOLE) console.log("LP per 1 BOA: ", eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
 	
 };
+
+
 
 
 
@@ -2090,8 +2112,7 @@ window.addEventListener('load', async (event) => {
 			}			
 			else {
 				
-				await getReserves();
-				await getPrices();
+				
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 				var updateAP = await updateActivePool().catch(e => {
@@ -2128,6 +2149,8 @@ window.addEventListener('load', async (event) => {
 					});
 					$('#isConnected').html('wallet connected');
 				}
+				
+				await getReserves();
 			}
 		}catch(e){
 			errorHandling(e, 'GetAccounts()');
