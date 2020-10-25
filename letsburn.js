@@ -1037,6 +1037,12 @@ const getReserves = async () => {
 	const LPtoETH = halfLP/ETHReserve;
 	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH) *(10**18);	
 	
+	//WORK OUT YFKA TO LP
+	const YFKALPXAMP = halfLP/YFKAXAMPReserves;
+	const YFKALPTOB = halfLPTOB/YFKAReserveTOB;
+	const YFKALPBOA = LPtoBOA/YFKAReserveBOA;
+	const YFKALPETH = halfLPETH/YFKAReserveETH;
+	
 	//LP PRICING
 	const XAMPLPUSD = twoDecimals((XAMPtoLP * XAMPPrice.usd) + (YFKALPXAMP * YFKAPrice.usd));
 	const TOBLPUSD = twoDecimals((TOBReserve * TOBPrice.usd) + (YFKALPTOB * YFKAPrice.usd));
@@ -1049,11 +1055,7 @@ const getReserves = async () => {
 	const BOALPUSDTOTAL = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
 	const ETHLPUSDTOTAL = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
 	
-	//WORK OUT YFKA TO LP
-	const YFKALPXAMP = halfLP/YFKAXAMPReserves;
-	const YFKALPTOB = halfLPTOB/YFKAReserveTOB;
-	const YFKALPBOA = LPtoBOA/YFKAReserveBOA;
-	const YFKALPETH = halfLPETH/YFKAReserveETH;
+
 	
 	
 	//UPDATE HTML
