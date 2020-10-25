@@ -1187,7 +1187,7 @@ const FillInfo = async () => {
 	const totalLPETH = await ethContract.methods.totalSupply().call();
 
 	//GET XAMP POOLED
-	const XAMPReserve = YFKAXAMPReserves[1]/(10**9);
+	const XAMPReserve = YFKAXAMPReserves[1]/(10**18);
 	const TOBReserve = YFKATOBReserves[1]/(10**18);
 	const BOAReserve = YFKABOAReserves[1]/(10**18);
 	const ETHReserve = YFKAETHReserves[1]/(10**18);
