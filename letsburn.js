@@ -1129,16 +1129,16 @@ const getReserves = async () => {
 	
 	//POOL PRICING
 	const XAMPLPUSDTOTAL = twoDecimals((XAMPReserve * XAMPPrice.usd) + (YFKAReserve * YFKAPrice.usd));
-	const TOBLPUSDTOTAL = twoDecimals((TOBReserve * TOBPrice.usd) + (YFKALPTOB * YFKAPrice.usd));
-	const BOALPUSDTOTAL = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
-	const ETHLPUSDTOTAL = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
+	const TOBLPUSDTOTAL = twoDecimals((TOBReserve * TOBPrice.usd) + (YFKAReserveTOB * YFKAPrice.usd));
+	const BOALPUSDTOTAL = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKAReserveBOA * YFKAPrice.usd));
+	const ETHLPUSDTOTAL = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKAReserveETH * YFKAPrice.usd));
 	
 	
 	//LP PRICING
 	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL/(totalLPXAMP/(10**18)));
 	const TOBLPUSD = twoDecimals(TOBLPUSDTOTAL/(totalLPTOB/(10**18)));
-	const BOALPUSD = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
-	const ETHLPUSD = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
+	const BOALPUSD = twoDecimals(BOALPUSDTOTAL/(totalLPBOA/(10**18)));
+	const ETHLPUSD = twoDecimals(ETHLPUSDTOTAL/(totalLPETH/(10**18)));
 
 	//CALCULATE USERS LP $
 	const USERXAMPLPPRICE =   XAMPLPUSD * userLPS.fXAMP;
