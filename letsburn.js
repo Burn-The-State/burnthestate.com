@@ -948,6 +948,8 @@ const getReserves = async () => {
 	const account = await getAccount();
 	if (!account) return null;
 
+	const userOwnedLP = await getTotalBalances();
+	
 	//GET PRICES
 	const coinPrices = await getPrices();
 	const YFKAPrice = coinPrices.YFKA; //use .usd  or .eth
@@ -1059,6 +1061,8 @@ const getReserves = async () => {
 	const BOALPUSD = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKALPBOA * YFKAPrice.usd));
 	const ETHLPUSD = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
 
+	//CALCULATE USERS LP $
+	const USERXAMPLPPRICE =   XAMPLPUSD * userOwnedLP.XAMP;
 	
 	
 	//UPDATE HTML
@@ -1098,6 +1102,7 @@ const getReserves = async () => {
 	console.log("XAMP LP $ = ", twoDecimals(XAMPLPUSD));
 	$('#reward-XAMP-USD').html(twoDecimals($('reward-XAMP').val() * XAMPPrice.usd));
 	
+	$('#UserLPUSD').html(twoDecimals(USERXAMPLPPRICE));
 	
 	
 	//LOGGING
