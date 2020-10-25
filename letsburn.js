@@ -957,7 +957,7 @@ const getReserves = async () => {
 		.getCurrentReward(YFKA_POOL_INDEXES.XAMP)
 		.call({
 			from: account,
-		});
+		})/(10**18);
 	
 	
 	//GET PRICES
@@ -1113,7 +1113,7 @@ const getReserves = async () => {
 	console.log("XAMP REWARD = ", $('#reward-XAMP').val());
 	console.log("XAMP LP $ = ", twoDecimals(XAMPLPUSD));
 	
-	$('#reward-XAMP-USD').html(XAMPPrice.usd*xampReward);
+	$('#reward-XAMP-USD').html(YFKAPrice.usd*xampReward);
 	$('#UserLPUSD').html(twoDecimals(USERXAMPLPPRICE));
 	
 	
