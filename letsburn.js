@@ -1143,6 +1143,7 @@ const getReserves = async () => {
 	//CALCULATE USERS LP $
 	const USERXAMPLPPRICE =   XAMPLPUSD * userLPS.fXAMP;
 	const USERTOBLPPRICE =   TOBLPUSD * userLPS.fTOB;
+	const USERBOALPPRICE =   BOALPUSD * userLPS.fBOA;
 	
 	//UPDATE HTML
 	$('#XAMPLPTOTAL').html(twoDecimals(totalLPXAMP/(10**18)));
@@ -1177,16 +1178,19 @@ const getReserves = async () => {
 	
 	$('#LPPRICEXAMP').html(Number(XAMPLPUSD).toLocaleString());
 	$('#LPPRICETOB').html(Number(TOBLPUSD).toLocaleString());
+	$('#LPPRICEBOA').html(Number(BOALPUSD).toLocaleString());
 	
 	$('#LPPRICEXAMPTOTAL').html(Number(twoDecimals(XAMPLPUSDTOTAL)).toLocaleString());
 	$('#LPPRICETOBTOTAL').html(Number(twoDecimals(TOBLPUSDTOTAL)).toLocaleString());
+	$('#LPPRICEBOATOTAL').html(Number(twoDecimals(BOALPUSDTOTAL)).toLocaleString());
 	
 	$('#reward-XAMP-USD').html(twoDecimals(YFKAPrice.usd * userRewards.fXAMP));
 	$('#reward-TOB-USD').html(twoDecimals(YFKAPrice.usd * userRewards.fTOB));
+	$('#reward-BOA-USD').html(twoDecimals(YFKAPrice.usd * userRewards.fBOA));
 	
 	$('#UserLPUSDXAMP').html(twoDecimals(USERXAMPLPPRICE));
 	$('#UserLPUSDTOB').html(twoDecimals(USERTOBLPPRICE));
-	
+	$('#UserLPUSDBOA').html(twoDecimals(USERBOALPPRICE));
 	
 	
 	
