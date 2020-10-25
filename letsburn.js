@@ -1361,7 +1361,7 @@ const FillInfo = async () => {
 	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPXAMP/(10**18));
 	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", Number(XAMPReserve).toLocaleString());
 	if (DISPLAY_CONSOLE) console.log("XAMP per 1 LP: ", Number(XAMPtoLP).toLocaleString() );
-	if (DISPLAY_CONSOLE) console.log("LP per 1 XAMP: ", eightDecimals((LPtoXAMP-(LPtoXAMP*feeCalc)));
+	if (DISPLAY_CONSOLE) console.log("LP per 1 XAMP: ", eightDecimals((LPtoXAMP-(LPtoXAMP*feeCalc))));
 	
 	if (DISPLAY_CONSOLE) console.log("--------------TOB---------------------");
 	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPTOB/(10**18));
