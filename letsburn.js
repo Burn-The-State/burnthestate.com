@@ -1302,7 +1302,7 @@ const FillInfo = async () => {
 	$('#BOALP').html(Number(twoDecimals(BOAtoLP)).toLocaleString());
 	$('#ETHLP').html(Number(twoDecimals(ETHtoLP)).toLocaleString());
 	
-	$('#LPXAMP').html(LPtoXAMP);
+	$('#LPXAMP').html(Number(LPtoXAMP).toLocaleString());
 	$('#LPTOB').html(eightDecimals((LPtoTOB-(LPtoTOB*feeCalc))));
 	$('#LPBOA').html(eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
 	$('#LPETH').html(eightDecimals((LPtoETH-(LPtoETH*feeCalc))));
@@ -1359,7 +1359,7 @@ const FillInfo = async () => {
 	
 	//XAMP
 	$('#TOTXAMP').html(fourDecimals(BTSTOT.fXAMPTotal));
-	$('#LPXAMP').html(fourDecimals(BTSTOT.fXAMPLP));
+	//$('#LPXAMP').html(fourDecimals(BTSTOT.fXAMPLP));
 	$('#WALXAMP').html(fourDecimals(BTSTOT.fXAMPWallet));
 	//XAMP $
 	$('#XAMPP1').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPTotal));
