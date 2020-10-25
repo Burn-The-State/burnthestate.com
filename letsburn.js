@@ -1213,9 +1213,9 @@ const FillInfo = async () => {
 	
 	
 	//XAMP LOGIC
-	const halfLP = (totalLPXAMP/(10**9))/2;
+	const halfLP = totalLPXAMP/2;
 	const LPtoXAMP = halfLP/XAMPReserve;
-	const XAMPtoLP = (YFKAXAMPReserves[1]/totalLPXAMP) *(10**9);
+	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**9);
 	
 	//const LPtoXAMPFees = LPtoXAMP*feeCalc;
 	//const LPperXAMPFinal =  LPtoXAMP-LPtoXAMPFees;
