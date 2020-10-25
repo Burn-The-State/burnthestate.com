@@ -1218,6 +1218,7 @@ const FillInfo = async () => {
 	if (DISPLAY_CONSOLE) console.log("totalLPXAMP: ", totalLPXAMP);
 	if (DISPLAY_CONSOLE) console.log("totalLPXAMP(READABLE): ", totalLPXAMP/(10**18));
 	if (DISPLAY_CONSOLE) console.log("halfLPXAMP: ", halfLPXAMP);
+	if (DISPLAY_CONSOLE) console.log("halfLPXAMP * (10*9): ", halfLPXAMP*(10*9));
 	const LPtoXAMP = halfLPXAMP/XAMPReserve;
 	if (DISPLAY_CONSOLE) console.log("XAMPReserve: ", XAMPReserve);
 	if (DISPLAY_CONSOLE) console.log("HalfXAMP/XAMPReserve: ", LPtoXAMP);
