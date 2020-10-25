@@ -940,25 +940,94 @@ const getPrices = async () => {
 }
 
 
-
-
-
-const getReserves = async () => {
-	if (DISPLAY_CONSOLE) console.log('getReserves');
+// Stakes HELPER
+const getStakes = async () => {
+	//Provides Base Amount in Uint256 and Formatted Amount for Easy printing
 	const account = await getAccount();
-	if (!account) return null;
 	const ashContract = yfkaControllerContract();
 	
 	const userOwnedLPXAMP = await ashContract.methods
 		.stakes(YFKA_POOL_INDEXES.XAMP, account)
-		.call()/(10**18);
+		.call();
+	const userOwnedLPTOB = await ashContract.methods
+		.stakes(YFKA_POOL_INDEXES.TOB, account)
+		.call();
+	const userOwnedLPBOA = await ashContract.methods
+		.stakes(YFKA_POOL_INDEXES.BOA, account)
+		.call();
+	const userOwnedLPETH = await ashContract.methods
+		.stakes(YFKA_POOL_INDEXES.ETH, account)
+		.call();
+		
+	const userOwnedLPXAMPFormatted = userOwnedLPXAMP/(10**18);
+	const userOwnedLPTOBFormatted = userOwnedLPTOB/(10**18);
+	const userOwnedLPBOAFormatted = userOwnedLPBOA/(10**18);
+	const userOwnedLPETHFormatted = userOwnedLPETH/(10**18);
+		
+		
+  return {
+    XAMP: userOwnedLPXAMP,
+    BOA: userOwnedLPBOA,
+    TOB: userOwnedLPTOB,
+	ETH: userOwnedLPETH,
+	fXAMP: userOwnedLPXAMPFormatted,
+    fBOA: userOwnedLPBOAFormatted,
+    fTOB: userOwnedLPTOBFormatted,
+	fETH: userOwnedLPETHFormatted,
+  }
+}
+
+
+// rewards HELPER
+const getRewards = async () => {
+	const account = await getAccount();
+	const ashContract = yfkaControllerContract();
 	
 	const xampReward = await ashContract.methods
 		.getCurrentReward(YFKA_POOL_INDEXES.XAMP)
 		.call({
 			from: account,
-		})/(10**18);
+		});
+	const tobReward = await ashContract.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.TOB)
+		.call({
+			from: account,
+		});
+	const boaReward = await ashContract.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.BOA)
+		.call({
+			from: account,
+		});
+	const ethReward = await ashContract.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.ETH)
+		.call({
+			from: account,
+		});
+	const XampRewardFormatted = xampReward/(10**18);
+	const TobRewardFormatted = tobReward/(10**18);
+	const BoaRewardFormatted = boaReward/(10**18);
+	const ETHRewardFormatted = ethReward/(10**18);
+
+  return {
+    XAMP: xampReward,
+    BOA: boaReward,
+    TOB: tobReward,
+	ETH: ethReward,
+	fXAMP: XampRewardFormatted,
+    fBOA: BoaRewardFormatted,
+    fTOB: TobRewardFormatted,
+	fETH: ETHRewardFormatted,
+  }
+}
+}
+
+
+
+const getReserves = async () => {
+	if (DISPLAY_CONSOLE) console.log('getReserves');
 	
+	const userLPS = await getStakes();
+	const userRewards = await getRewards();
 	
 	//GET PRICES
 	const coinPrices = await getPrices();
@@ -1072,10 +1141,8 @@ const getReserves = async () => {
 	const ETHLPUSD = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKALPETH * YFKAPrice.usd));
 
 	//CALCULATE USERS LP $
-	if (DISPLAY_CONSOLE) console.log("XAMP OWNED: ", userOwnedLPXAMP);
-	if (DISPLAY_CONSOLE) console.log("USD LP PRICE: ", XAMPLPUSD );
-	const USERXAMPLPPRICE =   XAMPLPUSD * userOwnedLPXAMP;
-	
+	const USERXAMPLPPRICE =   XAMPLPUSD * userLPS.fXAMP;
+	const USERTOBLPPRICE =   TOBLPUSD * userLPS.fTOB;
 	
 	//UPDATE HTML
 	$('#XAMPLPTOTAL').html(twoDecimals(totalLPXAMP/(10**18)));
@@ -1109,12 +1176,16 @@ const getReserves = async () => {
 	$('#LPETH').html(eightDecimals((LPtoETH-(LPtoETH*feeCalc))));
 	
 	$('#LPPRICEXAMP').html(Number(XAMPLPUSD).toLocaleString());
-	$('#LPPRICEXAMPTOTAL').html(Number(twoDecimals(XAMPLPUSDTOTAL)).toLocaleString());
-	console.log("XAMP REWARD = ", $('#reward-XAMP').val());
-	console.log("XAMP LP $ = ", twoDecimals(XAMPLPUSD));
+	$('#LPPRICETOB').html(Number(TOBLPUSD).toLocaleString());
 	
-	$('#reward-XAMP-USD').html(twoDecimals(YFKAPrice.usd*xampReward));
-	$('#UserLPUSD').html(twoDecimals(USERXAMPLPPRICE));
+	$('#LPPRICEXAMPTOTAL').html(Number(twoDecimals(XAMPLPUSDTOTAL)).toLocaleString());
+	$('#LPPRICETOBTOTAL').html(Number(twoDecimals(TOBLPUSDTOTAL)).toLocaleString());
+	
+	$('#reward-XAMP-USD').html(twoDecimals(YFKAPrice.usd * userRewards.fXAMP));
+	$('#reward-TOB-USD').html(twoDecimals(YFKAPrice.usd * userRewards.fTOB));
+	
+	$('#UserLPUSDXAMP').html(twoDecimals(USERXAMPLPPRICE));
+	$('#UserLPUSDTOB').html(twoDecimals(USERTOBLPPRICE));
 	
 	
 	
