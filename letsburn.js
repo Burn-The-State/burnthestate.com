@@ -1284,7 +1284,7 @@ const FillInfo = async () => {
 	$('#YFKAPOOLEDBPERCENT').html(twoDecimals(BOAYFKAPercent));
 	$('#YFKAPOOLEDEPERCENT').html(twoDecimals(ETHYFKAPercent));
 	
-	$('#XAMPLP').html(Number(twoDecimals(XAMPtoLP)).toLocaleString());
+	$('#XAMPLP').html(Number(XAMPtoLP).toLocaleString());
 	$('#TOBLP').html(Number(twoDecimals(TOBtoLP)).toLocaleString());
 	$('#BOALP').html(Number(twoDecimals(BOAtoLP)).toLocaleString());
 	$('#ETHLP').html(Number(twoDecimals(ETHtoLP)).toLocaleString());
