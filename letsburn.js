@@ -1019,7 +1019,7 @@ const getRewards = async () => {
 	fETH: ETHRewardFormatted,
   }
 }
-}
+
 
 
 
