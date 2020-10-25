@@ -954,6 +954,7 @@ const getReserves = async () => {
 	const XAMPPrice = coinPrices.XAMP;
 	const TOBPrice = coinPrices.TOB;
 	const BOAPrice = coinPrices.BOA;
+	const ETHPrice = coinPrices.ETH;
 	
 	const provider = getInfuraProvider();
 
