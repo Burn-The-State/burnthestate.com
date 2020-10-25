@@ -1024,13 +1024,35 @@ const getRewards = async () => {
 const getBTSTotals = async () => {
 	const rewards = await getRewards();
 	const yfkaRewardTotal = rewards.fXAMP + rewards.fTOB + rewards.fBOA + rewards.fETH;
-
+	const WalletBalances = await getPoolBalances();
+	const UsersLP = await getStakes();
+	const reserves = await getReserves();
+	
+	
+	//TODO Work out totals from LP
+	const XAMPfromLP = (reserves.XAMP[1]/(10**9))/UsersLP.XAMP;
+	const TOBfromLP = (reserves.TOB[1]/(10**18))/UsersLP.TOB;
+	const BOAfromLP = (reserves.BOA[1]/(10**18))/UsersLP.BOA;
+	const ETHfromLP = (reserves.ETH[1]/(10**18))/UsersLP.ETH;
+	const YFKAfromLP = ((reserves.XAMP[0]/(10**18))/UsersLP.XAMP) +
+						((reserves.TOB[0]/(10**18))/UsersLP.TOB) +
+						((reserves.BOA[0]/(10**18))/UsersLP.BOA) +
+						((reserves.XAMP[0]/(10**18))/UsersLP.ETH) ;
+						
+						
+	const XampTOTAL = WalletBalances.XAMP + XAMPfromLP;
+	const TobTOTAL = WalletBalances.TOB + TOBfromLP;
+	const BoaTOTAL = WalletBalances.BOA + BOAfromLP;
+	const ETHRTOTAL = WalletBalances.ETH + ETHfromLP;
+	const YFKATOTAL = WalletBalances.YFKA + YFKAfromLP;
+	
+	
   return {
-    fXAMPWallet: xampWallet,
-    fBOAWallet: boaWallet,
-    fTOBWallet: tobWallet,
-	fYFKAWallet: yfkaWallet,
-	fETHWallet: ethWallet,
+    fXAMPWallet: WalletBalances.XAMP,
+    fBOAWallet: WalletBalances.BOA,
+    fTOBWallet: WalletBalances.TOB,
+	fYFKAWallet: WalletBalances.YFKA,
+	fETHWallet: WalletBalances.ETH,
 	fYFKAReward: yfkaRewardTotal,
 	fXAMPLP: XampTotalLP,
     fBOALP: BoaTotalLP,
@@ -1046,22 +1068,8 @@ const getBTSTotals = async () => {
 }
 
 
-
-
+//GET RESERVES
 const getReserves = async () => {
-	if (DISPLAY_CONSOLE) console.log('getReserves');
-	
-	const userLPS = await getStakes();
-	const userRewards = await getRewards();
-	
-	//GET PRICES
-	const coinPrices = await getPrices();
-	const YFKAPrice = coinPrices.YFKA; //use .usd  or .eth
-	const XAMPPrice = coinPrices.XAMP;
-	const TOBPrice = coinPrices.TOB;
-	const BOAPrice = coinPrices.BOA;
-	const ETHPrice = coinPrices.ETH;
-	
 	const provider = getInfuraProvider();
 
 	// YFKA_XAMP
@@ -1082,12 +1090,49 @@ const getReserves = async () => {
 	PAIRS.YFKA_ETH
 
 	);
+	
 	//PULL RESERVES
 	const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
 	const YFKATOBReserves = await tobContract.methods.getReserves().call();
 	const YFKABOAReserves = await boaContract.methods.getReserves().call();
 	const YFKAETHReserves = await ethContract.methods.getReserves().call();
 	
+	
+	
+	return {
+    XAMP: YFKAXAMPReserves,
+    BOA: YFKATOBReserves,
+    TOB: YFKABOAReserves,
+	ETH: YFKAETHReserves,
+	}
+	
+}
+
+
+
+const FillInfo = async () => {
+	if (DISPLAY_CONSOLE) console.log('getReserves');
+	
+	const userLPS = await getStakes();
+	const userRewards = await getRewards();
+	const BTSTOT = await getBTSTotals();
+	
+	//PULL RESERVES
+	const reserves = await getReserves();
+	const YFKAXAMPReserves = reserves.XAMP;
+	const YFKATOBReserves = reserves.TOB;
+	const YFKABOAReserves = reserves.BOA;
+	const YFKAETHReserves = reserves.ETH;
+	
+	
+	
+	//GET PRICES
+	const coinPrices = await getPrices();
+	const YFKAPrice = coinPrices.YFKA; //use .usd  or .eth
+	const XAMPPrice = coinPrices.XAMP;
+	const TOBPrice = coinPrices.TOB;
+	const BOAPrice = coinPrices.BOA;
+	const ETHPrice = coinPrices.ETH;
 	
 	//GET TOTAL LP IN POOLS
 	const totalLPXAMP = await xampContract.methods.totalSupply().call();
@@ -1233,6 +1278,37 @@ const getReserves = async () => {
 	$('#reward-TOB1').html(twoDecimals(userRewards.fTOB));
 	$('#reward-BOA1').html(twoDecimals(userRewards.fBOA));
 	$('#reward-ETH1').html(twoDecimals(userRewards.fETH));
+	
+	/*TODO PRINT TO USER BTS LP TOTAL, BTS WALLET TOTAL, BTS TOTAL TOTAL. WORK OUT ($) for each. 
+	fXAMPWallet: WalletBalances.XAMP,
+    fBOAWallet: WalletBalances.BOA,
+    fTOBWallet: WalletBalances.TOB,
+	fYFKAWallet: WalletBalances.YFKA,
+	fETHWallet: WalletBalances.ETH,
+	fYFKAReward: yfkaRewardTotal,
+	fXAMPLP: XampTotalLP,
+    fBOALP: BoaTotalLP,
+    fTOBLP: TobTotalLP,
+	fYFKALP: yfkaTotalLP,
+	fETHLP: ETHTotalLP,
+	fXAMPTotal: XampTOTAL,
+    fBOALPTotal: BoaTOTAL,
+    fTOBLPTotal: TobTOTAL,
+	fETHLPTotal: ETHRTOTAL,
+	fYFKALPTotal: YFKATOTAL,
+	*/
+	
+	//XAMP
+	$('#TOTXAMP').html(fourDecimals(BTSTOT.fXAMPTotal));
+	$('#LPXAMP').html(fourDecimals(BTSTOT.fXAMPLP));
+	$('#WALXAMP').html(fourDecimals(BTSTOT.fXAMPWallet));
+	//XAMP $
+	$('#XAMPP1').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPTotal));
+	$('#XAMPP2').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPLP));
+	$('#XAMPP3').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPWallet));
+	
+	
+	
 	
 	//LOGGING
 	if (DISPLAY_CONSOLE) console.log("---------------XAMP------------------");
@@ -1502,6 +1578,8 @@ const getTotalBalances = async () => {
 		};
 };
 
+
+//GET WALLET BALANCES
 const getPoolBalances = async () => {
   if (DISPLAY_CONSOLE) console.log('getBalances');
   const account = await getAccount();
@@ -1553,6 +1631,7 @@ const getPoolBalances = async () => {
     STANDARD_ERC20_ABI,
     PAIRS.YFKA_ETH
   );
+
   const ethContractBalance = await ethContract.methods
     .balanceOf(account)
     .call();
@@ -1560,6 +1639,21 @@ const getPoolBalances = async () => {
 
   const ethContractDecimals = await ethContract.methods.decimals().call();
   if (DISPLAY_CONSOLE) console.log('ethContractDecimals: ', ethContractDecimals);
+
+  
+   const yfkaContract = new provider.eth.Contract(
+    STANDARD_ERC20_ABI,
+    TOKENS.YFKA
+  );
+  
+  const yfkaContractBalance = await ethContract.methods
+    .balanceOf(account)
+    .call();
+  if (DISPLAY_CONSOLE) console.log('yfkaContractBalance: ', yfkaContractBalance);
+
+  const yfkaContractDecimals = await ethContract.methods.decimals().call();
+  if (DISPLAY_CONSOLE) console.log('fykaContractDecimals: ', yfkaContractDecimals);
+
 
   // TODO TOB showing NaN so figure that out
   const amounts = {
@@ -1573,6 +1667,9 @@ const getPoolBalances = async () => {
     ETH: ethContractBalance
       ? ethContractBalance / 10 ** ethContractDecimals
       : 0,
+	YFKA: yfkaContractBalance
+      ? yfkaContractBalance / 10 ** yfkaContractDecimals
+      : 0,
   };
 
   return {
@@ -1580,6 +1677,7 @@ const getPoolBalances = async () => {
     TOB: _.toNumber(amounts.TOB),
     BOA: _.toNumber(amounts.BOA),
     ETH: _.toNumber(amounts.ETH),
+	YFKA: _.toNumber(amounts.YFKA),
   };
 };
 
@@ -2165,6 +2263,7 @@ $('#dropDownInfoClose').click(async () => {
 	document.getElementById('TobInfoPanel').style.display = 'none';
 	document.getElementById('BoaInfoPanel').style.display = 'none';
 	document.getElementById('EthInfoPanel').style.display = 'none';
+	document.getElementById('WalletInfoPanel').style.display = 'none';
 	} else {
 		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
 		document.getElementById('moreInfodiv').style.display = 'none';
@@ -2172,11 +2271,21 @@ $('#dropDownInfoClose').click(async () => {
 		document.getElementById('TobInfoPanel').style.display = 'none';
 		document.getElementById('BoaInfoPanel').style.display = 'none';
 		document.getElementById('EthInfoPanel').style.display = 'none';
+		document.getElementById('WalletInfoPanel').style.display = 'none';
 	}
 
 
 	
 	
+});
+
+$('#WALLETInfo').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('XAMP Info Clicked');
+	document.getElementById('XampInfoPanel').style.display = 'none';
+	document.getElementById('TobInfoPanel').style.display = 'none';
+	document.getElementById('BoaInfoPanel').style.display = 'none';
+	document.getElementById('EthInfoPanel').style.display = 'none';
+	document.getElementById('WalletInfoPanel').style.display = 'block';
 });
 
 
@@ -2186,6 +2295,7 @@ $('#XAMPInfo').click(async () => {
 	document.getElementById('TobInfoPanel').style.display = 'none';
 	document.getElementById('BoaInfoPanel').style.display = 'none';
 	document.getElementById('EthInfoPanel').style.display = 'none';
+	document.getElementById('WalletInfoPanel').style.display = 'none';
 
 });
 $('#TOBInfo').click(async () => {
@@ -2194,6 +2304,7 @@ $('#TOBInfo').click(async () => {
 	document.getElementById('TobInfoPanel').style.display = 'block';
 	document.getElementById('BoaInfoPanel').style.display = 'none';
 	document.getElementById('EthInfoPanel').style.display = 'none';
+	document.getElementById('WalletInfoPanel').style.display = 'none';
 
 });
 $('#BOAInfo').click(async () => {
@@ -2202,6 +2313,7 @@ $('#BOAInfo').click(async () => {
 	document.getElementById('TobInfoPanel').style.display = 'none';
 	document.getElementById('BoaInfoPanel').style.display = 'block';
 	document.getElementById('EthInfoPanel').style.display = 'none';
+	document.getElementById('WalletInfoPanel').style.display = 'none';
 
 });
 $('#ETHInfo').click(async () => {
@@ -2210,7 +2322,7 @@ $('#ETHInfo').click(async () => {
 	document.getElementById('TobInfoPanel').style.display = 'none';
 	document.getElementById('BoaInfoPanel').style.display = 'none';
 	document.getElementById('EthInfoPanel').style.display = 'block';
-
+	document.getElementById('WalletInfoPanel').style.display = 'none';
 });
 
 
@@ -2293,7 +2405,7 @@ window.addEventListener('load', async (event) => {
 					$('#isConnected').html('wallet connected');
 				}
 				
-				await getReserves();
+				await FillInfo();
 			}
 		}catch(e){
 			errorHandling(e, 'GetAccounts()');
