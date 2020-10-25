@@ -1020,6 +1020,31 @@ const getRewards = async () => {
   }
 }
 
+// Total Wallet BTS Helper.
+const getBTSTotals = async () => {
+	const rewards = await getRewards();
+	const yfkaRewardTotal = rewards.fXAMP + rewards.fTOB + rewards.fBOA + rewards.fETH;
+
+  return {
+    fXAMPWallet: xampWallet,
+    fBOAWallet: boaWallet,
+    fTOBWallet: tobWallet,
+	fYFKAWallet: yfkaWallet,
+	fETHWallet: ethWallet,
+	fYFKAReward: yfkaRewardTotal,
+	fXAMPLP: XampTotalLP,
+    fBOALP: BoaTotalLP,
+    fTOBLP: TobTotalLP,
+	fYFKALP: yfkaTotalLP,
+	fETHLP: ETHTotalLP,
+	fXAMPTotal: XampTOTAL,
+    fBOALPTotal: BoaTOTAL,
+    fTOBLPTotal: TobTOTAL,
+	fETHLPTotal: ETHRTOTAL,
+	fYFKALPTotal: YFKATOTAL,
+  }
+}
+
 
 
 
@@ -1203,6 +1228,11 @@ const getReserves = async () => {
 	$('#balance-LP-BOA-1').html(twoDecimals(userLPS.fBOA));
 	$('#balance-LP-ETH-1').html(twoDecimals(userLPS.fETH));
 	
+	
+	$('#reward-XAMP1').html(twoDecimals(userRewards.fXAMP));
+	$('#reward-TOB1').html(twoDecimals(userRewards.fTOB));
+	$('#reward-BOA1').html(twoDecimals(userRewards.fBOA));
+	$('#reward-ETH1').html(twoDecimals(userRewards.fETH));
 	
 	//LOGGING
 	if (DISPLAY_CONSOLE) console.log("---------------XAMP------------------");
