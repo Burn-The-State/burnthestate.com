@@ -1113,7 +1113,7 @@ const getReserves = async () => {
 	console.log("XAMP REWARD = ", $('#reward-XAMP').val());
 	console.log("XAMP LP $ = ", twoDecimals(XAMPLPUSD));
 	
-	$('#reward-XAMP-USD').html(YFKAPrice.usd*xampReward);
+	$('#reward-XAMP-USD').html(twoDecimals(YFKAPrice.usd*xampReward));
 	$('#UserLPUSD').html(twoDecimals(USERXAMPLPPRICE));
 	
 	
