@@ -954,30 +954,30 @@ const getPricesETH = async () => {
 }
 
 const getReserves = async () => {
-  if (DISPLAY_CONSOLE) console.log('getBalances');
-  const account = await getAccount();
-  if (!account) return null;
+	if (DISPLAY_CONSOLE) console.log('getReserves');
+	const account = await getAccount();
+	if (!account) return null;
 
-  const provider = getInfuraProvider();
+	const provider = getInfuraProvider();
 
-  // YFKA_XAMP
-const xampContract = new provider.eth.Contract(
-UNISWAP_BASE_LP_ABI,
-PAIRS.YFKA_XAMP
-);
-const tobContract = new provider.eth.Contract(
-UNISWAP_BASE_LP_ABI,
-PAIRS.YFKA_TOB
-);
-const boaContract = new provider.eth.Contract(
-UNISWAP_BASE_LP_ABI,
-PAIRS.YFKA_BOA
-);
-const ethContract = new provider.eth.Contract(
-UNISWAP_BASE_LP_ABI,
-PAIRS.YFKA_ETH
+	// YFKA_XAMP
+	const xampContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_XAMP
+	);
+	const tobContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_TOB
+	);
+	const boaContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_BOA
+	);
+	const ethContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_ETH
 
-);
+	);
 	//PULL RESERVES
 	const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
 	const YFKATOBReserves = await tobContract.methods.getReserves().call();
@@ -1039,30 +1039,30 @@ PAIRS.YFKA_ETH
 	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH) *(10**18);	
 	
 	//UPDATE HTML
-	$('#XAMPLPTOTAL').html(totalLPXAMP/(10**18));
-	$('#TOBLPTOTAL').html(totalLPTOB/(10**18));
-	$('#BOALPTOTAL').html(totalLPBOA/(10**18));
-	$('#ETHLPTOTAL').html(totalLPETH/(10**18));
+	$('#XAMPLPTOTAL').html(twoDecimals(totalLPXAMP/(10**18)));
+	$('#TOBLPTOTAL').html(twoDecimals(totalLPTOB/(10**18)));
+	$('#BOALPTOTAL').html(twoDecimals(totalLPBOA/(10**18)));
+	$('#ETHLPTOTAL').html(twoDecimals(totalLPETH/(10**18)));
 	
-	$('#XAMPPOOLED').html(Number(XAMPReserve).toLocaleString());
-	$('#TOBPOOLED').html(Number(TOBReserve).toLocaleString());
-	$('#BOAPOOLED').html(Number(BOAReserve).toLocaleString());
-	$('#ETHPOOLED').html(Number(ETHReserve).toLocaleString());
+	$('#XAMPPOOLED').html(Number(twoDecimals(XAMPReserve)).toLocaleString());
+	$('#TOBPOOLED').html(Number(twoDecimals(TOBReserve)).toLocaleString());
+	$('#BOAPOOLED').html(Number(twoDecimals(BOAReserve)).toLocaleString());
+	$('#ETHPOOLED').html(Number(twoDecimals(ETHReserve)).toLocaleString());
 	
-	$('#YFKAPOOLEDX').html(Number(YFKAReserve).toLocaleString());
-	$('#YFKAPOOLEDT').html(Number(YFKAReserveTOB).toLocaleString());
-	$('#YFKAPOOLEDB').html(Number(YFKAReserveBOA).toLocaleString());
-	$('#YFKAPOOLEDE').html(Number(YFKAReserveETH).toLocaleString());
+	$('#YFKAPOOLEDX').html(Number(twoDecimals(YFKAReserve)).toLocaleString());
+	$('#YFKAPOOLEDT').html(Number(twoDecimals(YFKAReserveTOB)).toLocaleString());
+	$('#YFKAPOOLEDB').html(Number(twoDecimals(YFKAReserveBOA)).toLocaleString());
+	$('#YFKAPOOLEDE').html(Number(twoDecimals(YFKAReserveETH)).toLocaleString());
 	
-	$('#YFKAPOOLEDXPERCENT').html(XAMPYFKAPercent);
-	$('#YFKAPOOLEDTPERCENT').html(TOBYFKAPercent);
-	$('#YFKAPOOLEDBPERCENT').html(BOAYFKAPercent);
-	$('#YFKAPOOLEDEPERCENT').html(ETHYFKAPercent);
+	$('#YFKAPOOLEDXPERCENT').html(twoDecimals(XAMPYFKAPercent));
+	$('#YFKAPOOLEDTPERCENT').html(twoDecimals(TOBYFKAPercent));
+	$('#YFKAPOOLEDBPERCENT').html(twoDecimals(BOAYFKAPercent));
+	$('#YFKAPOOLEDEPERCENT').html(twoDecimals(ETHYFKAPercent));
 	
-	$('#XAMPLP').html(Number(XAMPtoLP).toLocaleString());
-	$('#TOBLP').html(Number(TOBtoLP).toLocaleString());
-	$('#BOALP').html(Number(BOAtoLP).toLocaleString());
-	$('#ETHLP').html(Number(ETHtoLP).toLocaleString());
+	$('#XAMPLP').html(Number(twoDecimals(XAMPtoLP)).toLocaleString());
+	$('#TOBLP').html(Number(twoDecimals(TOBtoLP)).toLocaleString());
+	$('#BOALP').html(Number(twoDecimals(BOAtoLP)).toLocaleString());
+	$('#ETHLP').html(Number(twoDecimals(ETHtoLP)).toLocaleString());
 	
 	$('#LPXAMP').html(eightDecimals(LPperXAMPFinal*100));
 	$('#LPTOB').html(eightDecimals((LPtoTOB-(LPtoTOB*feeCalc))));
@@ -2067,7 +2067,7 @@ window.addEventListener('load', async (event) => {
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	//await stakeMinimumPrice();
 	
-	await getReserves();
+	
 	
 	
 	//Mobile Detection.
@@ -2076,13 +2076,7 @@ window.addEventListener('load', async (event) => {
 			if (DISPLAY_CONSOLE) console.log('User appears to be on a mobile.');
 		}
 	}, 100);
-	
-	const response = await fetch('https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0xf911a7ec46a2c6fa49193212fe4a2a9b95851c27&vs_currencies=usd');
-	const data = await response.json();
-	
-	if (DISPLAY_CONSOLE) console.log('USD amount = $', data['0xf911a7ec46a2c6fa49193212fe4a2a9b95851c27'].usd);
-	
-	
+
 	web3.eth.getAccounts(async function(err, accounts){
 		try {
 			
@@ -2095,6 +2089,9 @@ window.addEventListener('load', async (event) => {
 				});
 			}			
 			else {
+				
+				await getReserves();
+				await getPrices();
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 				var updateAP = await updateActivePool().catch(e => {
