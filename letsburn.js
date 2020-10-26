@@ -1442,6 +1442,27 @@ const FillInfo = async () => {
     fTOBLPTotal: TobTOTAL,
 	fETHLPTotal: ETHRTOTAL,
 	fYFKALPTotal: YFKATOTAL,
+	
+	
+	YFKA HTML
+
+<strong>Total Balance: </strong><span id="TOTYFKA">0</span>YFKA ($<span id="YFKA1">0</span>)</small></span></div>                  
+
+<strong>Staked Balance: </strong><span id="LPYFKAuser">0</span>YFKA ($<span id="YFKA2">0</span>)</small></span></div> 
+
+<strong>Wallet Balance: </strong><span id="WALYFKA">0</span> YFKA  ($ <span id="YFKA3">0</span>)</small></span></div> 
+
+<strong>Total Reward balance: </strong><span id="REWYFKA">0</span> YFKA  ($ <span id="YFKA4">0</span>)</small></span></div> 
+     
+            
+            
+	
+	
+	
+	
+	
+	
+	
 	*/
 	
 	
@@ -1473,6 +1494,19 @@ const FillInfo = async () => {
 	$('#BOA1').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOATotal));
 	$('#BOA2').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOALP));
 	$('#BOA3').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOAWallet));
+
+	//YFKA
+	$('#TOTYFKA').html(BTSTOT.fYFKATotal);
+	$('#LPYFKAuser').html(BTSTOT.fYFKALP);
+	$('#WALYFKA').html(BTSTOT.fYFKAWallet);
+	$('#REWYFKA').html(BTSTOT.fYFKAReward);
+	//ETH $
+	$('#YFKA1').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKATotal));
+	$('#YFKA2').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKALP));
+	$('#YFKA3').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAWallet));
+	$('#YFKA4').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAWallet));
+
+
 
 	//ETH 
 	$('#TOTETH').html(BTSTOT.fETHTotal);
