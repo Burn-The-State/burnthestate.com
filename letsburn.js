@@ -1065,7 +1065,7 @@ const getWalletBTSCoins = async () => {
     BOA: totalBALANCETOB,
     TOB: totalBALANCEBOA,
 	ETH: totalBALANCEETH,
-	YFKA: totalBALANCEYFKA;
+	YFKA: totalBALANCEYFKA,
 	}
 	
 }
