@@ -1054,11 +1054,11 @@ const getWalletBTSCoins = async () => {
 	const totalBALANCEETH = await ethContract.methods.balanceOf(account).call();
 	const totalBALANCEYFKA = await yfkaContract.methods.balanceOf(account).call();
 	
-	console.log("XAMP BALANCE WALLET =", totalBALANCEXAMP);
-	console.log("TOB BALANCE WALLET =", totalBALANCETOB);
-	console.log("BOA BALANCE WALLET =", totalBALANCEBOA);
-	console.log("ETH BALANCE WALLET =", totalBALANCEETH);
-	console.log("YFKA BALANCE WALLET =", totalBALANCEYFKA);
+	console.log("XAMP BALANCE WALLET =", totalBALANCEXAMP/(10**18));
+	console.log("TOB BALANCE WALLET =", totalBALANCETOB/(10**18));
+	console.log("BOA BALANCE WALLET =", totalBALANCEBOA/(10**18));
+	console.log("ETH BALANCE WALLET =", totalBALANCEETH/(10**18));
+	console.log("YFKA BALANCE WALLET =", totalBALANCEYFKA/(10**18));
 	
 	
 	return{
@@ -1067,6 +1067,11 @@ const getWalletBTSCoins = async () => {
     TOB: totalBALANCEBOA,
 	ETH: totalBALANCEETH,
 	YFKA: totalBALANCEYFKA,
+	fXAMP: totalBALANCEXAMP/(10**18),
+    fBOA: totalBALANCETOB/(10**18),
+    fTOB: totalBALANCEBOA/(10**18),
+	fETH: totalBALANCEETH/(10**18),
+	fYFKA: totalBALANCEYFKA/(10**18),
 	}
 	
 }
