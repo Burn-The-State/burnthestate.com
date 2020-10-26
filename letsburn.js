@@ -1047,7 +1047,7 @@ const getBTSTotals = async () => {
 	const YFKATOTAL = WalletBalances.YFKA + YFKAfromLP;
 	
 	
-	if (DISPLAY_CONSOLE) console.log("XAMP WALLET: ",WalletBalances.XAMP );
+	if (DISPLAY_CONSOLE) console.log("XAMP WALLET: ",WalletBalances.XAMP/(10**9) );
 	if (DISPLAY_CONSOLE) console.log("TOB WALLET: ",WalletBalances.TOB );
 	if (DISPLAY_CONSOLE) console.log("BOA WALLET: ",WalletBalances.BOA );
 	if (DISPLAY_CONSOLE) console.log("YFKA WALLET: ",WalletBalances.YFKA );
@@ -1069,7 +1069,7 @@ const getBTSTotals = async () => {
 	
 	
   return {
-    fXAMPWallet: WalletBalances.XAMP,
+    fXAMPWallet: WalletBalances.XAMP(10**9) ,
     fBOAWallet: WalletBalances.BOA,
     fTOBWallet: WalletBalances.TOB,
 	fYFKAWallet: WalletBalances.YFKA,
@@ -1357,6 +1357,8 @@ const FillInfo = async () => {
 	fYFKALPTotal: YFKATOTAL,
 	*/
 	
+	
+	//WALLET DUMP
 	//XAMP
 	$('#TOTXAMP').html(fourDecimals(BTSTOT.fXAMPTotal));
 	$('#LPXAMPuser').html(fourDecimals(BTSTOT.fXAMPLP));
@@ -1366,6 +1368,15 @@ const FillInfo = async () => {
 	$('#XAMPP2').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPLP));
 	$('#XAMPP3').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPWallet));
 	
+	
+	//TOB
+	$('#TOTTOB').html(fourDecimals(BTSTOT.fTOBTotal));
+	$('#LPTOBuser').html(fourDecimals(BTSTOT.fTOBLP));
+	$('#WALTOB').html(fourDecimals(BTSTOT.fXTOBWallet));
+	//XAMP $
+	$('#TOB1').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBTotal));
+	$('#TOB2').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBLP));
+	$('#XTOB3').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBWallet));
 	
 	
 	
