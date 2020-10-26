@@ -1007,7 +1007,11 @@ const getRewards = async () => {
 	const TobRewardFormatted = tobReward/(10**18);
 	const BoaRewardFormatted = boaReward/(10**18);
 	const ETHRewardFormatted = ethReward/(10**18);
-
+	if (DISPLAY_CONSOLE) console.log("YFKA (XAMP REWARD): ",sixDecimals(XampRewardFormatted) );
+	if (DISPLAY_CONSOLE) console.log("YFKA (TOB REWARD): ",sixDecimals(TobRewardFormatted) );
+	if (DISPLAY_CONSOLE) console.log("YFKA (BOA REWARD): ",sixDecimals(BoaRewardFormatted)) );
+	if (DISPLAY_CONSOLE) console.log("YFKA (ETH REWARD): ",sixDecimals(ETHRewardFormatted) );
+	if (DISPLAY_CONSOLE) console.log("TOTAL (ETH REWARD): ",sixDecimals(ETHRewardFormatted) );
   return {
     XAMP: xampReward,
     BOA: boaReward,
@@ -1137,6 +1141,12 @@ const getBTSTotals = async () => {
 	const TOBfromLP = TOBtoLP*(UsersLP.TOB/(10**18));
 	const BOAfromLP = BOAtoLP*(UsersLP.BOA/(10**18));
 	const ETHfromLP = ETHtoLP*(UsersLP.ETH/(10**18));
+	
+	if (DISPLAY_CONSOLE) console.log("YFKA POOL XAMP : ",WalletBalances.fTOB );
+	if (DISPLAY_CONSOLE) console.log("TOB WALLET: ",WalletBalances.fTOB );
+	if (DISPLAY_CONSOLE) console.log("TOB WALLET: ",WalletBalances.fTOB );
+	if (DISPLAY_CONSOLE) console.log("TOB WALLET: ",WalletBalances.fTOB );
+	
 	const YFKAfromLP = YFKAtoLPX +
 						YFKAtoLPT +
 						YFKAtoLPB +
@@ -1504,7 +1514,7 @@ const FillInfo = async () => {
 	$('#YFKA1').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKATotal));
 	$('#YFKA2').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKALP));
 	$('#YFKA3').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAWallet));
-	$('#YFKA4').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAWallet));
+	$('#YFKA4').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAReward));
 
 
 
