@@ -1360,12 +1360,12 @@ const FillInfo = async () => {
 	
 	//WALLET DUMP
 	//XAMP
-	$('#TOTXAMP').html(fourDecimals(BTSTOT.fXAMPTotal));
-	$('#LPXAMPuser').html(fourDecimals(BTSTOT.fXAMPLP));
+	$('#TOTXAMP').html(fourDecimals(BTSTOT.fXAMPTotal/(10**18)));
+	$('#LPXAMPuser').html(fourDecimals(BTSTOT.fXAMPLP/(10**18)));
 	$('#WALXAMP').html(fourDecimals(BTSTOT.fXAMPWallet));
 	//XAMP $
-	$('#XAMPP1').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPTotal));
-	$('#XAMPP2').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPLP));
+	$('#XAMPP1').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPTotal/(10**18))));
+	$('#XAMPP2').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPLP/(10**18))));
 	$('#XAMPP3').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPWallet));
 	
 	
