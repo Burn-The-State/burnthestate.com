@@ -1150,11 +1150,11 @@ const getBTSTotals = async () => {
 	const YFKATOTAL = WalletBalances.fYFKA + YFKAfromLP;
 	
 	
-	if (DISPLAY_CONSOLE) console.log("XAMP WALLET: ",WalletBalances.XAMP/(10**9) );
-	if (DISPLAY_CONSOLE) console.log("TOB WALLET: ",WalletBalances.TOB );
-	if (DISPLAY_CONSOLE) console.log("BOA WALLET: ",WalletBalances.BOA );
-	if (DISPLAY_CONSOLE) console.log("YFKA WALLET: ",WalletBalances.YFKA );
-	if (DISPLAY_CONSOLE) console.log("ETH WALLET: ",WalletBalances.XAMP );
+	if (DISPLAY_CONSOLE) console.log("XAMP WALLET: ",WalletBalances.fXAMP/(10**9) );
+	if (DISPLAY_CONSOLE) console.log("TOB WALLET: ",WalletBalances.fTOB );
+	if (DISPLAY_CONSOLE) console.log("BOA WALLET: ",WalletBalances.fBOA );
+	if (DISPLAY_CONSOLE) console.log("YFKA WALLET: ",WalletBalances.fYFKA );
+	if (DISPLAY_CONSOLE) console.log("ETH WALLET: ",WalletBalances.fXAMP );
 	
 	if (DISPLAY_CONSOLE) console.log("XAMP TOTAL: ",XampTOTAL );
 	if (DISPLAY_CONSOLE) console.log("TOB TOTAL: ",TobTOTAL );
@@ -1172,11 +1172,11 @@ const getBTSTotals = async () => {
 	
 	
   return {
-    fXAMPWallet: fourDecimals(WalletBalances.XAMP/(10**9)) ,
-    fBOAWallet: fourDecimals(WalletBalances.BOA),
-    fTOBWallet: fourDecimals(WalletBalances.TOB),
-	fYFKAWallet: fourDecimals(WalletBalances.YFKA),
-	fETHWallet: fourDecimals(WalletBalances.ETH),
+    fXAMPWallet: fourDecimals(WalletBalances.fXAMP/(10**9)) ,
+    fBOAWallet: fourDecimals(WalletBalances.fBOA),
+    fTOBWallet: fourDecimals(WalletBalances.fTOB),
+	fYFKAWallet: fourDecimals(WalletBalances.fYFKA),
+	fETHWallet: fourDecimals(WalletBalances.fETH),
 	fYFKAReward: fourDecimals(yfkaRewardTotal),
 	fXAMPLP: fourDecimals(XAMPfromLP),
     fBOALP: fourDecimals(BOAfromLP),
