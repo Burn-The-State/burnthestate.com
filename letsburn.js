@@ -1073,7 +1073,7 @@ const getBTSTotals = async () => {
 	console.log("RESERVE= ",reserves.XAMP[1], ": " ,reserves.XAMP[1]/(10**9));
 	console.log("LP= ",UsersLP.XAMP, ": " ,UsersLP.XAMP/(10**18));
 	console.log("XAMP= ",reserves.XAMP[1]*(UsersLP.XAMP), ": " ,(reserves.XAMP[1]/(10**9))*((UsersLP.XAMP/(10**18))/2));
-	const XAMPfromLP = XAMPtoLP*UsersLP.XAMP;
+	const XAMPfromLP = XAMPtoLP*(UsersLP.XAMP/(10**18));
 	/totalLPXAMP) *(10**18)
 	
 	const TOBfromLP = (reserves.TOB[1]/(10**18))*(UsersLP.TOB/(10**18))*(10**18);
