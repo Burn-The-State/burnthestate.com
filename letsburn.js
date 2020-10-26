@@ -1327,10 +1327,10 @@ const FillInfo = async () => {
 	$('#UserLPUSDBOA').html(twoDecimals(USERBOALPPRICE));
 	$('#UserLPUSDETH').html(twoDecimals(USERETHLPPRICE));
 	
-	$('#balance-LP-XAMP-1').html(twoDecimals(userLPS.fXAMP));
-	$('#balance-LP-TOB-1').html(twoDecimals(userLPS.fTOB));
-	$('#balance-LP-BOA-1').html(twoDecimals(userLPS.fBOA));
-	$('#balance-LP-ETH-1').html(twoDecimals(userLPS.fETH));
+	$('#balance-LP-XAMP-1').html(fourDecimals(userLPS.fXAMP));
+	$('#balance-LP-TOB-1').html(fourDecimals(userLPS.fTOB));
+	$('#balance-LP-BOA-1').html(fourDecimals(userLPS.fBOA));
+	$('#balance-LP-ETH-1').html(fourDecimals(userLPS.fETH));
 	
 	
 	$('#reward-XAMP1').html(fourDecimals(userRewards.fXAMP));
@@ -1360,12 +1360,12 @@ const FillInfo = async () => {
 	
 	//WALLET DUMP
 	//XAMP
-	$('#TOTXAMP').html(fourDecimals(BTSTOT.fXAMPTotal/(10**18)));
-	$('#LPXAMPuser').html(fourDecimals(BTSTOT.fXAMPLP/(10**18)));
+	$('#TOTXAMP').html(fourDecimals(BTSTOT.fXAMPTotal));
+	$('#LPXAMPuser').html(fourDecimals(BTSTOT.fXAMPLP));
 	$('#WALXAMP').html(fourDecimals(BTSTOT.fXAMPWallet));
 	//XAMP $
-	$('#XAMPP1').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPTotal/(10**18))));
-	$('#XAMPP2').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPLP/(10**18))));
+	$('#XAMPP1').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPTotal)));
+	$('#XAMPP2').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPLP)));
 	$('#XAMPP3').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPWallet));
 	
 	
