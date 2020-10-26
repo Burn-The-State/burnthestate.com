@@ -6,7 +6,7 @@
 *------------------ CONSTANTS -------------------------------
 *
 *
-*
+*NOTE TO SELF web3.eth.getBalance FOR ETH BALANCE FROM WALLET.
 *
 */
 const TOKENS = {
