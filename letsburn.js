@@ -1063,27 +1063,27 @@ const getBTSTotals = async () => {
 	
 	//WORK OUT BTS to LP 
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
+	const YFKAtoLPX = ((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18)
 	const TOBtoLP = (TOBReserve/totalLPXAMP) *(10**18);
+	const YFKAtoLPT = ((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18)
 	const BOAtoLP = (BOAReserve/totalLPXAMP) *(10**18);
+	const YFKAtoLPB = ((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18)
 	const ETHtoLP = (ETHReserve/totalLPXAMP) *(10**18);
+	const YFKAtoLPE = ((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18)
 	
 	//TODO Work out totals from LP
 	
 	
-	console.log("RESERVE= ",reserves.XAMP[1], ": " ,reserves.XAMP[1]/(10**9));
-	console.log("LP= ",UsersLP.XAMP, ": " ,UsersLP.XAMP/(10**18));
-	console.log("XAMP= ",reserves.XAMP[1]*(UsersLP.XAMP), ": " ,(reserves.XAMP[1]/(10**9))*((UsersLP.XAMP/(10**18))/2));
-	const XAMPfromLP = XAMPtoLP*(UsersLP.XAMP/(10**18));
-	//totalLPXAMP) *(10**18)
-	
-	const TOBfromLP = (reserves.TOB[1]/(10**18))*(UsersLP.TOB/(10**18))*(10**18);
-	const BOAfromLP = (reserves.BOA[1]/(10**18))*(UsersLP.BOA/(10**18))*(10**18);
-	const ETHfromLP = (reserves.ETH[1]/(10**18))*(UsersLP.ETH/(10**18))*(10**18);
-	const YFKAfromLP = ((reserves.XAMP[0]/(10**18))*UsersLP.XAMP/(10**18)) +
-						((reserves.TOB[0]/(10**18))*UsersLP.TOB/(10**18)) +
-						((reserves.BOA[0]/(10**18))*UsersLP.BOA/(10**18)) +
-						((reserves.XAMP[0]/(10**18))*UsersLP.ETH/(10**18)) ;
-						
+
+	const XAMPfromLP = XAMPtoLP*(UsersLP.XAMP/(10**18));	
+	const TOBfromLP = TOBtoLP**(UsersLP.TOB/(10**18));
+	const BOAfromLP = BOAtoLP**(UsersLP.BOA/(10**18));
+	const ETHfromLP = ETHtoLP**(UsersLP.ETH/(10**18));
+	const YFKAfromLP = YFKAtoLPX +
+						YFKAtoLPT +
+						YFKAtoLPB +
+						YFKAtoLPE ;
+	console.log("YFKA:", YFKAfromLP);
 						
 	const XampTOTAL = WalletBalances.XAMP + XAMPfromLP;
 	const TobTOTAL = WalletBalances.TOB + TOBfromLP;
