@@ -1069,7 +1069,7 @@ const getBTSTotals = async () => {
 	
 	
   return {
-    fXAMPWallet: WalletBalances.XAMP(10**9) ,
+    fXAMPWallet: WalletBalances.XAMP/(10**9) ,
     fBOAWallet: WalletBalances.BOA,
     fTOBWallet: WalletBalances.TOB,
 	fYFKAWallet: WalletBalances.YFKA,
