@@ -1030,6 +1030,10 @@ const getBTSTotals = async () => {
 	
 	
 	//TODO Work out totals from LP
+	
+	
+	console.log("RESERVE= ",reserves.XAMP[1], ": " ,reserves.XAMP[1]*(10**18));
+	console.log("LP= ",UsersLP.XAMP, ": " ,UsersLP.XAMP*(10**18));
 	const XAMPfromLP = (reserves.XAMP[1])*(UsersLP.XAMP)/(10**18);
 	const TOBfromLP = (reserves.TOB[1]/(10**18))*(UsersLP.TOB/(10**18))*(10**18);
 	const BOAfromLP = (reserves.BOA[1]/(10**18))*(UsersLP.BOA/(10**18))*(10**18);
