@@ -1068,8 +1068,8 @@ const getWalletBTSCoins = async () => {
 	ETH: totalBALANCEETH,
 	YFKA: totalBALANCEYFKA,
 	fXAMP: totalBALANCEXAMP/(10**18),
-    fBOA: totalBALANCETOB/(10**18),
-    fTOB: totalBALANCEBOA/(10**18),
+    fBOA: totalBALANCEBOA/(10**18),
+    fTOB: totalBALANCETOB/(10**18),
 	fETH: totalBALANCEETH/(10**18),
 	fYFKA: totalBALANCEYFKA/(10**18),
 	}
