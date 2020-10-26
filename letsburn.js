@@ -1214,39 +1214,23 @@ const FillInfo = async () => {
 	
 	//XAMP LOGIC
 	const halfLPXAMP = (totalLPXAMP/(10**18))/2;
-	if (DISPLAY_CONSOLE) console.log("--------------- XAMP LP CALC ------------------");
-	if (DISPLAY_CONSOLE) console.log("totalLPXAMP: ", totalLPXAMP);
-	if (DISPLAY_CONSOLE) console.log("totalLPXAMP(READABLE): ", totalLPXAMP/(10**18));
-	if (DISPLAY_CONSOLE) console.log("halfLPXAMP: ", halfLPXAMP);
-	const LPtoXAMP = (halfLPXAMP/XAMPReserve);
-	if (DISPLAY_CONSOLE) console.log("XAMPReserve: ", XAMPReserve);
-	if (DISPLAY_CONSOLE) console.log("HalfXAMP/XAMPReserve: ", LPtoXAMP);
-	if (DISPLAY_CONSOLE) console.log("HalfXAMP/XAMPReserve * (10*18): ", LPtoXAMP * (10*18));
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
-	if (DISPLAY_CONSOLE) console.log("1 XAMP : ", LPtoXAMP, " LP");
-	if (DISPLAY_CONSOLE) console.log("1 LP : ", XAMPtoLP, " XAMP");
-	if (DISPLAY_CONSOLE) console.log("XAMPtoLP =(XAMPReserve/totalLPXAMP) *(10**18): ", XAMPtoLP);
-	if (DISPLAY_CONSOLE) console.log("XAMPtoLP =(XAMPReserve/totalLPXAMP): ", (XAMPReserve/totalLPXAMP));
-	
-	
-	if (DISPLAY_CONSOLE) console.log("------------------------------------------------");
-	//const LPtoXAMPFees = LPtoXAMP*feeCalc;
-	//const LPperXAMPFinal =  LPtoXAMP-LPtoXAMPFees;
+	const LPtoXAMP = 1/XAMPtoLP;
 	
 	//TOB LOGIC
 	const halfLPTOB = (totalLPTOB)/2;
-	const LPtoTOB = halfLPTOB/TOBReserve/(10**18)
 	const TOBtoLP = (TOBReserve/totalLPTOB)*(10**18);
+	const LPtoTOB = 1/TOBtoLP;
 	
 	//BOA LOGIC
 	const halfLPBOA = (totalLPBOA/(10**18))/2;
-	const LPtoBOA = halfLPBOA/BOAReserve
 	const BOAtoLP = (BOAReserve/totalLPBOA)*(10**18);
+	const LPtoBOA = 1/BOAtoLP;
 	
 	//XAMP LOGIC
 	const halfLPETH = (totalLPETH/(10**18))/2;
-	const LPtoETH = halfLPETH/ETHReserve;
-	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH) *(10**18);	
+	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH)/(10**18);	
+	const LPtoETH = 1/ETHtoLP;
 	
 	//WORK OUT YFKA TO LP
 	const YFKALPXAMP = halfLPXAMP/YFKAXAMPReserves;
