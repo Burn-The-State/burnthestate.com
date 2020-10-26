@@ -1064,11 +1064,11 @@ const getBTSTotals = async () => {
 	//WORK OUT BTS to LP 
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
 	const YFKAtoLPX = ((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18)
-	const TOBtoLP = (TOBReserve/totalLPXAMP) *(10**18);
+	const TOBtoLP = (TOBReserve/totalLPTOB) *(10**18);
 	const YFKAtoLPT = ((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18)
-	const BOAtoLP = (BOAReserve/totalLPXAMP) *(10**18);
+	const BOAtoLP = (BOAReserve/totalLPBOA) *(10**18);
 	const YFKAtoLPB = ((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18)
-	const ETHtoLP = (ETHReserve/totalLPXAMP) *(10**18);
+	const ETHtoLP = (ETHReserve/totalLPETH) *(10**18);
 	const YFKAtoLPE = ((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18)
 	
 	//TODO Work out totals from LP
