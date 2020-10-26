@@ -1076,9 +1076,9 @@ const getBTSTotals = async () => {
 	
 
 	const XAMPfromLP = XAMPtoLP*(UsersLP.XAMP/(10**18));	
-	const TOBfromLP = TOBtoLP**(UsersLP.TOB/(10**18));
-	const BOAfromLP = BOAtoLP**(UsersLP.BOA/(10**18));
-	const ETHfromLP = ETHtoLP**(UsersLP.ETH/(10**18));
+	const TOBfromLP = TOBtoLP*(UsersLP.TOB/(10**18));
+	const BOAfromLP = BOAtoLP*(UsersLP.BOA/(10**18));
+	const ETHfromLP = ETHtoLP*(UsersLP.ETH/(10**18));
 	const YFKAfromLP = YFKAtoLPX +
 						YFKAtoLPT +
 						YFKAtoLPB +
