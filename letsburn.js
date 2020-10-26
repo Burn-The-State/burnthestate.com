@@ -1027,7 +1027,7 @@ const getBTSTotals = async () => {
 	const WalletBalances = await getPoolBalances();
 	const UsersLP = await getStakes();
 	const reserves = await getReserves();
-	
+	const provider = getInfuraProvider();
 	
 	// YFKA_XAMP
 	const xampContract = new provider.eth.Contract(
