@@ -1459,11 +1459,30 @@ const FillInfo = async () => {
 	//TOB
 	$('#TOTTOB').html(BTSTOT.fTOBTotal);
 	$('#LPTOBuser').html(BTSTOT.fTOBLP);
-	$('#WALTOB').html(BTSTOT.fXTOBWallet);
-	//XAMP $
+	$('#WALTOB').html(BTSTOT.fTOBWallet);
+	//TOB $
 	$('#TOB1').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBTotal));
 	$('#TOB2').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBLP));
-	$('#XTOB3').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBWallet));
+	$('#TOB3').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBWallet));
+	
+	//BOA 
+	$('#TOTBOA').html(BTSTOT.fBOATotal);
+	$('#LPBOAuser').html(BTSTOT.fBOALP);
+	$('#WALBOA').html(BTSTOT.fBOAWallet);
+	//BOA $
+	$('#BOA1').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOATotal));
+	$('#BOA2').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOALP));
+	$('#BOA3').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOAWallet));
+
+	//ETH 
+	$('#TOTETH').html(BTSTOT.fETHTotal);
+	$('#LPETHuser').html(BTSTOT.fETHLP);
+	$('#WALETH').html(BTSTOT.fETHWallet);
+	//ETH $
+	$('#ETH1').html(twoDecimals(BOAPrice.usd*BTSTOT.fETHTotal));
+	$('#ETH2').html(twoDecimals(BOAPrice.usd*BTSTOT.fETHLP));
+	$('#ETH3').html(twoDecimals(BOAPrice.usd*BTSTOT.fETHWallet));
+	
 	
 	
 	
