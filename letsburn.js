@@ -1345,7 +1345,7 @@ const FillInfo = async () => {
 	//WALLET DUMP
 	//XAMP
 	$('#TOTXAMP').html(BTSTOT.fXAMPTotal);
-	$('#LPXAMPuser').html(BTSTOT.fXAMPLP /(10**9));
+	$('#LPXAMPuser').html(Number(BTSTOT.fXAMPLP /(10**9)).toLocaleString());
 	$('#WALXAMP').html(BTSTOT.fXAMPWallet);
 	//XAMP $
 	$('#XAMPP1').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPTotal)));
