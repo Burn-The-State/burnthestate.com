@@ -1021,6 +1021,7 @@ const getRewards = async () => {
 }
 //Simply gets BTS coins from Wallet.
 const getWalletBTSCoins = async () => {
+	const provider = getInfuraProvider();
 	const account = await getAccount();
 	const xampContract = new provider.eth.Contract(
 	STANDARD_ERC20_ABI,
