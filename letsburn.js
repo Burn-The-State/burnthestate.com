@@ -1029,13 +1029,53 @@ const getBTSTotals = async () => {
 	const reserves = await getReserves();
 	
 	
+	// YFKA_XAMP
+	const xampContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_XAMP
+	);
+	const tobContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_TOB
+	);
+	const boaContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_BOA
+	);
+	const ethContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_ETH
+
+	);
+	
+	//GET TOTAL LP IN POOLS
+	const totalLPXAMP = await xampContract.methods.totalSupply().call();
+	const totalLPTOB = await tobContract.methods.totalSupply().call();
+	const totalLPBOA = await boaContract.methods.totalSupply().call();
+	const totalLPETH = await ethContract.methods.totalSupply().call();
+	
+	
+	//GET XAMP POOLED
+	const XAMPReserve = reserves.XAMP[1]/(10**9);
+	const TOBReserve = reserves.TOB[1]/(10**18);
+	const BOAReserve = reserves.BOA[1]/(10**18);
+	const ETHReserve = reserves.ETH[1]/(10**18);
+	
+	//WORK OUT BTS to LP 
+	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
+	const TOBtoLP = (TOBReserve/totalLPXAMP) *(10**18);
+	const BOAtoLP = (BOAReserve/totalLPXAMP) *(10**18);
+	const ETHtoLP = (ETHReserve/totalLPXAMP) *(10**18);
+	
 	//TODO Work out totals from LP
 	
 	
 	console.log("RESERVE= ",reserves.XAMP[1], ": " ,reserves.XAMP[1]/(10**9));
 	console.log("LP= ",UsersLP.XAMP, ": " ,UsersLP.XAMP/(10**18));
-	console.log("XAMP= ",reserves.XAMP[1]*(UsersLP.XAMP), ": " ,((reserves.XAMP[1]/(10**9))/2)*(UsersLP.XAMP/(10**18)));
-	const XAMPfromLP = (reserves.XAMP[1])*(UsersLP.XAMP)/(10**18);
+	console.log("XAMP= ",reserves.XAMP[1]*(UsersLP.XAMP), ": " ,(reserves.XAMP[1]/(10**9))*((UsersLP.XAMP/(10**18))/2));
+	const XAMPfromLP = XAMPtoLP*UsersLP.XAMP;
+	/totalLPXAMP) *(10**18)
+	
 	const TOBfromLP = (reserves.TOB[1]/(10**18))*(UsersLP.TOB/(10**18))*(10**18);
 	const BOAfromLP = (reserves.BOA[1]/(10**18))*(UsersLP.BOA/(10**18))*(10**18);
 	const ETHfromLP = (reserves.ETH[1]/(10**18))*(UsersLP.ETH/(10**18))*(10**18);
