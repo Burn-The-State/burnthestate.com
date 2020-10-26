@@ -1230,10 +1230,9 @@ const FillInfo = async () => {
 	//XAMP LOGIC
 	const halfLPETH = (totalLPETH/(10**18))/2;
 	console.log("YFKAETHReserves[1]", YFKAETHReserves[1] , " : ", YFKAETHReserves[1]/(10**18));
-	console.log("totalLPETH", totalLPETH);
+	console.log("totalLPETH", totalLPETH, " : " , totalLPETH*(10**18));
 	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH)/(10**18);	
-	console.log("ETHtoLP", ETHtoLP);
-	console.log("ETHtoLP", ETHtoLP/(10**18));
+	console.log("ETHtoLP", ETHtoLP, " : ",ETHtoLP*(10**18));
 	const LPtoETH = 1/ETHtoLP;
 	
 	//WORK OUT YFKA TO LP
