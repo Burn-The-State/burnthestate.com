@@ -1009,7 +1009,7 @@ const getRewards = async () => {
 	const ETHRewardFormatted = ethReward/(10**18);
 	if (DISPLAY_CONSOLE) console.log("YFKA (XAMP REWARD): ",sixDecimals(XampRewardFormatted) );
 	if (DISPLAY_CONSOLE) console.log("YFKA (TOB REWARD): ",sixDecimals(TobRewardFormatted) );
-	if (DISPLAY_CONSOLE) console.log("YFKA (BOA REWARD): ",sixDecimals(BoaRewardFormatted)) );
+	if (DISPLAY_CONSOLE) console.log("YFKA (BOA REWARD): ",sixDecimals(BoaRewardFormatted) );
 	if (DISPLAY_CONSOLE) console.log("YFKA (ETH REWARD): ",sixDecimals(ETHRewardFormatted) );
 	if (DISPLAY_CONSOLE) console.log("TOTAL (ETH REWARD): ",sixDecimals(ETHRewardFormatted) );
   return {
