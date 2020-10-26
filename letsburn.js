@@ -1229,10 +1229,7 @@ const FillInfo = async () => {
 	
 	//XAMP LOGIC
 	const halfLPETH = (totalLPETH/(10**18))/2;
-	console.log("YFKAETHReserves[1]", YFKAETHReserves[1] , " : ", YFKAETHReserves[1]/(10**18));
-	console.log("totalLPETH", totalLPETH, " : " , totalLPETH*(10**18));
-	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH)/(10**18);	
-	console.log("ETHtoLP", ETHtoLP, " : ",ETHtoLP*(10**18));
+	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH);	
 	const LPtoETH = 1/ETHtoLP;
 	
 	//WORK OUT YFKA TO LP
@@ -1285,9 +1282,9 @@ const FillInfo = async () => {
 	$('#YFKAPOOLEDEPERCENT').html(twoDecimals(ETHYFKAPercent));
 	
 	$('#XAMPLP').html(Number(fourDecimals(XAMPtoLP)).toLocaleString());
-	$('#TOBLP').html(Number(twoDecimals(TOBtoLP)).toLocaleString());
-	$('#BOALP').html(Number(twoDecimals(BOAtoLP)).toLocaleString());
-	$('#ETHLP').html(Number(twoDecimals(ETHtoLP)).toLocaleString());
+	$('#TOBLP').html(Number(fourDecimals(TOBtoLP)).toLocaleString());
+	$('#BOALP').html(Number(fourDecimals(BOAtoLP)).toLocaleString());
+	$('#ETHLP').html(Number(fourDecimals(ETHtoLP)).toLocaleString());
 	
 	$('#LPXAMP').html(toFixed(tenDecimals(LPtoXAMP)));
 	$('#LPTOB').html(eightDecimals(sixDecimals(LPtoTOB)));
