@@ -959,7 +959,7 @@ const getStakes = async () => {
 		.stakes(YFKA_POOL_INDEXES.ETH, account)
 		.call();
 		
-	const userOwnedLPXAMPFormatted = userOwnedLPXAMP/(10**9);
+	const userOwnedLPXAMPFormatted = userOwnedLPXAMP/(10**18);
 	const userOwnedLPTOBFormatted = userOwnedLPTOB/(10**18);
 	const userOwnedLPBOAFormatted = userOwnedLPBOA/(10**18);
 	const userOwnedLPETHFormatted = userOwnedLPETH/(10**18);
