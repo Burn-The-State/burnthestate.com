@@ -1019,12 +1019,64 @@ const getRewards = async () => {
 	fETH: sixDecimals(ETHRewardFormatted),
   }
 }
+//Simply gets BTS coins from Wallet.
+const getWalletBTSCoins = async () => {
+	const account = await getAccount();
+	const xampContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.XAMP
+	);
+	
+	const tobContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.TOB
+	);
+	
+	const boaContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.BOA
+	);
+
+	const yfkaContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.YFKA
+	);
+	
+	const ethContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.ETH
+	);
+	
+	const totalBALANCEXAMP = await xampContract.methods.balanceOf(account).call();
+	const totalBALANCETOB = await tobContract.methods.balanceOf(account).call();
+	const totalBALANCEBOA = await boaContract.methods.balanceOf(account).call();
+	const totalBALANCEETH = await ethContract.methods.balanceOf(account).call();
+	const totalBALANCEYFKA = await yfkaContract.methods.balanceOf(account).call();
+	
+	console.log("XAMP BALANCE WALLET =", totalBALANCEXAMP);
+	console.log("TOB BALANCE WALLET =", totalBALANCETOB);
+	console.log("BOA BALANCE WALLET =", totalBALANCEBOA);
+	console.log("ETH BALANCE WALLET =", totalBALANCEETH);
+	console.log("YFKA BALANCE WALLET =", totalBALANCEYFKA);
+	
+	
+	return{
+	XAMP: totalBALANCEXAMP,
+    BOA: totalBALANCETOB,
+    TOB: totalBALANCEBOA,
+	ETH: totalBALANCEETH,
+	YFKA: totalBALANCEYFKA;
+	}
+	
+}
+
+
 
 // Total Wallet BTS Helper.
 const getBTSTotals = async () => {
 	const rewards = await getRewards();
 	const yfkaRewardTotal = rewards.fXAMP + rewards.fTOB + rewards.fBOA + rewards.fETH;
-	const WalletBalances = await getPoolBalances();
+	const WalletBalances = await getWalletBTSCoins();
 	const UsersLP = await getStakes();
 	const reserves = await getReserves();
 	const provider = getInfuraProvider();
