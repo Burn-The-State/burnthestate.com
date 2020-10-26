@@ -1143,11 +1143,11 @@ const getBTSTotals = async () => {
 						YFKAtoLPE ;
 	console.log("YFKA:", YFKAfromLP);
 						
-	const XampTOTAL = WalletBalances.XAMP + XAMPfromLP;
-	const TobTOTAL = WalletBalances.TOB + TOBfromLP;
-	const BoaTOTAL = WalletBalances.BOA + BOAfromLP;
-	const ETHRTOTAL = WalletBalances.ETH + ETHfromLP;
-	const YFKATOTAL = WalletBalances.YFKA + YFKAfromLP;
+	const XampTOTAL = WalletBalances.fXAMP + XAMPfromLP;
+	const TobTOTAL = WalletBalances.fTOB + TOBfromLP;
+	const BoaTOTAL = WalletBalances.fBOA + BOAfromLP;
+	const ETHRTOTAL = WalletBalances.fETH + ETHfromLP;
+	const YFKATOTAL = WalletBalances.fYFKA + YFKAfromLP;
 	
 	
 	if (DISPLAY_CONSOLE) console.log("XAMP WALLET: ",WalletBalances.XAMP/(10**9) );
@@ -1184,10 +1184,10 @@ const getBTSTotals = async () => {
 	fYFKALP: fourDecimals(YFKAfromLP),
 	fETHLP: fourDecimals(ETHfromLP),
 	fXAMPTotal: fourDecimals(XampTOTAL),
-    fBOALPTotal: fourDecimals(BoaTOTAL),
-    fTOBLPTotal: fourDecimals(TobTOTAL),
-	fETHLPTotal: fourDecimals(ETHRTOTAL),
-	fYFKALPTotal: fourDecimals(YFKATOTAL),
+    fBOATotal: fourDecimals(BoaTOTAL),
+    fTOBTotal: fourDecimals(TobTOTAL),
+	fETHTotal: fourDecimals(ETHRTOTAL),
+	fYFKATotal: fourDecimals(YFKATOTAL),
   }
 }
 
