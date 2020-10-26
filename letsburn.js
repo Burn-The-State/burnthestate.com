@@ -1234,8 +1234,8 @@ const FillInfo = async () => {
 	//const LPperXAMPFinal =  LPtoXAMP-LPtoXAMPFees;
 	
 	//TOB LOGIC
-	const halfLPTOB = (totalLPTOB/(10**18))/2;
-	const LPtoTOB = halfLPTOB/TOBReserve
+	const halfLPTOB = (totalLPTOB)/2;
+	const LPtoTOB = halfLPTOB/TOBReserve/(10**18)
 	const TOBtoLP = (TOBReserve/totalLPTOB)*(10**18);
 	
 	//BOA LOGIC
