@@ -1286,10 +1286,10 @@ const FillInfo = async () => {
 	$('#BOALP').html(Number(twoDecimals(BOAtoLP)).toLocaleString());
 	$('#ETHLP').html(Number(twoDecimals(ETHtoLP)).toLocaleString());
 	
-	$('#LPXAMP').html(toFixed(tenDecimals(LPtoXAMP-(LPtoXAMP*feeCalc))));
-	$('#LPTOB').html(eightDecimals((LPtoTOB-(LPtoTOB*feeCalc))));
-	$('#LPBOA').html(eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
-	$('#LPETH').html(eightDecimals((LPtoETH-(LPtoETH*feeCalc))));
+	$('#LPXAMP').html(toFixed(tenDecimals(LPtoXAMP)));
+	$('#LPTOB').html(eightDecimals(sixDecimals(LPtoTOB)));
+	$('#LPBOA').html(eightDecimals(sixDecimals(LPtoBOA)));
+	$('#LPETH').html(eightDecimals(sixDecimals(LPtoETH)));
 	
 	$('#LPPRICEXAMP').html(Number(XAMPLPUSD).toLocaleString());
 	$('#LPPRICETOB').html(Number(TOBLPUSD).toLocaleString());
