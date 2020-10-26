@@ -970,10 +970,10 @@ const getStakes = async () => {
     BOA: userOwnedLPBOA,
     TOB: userOwnedLPTOB,
 	ETH: userOwnedLPETH,
-	fXAMP: userOwnedLPXAMPFormatted,
-    fBOA: userOwnedLPBOAFormatted,
-    fTOB: userOwnedLPTOBFormatted,
-	fETH: userOwnedLPETHFormatted,
+	fXAMP: fourDecimals(userOwnedLPXAMPFormatted),
+    fBOA: fourDecimals(userOwnedLPBOAFormatted),
+    fTOB: fourDecimals(userOwnedLPTOBFormatted),
+	fETH: fourDecimals(userOwnedLPETHFormatted),
   }
 }
 
@@ -1013,10 +1013,10 @@ const getRewards = async () => {
     BOA: boaReward,
     TOB: tobReward,
 	ETH: ethReward,
-	fXAMP: XampRewardFormatted,
-    fBOA: BoaRewardFormatted,
-    fTOB: TobRewardFormatted,
-	fETH: ETHRewardFormatted,
+	fXAMP: sixDecimals(XampRewardFormatted),
+    fBOA: sixDecimals(BoaRewardFormatted),
+    fTOB: sixDecimals(TobRewardFormatted),
+	fETH: sixDecimals(ETHRewardFormatted),
   }
 }
 
@@ -1069,22 +1069,22 @@ const getBTSTotals = async () => {
 	
 	
   return {
-    fXAMPWallet: WalletBalances.XAMP/(10**9) ,
-    fBOAWallet: WalletBalances.BOA,
-    fTOBWallet: WalletBalances.TOB,
-	fYFKAWallet: WalletBalances.YFKA,
-	fETHWallet: WalletBalances.ETH,
-	fYFKAReward: yfkaRewardTotal,
-	fXAMPLP: XAMPfromLP,
-    fBOALP: BOAfromLP,
-    fTOBLP: TOBfromLP,
-	fYFKALP: YFKAfromLP,
-	fETHLP: ETHfromLP,
-	fXAMPTotal: XampTOTAL,
-    fBOALPTotal: BoaTOTAL,
-    fTOBLPTotal: TobTOTAL,
-	fETHLPTotal: ETHRTOTAL,
-	fYFKALPTotal: YFKATOTAL,
+    fXAMPWallet: fourDecimals(WalletBalances.XAMP/(10**9)) ,
+    fBOAWallet: fourDecimals(WalletBalances.BOA),
+    fTOBWallet: fourDecimals(WalletBalances.TOB),
+	fYFKAWallet: fourDecimals(WalletBalances.YFKA),
+	fETHWallet: fourDecimals(WalletBalances.ETH),
+	fYFKAReward: fourDecimals(yfkaRewardTotal),
+	fXAMPLP: fourDecimals(XAMPfromLP),
+    fBOALP: fourDecimals(BOAfromLP),
+    fTOBLP: fourDecimals(TOBfromLP),
+	fYFKALP: fourDecimals(YFKAfromLP),
+	fETHLP: fourDecimals(ETHfromLP),
+	fXAMPTotal: fourDecimals(XampTOTAL),
+    fBOALPTotal: fourDecimals(BoaTOTAL),
+    fTOBLPTotal: fourDecimals(TobTOTAL),
+	fETHLPTotal: fourDecimals(ETHRTOTAL),
+	fYFKALPTotal: fourDecimals(YFKATOTAL),
   }
 }
 
@@ -1327,16 +1327,16 @@ const FillInfo = async () => {
 	$('#UserLPUSDBOA').html(twoDecimals(USERBOALPPRICE));
 	$('#UserLPUSDETH').html(twoDecimals(USERETHLPPRICE));
 	
-	$('#balance-LP-XAMP-1').html(fourDecimals(userLPS.fXAMP));
-	$('#balance-LP-TOB-1').html(fourDecimals(userLPS.fTOB));
-	$('#balance-LP-BOA-1').html(fourDecimals(userLPS.fBOA));
-	$('#balance-LP-ETH-1').html(fourDecimals(userLPS.fETH));
+	$('#balance-LP-XAMP-1').html(userLPS.fXAMP);
+	$('#balance-LP-TOB-1').html(userLPS.fTOB);
+	$('#balance-LP-BOA-1').html(userLPS.fBOA);
+	$('#balance-LP-ETH-1').html(userLPS.fETH);
 	
 	
-	$('#reward-XAMP1').html(fourDecimals(userRewards.fXAMP));
-	$('#reward-TOB1').html(fourDecimals(userRewards.fTOB));
-	$('#reward-BOA1').html(fourDecimals(userRewards.fBOA));
-	$('#reward-ETH1').html(fourDecimals(userRewards.fETH));
+	$('#reward-XAMP1').html(userRewards.fXAMP);
+	$('#reward-TOB1').html(userRewards.fTOB);
+	$('#reward-BOA1').html(userRewards.fBOA);
+	$('#reward-ETH1').html(userRewards.fETH);
 	
 	/*TODO PRINT TO USER BTS LP TOTAL, BTS WALLET TOTAL, BTS TOTAL TOTAL. WORK OUT ($) for each. 
 	fXAMPWallet: WalletBalances.XAMP,
@@ -1360,9 +1360,9 @@ const FillInfo = async () => {
 	
 	//WALLET DUMP
 	//XAMP
-	$('#TOTXAMP').html(fourDecimals(BTSTOT.fXAMPTotal));
-	$('#LPXAMPuser').html(fourDecimals(BTSTOT.fXAMPLP));
-	$('#WALXAMP').html(fourDecimals(BTSTOT.fXAMPWallet));
+	$('#TOTXAMP').html(BTSTOT.fXAMPTotal);
+	$('#LPXAMPuser').html(BTSTOT.fXAMPLP);
+	$('#WALXAMP').html(BTSTOT.fXAMPWallet);
 	//XAMP $
 	$('#XAMPP1').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPTotal)));
 	$('#XAMPP2').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPLP)));
@@ -1370,9 +1370,9 @@ const FillInfo = async () => {
 	
 	
 	//TOB
-	$('#TOTTOB').html(fourDecimals(BTSTOT.fTOBTotal));
-	$('#LPTOBuser').html(fourDecimals(BTSTOT.fTOBLP));
-	$('#WALTOB').html(fourDecimals(BTSTOT.fXTOBWallet));
+	$('#TOTTOB').html(BTSTOT.fTOBTotal);
+	$('#LPTOBuser').html(BTSTOT.fTOBLP);
+	$('#WALTOB').html(BTSTOT.fXTOBWallet);
 	//XAMP $
 	$('#TOB1').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBTotal));
 	$('#TOB2').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBLP));
