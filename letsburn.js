@@ -1122,13 +1122,13 @@ const getBTSTotals = async () => {
 	
 	//WORK OUT BTS to LP 
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
-	const YFKAtoLPX = await (ashContract.methods.yfkaPerLP(YFKA_POOL_INDEXES.XAMP,1*(10**18)).call())/(10**18)//OLD CODE((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18)
+	const YFKAtoLPX = await (ashContract.methods.yfkaPerLP(0,1*(10**18)).call())/(10**18)//OLD CODE((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18)
 	const TOBtoLP = (TOBReserve/totalLPTOB) *(10**18);
-	const YFKAtoLPT = await (ashContract.methods.yfkaPerLP(YFKA_POOL_INDEXES.TOB,1*(10**18)).call())/(10**18)//OLD CODE((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18)
+	const YFKAtoLPT = await (ashContract.methods.yfkaPerLP(1,1*(10**18)).call())/(10**18)//OLD CODE((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18)
 	const BOAtoLP = (BOAReserve/totalLPBOA) *(10**18);
-	const YFKAtoLPB = await (ashContract.methods.yfkaPerLP(YFKA_POOL_INDEXES.BOA,1*(10**18)).call())/(10**18)//OLD CODE((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18)
+	const YFKAtoLPB = await (ashContract.methods.yfkaPerLP(2,1*(10**18)).call())/(10**18)//OLD CODE((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18)
 	const ETHtoLP = (ETHReserve/totalLPETH) *(10**18);
-	const YFKAtoLPE = await (ashContract.methods.yfkaPerLP(YFKA_POOL_INDEXES.ETH,1*(10**18)).call())/(10**18)//OLD CODE((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18)
+	const YFKAtoLPE = await (ashContract.methods.yfkaPerLP(3,1*(10**18)).call())/(10**18)//OLD CODE((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18)
 	if (DISPLAY_CONSOLE) console.log("YFKA LP XAMP : ",YFKAtoLPX );
 	if (DISPLAY_CONSOLE) console.log("OLD YFKA LP XAMP : ",((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18) );
 	if (DISPLAY_CONSOLE) console.log("YFKA LP TOB: ",YFKAtoLPT );
