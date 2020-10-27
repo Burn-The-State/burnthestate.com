@@ -1122,21 +1122,14 @@ const getBTSTotals = async () => {
 	
 	//WORK OUT BTS to LP 
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
-	const YFKAtoLPX = await (ashContract.methods.yfkaPerLP(0,1*(10**18)))//OLD CODE((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18)
+	const YFKAtoLPX = ((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18);
 	const TOBtoLP = (TOBReserve/totalLPTOB) *(10**18);
-	const YFKAtoLPT = await (ashContract.methods.yfkaPerLP(1,1*(10**18)))//OLD CODE((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18)
+	const YFKAtoLPT = ((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18);
 	const BOAtoLP = (BOAReserve/totalLPBOA) *(10**18);
-	const YFKAtoLPB = await (ashContract.methods.yfkaPerLP(2,1*(10**18)))//OLD CODE((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18)
+	const YFKAtoLPB = ((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18);
 	const ETHtoLP = (ETHReserve/totalLPETH) *(10**18);
-	const YFKAtoLPE = await (ashContract.methods.yfkaPerLP(3,1*(10**18)))//OLD CODE((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18)
-	if (DISPLAY_CONSOLE) console.log("YFKA LP XAMP : ",YFKAtoLPX );
-	if (DISPLAY_CONSOLE) console.log("OLD YFKA LP XAMP : ",((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18) );
-	if (DISPLAY_CONSOLE) console.log("YFKA LP TOB: ",YFKAtoLPT );
-	if (DISPLAY_CONSOLE) console.log("OLD YFKA LP TOB: ",((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18) );
-	if (DISPLAY_CONSOLE) console.log("YFKA LP BOA: ",YFKAtoLPB );
-	if (DISPLAY_CONSOLE) console.log("OLD YFKA LP BOA: ",((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18) );
-	if (DISPLAY_CONSOLE) console.log("YFKA LP ETH: ",YFKAtoLPE );
-	if (DISPLAY_CONSOLE) console.log("OLDYFKA LP ETH: ",((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18) );
+	const YFKAtoLPE = ((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18);
+
 	
 	
 	//TODO Work out totals from LP
