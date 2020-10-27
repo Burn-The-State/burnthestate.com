@@ -1415,10 +1415,10 @@ const FillInfo = async () => {
 	$('#BOALP').html(Number(fourDecimals(BOAtoLP)).toLocaleString());
 	$('#ETHLP').html(Number(fourDecimals(ETHtoLP)).toLocaleString());
 	
-	$('#YFKALPX').html(Number(fourDecimals(YFKAtotX)).toLocaleString());
-	$('#YFKALPT').html(Number(fourDecimals(YFKAtotT)).toLocaleString());
-	$('#YFKALPB').html(Number(fourDecimals(YFKAtotB)).toLocaleString());
-	$('#YFKALPE').html(Number(fourDecimals(YFKAtotE)).toLocaleString());
+	$('#YFKALPX').html(Number(fourDecimals(YFKAtotX/(10**18))).toLocaleString());
+	$('#YFKALPT').html(Number(fourDecimals(YFKAtotT/(10**18))).toLocaleString());
+	$('#YFKALPB').html(Number(fourDecimals(YFKAtotB/(10**18))).toLocaleString());
+	$('#YFKALPE').html(Number(fourDecimals(YFKAtotE/(10**18))).toLocaleString());
 	
 	$('#LPXAMP').html(toFixed(tenDecimals(LPtoXAMP)));
 	$('#LPTOB').html(eightDecimals(sixDecimals(LPtoTOB)));
