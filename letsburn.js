@@ -1516,7 +1516,7 @@ const setStakeBalance = async (event)=> {
   const balance = balances[event.currentTarget.value];
   if (DISPLAY_CONSOLE) console.log('balance: ', balance);
   // TODO
-  $('#stake-input').val(sixDecimals(balance));
+  $('#stake-input').val(balance); // HOTFIX 1 (27.10.2020)
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
   return balance || '';
