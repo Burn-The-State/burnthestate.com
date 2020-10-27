@@ -1087,7 +1087,7 @@ const getBTSTotals = async () => {
 	const UsersLP = await getStakes();
 	const reserves = await getReserves();
 	const provider = getInfuraProvider();
-	
+	const ashContract = yfkaControllerContract();
 	// YFKA_XAMP
 	const xampContract = new provider.eth.Contract(
 	UNISWAP_BASE_LP_ABI,
@@ -1122,13 +1122,22 @@ const getBTSTotals = async () => {
 	
 	//WORK OUT BTS to LP 
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
-	const YFKAtoLPX = ((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18)
+	const YFKAtoLPX = await ashContract.methods.yfkaPerLP(YFKA_POOL_INDEXES.XAMP,1*(10**18))/(10**18)//OLD CODE((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18)
 	const TOBtoLP = (TOBReserve/totalLPTOB) *(10**18);
-	const YFKAtoLPT = ((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18)
+	const YFKAtoLPT = await ashContract.methods.yfkaPerLP(YFKA_POOL_INDEXES.TOB,1*(10**18))/(10**18)//OLD CODE((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18)
 	const BOAtoLP = (BOAReserve/totalLPBOA) *(10**18);
-	const YFKAtoLPB = ((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18)
+	const YFKAtoLPB = await ashContract.methods.yfkaPerLP(YFKA_POOL_INDEXES.BOA,1*(10**18))/(10**18)//OLD CODE((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18)
 	const ETHtoLP = (ETHReserve/totalLPETH) *(10**18);
-	const YFKAtoLPE = ((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18)
+	const YFKAtoLPE = await ashContract.methods.yfkaPerLP(YFKA_POOL_INDEXES.ETH,1*(10**18))/(10**18)//OLD CODE((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18)
+	if (DISPLAY_CONSOLE) console.log("YFKA LP XAMP : ",YFKAtoLPX );
+	if (DISPLAY_CONSOLE) console.log("OLD YFKA LP XAMP : ",((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18) );
+	if (DISPLAY_CONSOLE) console.log("YFKA LP TOB: ",YFKAtoLPT );
+	if (DISPLAY_CONSOLE) console.log("OLD YFKA LP TOB: ",((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18) );
+	if (DISPLAY_CONSOLE) console.log("YFKA LP BOA: ",YFKAtoLPB );
+	if (DISPLAY_CONSOLE) console.log("OLD YFKA LP BOA: ",((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18) );
+	if (DISPLAY_CONSOLE) console.log("YFKA LP ETH: ",YFKAtoLPE );
+	if (DISPLAY_CONSOLE) console.log("OLDYFKA LP ETH: ",((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18) );
+	
 	
 	//TODO Work out totals from LP
 	
@@ -2274,7 +2283,7 @@ const setStakeBalance = async (event)=> {
   const balance = balances[event.currentTarget.value];
   if (DISPLAY_CONSOLE) console.log('balance: ', balance);
   // TODO
-  $('#stake-input').val(sixDecimals(balance));
+  $('#stake-input').val(balance);
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
   return balance || '';
