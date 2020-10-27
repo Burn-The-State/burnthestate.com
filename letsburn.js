@@ -1087,7 +1087,7 @@ const getBTSTotals = async () => {
 	const UsersLP = await getStakes();
 	const reserves = await getReserves();
 	const provider = getInfuraProvider();
-	const ashContract = yfkaControllerContract();
+	
 	// YFKA_XAMP
 	const xampContract = new provider.eth.Contract(
 	UNISWAP_BASE_LP_ABI,
@@ -1245,7 +1245,7 @@ const getReserves = async () => {
 
 const FillInfo = async () => {
 	if (DISPLAY_CONSOLE) console.log('getReserves');
-	
+	const ashContract = yfkaControllerContract();
 	const userLPS = await getStakes();
 	const userRewards = await getRewards();
 	const BTSTOT = await getBTSTotals();
@@ -1304,11 +1304,28 @@ const FillInfo = async () => {
 	const BOAReserve = YFKABOAReserves[1]/(10**18);
 	const ETHReserve = YFKAETHReserves[1]/(10**18);
 	
+	const YFKAtotX = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.XAMP)
+		.call();
+	const YFKAtotT = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.TOB)
+		.call();
+	const YFKAtotB = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.BOA)
+		.call();
+	const YFKAtotE = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH)
+		.call();
+	
+	
+	
+	
+	
 	//GET YFKA POOLED
-	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
-	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);	
-	const YFKAReserveBOA= YFKABOAReserves[0]/(10**18);
-	const YFKAReserveETH= YFKAETHReserves[0]/(10**18);
+	const YFKAReserve= YFKAtotX/(10**18);//OLDYFKAXAMPReserves[0]/(10**18);
+	const YFKAReserveTOB= YFKAtotT/(10**18);//YFKATOBReserves[0]/(10**18);	
+	const YFKAReserveBOA= YFKAtotB/(10**18);//YFKABOAReserves[0]/(10**18);
+	const YFKAReserveETH= YFKAtotE/(10**18);//YFKAETHReserves[0]/(10**18);
 	
 
 	
