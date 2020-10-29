@@ -1053,7 +1053,7 @@ const getWalletBTSCoins = async () => {
 		
 		 return wei;
 	  }
-    });
+    }).call();
 	if (DISPLAY_CONSOLE) console.log("ETH WALLET BALANCE : ",ethContract );
 	
 	/* BELOW DOES NOT WORK
