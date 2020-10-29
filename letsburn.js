@@ -853,8 +853,10 @@ function errorHandling(error, functionCall)
 	const errorCode = error.code;
 	const errorMessage = error.message;
 	if (DISPLAY_ERRORS) {
+		
 		const Message = 'ERROR (' + functionCall + '): ' + errorMessage;
 		if (DISPLAY_CONSOLE) console.log(Message);
+		if (DISPLAY_CONSOLE) console.log(error);
 		if (errorCode == 4001 || errorCode == -32002){
 			$('#isConnected').html('Wallet NOT Connected');
 		}
@@ -1476,13 +1478,9 @@ const FillInfo = async () => {
 	
 	
 	YFKA HTML
-
 <strong>Total Balance: </strong><span id="TOTYFKA">0</span>YFKA ($<span id="YFKA1">0</span>)</small></span></div>                  
-
 <strong>Staked Balance: </strong><span id="LPYFKAuser">0</span>YFKA ($<span id="YFKA2">0</span>)</small></span></div> 
-
 <strong>Wallet Balance: </strong><span id="WALYFKA">0</span> YFKA  ($ <span id="YFKA3">0</span>)</small></span></div> 
-
 <strong>Total Reward balance: </strong><span id="REWYFKA">0</span> YFKA  ($ <span id="YFKA4">0</span>)</small></span></div> 
      
             
