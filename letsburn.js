@@ -1048,7 +1048,7 @@ const getWalletBTSCoins = async () => {
 	TOKENS.YFKA
 	);
 	if (DISPLAY_CONSOLE) console.log("ETH ADD : ",account );
-	const ethContract = new provider.eth.getBalance(account, function(error, wei) {
+	const ethContract = await provider.eth.getBalance(account, function(error, wei) {
 	  if (!error) {
 		
 		 return wei;
