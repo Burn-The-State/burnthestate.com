@@ -1305,6 +1305,8 @@ const FillInfo = async () => {
 	const TOBReserve = YFKATOBReserves[1]/(10**18);
 	const BOAReserve = YFKABOAReserves[1]/(10**18);
 	const ETHReserve = YFKAETHReserves[1]/(10**18);
+/*
+	FAILED CODE (BIG INTS CANT BE PARSED TO CONTRACT SO NOT SURE HOW TO SEND SHIT TO THE CONTRACT LIKE THIS....)
 	
 	const YFKAtotX = await ashContract.methods
 		.yfkaPerLP(YFKA_POOL_INDEXES.XAMP, 1e+18)
@@ -1320,7 +1322,7 @@ const FillInfo = async () => {
 		.call();
 	
 	
-	
+*/	
 	
 	
 	//GET YFKA POOLED
