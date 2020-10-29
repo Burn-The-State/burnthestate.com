@@ -1026,6 +1026,8 @@ const getRewards = async () => {
 const getWalletBTSCoins = async () => {
 	const provider = getInfuraProvider();
 	const account = await getAccount();
+	
+	
 	const xampContract = new provider.eth.Contract(
 	STANDARD_ERC20_ABI,
 	TOKENS.XAMP
@@ -1046,10 +1048,15 @@ const getWalletBTSCoins = async () => {
 	TOKENS.YFKA
 	);
 	
+	const ethContract = web3.eth.getBalance();
+	if (DISPLAY_CONSOLE) console.log("ETH WALLET BALANCE : ",ethContract );
+	
+	/* BELOW DOES NOT WORK
 	const ethContract = new provider.eth.Contract(
 	STANDARD_ERC20_ABI,
 	TOKENS.ETH
 	);
+	*/
 	
 	const totalBALANCEXAMP = await xampContract.methods.balanceOf(account).call();
 	const totalBALANCETOB = await tobContract.methods.balanceOf(account).call();
@@ -1081,15 +1088,11 @@ const getWalletBTSCoins = async () => {
 
 
 
-// Total Wallet BTS Helper.
-const getBTSTotals = async () => {
-	const rewards = await getRewards();
-	const yfkaRewardTotal = rewards.fXAMP + rewards.fTOB + rewards.fBOA + rewards.fETH;
-	const WalletBalances = await getWalletBTSCoins();
-	const UsersLP = await getStakes();
+const getLPconversions = async () =>
+{
 	const reserves = await getReserves();
 	const provider = getInfuraProvider();
-	
+		
 	// YFKA_XAMP
 	const xampContract = new provider.eth.Contract(
 	UNISWAP_BASE_LP_ABI,
@@ -1115,28 +1118,27 @@ const getBTSTotals = async () => {
 	const totalLPBOA = await boaContract.methods.totalSupply().call();
 	const totalLPETH = await ethContract.methods.totalSupply().call();
 	
-	
 	//GET XAMP POOLED
 	const XAMPReserve = reserves.XAMP[1]/(10**9);
 	const TOBReserve = reserves.TOB[1]/(10**18);
 	const BOAReserve = reserves.BOA[1]/(10**18);
 	const ETHReserve = reserves.ETH[1]/(10**18);
-	
+
 	//WORK OUT BTS to LP 
+	//XAMP POOL
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
 	const YFKAtoLPX = ((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18);
+	//TOB POOL
 	const TOBtoLP = (TOBReserve/totalLPTOB) *(10**18);
 	const YFKAtoLPT = ((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18);
+	//BOA POOL
 	const BOAtoLP = (BOAReserve/totalLPBOA) *(10**18);
 	const YFKAtoLPB = ((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18);
+	//ETH POOL
 	const ETHtoLP = (ETHReserve/totalLPETH) *(10**18);
 	const YFKAtoLPE = ((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18);
 
-	
-	
-	//TODO Work out totals from LP
-	
-	
+
 
 	const XAMPfromLP = XAMPtoLP*(UsersLP.XAMP/(10**18));	
 	const TOBfromLP = TOBtoLP*(UsersLP.TOB/(10**18));
@@ -1148,16 +1150,40 @@ const getBTSTotals = async () => {
 	if (DISPLAY_CONSOLE) console.log("YFKA LP BOA: ",YFKAtoLPB );
 	if (DISPLAY_CONSOLE) console.log("YFKA LP ETH: ",YFKAtoLPE );
 	
-	const YFKAfromLP = (YFKAtoLPX*(UsersLP.XAMP/(10**18))) +
-						(YFKAtoLPT *(UsersLP.TOB/(10**18)))+
-						(YFKAtoLPB*(UsersLP.BOA/(10**18))) +
-						(YFKAtoLPE*(UsersLP.ETH/(10**18))) ;
+	
+	
+	return{
+		YFKAtoLPXAMP = YFKAtoLPX,
+		YFKAtoLPTOB = YFKAtoLPT,
+		YFKAtoLPBOA = YFKAtoLPB,
+		YFKAtoLPETH = YFKAtoLPE, 
+		XAMPtoLP = XAMPtoLP,
+		TOBtoLP = TOBtoLP,
+		BOAtoLP = BOAtoLP, 
+		ETHtoLP = ETHtoLP,
+	}
+	
+}
+
+// Total Wallet BTS Helper.
+const getBTSTotals = async () => {
+	const rewards = await getRewards();
+	const yfkaRewardTotal = rewards.fXAMP + rewards.fTOB + rewards.fBOA + rewards.fETH;
+	const WalletBalances = await getWalletBTSCoins();
+	const UsersLP = await getStakes();
+	const BTStoLP = await getLPconversions();
+	
+	
+	const YFKAfromLP = (BTStoLP.YFKAtoLPXAMP*(UsersLP.XAMP/(10**18))) +
+						(BTStoLP.YFKAtoLPTOP *(UsersLP.TOB/(10**18)))+
+						(BTStoLP.YFKAtoLPBOA*(UsersLP.BOA/(10**18))) +
+						(BTStoLP.YFKAtoLPETH*(UsersLP.ETH/(10**18))) ;
 	console.log("YFKA:", YFKAfromLP);
 						
-	const XampTOTAL = WalletBalances.fXAMP + XAMPfromLP;
-	const TobTOTAL = WalletBalances.fTOB + TOBfromLP;
-	const BoaTOTAL = WalletBalances.fBOA + BOAfromLP;
-	const ETHRTOTAL = WalletBalances.fETH + ETHfromLP;
+	const XampTOTAL = WalletBalances.fXAMP + BTStoLP.XAMPtoLP;
+	const TobTOTAL = WalletBalances.fTOB + BTStoLP.TOBtoLP;
+	const BoaTOTAL = WalletBalances.fBOA + BTStoLP.BOAtoLP;
+	const ETHRTOTAL = WalletBalances.fETH + BTStoLP.ETHtoLP;
 	const YFKATOTAL = WalletBalances.fYFKA + YFKAfromLP;
 	
 	
@@ -1305,31 +1331,29 @@ const FillInfo = async () => {
 	const TOBReserve = YFKATOBReserves[1]/(10**18);
 	const BOAReserve = YFKABOAReserves[1]/(10**18);
 	const ETHReserve = YFKAETHReserves[1]/(10**18);
-/*
-	FAILED CODE (BIG INTS CANT BE PARSED TO CONTRACT SO NOT SURE HOW TO SEND SHIT TO THE CONTRACT LIKE THIS....)
 	
 	const YFKAtotX = await ashContract.methods
-		.yfkaPerLP(YFKA_POOL_INDEXES.XAMP, 1e+18)
+		.totalYFKAStaked(YFKA_POOL_INDEXES.XAMP)
 		.call();
 	const YFKAtotT = await ashContract.methods
-		.yfkaPerLP(YFKA_POOL_INDEXES.TOB, 1e+18)
+		.totalYFKAStaked(YFKA_POOL_INDEXES.TOB)
 		.call();
 	const YFKAtotB = await ashContract.methods
-		.yfkaPerLP(YFKA_POOL_INDEXES.BOA, 1e+18)
+		.totalYFKAStaked(YFKA_POOL_INDEXES.BOA)
 		.call();
 	const YFKAtotE = await ashContract.methods
-		.yfkaPerLP(YFKA_POOL_INDEXES.ETH, 1e+18)
+		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH)
 		.call();
 	
 	
-*/	
+	
 	
 	
 	//GET YFKA POOLED
-	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
-	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);	
-	const YFKAReserveBOA= YFKABOAReserves[0]/(10**18);
-	const YFKAReserveETH= YFKAETHReserves[0]/(10**18);
+	const YFKAReserve= YFKAtotX/(10**18);//OLDYFKAXAMPReserves[0]/(10**18);
+	const YFKAReserveTOB= YFKAtotT/(10**18);//YFKATOBReserves[0]/(10**18);	
+	const YFKAReserveBOA= YFKAtotB/(10**18);//YFKABOAReserves[0]/(10**18);
+	const YFKAReserveETH= YFKAtotE/(10**18);//YFKAETHReserves[0]/(10**18);
 	
 
 	
