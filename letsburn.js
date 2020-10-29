@@ -925,6 +925,7 @@ const getPricesYFKA = async () => {
   }
 }
 
+
 // Get BTS token prices in USD and ETH
 const getPrices = async () => {
   const tokenKeys = Object.keys(TOKENS);
@@ -942,7 +943,50 @@ const getPrices = async () => {
 }
 
 
-// Stakes HELPER
+//GETS TOTAL LP PER POOL
+const getTotalLP = async () =>
+{
+	const provider = getInfuraProvider();
+	
+	// YFKA_XAMP
+	const xampContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_XAMP
+	);
+	const tobContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_TOB
+	);
+	const boaContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_BOA
+	);
+	const ethContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_ETH
+
+	);
+	
+	//GET TOTAL LP IN POOLS
+	const totalLPXAMP = await xampContract.methods.totalSupply().call();
+	const totalLPTOB = await tobContract.methods.totalSupply().call();
+	const totalLPBOA = await boaContract.methods.totalSupply().call();
+	const totalLPETH = await ethContract.methods.totalSupply().call();
+
+	return{
+		XAMP:totalLPXAMP,
+		TOB:totalLPTOB,
+		BOA:totalLPBOA,
+		ETH:totalLPETH,
+		fXAMP:totalLPXAMP/(10**18),
+		fTOB:totalLPTOB/(10**18),
+		fBOA:totalLPBOA/(10**18),
+		fETH:totalLPETH/(10**18),
+	}
+}
+
+
+// get Users STAKED LP
 const getStakes = async () => {
 	//Provides Base Amount in Uint256 and Formatted Amount for Easy printing
 	const account = await getAccount();
@@ -959,28 +1003,21 @@ const getStakes = async () => {
 		.call();
 	const userOwnedLPETH = await ashContract.methods
 		.stakes(YFKA_POOL_INDEXES.ETH, account)
-		.call();
-		
-	const userOwnedLPXAMPFormatted = userOwnedLPXAMP/(10**18);
-	const userOwnedLPTOBFormatted = userOwnedLPTOB/(10**18);
-	const userOwnedLPBOAFormatted = userOwnedLPBOA/(10**18);
-	const userOwnedLPETHFormatted = userOwnedLPETH/(10**18);
-		
-		
+		.call();	
   return {
     XAMP: userOwnedLPXAMP,
     BOA: userOwnedLPBOA,
     TOB: userOwnedLPTOB,
 	ETH: userOwnedLPETH,
-	fXAMP: fourDecimals(userOwnedLPXAMPFormatted),
-    fBOA: fourDecimals(userOwnedLPBOAFormatted),
-    fTOB: fourDecimals(userOwnedLPTOBFormatted),
-	fETH: fourDecimals(userOwnedLPETHFormatted),
+	fXAMP: userOwnedLPXAMP/(10**18),
+    fBOA: userOwnedLPBOA/(10**18),
+    fTOB: userOwnedLPTOB/(10**18),
+	fETH: userOwnedLPETH/(10**18),
   }
 }
 
 
-// rewards HELPER
+// get Users Rewards (YFKA)
 const getRewards = async () => {
 	const account = await getAccount();
 	const ashContract = yfkaControllerContract();
@@ -1016,13 +1053,15 @@ const getRewards = async () => {
     BOA: boaReward,
     TOB: tobReward,
 	ETH: ethReward,
-	fXAMP: sixDecimals(XampRewardFormatted),
-    fBOA: sixDecimals(BoaRewardFormatted),
-    fTOB: sixDecimals(TobRewardFormatted),
-	fETH: sixDecimals(ETHRewardFormatted),
+	fXAMP: xampReward/(10**18),
+    fBOA: boaReward/(10**18),
+    fTOB: tobReward/(10**18),
+	fETH: ethReward/(10**18),
   }
 }
-//Simply gets BTS coins from Wallet.
+
+
+//get USers Wallet Balances
 const getWalletBTSCoins = async () => {
 	const provider = getInfuraProvider();
 	const account = await getAccount();
@@ -1093,65 +1132,42 @@ const getWalletBTSCoins = async () => {
 }
 
 
-
-const getLPconversions = async () =>
-{
+const getLPconversions = async () =>{
 	const reserves = await getReserves();
-	const provider = getInfuraProvider();
-		
-	// YFKA_XAMP
-	const xampContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_XAMP
-	);
-	const tobContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_TOB
-	);
-	const boaContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_BOA
-	);
-	const ethContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_ETH
-
-	);
+	const totalYFKAStakes = await totalYFKAStaked();
+	const LP = await getTotalLP();
 	
-	//GET TOTAL LP IN POOLS
-	const totalLPXAMP = await xampContract.methods.totalSupply().call();
-	const totalLPTOB = await tobContract.methods.totalSupply().call();
-	const totalLPBOA = await boaContract.methods.totalSupply().call();
-	const totalLPETH = await ethContract.methods.totalSupply().call();
 	
 	//GET XAMP POOLED
 	const XAMPReserve = reserves.XAMP[1]/(10**9);
 	const TOBReserve = reserves.TOB[1]/(10**18);
 	const BOAReserve = reserves.BOA[1]/(10**18);
 	const ETHReserve = reserves.ETH[1]/(10**18);
-
+	
+	const YFKAinXAMP = reserves.XAMP[0]
+	const YFKAinTOB = reserves.TOB[0]
+	const YFKAinBOA = reserves.BOA[0]
+	const YFKAinETH = reserves.ETH[0]
+	
+	
 	//WORK OUT BTS to LP 
 	//XAMP POOL
-	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
-	const YFKAtoLPX = ((reserves.XAMP[0]/(10**18)) /totalLPXAMP)*(10**18);
+	const XAMPtoLP = (XAMPReserve/LP.XAMP) *(10**18);
+	const YFKAtoLPX = ((YFKAinXAMP/(10**18)) /LP.XAMP)*(10**18);
 	//TOB POOL
-	const TOBtoLP = (TOBReserve/totalLPTOB) *(10**18);
-	const YFKAtoLPT = ((reserves.TOB[0]/(10**18)) /totalLPTOB)*(10**18);
+	const TOBtoLP = (TOBReserve/LP.TOB) *(10**18);
+	const YFKAtoLPT = ((YFKAinTOB/(10**18)) /LP.TOB)*(10**18);
 	//BOA POOL
-	const BOAtoLP = (BOAReserve/totalLPBOA) *(10**18);
-	const YFKAtoLPB = ((reserves.BOA[0]/(10**18)) /totalLPBOA)*(10**18);
+	const BOAtoLP = (BOAReserve/LP.BOA) *(10**18);
+	const YFKAtoLPB = ((YFKAinBOA/(10**18)) /LP.BOA)*(10**18);
 	//ETH POOL
-	const ETHtoLP = (ETHReserve/totalLPETH) *(10**18);
-	const YFKAtoLPE = ((reserves.ETH[0]/(10**18)) /totalLPETH)*(10**18);
-
-
+	const ETHtoLP = (ETHReserve/LP.ETH) *(10**18);
+	const YFKAtoLPE = ((YFKAinETH/(10**18)) /LP.ETH)*(10**18);
 
 	if (DISPLAY_CONSOLE) console.log("YFKA LP XAMP : ",YFKAtoLPX );
 	if (DISPLAY_CONSOLE) console.log("YFKA LP TOB: ",YFKAtoLPT );
 	if (DISPLAY_CONSOLE) console.log("YFKA LP BOA: ",YFKAtoLPB );
 	if (DISPLAY_CONSOLE) console.log("YFKA LP ETH: ",YFKAtoLPE );
-	
-	
 	
 	return{
 		YFKAtoLPXAMP: YFKAtoLPX,
@@ -1234,6 +1250,63 @@ const getBTSTotals = async () => {
 }
 
 
+const totalYFKAStaked = async () =>{
+	const ashContract = yfkaControllerContract();
+	
+	//TOTAL YFKA STAKED	
+	const totalStakedYFKA_XAMP = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.XAMP);
+	const totalStakedYFKA_TOB = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.TOB);
+	const totalStakedYFKA_BOA = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.BOA);
+	const totalStakedYFKA_ETH = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH);
+		
+	return{
+		XAMP:totalStakedYFKA_XAMP,
+		TOB:totalStakedYFKA_TOB,
+		BOA:totalStakedYFKA_BOA,
+		ETH:totalStakedYFKA_ETH,
+		fXAMP:totalStakedYFKA_XAMP/(10**18),
+		fTOB:totalStakedYFKA_TOB/(10**18),
+		fBOA:totalStakedYFKA_BOA/(10**18),
+		fETH:totalStakedYFKA_ETH/(10**18),
+	}
+		
+		
+		
+}
+
+
+const getPooledBTS = async () => {
+	const totalYFKAStakes = await totalYFKAStaked();
+	const reserves = await getReserves();
+	const totalLP = await getTotalLP();
+	
+
+	//YFKA to LP
+	
+	//TOTAL LP Staked
+	
+	//BTS Staked
+	
+	
+	
+	//YFKA pooled vs Staked %
+	percYFKAStakedXAMP = (reserves.XAMP[0]/totalYFKAStakes.XAMP) *100;
+	percYFKAStakedTOB = (reserves.TOB[0]/totalYFKAStakes.TOB) *100;
+	percYFKAStakedBOA = (reserves.BOA[0]/totalYFKAStakes.BOA) *100;
+	percYFKAStakedETH = (reserves.ETH[0]/totalYFKAStakes.ETH) *100;
+	
+	//BTS pooled vs Staked %
+		
+}
+
+
+
+
+
 //GET RESERVES
 const getReserves = async () => {
 	const provider = getInfuraProvider();
@@ -1282,41 +1355,16 @@ const FillInfo = async () => {
 	const userLPS = await getStakes();
 	const userRewards = await getRewards();
 	const BTSTOT = await getBTSTotals();
-	
-	const provider = getInfuraProvider();
+	const LP = await getTotalLP();
+	const LPconv = await getLPconversions();
 
-	// YFKA_XAMP
-	const xampContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_XAMP
-	);
-	const tobContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_TOB
-	);
-	const boaContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_BOA
-	);
-	const ethContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_ETH
-
-	);
-	
-	
-	
-	
-	
 	//PULL RESERVES
 	const reserves = await getReserves();
 	const YFKAXAMPReserves = reserves.XAMP;
 	const YFKATOBReserves = reserves.TOB;
 	const YFKABOAReserves = reserves.BOA;
 	const YFKAETHReserves = reserves.ETH;
-	
-	
-	
+
 	//GET PRICES
 	const coinPrices = await getPrices();
 	const YFKAPrice = coinPrices.YFKA; //use .usd  or .eth
@@ -1324,12 +1372,6 @@ const FillInfo = async () => {
 	const TOBPrice = coinPrices.TOB;
 	const BOAPrice = coinPrices.BOA;
 	const ETHPrice = coinPrices.ETH;
-	
-	//GET TOTAL LP IN POOLS
-	const totalLPXAMP = await xampContract.methods.totalSupply().call();
-	const totalLPTOB = await tobContract.methods.totalSupply().call();
-	const totalLPBOA = await boaContract.methods.totalSupply().call();
-	const totalLPETH = await ethContract.methods.totalSupply().call();
 
 	//GET XAMP POOLED
 	const XAMPReserve = YFKAXAMPReserves[1]/(10**9);
@@ -1337,31 +1379,12 @@ const FillInfo = async () => {
 	const BOAReserve = YFKABOAReserves[1]/(10**18);
 	const ETHReserve = YFKAETHReserves[1]/(10**18);
 	
-	const YFKAtotX = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.XAMP)
-		.call();
-	const YFKAtotT = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.TOB)
-		.call();
-	const YFKAtotB = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.BOA)
-		.call();
-	const YFKAtotE = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH)
-		.call();
-	
-	
-	
-	
-	
 	//GET YFKA POOLED
 	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
 	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);	
 	const YFKAReserveBOA= YFKABOAReserves[0]/(10**18);
 	const YFKAReserveETH= YFKAETHReserves[0]/(10**18);
-	
 
-	
 	const TotalYFKAPooled = YFKAReserve + YFKAReserveTOB + YFKAReserveBOA + YFKAReserveETH;
 
 	//WORK OUT POOL % of YFKA	
@@ -1372,15 +1395,8 @@ const FillInfo = async () => {
 
 	//0.6 % fee on UNI.
 	const feeCalc = 0.6;
-	
-	//YFKA to LP
-	const LPtoYFKAX = (YFKAReserve/totalLPXAMP);
-	const LPtoYFKAT = (YFKAReserveTOB/totalLPTOB);
-	const LPtoYFKAB = (YFKAReserveBOA/totalLPBOA);
-	const LPtoYFKAE = (YFKAReserveETH/totalLPETH);
-	
-	
-	//XAMP LOGIC
+
+	/* XAMP LOGIC
 	const halfLPXAMP = (totalLPXAMP/(10**18))/2;
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
 	const LPtoXAMP = 1/XAMPtoLP;
@@ -1407,20 +1423,32 @@ const FillInfo = async () => {
 	const YFKALPBOA = LPtoBOA/YFKAReserveBOA;
 	const YFKALPETH = halfLPETH/YFKAReserveETH;
 	
-
+*/
 	
 	//POOL PRICING
-	const XAMPLPUSDTOTAL = twoDecimals((XAMPReserve * XAMPPrice.usd) + (YFKAReserve * YFKAPrice.usd));
-	const TOBLPUSDTOTAL = twoDecimals((TOBReserve * TOBPrice.usd) + (YFKAReserveTOB * YFKAPrice.usd));
-	const BOALPUSDTOTAL = twoDecimals((BOAReserve * BOAPrice.usd) + (YFKAReserveBOA * YFKAPrice.usd));
-	const ETHLPUSDTOTAL = twoDecimals((ETHReserve * ETHPrice.usd) + (YFKAReserveETH * YFKAPrice.usd));
+	const XAMPLPUSDTOTAL = twoDecimals(
+							(XAMPReserve * XAMPPrice.usd) 
+							+ (YFKAReserve * YFKAPrice.usd)
+							);
+	const TOBLPUSDTOTAL = twoDecimals(
+							(TOBReserve * TOBPrice.usd)
+							+ (YFKAReserveTOB * YFKAPrice.usd)
+							);
+	const BOALPUSDTOTAL = twoDecimals(
+							(BOAReserve * BOAPrice.usd) 
+							+ (YFKAReserveBOA * YFKAPrice.usd)
+							);
+	const ETHLPUSDTOTAL = twoDecimals(
+							(ETHReserve * ETHPrice.usd) 
+							+ (YFKAReserveETH * YFKAPrice.usd)
+							);
 	
 	
 	//LP PRICING
-	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL/(totalLPXAMP/(10**18)));
-	const TOBLPUSD = twoDecimals(TOBLPUSDTOTAL/(totalLPTOB/(10**18)));
-	const BOALPUSD = twoDecimals(BOALPUSDTOTAL/(totalLPBOA/(10**18)));
-	const ETHLPUSD = twoDecimals(ETHLPUSDTOTAL/(totalLPETH/(10**18)));
+	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL/LP.fXAMP);
+	const TOBLPUSD = twoDecimals(TOBLPUSDTOTAL/LP.fTOB);
+	const BOALPUSD = twoDecimals(BOALPUSDTOTAL/LP.fBOA);
+	const ETHLPUSD = twoDecimals(ETHLPUSDTOTAL/LP.fETH);
 
 	//CALCULATE USERS LP $
 	const USERXAMPLPPRICE =   XAMPLPUSD * userLPS.fXAMP;
@@ -1430,10 +1458,10 @@ const FillInfo = async () => {
 	
 	
 	//UPDATE HTML
-	$('#XAMPLPTOTAL').html(twoDecimals(totalLPXAMP/(10**18)));
-	$('#TOBLPTOTAL').html(twoDecimals(totalLPTOB/(10**18)));
-	$('#BOALPTOTAL').html(twoDecimals(totalLPBOA/(10**18)));
-	$('#ETHLPTOTAL').html(twoDecimals(totalLPETH/(10**18)));
+	$('#XAMPLPTOTAL').html(twoDecimals(LP.fXAMP));
+	$('#TOBLPTOTAL').html(twoDecimals(LP.fTOB));
+	$('#BOALPTOTAL').html(twoDecimals(LP.fBOA));
+	$('#ETHLPTOTAL').html(twoDecimals(LP.fETH));
 	
 	$('#XAMPPOOLED').html(Number(twoDecimals(XAMPReserve)).toLocaleString());
 	$('#TOBPOOLED').html(Number(twoDecimals(TOBReserve)).toLocaleString());
@@ -1450,20 +1478,20 @@ const FillInfo = async () => {
 	$('#YFKAPOOLEDBPERCENT').html(twoDecimals(BOAYFKAPercent));
 	$('#YFKAPOOLEDEPERCENT').html(twoDecimals(ETHYFKAPercent));
 	
-	$('#XAMPLP').html(Number(fourDecimals(XAMPtoLP)).toLocaleString());
-	$('#TOBLP').html(Number(fourDecimals(TOBtoLP)).toLocaleString());
-	$('#BOALP').html(Number(fourDecimals(BOAtoLP)).toLocaleString());
-	$('#ETHLP').html(Number(fourDecimals(ETHtoLP)).toLocaleString());
+	$('#XAMPLP').html(Number(fourDecimals(LPconv.XAMPtoLP)).toLocaleString());
+	$('#TOBLP').html(Number(fourDecimals(LPconv.TOBtoLP)).toLocaleString());
+	$('#BOALP').html(Number(fourDecimals(LPconv.BOAtoLP)).toLocaleString());
+	$('#ETHLP').html(Number(fourDecimals(LPconv.ETHtoLP)).toLocaleString());
 	
-	$('#YFKALPX').html(Number(fourDecimals(LPtoYFKAX/(10**18))).toLocaleString());
-	$('#YFKALPT').html(Number(fourDecimals(LPtoYFKAT/(10**18))).toLocaleString());
-	$('#YFKALPB').html(Number(fourDecimals(LPtoYFKAB/(10**18))).toLocaleString());
-	$('#YFKALPE').html(Number(fourDecimals(LPtoYFKAE/(10**18))).toLocaleString());
+	$('#YFKALPX').html(Number(fourDecimals(LPconv.YFKAtoLPXAMP)).toLocaleString());
+	$('#YFKALPT').html(Number(fourDecimals(LPconv.YFKAtoLPTOB)).toLocaleString());
+	$('#YFKALPB').html(Number(fourDecimals(LPconv.YFKAtoLPBOA)).toLocaleString());
+	$('#YFKALPE').html(Number(fourDecimals(LPconv.YFKAtoLPETH)).toLocaleString());
 	
-	$('#LPXAMP').html(toFixed(tenDecimals(LPtoXAMP)));
-	$('#LPTOB').html(eightDecimals(sixDecimals(LPtoTOB)));
-	$('#LPBOA').html(eightDecimals(sixDecimals(LPtoBOA)));
-	$('#LPETH').html(eightDecimals(sixDecimals(LPtoETH)));
+	$('#LPXAMP').html(toFixed(tenDecimals(1/LPconv.XAMPtoLP)));
+	$('#LPTOB').html(eightDecimals(sixDecimals(1/LPconv.TOBtoLP)));
+	$('#LPBOA').html(eightDecimals(sixDecimals(1/LPconv.BOAtoLP)));
+	$('#LPETH').html(eightDecimals(sixDecimals(1/LPconv.ETHtoLP)));
 	
 	$('#LPPRICEXAMP').html(Number(XAMPLPUSD).toLocaleString());
 	$('#LPPRICETOB').html(Number(TOBLPUSD).toLocaleString());
