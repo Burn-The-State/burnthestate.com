@@ -1612,28 +1612,7 @@ const FillInfo = async () => {
 	$('#ETH2').html(twoDecimals(BOAPrice.usd*BTSTOT.fETHLP));
 	$('#ETH3').html(twoDecimals(BOAPrice.usd*BTSTOT.fETHWallet));
 	
-	
-	
-	
-	//LOGGING
-	if (DISPLAY_CONSOLE) console.log("---------------XAMP------------------");
-	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPXAMP/(10**18));
-	if (DISPLAY_CONSOLE) console.log("XAMP reserves: ", Number(XAMPReserve).toLocaleString());
-	if (DISPLAY_CONSOLE) console.log("XAMP per 1 LP: ", Number(XAMPtoLP).toLocaleString() );
-	if (DISPLAY_CONSOLE) console.log("LP per 1 XAMP: ", tenDecimals(LPtoXAMP-(LPtoXAMP*feeCalc)));
-	
-	if (DISPLAY_CONSOLE) console.log("--------------TOB---------------------");
-	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPTOB/(10**18));
-	if (DISPLAY_CONSOLE) console.log("TOB reserves: ", Number(TOBReserve).toLocaleString());
-	if (DISPLAY_CONSOLE) console.log("TOB per 1 LP: ", Number(TOBtoLP).toLocaleString());
-	if (DISPLAY_CONSOLE) console.log("LP per 1 TOB: ", eightDecimals((LPtoTOB-(LPtoTOB*feeCalc))));
 
-	if (DISPLAY_CONSOLE) console.log("----------------BOA---------------------");
-	if (DISPLAY_CONSOLE) console.log("TOTAL LP in POOL: ", totalLPBOA);
-	if (DISPLAY_CONSOLE) console.log("BOA reserves: ", Number(BOAReserve).toLocaleString() );
-	if (DISPLAY_CONSOLE) console.log("BOA per 1 LP: ", Number(BOAtoLP).toLocaleString());
-	if (DISPLAY_CONSOLE) console.log("LP per 1 BOA: ", eightDecimals((LPtoBOA-(LPtoBOA*feeCalc))));
-	
 };
 
 
