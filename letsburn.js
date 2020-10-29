@@ -1324,10 +1324,10 @@ const FillInfo = async () => {
 	
 	
 	//GET YFKA POOLED
-	const YFKAReserve= YFKAtotX/(10**18);//OLDYFKAXAMPReserves[0]/(10**18);
-	const YFKAReserveTOB= YFKAtotT/(10**18);//YFKATOBReserves[0]/(10**18);	
-	const YFKAReserveBOA= YFKAtotB/(10**18);//YFKABOAReserves[0]/(10**18);
-	const YFKAReserveETH= YFKAtotE/(10**18);//YFKAETHReserves[0]/(10**18);
+	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
+	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);	
+	const YFKAReserveBOA= YFKABOAReserves[0]/(10**18);
+	const YFKAReserveETH= YFKAETHReserves[0]/(10**18);
 	
 
 	
