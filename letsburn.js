@@ -1424,7 +1424,7 @@ const FillInfo = async () => {
 	const USERXAMPLPPRICE =   XAMPLPUSD * userLPS.fXAMP;
 	const USERTOBLPPRICE =   TOBLPUSD * userLPS.fTOB;
 	const USERBOALPPRICE =   BOALPUSD * userLPS.fBOA;
-	const USERETHLPPRICE =   BOALPUSD * userLPS.fETH;
+	const USERETHLPPRICE =   ETHLPUSD * userLPS.fETH;
 	
 	
 	//UPDATE HTML
