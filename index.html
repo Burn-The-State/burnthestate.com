@@ -536,11 +536,16 @@
 var slideCol = document.getElementById("id1");
 
 var y = document.getElementById("f");
-y.innerHTML = slideCol.value;
+var unstakeval = document.getElementById("unstake-input").value;
+     y.innerHTML = slideCol.value;
+var vy = unstakeval * y.value;
+   
 
 slideCol.oninput = function() {
     y.innerHTML = this.value;
+    document.getElementById("unstake-input").value = vy;
 }
+    
 
 </script>
 </div>
