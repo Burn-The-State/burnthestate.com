@@ -1048,7 +1048,7 @@ const getWalletBTSCoins = async () => {
 	TOKENS.YFKA
 	);
 	
-	const ethContract = new web3.eth.getBalance(account[0], function(error, wei) {
+	const ethContract = new web3.eth.getBalance(account, function(error, wei) {
 	  if (!error) {
 		return web3.fromWei(wei, 'ether');
 		document.getElementById("output").innerHTML = balance + " ETH";
