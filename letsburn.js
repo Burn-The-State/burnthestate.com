@@ -1423,10 +1423,10 @@ const FillInfo = async () => {
 	const ETHLPUSD = twoDecimals(ETHLPUSDTOTAL*LP.fETH);
 
 	//CALCULATE USERS LP $
-	const USERXAMPLPPRICE =   XAMPLPUSD * userLPS.fXAMP;
-	const USERTOBLPPRICE =   TOBLPUSD * userLPS.fTOB;
-	const USERBOALPPRICE =   BOALPUSD * userLPS.fBOA;
-	const USERETHLPPRICE =   ETHLPUSD * userLPS.fETH;
+	const USERXAMPLPPRICE =   XAMPLPUSD / userLPS.fXAMP;
+	const USERTOBLPPRICE =   TOBLPUSD / userLPS.fTOB;
+	const USERBOALPPRICE =   BOALPUSD / userLPS.fBOA;
+	const USERETHLPPRICE =   ETHLPUSD / userLPS.fETH;
 	
 	
 	//UPDATE HTML
@@ -1580,9 +1580,9 @@ const FillInfo = async () => {
 	$('#LPETHuser').html(BTSTOT.fETHLP);
 	$('#WALETH').html(BTSTOT.fETHWallet);
 	//ETH $
-	$('#ETH1').html(twoDecimals(BOAPrice.usd*BTSTOT.fETHTotal));
-	$('#ETH2').html(twoDecimals(BOAPrice.usd*BTSTOT.fETHLP));
-	$('#ETH3').html(twoDecimals(BOAPrice.usd*BTSTOT.fETHWallet));
+	$('#ETH1').html(twoDecimals(ETHPrice.usd*BTSTOT.fETHTotal));
+	$('#ETH2').html(twoDecimals(ETHPrice.usd*BTSTOT.fETHLP));
+	$('#ETH3').html(twoDecimals(ETHPrice.usd*BTSTOT.fETHWallet));
 	
 
 };
