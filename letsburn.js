@@ -1194,7 +1194,9 @@ const getBTSTotals = async () => {
 	const TOBfromLP = BTStoLP.TOBtoLP*(UsersLP.TOB/(10**18));
 	const BOAfromLP = BTStoLP.BOAtoLP*(UsersLP.BOA/(10**18));
 	const ETHfromLP = BTStoLP.ETHtoLP*(UsersLP.ETH/(10**18));
-		
+		if (DISPLAY_CONSOLE) console.log("ETHER to LP : ",BTStoLP.ETHtoLP );
+		if (DISPLAY_CONSOLE) console.log("USers LP ETH : ",UsersLP.ETH/(10**18) );
+		if (DISPLAY_CONSOLE) console.log("USers ETHER FROM LP : ",ETHfromLP );
 	const YFKAfromLP = (BTStoLP.YFKAtoLPXAMP*(UsersLP.XAMP/(10**18))) +
 						(BTStoLP.YFKAtoLPTOP *(UsersLP.TOB/(10**18)))+
 						(BTStoLP.YFKAtoLPBOA*(UsersLP.BOA/(10**18))) +
