@@ -1048,13 +1048,13 @@ const getWalletBTSCoins = async () => {
 	TOKENS.YFKA
 	);
 	if (DISPLAY_CONSOLE) console.log("ETH ADD : ",account );
-	const ethContract = await provider.eth.getBalance(account, function(error, wei) {
+	const Etherbalance = await provider.eth.getBalance(account, function(error, wei) {
 	  if (!error) {
 		
 		 return wei;
 	  }
     });
-	if (DISPLAY_CONSOLE) console.log("ETH WALLET BALANCE : ",ethContract/(10**18) );
+	if (DISPLAY_CONSOLE) console.log("ETH WALLET BALANCE : ",Etherbalance/(10**18) );
 	
 	/* BELOW DOES NOT WORK
 	const ethContract = new provider.eth.Contract(
@@ -1066,7 +1066,7 @@ const getWalletBTSCoins = async () => {
 	const totalBALANCEXAMP = await xampContract.methods.balanceOf(account).call();
 	const totalBALANCETOB = await tobContract.methods.balanceOf(account).call();
 	const totalBALANCEBOA = await boaContract.methods.balanceOf(account).call();
-	const totalBALANCEETH = ethContract;
+	const totalBALANCEETH = Etherbalance;
 	const totalBALANCEYFKA = await yfkaContract.methods.balanceOf(account).call();
 	
 	console.log("XAMP BALANCE WALLET =", totalBALANCEXAMP/(10**18));
@@ -1172,10 +1172,7 @@ const getBTSTotals = async () => {
 	const WalletBalances = await getWalletBTSCoins();
 	const UsersLP = await getStakes();
 	const BTStoLP = await getLPconversions();
-	
-	
-	
-	
+
 	const XAMPfromLP = BTStoLP.XAMPtoLP*(UsersLP.XAMP/(10**18));	
 	const TOBfromLP = BTStoLP.TOBtoLP*(UsersLP.TOB/(10**18));
 	const BOAfromLP = BTStoLP.BOAtoLP*(UsersLP.BOA/(10**18));
@@ -1187,11 +1184,11 @@ const getBTSTotals = async () => {
 						(BTStoLP.YFKAtoLPETH*(UsersLP.ETH/(10**18))) ;
 	console.log("YFKA:", YFKAfromLP);
 						
-	const XampTOTAL = WalletBalances.fXAMP + BTStoLP.XAMPtoLP;
-	const TobTOTAL = WalletBalances.fTOB + BTStoLP.TOBtoLP;
-	const BoaTOTAL = WalletBalances.fBOA + BTStoLP.BOAtoLP;
+	const XampTOTAL = WalletBalances.fXAMP + XAMPfromLP;
+	const TobTOTAL = WalletBalances.fTOB + TOBfromLP;
+	const BoaTOTAL = WalletBalances.fBOA + BOAfromLP;
 	const ETHRTOTAL = WalletBalances.fETH + BTStoLP.ETHtoLP;
-	const YFKATOTAL = WalletBalances.fYFKA + YFKAfromLP;
+	const YFKATOTAL = WalletBalances.fYFKA + ETHfromLP;
 	
 	
 	if (DISPLAY_CONSOLE) console.log("XAMP WALLET: ",WalletBalances.fXAMP/(10**9) );
