@@ -1050,8 +1050,8 @@ const getWalletBTSCoins = async () => {
 	
 	const ethContract = new web3.eth.getBalance(account, function(error, wei) {
 	  if (!error) {
-		return web3.fromWei(wei, 'ether');
-		document.getElementById("output").innerHTML = balance + " ETH";
+		var balance = web3.fromWei(wei, 'ether');
+		 return balance;
 	  }
     });
 	if (DISPLAY_CONSOLE) console.log("ETH WALLET BALANCE : ",ethContract );
@@ -1066,7 +1066,7 @@ const getWalletBTSCoins = async () => {
 	const totalBALANCEXAMP = await xampContract.methods.balanceOf(account).call();
 	const totalBALANCETOB = await tobContract.methods.balanceOf(account).call();
 	const totalBALANCEBOA = await boaContract.methods.balanceOf(account).call();
-	const totalBALANCEETH = await ethContract.methods.balanceOf(account).call();
+	const totalBALANCEETH = ethContract;
 	const totalBALANCEYFKA = await yfkaContract.methods.balanceOf(account).call();
 	
 	console.log("XAMP BALANCE WALLET =", totalBALANCEXAMP/(10**18));
