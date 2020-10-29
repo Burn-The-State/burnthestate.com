@@ -1417,10 +1417,10 @@ const FillInfo = async () => {
 	
 	
 	//LP PRICING
-	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL*LP.fXAMP);
-	const TOBLPUSD = twoDecimals(TOBLPUSDTOTAL*LP.fTOB);
-	const BOALPUSD = twoDecimals(BOALPUSDTOTAL*LP.fBOA);
-	const ETHLPUSD = twoDecimals(ETHLPUSDTOTAL*LP.fETH);
+	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL/LP.fXAMP);
+	const TOBLPUSD = twoDecimals(TOBLPUSDTOTAL/LP.fTOB);
+	const BOALPUSD = twoDecimals(BOALPUSDTOTAL/LP.fBOA);
+	const ETHLPUSD = twoDecimals(ETHLPUSDTOTAL/LP.fETH);
 
 	//CALCULATE USERS LP $
 	const USERXAMPLPPRICE =   XAMPLPUSD / userLPS.fXAMP;
