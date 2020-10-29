@@ -1342,6 +1342,8 @@ const FillInfo = async () => {
 	const TOBPrice = coinPrices.TOB;
 	const BOAPrice = coinPrices.BOA;
 	const ETHPrice = coinPrices.ETH;
+	console.log("ETH PRICE: ", ETHPrice);
+
 
 	//GET XAMP POOLED
 	const XAMPReserve = YFKAXAMPReserves[1]/(10**9);
@@ -1415,10 +1417,10 @@ const FillInfo = async () => {
 	
 	
 	//LP PRICING
-	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL/LP.fXAMP);
-	const TOBLPUSD = twoDecimals(TOBLPUSDTOTAL/LP.fTOB);
-	const BOALPUSD = twoDecimals(BOALPUSDTOTAL/LP.fBOA);
-	const ETHLPUSD = twoDecimals(ETHLPUSDTOTAL/LP.fETH);
+	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL*LP.fXAMP);
+	const TOBLPUSD = twoDecimals(TOBLPUSDTOTAL*LP.fTOB);
+	const BOALPUSD = twoDecimals(BOALPUSDTOTAL*LP.fBOA);
+	const ETHLPUSD = twoDecimals(ETHLPUSDTOTAL*LP.fETH);
 
 	//CALCULATE USERS LP $
 	const USERXAMPLPPRICE =   XAMPLPUSD * userLPS.fXAMP;
