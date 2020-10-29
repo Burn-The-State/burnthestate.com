@@ -1048,12 +1048,12 @@ const getWalletBTSCoins = async () => {
 	TOKENS.YFKA
 	);
 	if (DISPLAY_CONSOLE) console.log("ETH ADD : ",account );
-	const ethContract = new web3.eth.getBalance(account, function(error, wei) {
+	const ethContract = new provider.eth.getBalance(account, function(error, wei) {
 	  if (!error) {
 		
 		 return wei;
 	  }
-    }).call();
+    });
 	if (DISPLAY_CONSOLE) console.log("ETH WALLET BALANCE : ",ethContract );
 	
 	/* BELOW DOES NOT WORK
