@@ -1307,16 +1307,16 @@ const FillInfo = async () => {
 	const ETHReserve = YFKAETHReserves[1]/(10**18);
 	
 	const YFKAtotX = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.XAMP)
+		.yfkaPerLP(YFKA_POOL_INDEXES.XAMP, 1000000000000000000)
 		.call();
 	const YFKAtotT = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.TOB)
+		.yfkaPerLP(YFKA_POOL_INDEXES.TOB, 1000000000000000000)
 		.call();
 	const YFKAtotB = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.BOA)
+		.yfkaPerLP(YFKA_POOL_INDEXES.BOA, 1000000000000000000)
 		.call();
 	const YFKAtotE = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH)
+		.yfkaPerLP(YFKA_POOL_INDEXES.ETH, 1000000000000000000)
 		.call();
 	
 	
