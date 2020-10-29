@@ -1042,6 +1042,7 @@ const getWalletBTSCoins = async () => {
 	STANDARD_ERC20_ABI,
 	TOKENS.BOA
 	);
+	
 
 	const yfkaContract = new provider.eth.Contract(
 	STANDARD_ERC20_ABI,
@@ -1354,10 +1355,10 @@ const FillInfo = async () => {
 	
 	
 	//GET YFKA POOLED
-	const YFKAReserve= YFKAtotX/(10**18);//OLDYFKAXAMPReserves[0]/(10**18);
-	const YFKAReserveTOB= YFKAtotT/(10**18);//YFKATOBReserves[0]/(10**18);	
-	const YFKAReserveBOA= YFKAtotB/(10**18);//YFKABOAReserves[0]/(10**18);
-	const YFKAReserveETH= YFKAtotE/(10**18);//YFKAETHReserves[0]/(10**18);
+	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
+	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);	
+	const YFKAReserveBOA= YFKABOAReserves[0]/(10**18);
+	const YFKAReserveETH= YFKAETHReserves[0]/(10**18);
 	
 
 	
@@ -1372,11 +1373,18 @@ const FillInfo = async () => {
 	//0.6 % fee on UNI.
 	const feeCalc = 0.6;
 	
+	//YFKA to LP
+	const LPtoYFKAX = (YFKAReserve/totalLPXAMP);
+	const LPtoYFKAT = (YFKAReserveTOB/totalLPTOB);
+	const LPtoYFKAB = (YFKAReserveBOA/totalLPBOA);
+	const LPtoYFKAE = (YFKAReserveETH/totalLPETH);
+	
 	
 	//XAMP LOGIC
 	const halfLPXAMP = (totalLPXAMP/(10**18))/2;
 	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
 	const LPtoXAMP = 1/XAMPtoLP;
+	
 	
 	//TOB LOGIC
 	const halfLPTOB = (totalLPTOB)/2;
@@ -1447,10 +1455,10 @@ const FillInfo = async () => {
 	$('#BOALP').html(Number(fourDecimals(BOAtoLP)).toLocaleString());
 	$('#ETHLP').html(Number(fourDecimals(ETHtoLP)).toLocaleString());
 	
-	$('#YFKALPX').html(Number(fourDecimals(YFKAtotX/(10**18))).toLocaleString());
-	$('#YFKALPT').html(Number(fourDecimals(YFKAtotT/(10**18))).toLocaleString());
-	$('#YFKALPB').html(Number(fourDecimals(YFKAtotB/(10**18))).toLocaleString());
-	$('#YFKALPE').html(Number(fourDecimals(YFKAtotE/(10**18))).toLocaleString());
+	$('#YFKALPX').html(Number(fourDecimals(LPtoYFKAX/(10**18))).toLocaleString());
+	$('#YFKALPT').html(Number(fourDecimals(LPtoYFKAT/(10**18))).toLocaleString());
+	$('#YFKALPB').html(Number(fourDecimals(LPtoYFKAB/(10**18))).toLocaleString());
+	$('#YFKALPE').html(Number(fourDecimals(LPtoYFKAE/(10**18))).toLocaleString());
 	
 	$('#LPXAMP').html(toFixed(tenDecimals(LPtoXAMP)));
 	$('#LPTOB').html(eightDecimals(sixDecimals(LPtoTOB)));
