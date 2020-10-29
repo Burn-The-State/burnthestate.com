@@ -1164,11 +1164,6 @@ const getLPconversions = async () =>{
 	const ETHtoLP = (ETHReserve/LP.ETH) *(10**18);
 	const YFKAtoLPE = ((YFKAinETH/(10**18)) /LP.ETH)*(10**18);
 
-	if (DISPLAY_CONSOLE) console.log("YFKA LP XAMP : ",YFKAtoLPX );
-	if (DISPLAY_CONSOLE) console.log("YFKA LP TOB: ",YFKAtoLPT );
-	if (DISPLAY_CONSOLE) console.log("YFKA LP BOA: ",YFKAtoLPB );
-	if (DISPLAY_CONSOLE) console.log("YFKA LP ETH: ",YFKAtoLPE );
-	
 	return{
 		YFKAtoLPXAMP: YFKAtoLPX,
 		YFKAtoLPTOB: YFKAtoLPT,
@@ -1194,43 +1189,16 @@ const getBTSTotals = async () => {
 	const TOBfromLP = BTStoLP.TOBtoLP*(UsersLP.TOB/(10**18));
 	const BOAfromLP = BTStoLP.BOAtoLP*(UsersLP.BOA/(10**18));
 	const ETHfromLP = BTStoLP.ETHtoLP*(UsersLP.ETH/(10**18));
-		if (DISPLAY_CONSOLE) console.log("ETHER to LP : ",BTStoLP.ETHtoLP );
-		if (DISPLAY_CONSOLE) console.log("USers LP ETH : ",UsersLP.ETH/(10**18) );
-		if (DISPLAY_CONSOLE) console.log("USers ETHER FROM LP : ",ETHfromLP );
 	const YFKAfromLP = (BTStoLP.YFKAtoLPXAMP*(UsersLP.XAMP/(10**18))) +
 						(BTStoLP.YFKAtoLPTOP *(UsersLP.TOB/(10**18)))+
 						(BTStoLP.YFKAtoLPBOA*(UsersLP.BOA/(10**18))) +
 						(BTStoLP.YFKAtoLPETH*(UsersLP.ETH/(10**18))) ;
-	console.log("YFKA:", YFKAfromLP);
 						
 	const XampTOTAL = WalletBalances.fXAMP + XAMPfromLP;
 	const TobTOTAL = WalletBalances.fTOB + TOBfromLP;
 	const BoaTOTAL = WalletBalances.fBOA + BOAfromLP;
-	const ETHRTOTAL = WalletBalances.fETH + BTStoLP.ETHtoLP;
-	const YFKATOTAL = WalletBalances.fYFKA + ETHfromLP;
-	
-	
-	if (DISPLAY_CONSOLE) console.log("XAMP WALLET: ",WalletBalances.fXAMP/(10**9) );
-	if (DISPLAY_CONSOLE) console.log("TOB WALLET: ",WalletBalances.fTOB );
-	if (DISPLAY_CONSOLE) console.log("BOA WALLET: ",WalletBalances.fBOA );
-	if (DISPLAY_CONSOLE) console.log("YFKA WALLET: ",WalletBalances.fYFKA );
-	if (DISPLAY_CONSOLE) console.log("ETH WALLET: ",WalletBalances.fXAMP );
-	
-	if (DISPLAY_CONSOLE) console.log("XAMP TOTAL: ",XampTOTAL );
-	if (DISPLAY_CONSOLE) console.log("TOB TOTAL: ",TobTOTAL );
-	if (DISPLAY_CONSOLE) console.log("BOA TOTAL: ",BoaTOTAL );
-	if (DISPLAY_CONSOLE) console.log("YFKA TOTAL: ",YFKATOTAL );
-	if (DISPLAY_CONSOLE) console.log("ETH TOTAL: ",ETHRTOTAL );
-	
-	if (DISPLAY_CONSOLE) console.log("XAMP FROM LP: ",XAMPfromLP );
-	if (DISPLAY_CONSOLE) console.log("TOB FROM LP: ",TOBfromLP );
-	if (DISPLAY_CONSOLE) console.log("BOA FROM LP: ",BOAfromLP );
-	if (DISPLAY_CONSOLE) console.log("YFKA FROM LP: ",YFKAfromLP );
-	if (DISPLAY_CONSOLE) console.log("ETH FROM LP: ",ETHfromLP );
-	
-	if (DISPLAY_CONSOLE) console.log("TOTAL YFKA REWARDS: ",yfkaRewardTotal );
-	
-	
+	const ETHRTOTAL = WalletBalances.fETH + ETHfromLP;
+	const YFKATOTAL = WalletBalances.fYFKA + YFKAfromLP;
   return {
     fXAMPWallet: fourDecimals(WalletBalances.fXAMP/(10**9)) ,
     fBOAWallet: fourDecimals(WalletBalances.fBOA),
@@ -2714,6 +2682,7 @@ window.addEventListener('load', async (event) => {
 				}
 				
 				await FillInfo();
+				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 			}
 		}catch(e){
 			errorHandling(e, 'GetAccounts()');
