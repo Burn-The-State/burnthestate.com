@@ -1153,14 +1153,14 @@ const getLPconversions = async () =>
 	
 	
 	return{
-		YFKAtoLPXAMP = YFKAtoLPX,
-		YFKAtoLPTOB = YFKAtoLPT,
-		YFKAtoLPBOA = YFKAtoLPB,
-		YFKAtoLPETH = YFKAtoLPE, 
-		XAMPtoLP = XAMPtoLP,
-		TOBtoLP = TOBtoLP,
-		BOAtoLP = BOAtoLP, 
-		ETHtoLP = ETHtoLP,
+		YFKAtoLPXAMP: YFKAtoLPX,
+		YFKAtoLPTOB: YFKAtoLPT,
+		YFKAtoLPBOA: YFKAtoLPB,
+		YFKAtoLPETH: YFKAtoLPE, 
+		XAMPtoLP: XAMPtoLP,
+		TOBtoLP: TOBtoLP,
+		BOAtoLP: BOAtoLP, 
+		ETHtoLP: ETHtoLP,
 	}
 	
 }
