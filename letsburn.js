@@ -1047,11 +1047,11 @@ const getWalletBTSCoins = async () => {
 	STANDARD_ERC20_ABI,
 	TOKENS.YFKA
 	);
-	if (DISPLAY_CONSOLE) console.log("ETH ADD : ",account[0] );
-	const ethContract = new web3.eth.getBalance(account[0], function(error, wei) {
+	if (DISPLAY_CONSOLE) console.log("ETH ADD : ",account );
+	const ethContract = new web3.eth.getBalance(account, function(error, wei) {
 	  if (!error) {
-		var balance = web3.fromWei(wei, 'ether');
-		 return balance;
+		
+		 return wei;
 	  }
     });
 	if (DISPLAY_CONSOLE) console.log("ETH WALLET BALANCE : ",ethContract );
