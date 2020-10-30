@@ -1722,19 +1722,19 @@ $('#CLOSE-REDEEM-WARNING').click(async () => {
 	});
 	switch (document.getElementById('redeem').val())
 	{
-		'XAMP':
+		case 'XAMP':
 			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.XAMP}`;
 			break;
 		
-		'TOB':
+		case 'TOB':
 			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.TOB}`;
 			break;
 		
-		'BOA':
+		case 'BOA':
 			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.BOA}`;
 			break;
 		
-		'ETH':
+		case 'ETH':
 			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.ETH}`;
 			break;
 	}
@@ -1804,19 +1804,19 @@ $('#unstakeBTN').click(async () => {
 	});
 	switch (document.getElementById('redeem').val())
 	{
-		'XAMP':
+		case 'XAMP':
 			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.XAMP}`;
 			break;
 		
-		'TOB':
+		case 'TOB':
 			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.TOB}`;
 			break;
 		
-		'BOA':
+		case 'BOA':
 			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.BOA}`;
 			break;
 		
-		'ETH':
+		case 'ETH':
 			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.ETH}`;
 			break;
 	}
@@ -1936,4 +1936,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
+
 
