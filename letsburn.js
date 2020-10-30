@@ -1753,10 +1753,12 @@ $('CONFIRM-UNSTAKE').click(async () => {
 		if (unstakeReceipt && unstakeReceipt.style) {
 			document.getElementById('unstakeReceipt').style.opacity = '1';
 		}
+  });
 	if (document.getElementById('WARNING-UNSTAKE').style.display != 'none'){
 	  document.getElementById('WARNING-UNSTAKE').style.display = 'none'
 	}
   });
+  
 
 
 $('#unstakeBTN').click(async () => {
@@ -1865,5 +1867,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
