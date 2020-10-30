@@ -1324,8 +1324,7 @@ const updateUserStats = async () => {
 			$('#personal-emission-TOB').html(`${personalemission.TOB}`);
 			$('#personal-emission-BOA').html(`${personalemission.BOA}`);
 			$('#personal-emission-ETH').html(`${personalemission.ETH}`);
-			$('P-EMISSION-WARNING-REDEEM').html(`${personalemission.ETH}`);
-			$('P-EMISSION-WARNING-UNSTAKING').html(`${personalemission.ETH}`);
+
 		}else return("error");
 
 		// current LP Tokens
@@ -1717,6 +1716,31 @@ $('#CONFIRM-REDEEM').click(async () => {
 
 
 $('#CLOSE-REDEEM-WARNING').click(async () => {
+	const personalemission = await getPersonalEmissions().catch(e => {
+		errorHandling(e, 'getPersonalEmissions()');
+		return("error");
+	});
+	switch (document.getElementById('redeem').val())
+	{
+		'XAMP':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.XAMP}`;
+			break;
+		
+		'TOB':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.TOB}`;
+			break;
+		
+		'BOA':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.BOA}`;
+			break;
+		
+		'ETH':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.ETH}`;
+			break;
+	}
+	
+	
+	
 	if (document.getElementById('WARNING-REDEEM').style.display == 'none'){
 		document.getElementById('WARNING-REDEEM').style.display = 'block';
 	}else{
@@ -1774,6 +1798,30 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 
 
 $('#unstakeBTN').click(async () => {
+	const personalemission = await getPersonalEmissions().catch(e => {
+		errorHandling(e, 'getPersonalEmissions()');
+		return("error");
+	});
+	switch (document.getElementById('redeem').val())
+	{
+		'XAMP':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.XAMP}`;
+			break;
+		
+		'TOB':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.TOB}`;
+			break;
+		
+		'BOA':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.BOA}`;
+			break;
+		
+		'ETH':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.ETH}`;
+			break;
+	}
+	
+	
 	if (document.getElementById('WARNING-UNSTAKE').style.display == 'none'){
 		document.getElementById('WARNING-UNSTAKE').style.display = 'block';
 	}else{
