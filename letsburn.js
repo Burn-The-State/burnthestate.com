@@ -17,7 +17,7 @@ const TOKENS = {
 };
 
 const DISPLAY_CONSOLE = true;
-const DISPLAY_ERRORS = true;
+const DISPLAY_ERRORS = false;
 
 const PAIRS = {
   YFKA_XAMP: '0xaea4d6809375bb973c8036d53db9e90970942738',
@@ -1807,12 +1807,7 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 $('#unstakeBTN').click(async () => {
 
 	
-	
-	if (document.getElementById('WARNING-UNSTAKE').style.display == 'none'){
-		document.getElementById('WARNING-UNSTAKE').style.display = 'block';
-	}else{
-		document.getElementById('WARNING-UNSTAKE').style.display = 'none';
-	}
+
 	
 	const personalemission = await getPersonalEmissions().catch(e => {
 		errorHandling(e, 'getPersonalEmissions()');
@@ -1841,14 +1836,6 @@ $('#unstakeBTN').click(async () => {
 	
 });
 
-$('#CLOSE-UNSTAKE-WARNING').click(async () => {
-	if (document.getElementById('WARNING-UNSTAKE').style.display == 'none'){
-		document.getElementById('WARNING-UNSTAKE').style.display = 'block';
-	}else{
-		document.getElementById('WARNING-UNSTAKE').style.display = 'none';
-	}
-	document.getElementById('agree-unstake').checked = false;
-});
 /* 
 --------------------------------------------------------------------------------------
 */
