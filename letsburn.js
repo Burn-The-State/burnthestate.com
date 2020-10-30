@@ -1678,6 +1678,30 @@ $('#redeemBTN').click(async () => {
 	}else{
 		document.getElementById('WARNING-REDEEM').style.display = 'none';
 	}
+	
+	const personalemission = await getPersonalEmissions().catch(e => {
+		errorHandling(e, 'getPersonalEmissions()');
+		return("error");
+	});
+	switch ($('[name=redeem][type=radio]:checked').val())
+	{
+		case 'XAMP':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.XAMP}`;
+			break;
+		
+		case 'TOB':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.TOB}`;
+			break;
+		
+		case 'BOA':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.BOA}`;
+			break;
+		
+		case 'ETH':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.ETH}`;
+			break;
+	}	
+	
 });
 
 
@@ -1691,6 +1715,10 @@ $('input[type=checkbox][name=agree-redeem]').change(async () =>{
 			document.getElementById('CONFIRM-REDEEM').disabled = true;
 		}
 	}
+	
+	
+	
+	
 });
 
 
@@ -1716,37 +1744,16 @@ $('#CONFIRM-REDEEM').click(async () => {
 
 
 $('#CLOSE-REDEEM-WARNING').click(async () => {
-	const personalemission = await getPersonalEmissions().catch(e => {
-		errorHandling(e, 'getPersonalEmissions()');
-		return("error");
-	});
-	switch ($('[name=redeem][type=radio]:checked').val())
-	{
-		case 'XAMP':
-			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.XAMP}`;
-			break;
-		
-		case 'TOB':
-			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.TOB}`;
-			break;
-		
-		case 'BOA':
-			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.BOA}`;
-			break;
-		
-		case 'ETH':
-			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.ETH}`;
-			break;
-	}
-	
-	
-	
 	if (document.getElementById('WARNING-REDEEM').style.display == 'none'){
 		document.getElementById('WARNING-REDEEM').style.display = 'block';
 	}else{
 		document.getElementById('WARNING-REDEEM').style.display = 'none';
 	}
 	document.getElementById('agree-redeem').checked = false;
+	
+	
+	
+	
 });
 
 
@@ -1798,6 +1805,15 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 
 
 $('#unstakeBTN').click(async () => {
+
+	
+	
+	if (document.getElementById('WARNING-UNSTAKE').style.display == 'none'){
+		document.getElementById('WARNING-UNSTAKE').style.display = 'block';
+	}else{
+		document.getElementById('WARNING-UNSTAKE').style.display = 'none';
+	}
+	
 	const personalemission = await getPersonalEmissions().catch(e => {
 		errorHandling(e, 'getPersonalEmissions()');
 		return("error");
@@ -1822,11 +1838,7 @@ $('#unstakeBTN').click(async () => {
 	}
 	
 	
-	if (document.getElementById('WARNING-UNSTAKE').style.display == 'none'){
-		document.getElementById('WARNING-UNSTAKE').style.display = 'block';
-	}else{
-		document.getElementById('WARNING-UNSTAKE').style.display = 'none';
-	}
+	
 });
 
 $('#CLOSE-UNSTAKE-WARNING').click(async () => {
@@ -1936,5 +1948,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
