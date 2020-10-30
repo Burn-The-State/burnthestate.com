@@ -1324,6 +1324,8 @@ const updateUserStats = async () => {
 			$('#personal-emission-TOB').html(`${personalemission.TOB}`);
 			$('#personal-emission-BOA').html(`${personalemission.BOA}`);
 			$('#personal-emission-ETH').html(`${personalemission.ETH}`);
+			$('P-EMISSION-WARNING-REDEEM').html(`${personalemission.ETH}`);
+			$('P-EMISSION-WARNING-UNSTAKING').html(`${personalemission.ETH}`);
 		}else return("error");
 
 		// current LP Tokens
@@ -1667,8 +1669,34 @@ $('#stakeBTN').click(async () => {
   });
 });
 
+
+/* REDEEM BUTTON FUNCTIONALITY WITH WARNING 
+--------------------------------------------------------------------------------------------
+*/
 $('#redeemBTN').click(async () => {
-  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+	if (document.getElementById('WARNING-REDEEM').style.display == 'none'){
+		document.getElementById('WARNING-REDEEM').style.display = 'block';
+	}else{
+		document.getElementById('WARNING-REDEEM').style.display = 'none';
+	}
+});
+
+
+$('input[type=checkbox][name=agree-redeem]').change(async () =>{
+	if (document.getElementById('agree-redeem').checked){
+		if (document.getElementById('CONFIRM-REDEEM').disabled == true){
+			document.getElementById('CONFIRM-REDEEM').disabled = false;
+		}
+	}else{
+		if (document.getElementById('CONFIRM-REDEEM').disabled == false){
+			document.getElementById('CONFIRM-REDEEM').disabled = true;
+		}
+	}
+});
+
+
+$('CONFIRM-REDEEM').click(async () => {
+   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
   if (DISPLAY_CONSOLE) console.log('Redeem btn click');
@@ -1682,9 +1710,32 @@ $('#redeemBTN').click(async () => {
 			document.getElementById('redeemReceipt').style.opacity = '1';
 		}
   });
+  if document.getElementById('WARNING-REDEEM').style.display != 'none'{
+	  document.getElementById('WARNING-REDEEM').style.display = 'none'
+  }
+});
+/* 
+--------------------------------------------------------------------------------------
+*/
+
+
+
+/* UNSTAKE BUTTON FUNCTIONALITY WITH WARNING 
+--------------------------------------------------------------------------------------------
+*/
+$('input[type=checkbox][name=agree-unstake]').change(async () =>{
+	if (document.getElementById('agree-unstake').checked){
+		if (document.getElementById('CONFIRM-UNSTAKE').disabled == true){
+			document.getElementById('CONFIRM-UNSTAKE').disabled = false;
+		}
+	}else{
+		if (document.getElementById('CONFIRM-UNSTAKE').disabled == false){
+			document.getElementById('CONFIRM-UNSTAKE').disabled = true;
+		}
+	}
 });
 
-$('#unstakeBTN').click(async () => {
+$('CONFIRM-UNSTAKE').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
@@ -1702,8 +1753,22 @@ $('#unstakeBTN').click(async () => {
 		if (unstakeReceipt && unstakeReceipt.style) {
 			document.getElementById('unstakeReceipt').style.opacity = '1';
 		}
+	if document.getElementById('WARNING-UNSTAKE').style.display != 'none'{
+	  document.getElementById('WARNING-UNSTAKE').style.display = 'none'
+	}
   });
+
+
+$('#unstakeBTN').click(async () => {
+	if (document.getElementById('WARNING-UNSTAKE').style.display == 'none'){
+		document.getElementById('WARNING-UNSTAKE').style.display = 'block';
+	}else{
+		document.getElementById('WARNING-UNSTAKE').style.display = 'none';
+	}
 });
+/* 
+--------------------------------------------------------------------------------------
+*/
 
 
 $('#connectToMetamask').click(async () => {
