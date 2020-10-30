@@ -1710,7 +1710,7 @@ $('CONFIRM-REDEEM').click(async () => {
 			document.getElementById('redeemReceipt').style.opacity = '1';
 		}
   });
-  if document.getElementById('WARNING-REDEEM').style.display != 'none'{
+  if (document.getElementById('WARNING-REDEEM').style.display != 'none'){
 	  document.getElementById('WARNING-REDEEM').style.display = 'none'
   }
 });
@@ -1753,7 +1753,7 @@ $('CONFIRM-UNSTAKE').click(async () => {
 		if (unstakeReceipt && unstakeReceipt.style) {
 			document.getElementById('unstakeReceipt').style.opacity = '1';
 		}
-	if document.getElementById('WARNING-UNSTAKE').style.display != 'none'{
+	if (document.getElementById('WARNING-UNSTAKE').style.display != 'none'){
 	  document.getElementById('WARNING-UNSTAKE').style.display = 'none'
 	}
   });
@@ -1865,6 +1865,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
