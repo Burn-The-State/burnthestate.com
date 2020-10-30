@@ -1714,6 +1714,18 @@ $('CONFIRM-REDEEM').click(async () => {
 	  document.getElementById('WARNING-REDEEM').style.display = 'none'
   }
 });
+
+
+$('#CLOSE-REDEEM-WARNING').click(async () => {
+	if (document.getElementById('WARNING-REDEEM').style.display == 'none'){
+		document.getElementById('WARNING-REDEEM').style.display = 'block';
+	}else{
+		document.getElementById('WARNING-REDEEM').style.display = 'none';
+	}
+	document.getElementById('agree-redeem').checked = false;
+});
+
+
 /* 
 --------------------------------------------------------------------------------------
 */
@@ -1767,6 +1779,15 @@ $('#unstakeBTN').click(async () => {
 	}else{
 		document.getElementById('WARNING-UNSTAKE').style.display = 'none';
 	}
+});
+
+$('#CLOSE-UNSTAKE-WARNING').click(async () => {
+	if (document.getElementById('WARNING-UNSTAKE').style.display == 'none'){
+		document.getElementById('WARNING-UNSTAKE').style.display = 'block';
+	}else{
+		document.getElementById('WARNING-UNSTAKE').style.display = 'none';
+	}
+	document.getElementById('agree-unstake').checked = false;
 });
 /* 
 --------------------------------------------------------------------------------------
