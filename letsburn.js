@@ -1720,7 +1720,7 @@ $('#CLOSE-REDEEM-WARNING').click(async () => {
 		errorHandling(e, 'getPersonalEmissions()');
 		return("error");
 	});
-	switch (document.getElementById('redeem').val())
+	switch ($('[name=redeem][type=radio]:checked').val())
 	{
 		case 'XAMP':
 			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.XAMP}`;
@@ -1802,7 +1802,7 @@ $('#unstakeBTN').click(async () => {
 		errorHandling(e, 'getPersonalEmissions()');
 		return("error");
 	});
-	switch (document.getElementById('redeem').val())
+	switch ($('[name=unstake][type=radio]:checked').val())
 	{
 		case 'XAMP':
 			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.XAMP}`;
@@ -1936,6 +1936,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
