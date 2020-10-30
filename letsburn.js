@@ -1695,7 +1695,7 @@ $('input[type=checkbox][name=agree-redeem]').change(async () =>{
 });
 
 
-$('CONFIRM-REDEEM').click(async () => {
+$('#CONFIRM-REDEEM').click(async () => {
    var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
@@ -1747,7 +1747,7 @@ $('input[type=checkbox][name=agree-unstake]').change(async () =>{
 	}
 });
 
-$('CONFIRM-UNSTAKE').click(async () => {
+$('#CONFIRM-UNSTAKE').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
