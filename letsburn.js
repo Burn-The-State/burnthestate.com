@@ -16,7 +16,7 @@ const TOKENS = {
   TOB: '0x7777770f8a6632ff043c8833310e245eba9209e6',
 };
 
-const DISPLAY_CONSOLE = true;
+const DISPLAY_CONSOLE = false;
 const DISPLAY_ERRORS = false;
 
 const PAIRS = {
