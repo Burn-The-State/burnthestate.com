@@ -1324,6 +1324,7 @@ const updateUserStats = async () => {
 			$('#personal-emission-TOB').html(`${personalemission.TOB}`);
 			$('#personal-emission-BOA').html(`${personalemission.BOA}`);
 			$('#personal-emission-ETH').html(`${personalemission.ETH}`);
+
 		}else return("error");
 
 		// current LP Tokens
@@ -1667,8 +1668,56 @@ $('#stakeBTN').click(async () => {
   });
 });
 
-$('#redeemBTN').click(async () => {
-  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+
+/* REDEEM BUTTON FUNCTIONALITY WITH WARNING 
+--------------------------------------------------------------------------------------------
+*/
+$('#redeemBTN').click(async () => {	
+	const personalemission = await getPersonalEmissions().catch(e => {
+		errorHandling(e, 'getPersonalEmissions()');
+		return("error");
+	});
+	switch ($('[name=redeem][type=radio]:checked').val())
+	{
+		case 'XAMP':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.XAMP}`;
+			break;
+		
+		case 'TOB':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.TOB}`;
+			break;
+		
+		case 'BOA':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.BOA}`;
+			break;
+		
+		case 'ETH':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.ETH}`;
+			break;
+	}	
+	
+});
+
+
+$('input[type=checkbox][name=agree-redeem]').change(async () =>{
+	if (document.getElementById('agree-redeem').checked){
+		if (document.getElementById('CONFIRM-REDEEM').disabled == true){
+			document.getElementById('CONFIRM-REDEEM').disabled = false;
+		}
+	}else{
+		if (document.getElementById('CONFIRM-REDEEM').disabled == false){
+			document.getElementById('CONFIRM-REDEEM').disabled = true;
+		}
+	}
+	
+	
+	
+	
+});
+
+
+$('#CONFIRM-REDEEM').click(async () => {
+   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
   if (DISPLAY_CONSOLE) console.log('Redeem btn click');
@@ -1684,7 +1733,30 @@ $('#redeemBTN').click(async () => {
   });
 });
 
-$('#unstakeBTN').click(async () => {
+
+
+/* 
+--------------------------------------------------------------------------------------
+*/
+
+
+
+/* UNSTAKE BUTTON FUNCTIONALITY WITH WARNING 
+--------------------------------------------------------------------------------------------
+*/
+$('input[type=checkbox][name=agree-unstake]').change(async () =>{
+	if (document.getElementById('agree-unstake').checked){
+		if (document.getElementById('CONFIRM-UNSTAKE').disabled == true){
+			document.getElementById('CONFIRM-UNSTAKE').disabled = false;
+		}
+	}else{
+		if (document.getElementById('CONFIRM-UNSTAKE').disabled == false){
+			document.getElementById('CONFIRM-UNSTAKE').disabled = true;
+		}
+	}
+});
+
+$('#CONFIRM-UNSTAKE').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
@@ -1704,6 +1776,44 @@ $('#unstakeBTN').click(async () => {
 		}
   });
 });
+  
+
+
+$('#unstakeBTN').click(async () => {
+
+	
+
+	
+	const personalemission = await getPersonalEmissions().catch(e => {
+		errorHandling(e, 'getPersonalEmissions()');
+		return("error");
+	});
+	switch ($('[name=unstake][type=radio]:checked').val())
+	{
+		case 'XAMP':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.XAMP}`;
+			break;
+		
+		case 'TOB':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.TOB}`;
+			break;
+		
+		case 'BOA':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.BOA}`;
+			break;
+		
+		case 'ETH':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.ETH}`;
+			break;
+	}
+	
+	
+	
+});
+
+/* 
+--------------------------------------------------------------------------------------
+*/
 
 
 $('#connectToMetamask').click(async () => {

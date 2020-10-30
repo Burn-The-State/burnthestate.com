@@ -455,3 +455,11 @@ mark
 button {
 	cursor: pointer;
 }
+
+/* v2 */
+.modal-body, .modal-header, .modal-footer
+{
+color: #fff;
+background-color: #cd2012e6 !important;
+border: 0;
+}

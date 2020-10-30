@@ -10,7 +10,54 @@
     <title>Burn The State</title>
   </head>
   <body>
+
+
+  <div id="modal1" class="modal p-3" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong>WARNING!</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h6>UNSTAKING YOUR TOKENS WILL LOSE YOUR<br>PERSONAL EMISSION RATE OF <span id="P-EMISSION-WARNING-UNSTAKING">0</span>%</h6>
+        <h6><strong>PLEASE CONFIRM YOU UNDERSTAND THAT YOUR<br> PERSONAL EMISSION WILL BE LOST.</strong></h6>
+        <input type="checkbox" id="agree-unstake" name="agree-unstake" value="agree">
+        <label for="agree"><h6> I have read and understand the above warning.</h6></label>
+         <button id="CONFIRM-UNSTAKE" type="button" class="btn-sm btn-dark " data-dismiss="modal" disabled>I CONFIRM I WILL LOSE MY EMISSION RATE WHEN I UNSTAKE</button>
+      </div>
+      
+    </div>
+  </div>
+ </div>
+
+ <div id="modal2" class="modal p-3" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong>WARNING!</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h6>REDEEMING REWARDS THIS WAY WILL LOSE YOUR PERSONAL EMISSION RATE OF <span id="P-EMISSION-WARNING-REDEEM">0</span>%</h6>
+        <h6><strong>PLEASE CONFIRM YOU UNDERSTAND THAT YOUR<br> PERSONAL EMISSION WILL BE LOST.</strong></h6>
+        <input type="checkbox" id="agree-redeem" name="agree-redeem" value="agree">
+        <label for="agree"><h6> I have read and understand the above warning.</h6></label>
+         <button id="CONFIRM-REDEEM" type="button" class="btn-sm btn-dark " data-dismiss="modal" disabled>I CONFIRM I WILL LOSE MY EMISSION RATE WHEN I REDEEM REWARDS</button>
+      </div>
+      
+    </div>
+  </div>
+ </div>
+
+
     <div class="container p-3">
+      <div class="container p-3">
+
       <!-- nav -->
       <nav class="navbar navbar-light border rounded">
         <a class="navbar-brand" href="#">
@@ -252,7 +299,7 @@
             <!-- <input type="range" class="custom-range p-3" id="customRange1"> -->
             <!-- <button type="button" class="btn btn-dark btn-block">Unlock wallet</button> -->
             <button id="stakeBTN" type="button" class="btn btn-dark btn-block mt-2">Stake</button>
-            <div class="col-12 text-center">
+            <div class="col-12 text-center pt-2">
               <h4><strong><span id="stakeReceipt"></span></strong></h4>
             </div>
           </div>
@@ -308,8 +355,8 @@
             <!-- <input class="form-control form-control-sm" type="text" placeholder="" data-container="body" data-toggle="popover" data-placement="right" data-content="WARNING - If you Redeem, you will lose your locked personal emission rate" data-original-title="" title=""> -->
             <!-- <input type="range" class="custom-range p-3" id="customRange1"> -->
             <!-- <button type="button" class="btn btn-dark btn-block">Unlock wallet</button> -->
-            <button id="redeemBTN"  type="button" class="btn btn-dark btn-block mt-2" data-content="WARNING - If you Redeem, you will lose your locked personal emission rate">Redeem <span id="redeem-amount-button">0</span> YFKA</button>
-            <div class="col-12 text-center">
+            <button id="redeemBTN"  type="button" class="btn btn-dark btn-block mt-2" data-toggle="modal" data-target="#modal2">Redeem <span id="redeem-amount-button">0</span> YFKA</button>
+            <div class="col-12 text-center pt-2">
               <h4><strong><span id="redeemReceipt"></span></strong></h4>
             </div>
           </div>
@@ -360,11 +407,11 @@
             <div class="col text-right"><strong><small>Balance: </small><span id="unstake-balance">0</span></strong> UNI-V2</div>
           </div>
           <div id="w-block" class="col border border-dark rounded p-3">
-            <input class="form-control form-control-sm" type="text" placeholder="" data-container="body" id="unstake-input" data-toggle="popover" data-placement="right" data-content="WARNING - If you un-stake, you will lose your locked personal emission rate" data-original-title="" title="">
+            <input class="form-control form-control-sm" type="text" placeholder="" data-container="body" id="unstake-input">
             <!-- <input type="range" class="custom-range p-3" id="customRange1"> -->
             <!-- <button type="button" class="btn btn-dark btn-block">Unlock wallet</button> -->
-            <button id="unstakeBTN"  type="button" class="btn btn-dark btn-block mt-2">Unstake</button>
-            <div class="col-12 text-center">
+            <button id="unstakeBTN"  type="button" class="btn btn-dark btn-block mt-2" data-toggle="modal" data-target="#modal1">Unstake</button>
+            <div class="col-12 text-center pt-2">
               <h4><strong><span id="unstakeReceipt"></span></strong></h4>
             </div>
           </div>
