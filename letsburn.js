@@ -1672,13 +1672,7 @@ $('#stakeBTN').click(async () => {
 /* REDEEM BUTTON FUNCTIONALITY WITH WARNING 
 --------------------------------------------------------------------------------------------
 */
-$('#redeemBTN').click(async () => {
-	if (document.getElementById('WARNING-REDEEM').style.display == 'none'){
-		document.getElementById('WARNING-REDEEM').style.display = 'block';
-	}else{
-		document.getElementById('WARNING-REDEEM').style.display = 'none';
-	}
-	
+$('#redeemBTN').click(async () => {	
 	const personalemission = await getPersonalEmissions().catch(e => {
 		errorHandling(e, 'getPersonalEmissions()');
 		return("error");
@@ -1737,24 +1731,8 @@ $('#CONFIRM-REDEEM').click(async () => {
 			document.getElementById('redeemReceipt').style.opacity = '1';
 		}
   });
-  if (document.getElementById('WARNING-REDEEM').style.display != 'none'){
-	  document.getElementById('WARNING-REDEEM').style.display = 'none'
-  }
 });
 
-
-$('#CLOSE-REDEEM-WARNING').click(async () => {
-	if (document.getElementById('WARNING-REDEEM').style.display == 'none'){
-		document.getElementById('WARNING-REDEEM').style.display = 'block';
-	}else{
-		document.getElementById('WARNING-REDEEM').style.display = 'none';
-	}
-	document.getElementById('agree-redeem').checked = false;
-	
-	
-	
-	
-});
 
 
 /* 
@@ -1797,10 +1775,7 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 			document.getElementById('unstakeReceipt').style.opacity = '1';
 		}
   });
-	if (document.getElementById('WARNING-UNSTAKE').style.display != 'none'){
-	  document.getElementById('WARNING-UNSTAKE').style.display = 'none'
-	}
-  });
+});
   
 
 
