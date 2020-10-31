@@ -776,7 +776,9 @@
                                     
                                     slideCol.oninput = function() {
                                         y.innerHTML = this.value;
-                                        document.getElementById("unstake-input").value = vy;
+										console.log("SLIDER:",(slideCol.value/100), "%" );
+										console.log("BALNCE:",document.getElementById("unstake-balance").value*(slideCol.value/100), "%" );
+                                        document.getElementById("unstake-input").value = document.getElementById("unstake-balance").value * (slideCol.value/100);
                                     }
                                 </script>
                             </div>
