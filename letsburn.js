@@ -1321,21 +1321,17 @@ const getStakedUSDTotals = async () => {
 	const LPConvers = await getLPconversions();
 	const Prices = await getPrices();
 	
-	const XAMPLPSTAKED = (totalYFKAStake.fXAMP*2)/YFKAtoLPXAMP;
-	const TOBLPSTAKED = (totalYFKAStake.fTOB*2)/YFKAtoLPTOB;
-	const BOALPSTAKED = (totalYFKAStake.fBOA*2)/YFKAtoLPBOA;
-	const ETHLPSTAKED = (totalYFKAStake.fETH*2)/YFKAtoLPETH;
+	const XAMPLPSTAKED = (totalYFKAStake.fXAMP*2)/LPConvers.YFKAtoLPXAMP;
+	const TOBLPSTAKED = (totalYFKAStake.fTOB*2)/LPConvers.YFKAtoLPTOB;
+	const BOALPSTAKED = (totalYFKAStake.fBOA*2)/LPConvers.YFKAtoLPBOA;
+	const ETHLPSTAKED = (totalYFKAStake.fETH*2)/LPConvers.YFKAtoLPETH;
 	
 	
 	const XAMPUSDStaked = (totalYFKAStake.fXAMP*2)*Prices.YFKA.usd;
 	const TOBUSDStaked = (totalYFKAStake.fTOB*2)*Prices.YFKA.usd;
 	const BOAUSDStaked = (totalYFKAStake.fBOA*2)*Prices.YFKA.usd;
 	const ETHUSDStaked = (totalYFKAStake.fETH*2)*Prices.YFKA.usd;
-	if (DISPLAY_CONSOLE) console.log('YFKA in XAMP:', totalYFKAStake.fXAMP*2);
-	if (DISPLAY_CONSOLE) console.log('YFKA in TOB:', totalYFKAStake.fTOB*2);
-	if (DISPLAY_CONSOLE) console.log('YFKA in BOA:', totalYFKAStake.fBOA*2);
-	if (DISPLAY_CONSOLE) console.log('YFKA in ETH:', totalYFKAStake.fETH*2);
-	if (DISPLAY_CONSOLE) console.log('YFKA to USD: $', Prices.YFKA.usd);
+
 	
 	return{
 		XAMPUSD: twoDecimals(XAMPUSDStaked),
