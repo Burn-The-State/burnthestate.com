@@ -2264,10 +2264,13 @@ const updateActivePool = async () => {
 	if (DISPLAY_CONSOLE) console.log(PoolBalances.ETH);
 	
 	if (PoolBalances != "error"){
-		$('#total-dollar-val-XAMP').html(`${Number(PoolBalances.XAMP).toLocaleString}`);
-		$('#total-dollar-val-TOB').html(`${Number(PoolBalances.TOB).toLocaleString}`);
-		$('#total-dollar-val-BOA').html(`${Number(PoolBalances.BOA).toLocaleString}`);
-		$('#total-dollar-val-ETH').html(`${Number(PoolBalances.ETH).toLocaleString}`);
+		
+		
+		
+		$('#total-dollar-val-XAMP').html(`${Number(PoolBalances.XAMP).toLocaleString()}`);
+		$('#total-dollar-val-TOB').html(`${Number(PoolBalances.TOB).toLocaleString()}`);
+		$('#total-dollar-val-BOA').html(`${Number(PoolBalances.BOA).toLocaleString()}`);
+		$('#total-dollar-val-ETH').html(`${Number(PoolBalances.ETH).toLocaleString()}`);
 	}
 	
 	
