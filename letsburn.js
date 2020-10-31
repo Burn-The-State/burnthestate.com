@@ -848,8 +848,7 @@ const YFKA_CONTROLLER_ABI = [
 *
 */
 
-function errorHandling(error, functionCall)
-{
+function errorHandling(error, functionCall){
 	const errorCode = error.code;
 	const errorMessage = error.message;
 	if (DISPLAY_ERRORS) {
@@ -909,8 +908,6 @@ const Totals = async () => {
 
 }
 
-
-
 const getPricesYFKA = async () => {
   const tokenKeys = Object.keys(TOKENS);
 
@@ -924,7 +921,6 @@ const getPricesYFKA = async () => {
     TOB: tokenPrices[TOKENS.TOB],
   }
 }
-
 
 // Get BTS token prices in USD and ETH
 const getPrices = async () => {
@@ -942,10 +938,8 @@ const getPrices = async () => {
   }
 }
 
-
 //GETS TOTAL LP PER POOL
-const getTotalLP = async () =>
-{
+const getTotalLP = async () =>{
 	const provider = getInfuraProvider();
 	
 	// YFKA_XAMP
@@ -985,7 +979,6 @@ const getTotalLP = async () =>
 	}
 }
 
-
 // get Users STAKED LP
 const getStakes = async () => {
 	//Provides Base Amount in Uint256 and Formatted Amount for Easy printing
@@ -1015,7 +1008,6 @@ const getStakes = async () => {
 	fETH: userOwnedLPETH/(10**18),
   }
 }
-
 
 // get Users Rewards (YFKA)
 const getRewards = async () => {
@@ -1059,7 +1051,6 @@ const getRewards = async () => {
 	fETH: ethReward/(10**18),
   }
 }
-
 
 //get USers Wallet Balances
 const getWalletBTSCoins = async () => {
@@ -1130,7 +1121,6 @@ const getWalletBTSCoins = async () => {
 	}
 	
 }
-
 
 const getLPconversions = async () =>{
 	const reserves = await getReserves();
@@ -1224,7 +1214,6 @@ const getBTSTotals = async () => {
   }
 }
 
-
 const totalYFKAStaked = async () =>{
 	const ashContract = yfkaControllerContract();
 	
@@ -1252,7 +1241,6 @@ const totalYFKAStaked = async () =>{
 		
 }
 
-
 const getPooledBTS = async () => {
 	const totalYFKAStakes = await totalYFKAStaked();
 	const reserves = await getReserves();
@@ -1276,10 +1264,6 @@ const getPooledBTS = async () => {
 	//BTS pooled vs Staked %
 		
 }
-
-
-
-
 
 //GET RESERVES
 const getReserves = async () => {
@@ -1350,8 +1334,6 @@ const getStakedUSDTotals = async () => {
 		
 	}
 }
-
-
 
 const FillInfo = async () => {
 	if (DISPLAY_CONSOLE) console.log('getReserves');
@@ -1620,7 +1602,6 @@ const FillInfo = async () => {
 
 };
 
-
 function toFixed(x) {
   if (Math.abs(x) < 1.0) {
     var e = parseInt(x.toString().split('e-')[1]);
@@ -1639,8 +1620,6 @@ function toFixed(x) {
   return x;
 }
 
-
-
 const isConnected = () => {
   return web3.isConnected();
 };
@@ -1651,7 +1630,6 @@ const getInfuraProvider = () => {
   );
   return new Web3(INFURA_PROVIDER);
 };
-
 
 const checksumAddress = (address) => {
 	const provider = getInfuraProvider();
@@ -1795,10 +1773,6 @@ async function MetaConnect(){
 	}		
 }
 
-
-
-
-
 /*
 *
 *
@@ -1811,7 +1785,6 @@ async function MetaConnect(){
 *
 */
 
-
 const fillMoreInfo = async () =>{
 	const EthPrices = await getPricesETH();
 	const USDPrices = await getPricesUSD();
@@ -1823,9 +1796,6 @@ const fillMoreInfo = async () =>{
 	$('#XAMPMinStake').html(sixDecimals(MinStakes.XAMP));
 	$('#XAMPTOTAL').html(sixDecimals(Totals.XAMP));
 }
-
-
-
 
 const getTotalBalances = async () => {
 	if (DISPLAY_CONSOLE) console.log('getBalances');
@@ -1888,7 +1858,6 @@ const getTotalBalances = async () => {
 			  : 0,
 		};
 };
-
 
 //GET WALLET BALANCES
 const getPoolBalances = async () => {
@@ -1991,7 +1960,6 @@ const getPoolBalances = async () => {
 	YFKA: _.toNumber(amounts.YFKA),
   };
 };
-
 
 const getPersonalEmissions= async () => {
 	const account = await getAccount();
@@ -2246,7 +2214,6 @@ const updateUserStats = async () => {
 	}else return("error");
 };
 
-
 const updateActivePool = async () => {
 	if (DISPLAY_CONSOLE) console.log('updateActivePool');
 	const _globalEmissionRate = await getGlobalEmissionRate().catch(e => {
@@ -2368,6 +2335,10 @@ function waitForApproval(tx, ashContract, payload, amount) {
         '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' +
         res +
         '">Click here to view your transaction.</a>';
+		//OPEN RECIPET IN NEW TAB
+		window.open("https://etherscan.io/tx/" + res");
+		//RELOAD THIS PAGE
+		location.reload();
       document.getElementById('stakeReceipt').style.opacity = '1';
       // updatePoolBalances();
     });
@@ -2460,7 +2431,6 @@ const setUnstakeBalance = async () => {
   });
 };
 
-
 /*
 *
 *
@@ -2472,7 +2442,6 @@ const setUnstakeBalance = async () => {
 *
 *
 */
-
 
 $('input[type=radio][name=stake]').change(setStakeBalance);
 
@@ -2535,8 +2504,6 @@ $('#stakeBTN').click(async () => {
   });
 });
 
-
-
 /* REDEEM BUTTON FUNCTIONALITY WITH WARNING 
 --------------------------------------------------------------------------------------------
 */
@@ -2566,7 +2533,6 @@ $('#redeemBTN').click(async () => {
 	
 });
 
-
 $('input[type=checkbox][name=agree-redeem]').change(async () =>{
 	if (document.getElementById('agree-redeem').checked){
 		if (document.getElementById('CONFIRM-REDEEM').disabled == true){
@@ -2582,7 +2548,6 @@ $('input[type=checkbox][name=agree-redeem]').change(async () =>{
 	
 	
 });
-
 
 $('#CONFIRM-REDEEM').click(async () => {
    var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
@@ -2600,8 +2565,6 @@ $('#CONFIRM-REDEEM').click(async () => {
 		}
   });
 });
-
-
 
 /* 
 --------------------------------------------------------------------------------------
@@ -2637,8 +2600,11 @@ $('#CONFIRM-UNSTAKE').click(async () => {
   ashContract.unstake(idx, amount, function (err, res) {
 		if (DISPLAY_CONSOLE) console.log('https://etherscan.io/tx/' + res);
 		$('#unstakeReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Unstake Receipt</a>');
-
+		//OPEN WINDOW WITH RECIPET
+		window.open("https://etherscan.io/tx/" + res );
 		const unstakeReceipt = document.getElementById('unstakeReceipt');
+		//RELOAD THIS PAGE
+		location.reload();
 		if (unstakeReceipt && unstakeReceipt.style) {
 			document.getElementById('unstakeReceipt').style.opacity = '1';
 		}
@@ -2655,8 +2621,6 @@ var slideCol = document.getElementById("id1");
 });
 */
   
-
-
 $('#unstakeBTN').click(async () => {
 
 	
@@ -2693,8 +2657,6 @@ $('#unstakeBTN').click(async () => {
 --------------------------------------------------------------------------------------
 */
 
-
-
 $('#connectToMetamask').click(async () => {
 	
 	const provider = await window.web3.currentProvider.enable().catch(e => {
@@ -2706,7 +2668,6 @@ $('#connectToMetamask').click(async () => {
 		setTimeout(() => {  MetaConnect();; }, 100);
 	}
 });
-
 
 $('#dropDownInfo').click(async () => {
 	var x = document.getElementById('moreInfodiv');
@@ -2758,7 +2719,6 @@ $('#WALLETInfo').click(async () => {
 	document.getElementById('WalletInfoPanel').style.display = 'block';
 });
 
-
 $('#XAMPInfo').click(async () => {
 	if (DISPLAY_CONSOLE) console.log('XAMP Info Clicked');
 	document.getElementById('XampInfoPanel').style.display = 'block';
@@ -2794,8 +2754,6 @@ $('#ETHInfo').click(async () => {
 	document.getElementById('EthInfoPanel').style.display = 'block';
 	document.getElementById('WalletInfoPanel').style.display = 'none';
 });
-
-
 
 /*
 *
