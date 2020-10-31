@@ -1232,15 +1232,6 @@ const totalYFKAStaked = async () =>{
 		.totalYFKAStaked(YFKA_POOL_INDEXES.BOA).call();
 	const totalStakedYFKA_ETH = await ashContract.methods
 		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH).call();
-		
-	if (DISPLAY_CONSOLE) console.log("XAMP STAKED YFKA : ",totalStakedYFKA_XAMP );
-	if (DISPLAY_CONSOLE) console.log("TOB STAKED YFKA : ",totalStakedYFKA_TOB );
-	if (DISPLAY_CONSOLE) console.log("BOA STAKED YFKA : ",totalStakedYFKA_BOA  );
-	if (DISPLAY_CONSOLE) console.log("ETH STAKED YFKA : ",totalStakedYFKA_ETH );
-		
-		
-		
-		
 	return{
 		XAMP:totalStakedYFKA_XAMP,
 		TOB:totalStakedYFKA_TOB,
@@ -1330,19 +1321,10 @@ const getStakedUSDTotals = async () => {
 	const LPConvers = await getLPconversions();
 	const Prices = await getPrices();
 	
-	if (DISPLAY_CONSOLE) console.log("XAMP STAKED YFKA : ",totalYFKAStake.fXAMP );
-	if (DISPLAY_CONSOLE) console.log("TOB STAKED YFKA : ",totalYFKAStake.fTOB );
-	if (DISPLAY_CONSOLE) console.log("BOA STAKED YFKA : ",totalYFKAStake.fBOA );
-	if (DISPLAY_CONSOLE) console.log("ETH STAKED YFKA : ",totalYFKAStake.fETH );
-	
-	if (DISPLAY_CONSOLE) console.log("YFKA Price : $",Prices.YFKA );
-
-	
-	
-	const XAMPUSDStaked = (totalYFKAStake.fXAMP*2)*Prices.YFKA;
-	const TOBUSDStaked = (totalYFKAStake.fTOB*2)*Prices.YFKA;
-	const BOAUSDStaked = (totalYFKAStake.fBOA*2)*Prices.YFKA;
-	const ETHUSDStaked = (totalYFKAStake.fETH*2)*Prices.YFKA;
+	const XAMPUSDStaked = (totalYFKAStake.fXAMP*2)*Prices.YFKA.usd;
+	const TOBUSDStaked = (totalYFKAStake.fTOB*2)*Prices.YFKA.usd;
+	const BOAUSDStaked = (totalYFKAStake.fBOA*2)*Prices.YFKA.usd;
+	const ETHUSDStaked = (totalYFKAStake.fETH*2)*Prices.YFKA.usd;
 	
 	
 	return{
@@ -2876,4 +2858,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
