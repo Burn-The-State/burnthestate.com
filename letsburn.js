@@ -2222,40 +2222,26 @@ const updateUserStats = async () => {
 			//XAMP
 			const TotalXAMPbalance = TotalBalances.XAMP;
 			const percentXAMP = (fourDecimals(xampLpBalance / 10 ** 18) / TotalXAMPbalance) * 100;
-			if (DISPLAY_CONSOLE) console.log('XAMP Balance = ', XAMPbalance);
-			if (DISPLAY_CONSOLE) console.log('XAMP Total =', TotalXAMPbalance);
-			var readableTotalXAMP = twoDecimals(TotalXAMPbalance);
 			var readablePercentage = belowZero(fourDecimals(percentXAMP));
-			if (DISPLAY_CONSOLE) console.log('XAMP % = ', readablePercentage);
 			$('#pool-Share-XAMP').html(`${readablePercentage}`);
-			$('#total-LP-XAMP').html(`${readableTotalXAMP}`);
 
 			//TOB
 			const TotalTOBbalance = TotalBalances.TOB;
 			const percentTOB = (fourDecimals(tobLpBalance / 10 ** 18) / TotalTOBbalance) * 100;
-			if (DISPLAY_CONSOLE) console.log('TOB Balance = ', TOBbalance);
-			if (DISPLAY_CONSOLE) console.log('TOB Total =', TotalTOBbalance);
-			var readableTotalTOB = twoDecimals(TotalTOBbalance);
 			var readablePercentTOB = belowZero(fourDecimals(percentTOB));
 			$('#pool-Share-TOB').html(`${readablePercentTOB}`);
-			$('#total-LP-TOB').html(`${readableTotalTOB}`);
 
 			//BOA
 			const TotalBOAbalance = TotalBalances.BOA;
 			const percentBOA = (fourDecimals(boaLpBalance / 10 ** 18) / TotalBOAbalance) * 100;
-			var readableTotalBOA = twoDecimals(TotalBOAbalance);
 			var readablePercentageBOA = belowZero(fourDecimals(percentBOA));
-			if (DISPLAY_CONSOLE) console.log('BOA % = ', readablePercentage);
 			$('#pool-Share-BOA').html(`${readablePercentageBOA}`);
-			$('#total-LP-BOA').html(`${readableTotalBOA}`);
-
+		
 			//ETH
 			const TotalETHbalance = TotalBalances.ETH;
 			const percentETH = (fourDecimals(ethLpBalance / 10 ** 18) / TotalETHbalance) * 100;
-			var readableTotalETH = twoDecimals(TotalETHbalance);
 			var readablePercentageETH = belowZero(fourDecimals(percentETH));
 			$('#pool-Share-ETH').html(`${readablePercentageETH}`);
-			$('#total-LP-ETH').html(`${readableTotalETH}`);
 		}else return("error");
 	}else return("error");
 };
@@ -2268,6 +2254,33 @@ const updateActivePool = async () => {
 		return("error");
 	});
 	
+	
+	const TotalBalances = await getTotalBalances().catch(e => {
+		errorHandling(e, 'getTotalBalances()');
+		return("error");
+	});
+	
+	if (TotalBalances != "error"){
+	
+		const TotalXAMPbalance = TotalBalances.XAMP;
+		var readableTotalXAMP = twoDecimals(TotalXAMPbalance);
+		$('#total-LP-XAMP').html(`${readableTotalXAMP}`);
+
+		const TotalTOBbalance = TotalBalances.TOB;
+		var readableTotalTOB = twoDecimals(TotalTOBbalance);
+		$('#total-LP-TOB').html(`${readableTotalTOB}`);
+		
+		const TotalBOAbalance = TotalBalances.BOA;
+		var readableTotalBOA = twoDecimals(TotalBOAbalance);
+		$('#total-LP-BOA').html(`${readableTotalBOA}`);
+		
+		const TotalETHbalance = TotalBalances.ETH;
+		var readableTotalETH = twoDecimals(TotalETHbalance);
+		$('#total-LP-ETH').html(`${readableTotalETH}`);
+	
+	}
+	
+
 	const PoolBalances = await getStakedUSDTotals().catch(e => {
 		errorHandling(e, 'getStakedUSDTotals()');
 		return("error");
@@ -2877,4 +2890,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
