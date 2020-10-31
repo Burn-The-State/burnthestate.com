@@ -1329,7 +1329,7 @@ const getStakedUSDTotals = async () => {
 	if (DISPLAY_CONSOLE) console.log('YFKA in TOB:', totalYFKAStake.fTOB*2);
 	if (DISPLAY_CONSOLE) console.log('YFKA in BOA:', totalYFKAStake.fBOA*2);
 	if (DISPLAY_CONSOLE) console.log('YFKA in ETH:', totalYFKAStake.fETH*2);
-	
+	if (DISPLAY_CONSOLE) console.log('YFKA to USD: $', Prices.YFKA.usd);
 	
 	return{
 		XAMP: twoDecimals(XAMPUSDStaked),
