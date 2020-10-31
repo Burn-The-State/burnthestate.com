@@ -1154,15 +1154,20 @@ const getLPconversions = async () =>{
 	//XAMP POOL
 	const XAMPtoLP = (XAMPReserve/LP.XAMP) *(10**18);
 	const YFKAtoLPX = ((YFKAinXAMP/(10**18)) /LP.XAMP)*(10**18);
+	console.log("YFKA TO LP (XAMP):", YFKAtoLPX);
+
 	//TOB POOL
 	const TOBtoLP = (TOBReserve/LP.TOB) *(10**18);
 	const YFKAtoLPT = ((YFKAinTOB/(10**18)) /LP.TOB)*(10**18);
+	console.log("YFKA TO LP (TOB):", YFKAtoLPT);
 	//BOA POOL
 	const BOAtoLP = (BOAReserve/LP.BOA) *(10**18);
 	const YFKAtoLPB = ((YFKAinBOA/(10**18)) /LP.BOA)*(10**18);
+	console.log("YFKA TO LP (ETH):", YFKAtoLPB);
 	//ETH POOL
 	const ETHtoLP = (ETHReserve/LP.ETH) *(10**18);
 	const YFKAtoLPE = ((YFKAinETH/(10**18)) /LP.ETH)*(10**18);
+	console.log("YFKA TO LP (ETH):", YFKAtoLPE);
 
 	return{
 		YFKAtoLPXAMP: YFKAtoLPX,
@@ -2877,4 +2882,3 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
