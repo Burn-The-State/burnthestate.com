@@ -2577,7 +2577,7 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 });
 
 
-$('#id1').oninput(async ()=>{
+$('#id1').change(async ()=>{
 var slideCol = document.getElementById("id1");                                
 var y = document.getElementById("sdf");
 var unstakeval = document.getElementById("unstake-input").value;
@@ -2824,3 +2824,4 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
