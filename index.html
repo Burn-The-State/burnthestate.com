@@ -772,9 +772,13 @@
                                     
                                     var y = document.getElementById("sdf");
                                     y.innerHTML = slideCol.value;
+									var v = document.getElementById("unstake-input-hidden");
+									var input = document.getElementById("unstake-input");
 
                                     slideCol.oninput = function() {
                                         y.innerHTML = this.value;
+										input.value = v*(this.value/100);
+										
                                     }
                                 </script>
                             </div>
