@@ -2273,11 +2273,6 @@ const updateActivePool = async () => {
 		return("error");
 	});
 	
-	if (DISPLAY_CONSOLE) console.log('PoolBalances:');
-	if (DISPLAY_CONSOLE) console.log(PoolBalances.XAMP);
-	if (DISPLAY_CONSOLE) console.log(PoolBalances.TOB);
-	if (DISPLAY_CONSOLE) console.log(PoolBalances.BOA);
-	if (DISPLAY_CONSOLE) console.log(PoolBalances.ETH);
 	
 	if (PoolBalances != "error"){
 		
@@ -2823,7 +2818,7 @@ window.addEventListener('load', async (event) => {
 			if (err != null) console.error("An error occurred: "+err);
 			else if (accounts.length == 0){
 				if (DISPLAY_CONSOLE) console.log('NO ACCOUNTS CONNECTED!');
-				await updateGlobal().catch(e => {
+				var durp = await updateGlobal().catch(e => {
 					errorHandling(e, 'updateGlobal()');
 				});
 			}			
@@ -2882,4 +2877,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
