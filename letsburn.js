@@ -2578,17 +2578,8 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 
 
 $('#id1').change(async ()=>{
-var slideCol = document.getElementById("id1");                                
-var y = document.getElementById("sdf");
-var unstakeval = document.getElementById("unstake-input").value;
-	 y.innerHTML = slideCol.value;
-var vy = unstakeval * (slideCol.value/100);
- var balance = $('#unstake-input-hidden').val();;
- 
- console.log("BALNCE:", balance);
-	y.innerHTML = this.value;
-	console.log("SLIDER:",(slideCol.value/100), "%" );
-	console.log("BALNCE:",$('#unstake-balance').val()*(slideCol.value/100), "%" );
+var slideCol = document.getElementById("id1");
+ var balance = $('#unstake-input-hidden').val();
 	document.getElementById("unstake-input").value = balance * (slideCol.value/100);
 	
 });
