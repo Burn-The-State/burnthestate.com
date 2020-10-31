@@ -1321,6 +1321,12 @@ const getStakedUSDTotals = async () => {
 	const LPConvers = await getLPconversions();
 	const Prices = await getPrices();
 	
+	const XAMPLPSTAKED = (totalYFKAStake.fXAMP*2)/YFKAtoLPXAMP;
+	const TOBLPSTAKED = (totalYFKAStake.fTOB*2)/YFKAtoLPTOB;
+	const BOALPSTAKED = (totalYFKAStake.fBOA*2)/YFKAtoLPBOA;
+	const ETHLPSTAKED = (totalYFKAStake.fETH*2)/YFKAtoLPETH;
+	
+	
 	const XAMPUSDStaked = (totalYFKAStake.fXAMP*2)*Prices.YFKA.usd;
 	const TOBUSDStaked = (totalYFKAStake.fTOB*2)*Prices.YFKA.usd;
 	const BOAUSDStaked = (totalYFKAStake.fBOA*2)*Prices.YFKA.usd;
@@ -1332,10 +1338,15 @@ const getStakedUSDTotals = async () => {
 	if (DISPLAY_CONSOLE) console.log('YFKA to USD: $', Prices.YFKA.usd);
 	
 	return{
-		XAMP: twoDecimals(XAMPUSDStaked),
-		TOB: twoDecimals(TOBUSDStaked),
-		BOA: twoDecimals(BOAUSDStaked),
-		ETH: twoDecimals(ETHUSDStaked),
+		XAMPUSD: twoDecimals(XAMPUSDStaked),
+		TOBUSD: twoDecimals(TOBUSDStaked),
+		BOAUSD: twoDecimals(BOAUSDStaked),
+		ETHUSD: twoDecimals(ETHUSDStaked),
+		XAMPTOTAL:twoDecimals(XAMPLPSTAKED),
+		TOBTOTAL:twoDecimals(TOBLPSTAKED),
+		BOATOTAL:twoDecimals(BOALPSTAKED),
+		ETHTOTAL:twoDecimals(ETHLPSTAKED),
+		
 	}
 }
 
@@ -2271,10 +2282,15 @@ const updateActivePool = async () => {
 		
 		
 		
-		$('#total-dollar-val-XAMP').html(`${Number(PoolBalances.XAMP).toLocaleString()}`);
-		$('#total-dollar-val-TOB').html(`${Number(PoolBalances.TOB).toLocaleString()}`);
-		$('#total-dollar-val-BOA').html(`${Number(PoolBalances.BOA).toLocaleString()}`);
-		$('#total-dollar-val-ETH').html(`${Number(PoolBalances.ETH).toLocaleString()}`);
+		$('#total-dollar-val-XAMP').html(`${Number(PoolBalances.XAMPUSD).toLocaleString()}`);
+		$('#total-dollar-val-TOB').html(`${Number(PoolBalances.TOBUSD).toLocaleString()}`);
+		$('#total-dollar-val-BOA').html(`${Number(PoolBalances.BOAUSD).toLocaleString()}`);
+		$('#total-dollar-val-ETH').html(`${Number(PoolBalances.ETHUSD).toLocaleString()}`);
+		
+		$('#total-val-XAMP').html(`${Number(PoolBalances.XAMPTOTAL).toLocaleString()}`);
+		$('#total-val-TOB').html(`${Number(PoolBalances.TOBTOTAL).toLocaleString()}`);
+		$('#total-val-BOA').html(`${Number(PoolBalances.BOATOTAL).toLocaleString()}`);
+		$('#total-val-ETH').html(`${Number(PoolBalances.ETHTOTAL).toLocaleString()}`);
 	}
 	
 	
@@ -2865,6 +2881,4 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
 
