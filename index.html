@@ -772,13 +772,13 @@
                                     var unstakeval = document.getElementById("unstake-input").value;
                                          y.innerHTML = slideCol.value;
                                     var vy = unstakeval * (slideCol.value/100);
-                                       
+                                    const    
                                     
                                     slideCol.oninput = function() {
                                         y.innerHTML = this.value;
 										console.log("SLIDER:",(slideCol.value/100), "%" );
-										console.log("BALNCE:",document.getElementById("unstake-balance").value*(slideCol.value/100), "%" );
-                                        document.getElementById("unstake-input").value = document.getElementById("unstake-balance").value * (slideCol.value/100);
+										console.log("BALNCE:",$('#unstake-balance').val()*(slideCol.value/100), "%" );
+                                        document.getElementById("unstake-input").value = $('#unstake-balance').val() * (slideCol.value/100);
                                     }
                                 </script>
                             </div>
