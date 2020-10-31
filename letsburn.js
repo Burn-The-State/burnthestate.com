@@ -2258,6 +2258,12 @@ const updateActivePool = async () => {
 		return("error");
 	});
 	
+	if (DISPLAY_CONSOLE) console.log('PoolBalances:');
+	if (DISPLAY_CONSOLE) console.log(PoolBalances.XAMP);
+	if (DISPLAY_CONSOLE) console.log(PoolBalances.TOB);
+	if (DISPLAY_CONSOLE) console.log(PoolBalances.BOA);
+	if (DISPLAY_CONSOLE) console.log(PoolBalances.ETH);
+	
 	if (PoolBalances != "error"){
 		$('#total-dollar-val-XAMP').html(`${PoolBalances.XAMP}`);
 		$('#total-dollar-val-TOB').html(`${PoolBalances.TOB}`);
