@@ -752,6 +752,7 @@
                     <div class="row">
                         <div class="col text-left">Enter amount</div>
                         <div class="col text-right"><strong><small>Balance: </small><span id="unstake-balance">0</span></strong> UNI-V2</div>
+						<div class="col text-right" style= "display:none;" ><input class="form-control form-control-sm" type="text" placeholder="" data-container="body" id="unstake-input-hidden"></div>
                     </div>
                     <div id="w-block" class="col border border-dark rounded p-3">
                         <input class="form-control form-control-sm" type="text" placeholder="" data-container="body" id="unstake-input">
@@ -766,19 +767,21 @@
                                 <input type="range" min="1" max="100" value="50" class="slider" id="id1" style="width: 100%;">
                                 <span id="sdf" style="font-weight:bold;color:red">54</span>%
                                 <script>
+								
                                     var slideCol = document.getElementById("id1");
                                     
                                     var y = document.getElementById("sdf");
                                     var unstakeval = document.getElementById("unstake-input").value;
                                          y.innerHTML = slideCol.value;
                                     var vy = unstakeval * (slideCol.value/100);
-                                      
+                                     var balance = $('#unstake-input-hidden').value;
+									 console.log("BALNCE:", balance);
                                     
                                     slideCol.oninput = function() {
                                         y.innerHTML = this.value;
 										console.log("SLIDER:",(slideCol.value/100), "%" );
 										console.log("BALNCE:",$('#unstake-balance').val()*(slideCol.value/100), "%" );
-                                        document.getElementById("unstake-input").value = $('#unstake-balance').val() * (slideCol.value/100);
+                                        document.getElementById("unstake-input").value = balance * (slideCol.value/100);
                                     }
                                 </script>
                             </div>
