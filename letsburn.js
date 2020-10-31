@@ -2576,6 +2576,7 @@ $('#CONFIRM-UNSTAKE').click(async () => {
   });
 });
 
+/*
 
 $('#id1').change(async ()=>{
 var slideCol = document.getElementById("id1");
@@ -2583,8 +2584,7 @@ var slideCol = document.getElementById("id1");
 	document.getElementById("unstake-input").value = balance * (slideCol.value/100);
 	
 });
-
-
+*/
   
 
 
