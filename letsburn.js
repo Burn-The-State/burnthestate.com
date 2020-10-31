@@ -1317,16 +1317,34 @@ const getReserves = async () => {
 	
 }
 
+const getStakedUSDTotals = async () => {
+	const totalYFKAStaked = await totalYFKAStaked();
+	const LPConvers = await getLPconversions();
+	const Prices = await getPrices();
+	
+	const XAMPUSDStaked = (totalYFKAStaked.fXAMP*2)*Prices.YFKA;
+	const TOBUSDStaked = (totalYFKAStaked.fTOB*2)*Prices.YFKA;
+	const BOAUSDStaked = (totalYFKAStaked.fBOA*2)*Prices.YFKA;
+	const ETHUSDStaked = (totalYFKAStaked.fETH*2)*Prices.YFKA;
+	
+	
+	return{
+		XAMP: twoDecimals(XAMPUSDStaked),
+		TOB: twoDecimals(TOBUSDStaked),
+		BOA: twoDecimals(BOAUSDStaked),
+		ETH: twoDecimals(ETHUSDStaked),
+	}
+}
+
 
 
 const FillInfo = async () => {
 	if (DISPLAY_CONSOLE) console.log('getReserves');
-	const ashContract = yfkaControllerContract();
 	const userLPS = await getStakes();
 	const userRewards = await getRewards();
 	const BTSTOT = await getBTSTotals();
 	const LP = await getTotalLP();
-	const LPconv = await getLPconversions();
+	
 
 	//PULL RESERVES
 	const reserves = await getReserves();
@@ -2234,6 +2252,20 @@ const updateActivePool = async () => {
 		errorHandling(e, 'getGlobalEmissionRate()');
 		return("error");
 	});
+	
+	const PoolBalances = await getStakedUSDTotals().catch(e => {
+		errorHandling(e, 'getStakedUSDTotals()');
+		return("error");
+	});
+	
+	if (PoolBalances != "error"){
+		$('#total-dollar-val-XAMP').html(`${PoolBalances.XAMP}`);
+		$('#total-dollar-val-TOB').html(`${PoolBalances.TOB}`);
+		$('#total-dollar-val-BOA').html(`${PoolBalances.BOA}`);
+		$('#total-dollar-val-ETH').html(`${PoolBalances.ETH}`);
+	}
+	
+	
 	if (_globalEmissionRate != "error"){
 		const globalEmissionRate = Math.ceil(_globalEmissionRate);
 
@@ -2771,6 +2803,15 @@ window.addEventListener('load', async (event) => {
 				
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
+				await updateGlobal().catch(e => {
+					errorHandling(e, 'updateGlobal()');
+				});
+				
+				await updateGlobal().catch(e => {
+					errorHandling(e, 'updateGlobal()');
+				});
+				
+				
 				var updateAP = await updateActivePool().catch(e => {
 						errorHandling(e, 'updateActivePool()');
 				});
@@ -2780,6 +2821,8 @@ window.addEventListener('load', async (event) => {
 						errorHandling(e, 'updateUserStats()');
 					});
 				}
+				
+				
 
 				if (updateUS != "error"){
 					await setStakeBalance({
@@ -2815,4 +2858,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
