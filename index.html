@@ -774,7 +774,8 @@
                                     var unstakeval = document.getElementById("unstake-input").value;
                                          y.innerHTML = slideCol.value;
                                     var vy = unstakeval * (slideCol.value/100);
-                                     var balance = $('#unstake-input-hidden').value;
+                                     var balance = document.getElementById("unstake-input-hidden").value;
+									 
 									 console.log("BALNCE:", balance);
                                     
                                     slideCol.oninput = function() {
