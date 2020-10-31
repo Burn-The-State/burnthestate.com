@@ -2832,7 +2832,7 @@ window.addEventListener('load', async (event) => {
 				
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
-				await updateGlobal().catch(e => {
+				var durp = await updateGlobal().catch(e => {
 					errorHandling(e, 'updateGlobal()');
 				});
 				
@@ -2882,3 +2882,4 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
