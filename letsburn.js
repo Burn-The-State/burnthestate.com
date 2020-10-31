@@ -1326,10 +1326,10 @@ const getStakedUSDTotals = async () => {
 	const LPConvers = await getLPconversions();
 	const Prices = await getPrices();
 	
-	const XAMPLPSTAKED = (totalYFKAStake.fXAMP*2)/LPConvers.YFKAtoLPXAMP;
-	const TOBLPSTAKED = (totalYFKAStake.fTOB*2)/LPConvers.YFKAtoLPTOB;
-	const BOALPSTAKED = (totalYFKAStake.fBOA*2)/LPConvers.YFKAtoLPBOA;
-	const ETHLPSTAKED = (totalYFKAStake.fETH*2)/LPConvers.YFKAtoLPETH;
+	const XAMPLPSTAKED = (totalYFKAStake.fXAMP/2)/LPConvers.YFKAtoLPXAMP;
+	const TOBLPSTAKED = (totalYFKAStake.fTOB/2)/LPConvers.YFKAtoLPTOB;
+	const BOALPSTAKED = (totalYFKAStake.fBOA/2)/LPConvers.YFKAtoLPBOA;
+	const ETHLPSTAKED = (totalYFKAStake.fETH/2)/LPConvers.YFKAtoLPETH;
 	
 	
 	const XAMPUSDStaked = (totalYFKAStake.fXAMP*2)*Prices.YFKA.usd;
@@ -2877,5 +2877,3 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
