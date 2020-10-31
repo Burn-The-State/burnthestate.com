@@ -1233,6 +1233,14 @@ const totalYFKAStaked = async () =>{
 	const totalStakedYFKA_ETH = await ashContract.methods
 		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH);
 		
+	if (DISPLAY_CONSOLE) console.log("XAMP STAKED YFKA : ",totalStakedYFKA_XAMP );
+	if (DISPLAY_CONSOLE) console.log("TOB STAKED YFKA : ",totalStakedYFKA_TOB );
+	if (DISPLAY_CONSOLE) console.log("BOA STAKED YFKA : ",totalStakedYFKA_BOA  );
+	if (DISPLAY_CONSOLE) console.log("ETH STAKED YFKA : ",totalStakedYFKA_ETH );
+		
+		
+		
+		
 	return{
 		XAMP:totalStakedYFKA_XAMP,
 		TOB:totalStakedYFKA_TOB,
@@ -2868,4 +2876,3 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
