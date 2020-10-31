@@ -1318,14 +1318,14 @@ const getReserves = async () => {
 }
 
 const getStakedUSDTotals = async () => {
-	const totalYFKAStaked = await totalYFKAStaked();
+	const totalYFKAStake = await totalYFKAStaked();
 	const LPConvers = await getLPconversions();
 	const Prices = await getPrices();
 	
-	const XAMPUSDStaked = (totalYFKAStaked.fXAMP*2)*Prices.YFKA;
-	const TOBUSDStaked = (totalYFKAStaked.fTOB*2)*Prices.YFKA;
-	const BOAUSDStaked = (totalYFKAStaked.fBOA*2)*Prices.YFKA;
-	const ETHUSDStaked = (totalYFKAStaked.fETH*2)*Prices.YFKA;
+	const XAMPUSDStaked = (totalYFKAStake.fXAMP*2)*Prices.YFKA;
+	const TOBUSDStaked = (totalYFKAStake.fTOB*2)*Prices.YFKA;
+	const BOAUSDStaked = (totalYFKAStake.fBOA*2)*Prices.YFKA;
+	const ETHUSDStaked = (totalYFKAStake.fETH*2)*Prices.YFKA;
 	
 	
 	return{
