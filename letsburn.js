@@ -1322,6 +1322,15 @@ const getStakedUSDTotals = async () => {
 	const LPConvers = await getLPconversions();
 	const Prices = await getPrices();
 	
+	if (DISPLAY_CONSOLE) console.log("XAMP STAKED YFKA : ",totalYFKAStake.fXAMP );
+	if (DISPLAY_CONSOLE) console.log("TOB STAKED YFKA : ",totalYFKAStake.fTOB );
+	if (DISPLAY_CONSOLE) console.log("BOA STAKED YFKA : ",totalYFKAStake.fBOA );
+	if (DISPLAY_CONSOLE) console.log("ETH STAKED YFKA : ",totalYFKAStake.fETH );
+	
+	if (DISPLAY_CONSOLE) console.log("YFKA Price : $",Prices.YFKA );
+
+	
+	
 	const XAMPUSDStaked = (totalYFKAStake.fXAMP*2)*Prices.YFKA;
 	const TOBUSDStaked = (totalYFKAStake.fTOB*2)*Prices.YFKA;
 	const BOAUSDStaked = (totalYFKAStake.fBOA*2)*Prices.YFKA;
@@ -2859,5 +2868,4 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
