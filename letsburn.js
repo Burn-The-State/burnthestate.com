@@ -2384,6 +2384,8 @@ const setUnstakeBalance = async () => {
 		const reablebalance = fourDecimals(balance);
     if (DISPLAY_CONSOLE) console.log('Staked XAMP: ', balance);
     $('#unstake-input').val(`${balance}`);
+	$('#unstake-input-hidden').val(`${balance}`);
+	
     $('#unstake-input').attr('placeholder', `${balance}`);
     $('#unstake-balance').html(`${reablebalance}`);
   });
@@ -2560,6 +2562,8 @@ $('#CONFIRM-UNSTAKE').click(async () => {
   const idx = getIndexBySymbol(value);
 
   var amount = $('#unstake-input').val();
+  
+  
   amount = _.toNumber(amount) * 10 ** 18;
   ashContract.unstake(idx, amount, function (err, res) {
 		if (DISPLAY_CONSOLE) console.log('https://etherscan.io/tx/' + res);
@@ -2801,3 +2805,4 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
