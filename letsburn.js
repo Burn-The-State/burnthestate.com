@@ -2464,14 +2464,63 @@ $('#stakeBTN').click(async () => {
   });
 });
 
+
+/* REDEEM BUTTON FUNCTIONALITY WITH WARNING 
+--------------------------------------------------------------------------------------------
+*/
+$('#redeemBTN').click(async () => {	
+	const personalemission = await getPersonalEmissions().catch(e => {
+		errorHandling(e, 'getPersonalEmissions()');
+		return("error");
+	});
+	switch ($('[name=redeem][type=radio]:checked').val())
+	{
+		case 'XAMP':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.XAMP}`;
+			break;
+
+		case 'TOB':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.TOB}`;
+			break;
+
+		case 'BOA':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.BOA}`;
+			break;
+
+		case 'ETH':
+			document.getElementById('P-EMISSION-WARNING-REDEEM').innerHTML = `${personalemission.ETH}`;
+			break;
+	}	
+
+});
+
+
+$('input[type=checkbox][name=agree-redeem]').change(async () =>{
+	if (document.getElementById('agree-redeem').checked){
+		if (document.getElementById('CONFIRM-REDEEM').disabled == true){
+			document.getElementById('CONFIRM-REDEEM').disabled = false;
+		}
+	}else{
+		if (document.getElementById('CONFIRM-REDEEM').disabled == false){
+			document.getElementById('CONFIRM-REDEEM').disabled = true;
+		}
+	}
+
+
+
+
+});
+
+
+$('#CONFIRM-REDEEM').click(async () => {
+   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
 $('#redeemBTN').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
   if (DISPLAY_CONSOLE) console.log('Redeem btn click');
-  const value = $('[name=redeem][type=radio]:checked').val();
+const value = $('[name=redeem][type=radio]:checked').val();
   const idx = getIndexBySymbol(value);
-
   ashContract.redeem(idx, function (err, res) {
 		$('#redeemReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Redeem Receipt</a>');
 		const redeemReceipt = document.getElementById('redeemReceipt');
@@ -2481,20 +2530,42 @@ $('#redeemBTN').click(async () => {
   });
 });
 
-$('#unstakeBTN').click(async () => {
-  var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
+
+
+/* 
+--------------------------------------------------------------------------------------
+*/
+
+
+
+/* UNSTAKE BUTTON FUNCTIONALITY WITH WARNING 
+--------------------------------------------------------------------------------------------
+*/
+
+$('input[type=checkbox][name=agree-unstake]').change(async () =>{
+	if (document.getElementById('agree-unstake').checked){
+		if (document.getElementById('CONFIRM-UNSTAKE').disabled == true){
+			document.getElementById('CONFIRM-UNSTAKE').disabled = false;
+		}
+	}else{
+		if (document.getElementById('CONFIRM-UNSTAKE').disabled == false){
+			document.getElementById('CONFIRM-UNSTAKE').disabled = true;
+		}
+	}
+});
+
+$('#CONFIRM-UNSTAKE').click(async () => {
+var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
 
   if (DISPLAY_CONSOLE) console.log('unstake btn click');
   const value = $('[name=unstake][type=radio]:checked').val();
   const idx = getIndexBySymbol(value);
-
   var amount = $('#unstake-input').val();
   amount = _.toNumber(amount) * 10 ** 18;
   ashContract.unstake(idx, amount, function (err, res) {
 		if (DISPLAY_CONSOLE) console.log('https://etherscan.io/tx/' + res);
 		$('#unstakeReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Unstake Receipt</a>');
-
 		const unstakeReceipt = document.getElementById('unstakeReceipt');
 		if (unstakeReceipt && unstakeReceipt.style) {
 			document.getElementById('unstakeReceipt').style.opacity = '1';
@@ -2502,7 +2573,35 @@ $('#unstakeBTN').click(async () => {
   });
 });
 
+$('#unstakeBTN').click(async () => {
+const personalemission = await getPersonalEmissions().catch(e => {
+		errorHandling(e, 'getPersonalEmissions()');
+		return("error");
+switch ($('[name=unstake][type=radio]:checked').val())
+{
+		case 'XAMP':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.XAMP}`;
+			break;
 
+		case 'TOB':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.TOB}`;
+			break;
+
+		case 'BOA':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.BOA}`;
+			break;
+
+		case 'ETH':
+			document.getElementById('P-EMISSION-WARNING-UNSTAKING').innerHTML = `${personalemission.ETH}`;
+			break;
+}
+
+});
+/* 
+--------------------------------------------------------------------------------------
+*/
+
+			
 $('#connectToMetamask').click(async () => {
 	
 	const provider = await window.web3.currentProvider.enable().catch(e => {
