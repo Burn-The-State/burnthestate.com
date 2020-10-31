@@ -1225,13 +1225,13 @@ const totalYFKAStaked = async () =>{
 	
 	//TOTAL YFKA STAKED	
 	const totalStakedYFKA_XAMP = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.XAMP);
+		.totalYFKAStaked(YFKA_POOL_INDEXES.XAMP).call();
 	const totalStakedYFKA_TOB = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.TOB);
+		.totalYFKAStaked(YFKA_POOL_INDEXES.TOB).call();
 	const totalStakedYFKA_BOA = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.BOA);
+		.totalYFKAStaked(YFKA_POOL_INDEXES.BOA).call();
 	const totalStakedYFKA_ETH = await ashContract.methods
-		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH);
+		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH).call();
 		
 	if (DISPLAY_CONSOLE) console.log("XAMP STAKED YFKA : ",totalStakedYFKA_XAMP );
 	if (DISPLAY_CONSOLE) console.log("TOB STAKED YFKA : ",totalStakedYFKA_TOB );
@@ -2876,3 +2876,4 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
