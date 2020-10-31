@@ -1325,6 +1325,10 @@ const getStakedUSDTotals = async () => {
 	const TOBUSDStaked = (totalYFKAStake.fTOB*2)*Prices.YFKA.usd;
 	const BOAUSDStaked = (totalYFKAStake.fBOA*2)*Prices.YFKA.usd;
 	const ETHUSDStaked = (totalYFKAStake.fETH*2)*Prices.YFKA.usd;
+	if (DISPLAY_CONSOLE) console.log('YFKA in XAMP:', totalYFKAStake.fXAMP*2);
+	if (DISPLAY_CONSOLE) console.log('YFKA in TOB:', totalYFKAStake.fTOB*2);
+	if (DISPLAY_CONSOLE) console.log('YFKA in BOA:', totalYFKAStake.fBOA*2);
+	if (DISPLAY_CONSOLE) console.log('YFKA in ETH:', totalYFKAStake.fETH*2);
 	
 	
 	return{
