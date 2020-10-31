@@ -6,7 +6,7 @@
 *------------------ CONSTANTS -------------------------------
 *
 *
-*
+*NOTE TO SELF web3.eth.getBalance FOR ETH BALANCE FROM WALLET.
 *
 */
 const TOKENS = {
@@ -14,10 +14,11 @@ const TOKENS = {
   XAMP: '0xf911a7ec46a2c6fa49193212fe4a2a9b95851c27',
   BOA: '0xf9c36c7ad7fa0f0862589c919830268d1a2581a1',
   TOB: '0x7777770f8a6632ff043c8833310e245eba9209e6',
+  ETH: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
 };
 
-const DISPLAY_CONSOLE = false;
-const DISPLAY_ERRORS = false;
+const DISPLAY_CONSOLE = true;
+const DISPLAY_ERRORS = true;
 
 const PAIRS = {
   YFKA_XAMP: '0xaea4d6809375bb973c8036d53db9e90970942738',
@@ -852,13 +853,759 @@ function errorHandling(error, functionCall)
 	const errorCode = error.code;
 	const errorMessage = error.message;
 	if (DISPLAY_ERRORS) {
+		
 		const Message = 'ERROR (' + functionCall + '): ' + errorMessage;
 		if (DISPLAY_CONSOLE) console.log(Message);
+		if (DISPLAY_CONSOLE) console.log(error);
 		if (errorCode == 4001 || errorCode == -32002){
 			$('#isConnected').html('Wallet NOT Connected');
 		}
 	}
 }
+/*
+const stakeMinimumPrice = async () => {
+	const MIN_STAKE_AMOUNT = 0.2;
+	const prices = await getPricesETH();
+	const yfkaPrices = prices.YFKA;
+	const yfkaEth = yfkaPrices.eth;
+	const yfkaMinInEth = yfkaEth * MIN_STAKE_AMOUNT;
+	//XAMP
+	const xampMin = yfkaMinInEth / prices.XAMP.eth;
+	//TOB
+	const tobMin = yfkaMinInEth / prices.TOB.eth;
+	//BOA
+	const boaMin = yfkaMinInEth / prices.BOA.eth;
+	
+	return {
+    YFKA: tokenPrices[TOKENS.YFKA],
+    XAMP: tokenPrices[TOKENS.XAMP],
+    BOA: tokenPrices[TOKENS.BOA],
+    TOB: tokenPrices[TOKENS.TOB],
+  }
+}
+*/
+const Totals = async () => {
+	const MIN_STAKE_AMOUNT = 0.2;
+
+	const prices = await getPricesETH();
+
+	const yfkaPrices = prices.YFKA;
+	const yfkaEth = yfkaPrices.eth;
+	const yfkaMinInEth = yfkaEth * MIN_STAKE_AMOUNT;
+
+	//XAMP
+	const xampMin = yfkaPrices.eth / prices.XAMP.eth;
+	//TOB
+	const tobMin = yfkaMinInEth / prices.TOB.eth;
+	//BOA
+	const boaMin = yfkaMinInEth / prices.BOA.eth;
+	
+	return {
+    YFKA: tokenPrices[TOKENS.YFKA],
+    XAMP: tokenPrices[TOKENS.XAMP],
+    BOA: tokenPrices[TOKENS.BOA],
+    TOB: tokenPrices[TOKENS.TOB],
+  }
+
+}
+
+
+
+const getPricesYFKA = async () => {
+  const tokenKeys = Object.keys(TOKENS);
+
+  const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenKeys.map(k => TOKENS[k]).join(',')}&vs_currencies=eth`);
+  const tokenPrices = await response.json();
+
+  // ETH
+  return {
+    XAMP: tokenPrices[TOKENS.XAMP],
+    BOA: tokenPrices[TOKENS.BOA],
+    TOB: tokenPrices[TOKENS.TOB],
+  }
+}
+
+
+// Get BTS token prices in USD and ETH
+const getPrices = async () => {
+  const tokenKeys = Object.keys(TOKENS);
+
+  const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenKeys.map(k => TOKENS[k]).join(',')}&vs_currencies=usd,eth`);
+  const tokenPrices = await response.json();
+
+  return {
+    YFKA: tokenPrices[TOKENS.YFKA],
+    XAMP: tokenPrices[TOKENS.XAMP],
+    BOA: tokenPrices[TOKENS.BOA],
+    TOB: tokenPrices[TOKENS.TOB],
+	ETH: tokenPrices[TOKENS.ETH],
+  }
+}
+
+
+//GETS TOTAL LP PER POOL
+const getTotalLP = async () =>
+{
+	const provider = getInfuraProvider();
+	
+	// YFKA_XAMP
+	const xampContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_XAMP
+	);
+	const tobContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_TOB
+	);
+	const boaContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_BOA
+	);
+	const ethContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_ETH
+
+	);
+	
+	//GET TOTAL LP IN POOLS
+	const totalLPXAMP = await xampContract.methods.totalSupply().call();
+	const totalLPTOB = await tobContract.methods.totalSupply().call();
+	const totalLPBOA = await boaContract.methods.totalSupply().call();
+	const totalLPETH = await ethContract.methods.totalSupply().call();
+
+	return{
+		XAMP:totalLPXAMP,
+		TOB:totalLPTOB,
+		BOA:totalLPBOA,
+		ETH:totalLPETH,
+		fXAMP:totalLPXAMP/(10**18),
+		fTOB:totalLPTOB/(10**18),
+		fBOA:totalLPBOA/(10**18),
+		fETH:totalLPETH/(10**18),
+	}
+}
+
+
+// get Users STAKED LP
+const getStakes = async () => {
+	//Provides Base Amount in Uint256 and Formatted Amount for Easy printing
+	const account = await getAccount();
+	const ashContract = yfkaControllerContract();
+	
+	const userOwnedLPXAMP = await ashContract.methods
+		.stakes(YFKA_POOL_INDEXES.XAMP, account)
+		.call();
+	const userOwnedLPTOB = await ashContract.methods
+		.stakes(YFKA_POOL_INDEXES.TOB, account)
+		.call();
+	const userOwnedLPBOA = await ashContract.methods
+		.stakes(YFKA_POOL_INDEXES.BOA, account)
+		.call();
+	const userOwnedLPETH = await ashContract.methods
+		.stakes(YFKA_POOL_INDEXES.ETH, account)
+		.call();	
+  return {
+    XAMP: userOwnedLPXAMP,
+    BOA: userOwnedLPBOA,
+    TOB: userOwnedLPTOB,
+	ETH: userOwnedLPETH,
+	fXAMP: userOwnedLPXAMP/(10**18),
+    fBOA: userOwnedLPBOA/(10**18),
+    fTOB: userOwnedLPTOB/(10**18),
+	fETH: userOwnedLPETH/(10**18),
+  }
+}
+
+
+// get Users Rewards (YFKA)
+const getRewards = async () => {
+	const account = await getAccount();
+	const ashContract = yfkaControllerContract();
+	
+	const xampReward = await ashContract.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.XAMP)
+		.call({
+			from: account,
+		});
+	const tobReward = await ashContract.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.TOB)
+		.call({
+			from: account,
+		});
+	const boaReward = await ashContract.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.BOA)
+		.call({
+			from: account,
+		});
+	const ethReward = await ashContract.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.ETH)
+		.call({
+			from: account,
+		});
+	const XampRewardFormatted = xampReward/(10**18);
+	const TobRewardFormatted = tobReward/(10**18);
+	const BoaRewardFormatted = boaReward/(10**18);
+	const ETHRewardFormatted = ethReward/(10**18);
+
+
+  return {
+    XAMP: xampReward,
+    BOA: boaReward,
+    TOB: tobReward,
+	ETH: ethReward,
+	fXAMP: xampReward/(10**18),
+    fBOA: boaReward/(10**18),
+    fTOB: tobReward/(10**18),
+	fETH: ethReward/(10**18),
+  }
+}
+
+
+//get USers Wallet Balances
+const getWalletBTSCoins = async () => {
+	const provider = getInfuraProvider();
+	const account = await getAccount();
+	
+	
+	const xampContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.XAMP
+	);
+	
+	const tobContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.TOB
+	);
+	
+	const boaContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.BOA
+	);
+	
+
+	const yfkaContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.YFKA
+	);
+	if (DISPLAY_CONSOLE) console.log("ETH ADD : ",account );
+	const Etherbalance = await provider.eth.getBalance(account, function(error, wei) {
+	  if (!error) {
+		
+		 return wei;
+	  }
+    });
+	if (DISPLAY_CONSOLE) console.log("ETH WALLET BALANCE : ",Etherbalance/(10**18) );
+	
+	/* BELOW DOES NOT WORK
+	const ethContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.ETH
+	);
+	*/
+	
+	const totalBALANCEXAMP = await xampContract.methods.balanceOf(account).call();
+	const totalBALANCETOB = await tobContract.methods.balanceOf(account).call();
+	const totalBALANCEBOA = await boaContract.methods.balanceOf(account).call();
+	const totalBALANCEETH = Etherbalance;
+	const totalBALANCEYFKA = await yfkaContract.methods.balanceOf(account).call();
+	
+	console.log("XAMP BALANCE WALLET =", totalBALANCEXAMP/(10**18));
+	console.log("TOB BALANCE WALLET =", totalBALANCETOB/(10**18));
+	console.log("BOA BALANCE WALLET =", totalBALANCEBOA/(10**18));
+	console.log("ETH BALANCE WALLET =", totalBALANCEETH/(10**18));
+	console.log("YFKA BALANCE WALLET =", totalBALANCEYFKA/(10**18));
+	
+	
+	return{
+	XAMP: totalBALANCEXAMP,
+    BOA: totalBALANCETOB,
+    TOB: totalBALANCEBOA,
+	ETH: totalBALANCEETH,
+	YFKA: totalBALANCEYFKA,
+	fXAMP: totalBALANCEXAMP/(10**18),
+    fBOA: totalBALANCEBOA/(10**18),
+    fTOB: totalBALANCETOB/(10**18),
+	fETH: totalBALANCEETH/(10**18),
+	fYFKA: totalBALANCEYFKA/(10**18),
+	}
+	
+}
+
+
+const getLPconversions = async () =>{
+	const reserves = await getReserves();
+	const totalYFKAStakes = await totalYFKAStaked();
+	const LP = await getTotalLP();
+	
+	
+	//GET XAMP POOLED
+	const XAMPReserve = reserves.XAMP[1]/(10**9);
+	const TOBReserve = reserves.TOB[1]/(10**18);
+	const BOAReserve = reserves.BOA[1]/(10**18);
+	const ETHReserve = reserves.ETH[1]/(10**18);
+	
+	const YFKAinXAMP = reserves.XAMP[0]
+	const YFKAinTOB = reserves.TOB[0]
+	const YFKAinBOA = reserves.BOA[0]
+	const YFKAinETH = reserves.ETH[0]
+	
+	
+	//WORK OUT BTS to LP 
+	//XAMP POOL
+	const XAMPtoLP = (XAMPReserve/LP.XAMP) *(10**18);
+	const YFKAtoLPX = ((YFKAinXAMP/(10**18)) /LP.XAMP)*(10**18);
+	//TOB POOL
+	const TOBtoLP = (TOBReserve/LP.TOB) *(10**18);
+	const YFKAtoLPT = ((YFKAinTOB/(10**18)) /LP.TOB)*(10**18);
+	//BOA POOL
+	const BOAtoLP = (BOAReserve/LP.BOA) *(10**18);
+	const YFKAtoLPB = ((YFKAinBOA/(10**18)) /LP.BOA)*(10**18);
+	//ETH POOL
+	const ETHtoLP = (ETHReserve/LP.ETH) *(10**18);
+	const YFKAtoLPE = ((YFKAinETH/(10**18)) /LP.ETH)*(10**18);
+
+	return{
+		YFKAtoLPXAMP: YFKAtoLPX,
+		YFKAtoLPTOB: YFKAtoLPT,
+		YFKAtoLPBOA: YFKAtoLPB,
+		YFKAtoLPETH: YFKAtoLPE, 
+		XAMPtoLP: XAMPtoLP,
+		TOBtoLP: TOBtoLP,
+		BOAtoLP: BOAtoLP, 
+		ETHtoLP: ETHtoLP,
+	}
+	
+}
+
+// Total Wallet BTS Helper.
+const getBTSTotals = async () => {
+	const rewards = await getRewards();
+	const yfkaRewardTotal = rewards.fXAMP + rewards.fTOB + rewards.fBOA + rewards.fETH;
+	const WalletBalances = await getWalletBTSCoins();
+	const UsersLP = await getStakes();
+	const BTStoLP = await getLPconversions();
+
+	const XAMPfromLP = BTStoLP.XAMPtoLP*(UsersLP.XAMP/(10**18));	
+	const TOBfromLP = BTStoLP.TOBtoLP*(UsersLP.TOB/(10**18));
+	const BOAfromLP = BTStoLP.BOAtoLP*(UsersLP.BOA/(10**18));
+	const ETHfromLP = BTStoLP.ETHtoLP*(UsersLP.ETH/(10**18));
+	const YFKAfromLP = (BTStoLP.YFKAtoLPXAMP*(UsersLP.XAMP/(10**18))) +
+						(BTStoLP.YFKAtoLPTOB *(UsersLP.TOB/(10**18)))+
+						(BTStoLP.YFKAtoLPBOA*(UsersLP.BOA/(10**18))) +
+						(BTStoLP.YFKAtoLPETH*(UsersLP.ETH/(10**18))) ;
+						
+	const XampTOTAL = WalletBalances.fXAMP + XAMPfromLP;
+	const TobTOTAL = WalletBalances.fTOB + TOBfromLP;
+	const BoaTOTAL = WalletBalances.fBOA + BOAfromLP;
+	const ETHRTOTAL = WalletBalances.fETH + ETHfromLP;
+	const YFKATOTAL = WalletBalances.fYFKA + YFKAfromLP;
+  return {
+    fXAMPWallet: fourDecimals(WalletBalances.fXAMP/(10**9)) ,
+    fBOAWallet: fourDecimals(WalletBalances.fBOA),
+    fTOBWallet: fourDecimals(WalletBalances.fTOB),
+	fYFKAWallet: fourDecimals(WalletBalances.fYFKA),
+	fETHWallet: fourDecimals(WalletBalances.fETH),
+	fYFKAReward: fourDecimals(yfkaRewardTotal),
+	fXAMPLP: fourDecimals(XAMPfromLP),
+    fBOALP: fourDecimals(BOAfromLP),
+    fTOBLP: fourDecimals(TOBfromLP),
+	fYFKALP: fourDecimals(YFKAfromLP),
+	fETHLP: fourDecimals(ETHfromLP),
+	fXAMPTotal: fourDecimals(XampTOTAL),
+    fBOATotal: fourDecimals(BoaTOTAL),
+    fTOBTotal: fourDecimals(TobTOTAL),
+	fETHTotal: fourDecimals(ETHRTOTAL),
+	fYFKATotal: fourDecimals(YFKATOTAL),
+  }
+}
+
+
+const totalYFKAStaked = async () =>{
+	const ashContract = yfkaControllerContract();
+	
+	//TOTAL YFKA STAKED	
+	const totalStakedYFKA_XAMP = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.XAMP);
+	const totalStakedYFKA_TOB = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.TOB);
+	const totalStakedYFKA_BOA = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.BOA);
+	const totalStakedYFKA_ETH = await ashContract.methods
+		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH);
+		
+	return{
+		XAMP:totalStakedYFKA_XAMP,
+		TOB:totalStakedYFKA_TOB,
+		BOA:totalStakedYFKA_BOA,
+		ETH:totalStakedYFKA_ETH,
+		fXAMP:totalStakedYFKA_XAMP/(10**18),
+		fTOB:totalStakedYFKA_TOB/(10**18),
+		fBOA:totalStakedYFKA_BOA/(10**18),
+		fETH:totalStakedYFKA_ETH/(10**18),
+	}
+		
+		
+		
+}
+
+
+const getPooledBTS = async () => {
+	const totalYFKAStakes = await totalYFKAStaked();
+	const reserves = await getReserves();
+	const totalLP = await getTotalLP();
+	
+
+	//YFKA to LP
+	
+	//TOTAL LP Staked
+	
+	//BTS Staked
+	
+	
+	
+	//YFKA pooled vs Staked %
+	percYFKAStakedXAMP = (reserves.XAMP[0]/totalYFKAStakes.XAMP) *100;
+	percYFKAStakedTOB = (reserves.TOB[0]/totalYFKAStakes.TOB) *100;
+	percYFKAStakedBOA = (reserves.BOA[0]/totalYFKAStakes.BOA) *100;
+	percYFKAStakedETH = (reserves.ETH[0]/totalYFKAStakes.ETH) *100;
+	
+	//BTS pooled vs Staked %
+		
+}
+
+
+
+
+
+//GET RESERVES
+const getReserves = async () => {
+	const provider = getInfuraProvider();
+
+	// YFKA_XAMP
+	const xampContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_XAMP
+	);
+	const tobContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_TOB
+	);
+	const boaContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_BOA
+	);
+	const ethContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_ETH
+
+	);
+	
+	//PULL RESERVES
+	const YFKAXAMPReserves = await xampContract.methods.getReserves().call();
+	const YFKATOBReserves = await tobContract.methods.getReserves().call();
+	const YFKABOAReserves = await boaContract.methods.getReserves().call();
+	const YFKAETHReserves = await ethContract.methods.getReserves().call();
+	
+	
+	
+	return {
+    XAMP: YFKAXAMPReserves,
+    BOA: YFKABOAReserves,
+    TOB: YFKATOBReserves,
+	ETH: YFKAETHReserves,
+	}
+	
+}
+
+
+
+const FillInfo = async () => {
+	if (DISPLAY_CONSOLE) console.log('getReserves');
+	const ashContract = yfkaControllerContract();
+	const userLPS = await getStakes();
+	const userRewards = await getRewards();
+	const BTSTOT = await getBTSTotals();
+	const LP = await getTotalLP();
+	const LPconv = await getLPconversions();
+
+	//PULL RESERVES
+	const reserves = await getReserves();
+	const YFKAXAMPReserves = reserves.XAMP;
+	const YFKATOBReserves = reserves.TOB;
+	const YFKABOAReserves = reserves.BOA;
+	const YFKAETHReserves = reserves.ETH;
+
+	//GET PRICES
+	const coinPrices = await getPrices();
+	const YFKAPrice = coinPrices.YFKA; //use .usd  or .eth
+	const XAMPPrice = coinPrices.XAMP;
+	const TOBPrice = coinPrices.TOB;
+	const BOAPrice = coinPrices.BOA;
+	const ETHPrice = coinPrices.ETH;
+	console.log("ETH PRICE: ", ETHPrice);
+
+
+	//GET XAMP POOLED
+	const XAMPReserve = YFKAXAMPReserves[1]/(10**9);
+	const TOBReserve = YFKATOBReserves[1]/(10**18);
+	const BOAReserve = YFKABOAReserves[1]/(10**18);
+	const ETHReserve = YFKAETHReserves[1]/(10**18);
+	
+	//GET YFKA POOLED
+	const YFKAReserve= YFKAXAMPReserves[0]/(10**18);
+	const YFKAReserveTOB= YFKATOBReserves[0]/(10**18);	
+	const YFKAReserveBOA= YFKABOAReserves[0]/(10**18);
+	const YFKAReserveETH= YFKAETHReserves[0]/(10**18);
+
+	const TotalYFKAPooled = YFKAReserve + YFKAReserveTOB + YFKAReserveBOA + YFKAReserveETH;
+
+	//WORK OUT POOL % of YFKA	
+	const XAMPYFKAPercent = (YFKAReserve/TotalYFKAPooled)*100;
+	const TOBYFKAPercent = (YFKAReserveTOB/TotalYFKAPooled)*100;
+	const BOAYFKAPercent = (YFKAReserveBOA/TotalYFKAPooled)*100;
+	const ETHYFKAPercent = (YFKAReserveETH/TotalYFKAPooled)*100;
+
+	//0.6 % fee on UNI.
+	const feeCalc = 0.6;
+
+	/* XAMP LOGIC
+	const halfLPXAMP = (totalLPXAMP/(10**18))/2;
+	const XAMPtoLP = (XAMPReserve/totalLPXAMP) *(10**18);
+	const LPtoXAMP = 1/XAMPtoLP;
+	
+	
+	//TOB LOGIC
+	const halfLPTOB = (totalLPTOB)/2;
+	const TOBtoLP = (TOBReserve/totalLPTOB)*(10**18);
+	const LPtoTOB = 1/TOBtoLP;
+	
+	//BOA LOGIC
+	const halfLPBOA = (totalLPBOA/(10**18))/2;
+	const BOAtoLP = (BOAReserve/totalLPBOA)*(10**18);
+	const LPtoBOA = 1/BOAtoLP;
+	
+	//XAMP LOGIC
+	const halfLPETH = (totalLPETH/(10**18))/2;
+	const ETHtoLP = (YFKAETHReserves[1]/totalLPETH);	
+	const LPtoETH = 1/ETHtoLP;
+	
+	//WORK OUT YFKA TO LP
+	const YFKALPXAMP = halfLPXAMP/YFKAXAMPReserves;
+	const YFKALPTOB = halfLPTOB/YFKAReserveTOB;
+	const YFKALPBOA = LPtoBOA/YFKAReserveBOA;
+	const YFKALPETH = halfLPETH/YFKAReserveETH;
+	
+*/
+	
+	//POOL PRICING
+	const XAMPLPUSDTOTAL = twoDecimals(
+							(XAMPReserve * XAMPPrice.usd) 
+							+ (YFKAReserve * YFKAPrice.usd)
+							);
+	const TOBLPUSDTOTAL = twoDecimals(
+							(TOBReserve * TOBPrice.usd)
+							+ (YFKAReserveTOB * YFKAPrice.usd)
+							);
+	const BOALPUSDTOTAL = twoDecimals(
+							(BOAReserve * BOAPrice.usd) 
+							+ (YFKAReserveBOA * YFKAPrice.usd)
+							);
+	const ETHLPUSDTOTAL = twoDecimals(
+							(ETHReserve * ETHPrice.usd) 
+							+ (YFKAReserveETH * YFKAPrice.usd)
+							);
+	
+	
+	//LP PRICING
+	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL/LP.fXAMP);
+	const TOBLPUSD = twoDecimals(TOBLPUSDTOTAL/LP.fTOB);
+	const BOALPUSD = twoDecimals(BOALPUSDTOTAL/LP.fBOA);
+	const ETHLPUSD = twoDecimals(ETHLPUSDTOTAL/LP.fETH);
+
+	//CALCULATE USERS LP $
+	const USERXAMPLPPRICE =   XAMPLPUSD * userLPS.fXAMP;
+	const USERTOBLPPRICE =   TOBLPUSD * userLPS.fTOB;
+	const USERBOALPPRICE =   BOALPUSD * userLPS.fBOA;
+	const USERETHLPPRICE =   ETHLPUSD * userLPS.fETH;
+	
+	
+	//UPDATE HTML
+	$('#XAMPLPTOTAL').html(twoDecimals(LP.fXAMP));
+	$('#TOBLPTOTAL').html(twoDecimals(LP.fTOB));
+	$('#BOALPTOTAL').html(twoDecimals(LP.fBOA));
+	$('#ETHLPTOTAL').html(twoDecimals(LP.fETH));
+	
+	$('#XAMPPOOLED').html(Number(twoDecimals(XAMPReserve)).toLocaleString());
+	$('#TOBPOOLED').html(Number(twoDecimals(TOBReserve)).toLocaleString());
+	$('#BOAPOOLED').html(Number(twoDecimals(BOAReserve)).toLocaleString());
+	$('#ETHPOOLED').html(Number(twoDecimals(ETHReserve)).toLocaleString());
+	
+	$('#YFKAPOOLEDX').html(Number(twoDecimals(YFKAReserve)).toLocaleString());
+	$('#YFKAPOOLEDT').html(Number(twoDecimals(YFKAReserveTOB)).toLocaleString());
+	$('#YFKAPOOLEDB').html(Number(twoDecimals(YFKAReserveBOA)).toLocaleString());
+	$('#YFKAPOOLEDE').html(Number(twoDecimals(YFKAReserveETH)).toLocaleString());
+	
+	$('#YFKAPOOLEDXPERCENT').html(twoDecimals(XAMPYFKAPercent));
+	$('#YFKAPOOLEDTPERCENT').html(twoDecimals(TOBYFKAPercent));
+	$('#YFKAPOOLEDBPERCENT').html(twoDecimals(BOAYFKAPercent));
+	$('#YFKAPOOLEDEPERCENT').html(twoDecimals(ETHYFKAPercent));
+	
+	$('#XAMPLP').html(Number(fourDecimals(LPconv.XAMPtoLP)).toLocaleString());
+	$('#TOBLP').html(Number(fourDecimals(LPconv.TOBtoLP)).toLocaleString());
+	$('#BOALP').html(Number(fourDecimals(LPconv.BOAtoLP)).toLocaleString());
+	$('#ETHLP').html(Number(fourDecimals(LPconv.ETHtoLP)).toLocaleString());
+	
+	$('#YFKALPX').html(Number(fourDecimals(LPconv.YFKAtoLPXAMP)).toLocaleString());
+	$('#YFKALPT').html(Number(fourDecimals(LPconv.YFKAtoLPTOB)).toLocaleString());
+	$('#YFKALPB').html(Number(fourDecimals(LPconv.YFKAtoLPBOA)).toLocaleString());
+	$('#YFKALPE').html(Number(fourDecimals(LPconv.YFKAtoLPETH)).toLocaleString());
+	
+	$('#LPXAMP').html(toFixed(tenDecimals(1/LPconv.XAMPtoLP)));
+	$('#LPTOB').html(eightDecimals(sixDecimals(1/LPconv.TOBtoLP)));
+	$('#LPBOA').html(eightDecimals(sixDecimals(1/LPconv.BOAtoLP)));
+	$('#LPETH').html(eightDecimals(sixDecimals(1/LPconv.ETHtoLP)));
+	
+	$('#LPPRICEXAMP').html(Number(XAMPLPUSD).toLocaleString());
+	$('#LPPRICETOB').html(Number(TOBLPUSD).toLocaleString());
+	$('#LPPRICEBOA').html(Number(BOALPUSD).toLocaleString());
+	$('#LPPRICEETH').html(Number(ETHLPUSD).toLocaleString());
+	
+	$('#LPPRICEXAMPTOTAL').html(Number(twoDecimals(XAMPLPUSDTOTAL)).toLocaleString());
+	$('#LPPRICETOBTOTAL').html(Number(twoDecimals(TOBLPUSDTOTAL)).toLocaleString());
+	$('#LPPRICEBOATOTAL').html(Number(twoDecimals(BOALPUSDTOTAL)).toLocaleString());
+	$('#LPPRICEETHTOTAL').html(Number(twoDecimals(ETHLPUSDTOTAL)).toLocaleString());
+	
+	$('#reward-XAMP-USD').html(twoDecimals(YFKAPrice.usd * userRewards.fXAMP));
+	$('#reward-TOB-USD').html(twoDecimals(YFKAPrice.usd * userRewards.fTOB));
+	$('#reward-BOA-USD').html(twoDecimals(YFKAPrice.usd * userRewards.fBOA));
+	$('#reward-ETH-USD').html(twoDecimals(YFKAPrice.usd * userRewards.fETH));
+	
+	$('#UserLPUSDXAMP').html(twoDecimals(USERXAMPLPPRICE));
+	$('#UserLPUSDTOB').html(twoDecimals(USERTOBLPPRICE));
+	$('#UserLPUSDBOA').html(twoDecimals(USERBOALPPRICE));
+	$('#UserLPUSDETH').html(twoDecimals(USERETHLPPRICE));
+	
+	$('#balance-LP-XAMP-1').html(userLPS.fXAMP);
+	$('#balance-LP-TOB-1').html(userLPS.fTOB);
+	$('#balance-LP-BOA-1').html(userLPS.fBOA);
+	$('#balance-LP-ETH-1').html(userLPS.fETH);
+	
+	
+	$('#reward-XAMP1').html(userRewards.fXAMP);
+	$('#reward-TOB1').html(userRewards.fTOB);
+	$('#reward-BOA1').html(userRewards.fBOA);
+	$('#reward-ETH1').html(userRewards.fETH);
+	
+	/*TODO PRINT TO USER BTS LP TOTAL, BTS WALLET TOTAL, BTS TOTAL TOTAL. WORK OUT ($) for each. 
+	fXAMPWallet: WalletBalances.XAMP,
+    fBOAWallet: WalletBalances.BOA,
+    fTOBWallet: WalletBalances.TOB,
+	fYFKAWallet: WalletBalances.YFKA,
+	fETHWallet: WalletBalances.ETH,
+	fYFKAReward: yfkaRewardTotal,
+	fXAMPLP: XampTotalLP,
+    fBOALP: BoaTotalLP,
+    fTOBLP: TobTotalLP,
+	fYFKALP: yfkaTotalLP,
+	fETHLP: ETHTotalLP,
+	fXAMPTotal: XampTOTAL,
+    fBOALPTotal: BoaTOTAL,
+    fTOBLPTotal: TobTOTAL,
+	fETHLPTotal: ETHRTOTAL,
+	fYFKALPTotal: YFKATOTAL,
+	
+	
+	YFKA HTML
+<strong>Total Balance: </strong><span id="TOTYFKA">0</span>YFKA ($<span id="YFKA1">0</span>)</small></span></div>                  
+<strong>Staked Balance: </strong><span id="LPYFKAuser">0</span>YFKA ($<span id="YFKA2">0</span>)</small></span></div> 
+<strong>Wallet Balance: </strong><span id="WALYFKA">0</span> YFKA  ($ <span id="YFKA3">0</span>)</small></span></div> 
+<strong>Total Reward balance: </strong><span id="REWYFKA">0</span> YFKA  ($ <span id="YFKA4">0</span>)</small></span></div> 
+     
+            
+            
+	
+	
+	
+	
+	
+	
+	
+	*/
+	
+	
+	//WALLET DUMP
+	//XAMP
+	$('#TOTXAMP').html(BTSTOT.fXAMPTotal);
+	$('#LPXAMPuser').html(Number(BTSTOT.fXAMPLP).toLocaleString());
+	$('#WALXAMP').html(BTSTOT.fXAMPWallet);
+	//XAMP $
+	$('#XAMPP1').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPTotal)));
+	$('#XAMPP2').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPLP)));
+	$('#XAMPP3').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPWallet));
+	
+	
+	//TOB
+	$('#TOTTOB').html(BTSTOT.fTOBTotal);
+	$('#LPTOBuser').html(BTSTOT.fTOBLP);
+	$('#WALTOB').html(BTSTOT.fTOBWallet);
+	//TOB $
+	$('#TOB1').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBTotal));
+	$('#TOB2').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBLP));
+	$('#TOB3').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBWallet));
+	
+	//BOA 
+	$('#TOTBOA').html(BTSTOT.fBOATotal);
+	$('#LPBOAuser').html(BTSTOT.fBOALP);
+	$('#WALBOA').html(BTSTOT.fBOAWallet);
+	//BOA $
+	$('#BOA1').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOATotal));
+	$('#BOA2').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOALP));
+	$('#BOA3').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOAWallet));
+
+	//YFKA
+	$('#TOTYFKA').html(BTSTOT.fYFKATotal);
+	$('#LPYFKAuser').html(BTSTOT.fYFKALP);
+	$('#WALYFKA').html(BTSTOT.fYFKAWallet);
+	$('#REWYFKA').html(BTSTOT.fYFKAReward);
+	//ETH $
+	$('#YFKA1').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKATotal));
+	$('#YFKA2').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKALP));
+	$('#YFKA3').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAWallet));
+	$('#YFKA4').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAReward));
+
+
+
+	//ETH 
+	$('#TOTETH').html(BTSTOT.fETHTotal);
+	$('#LPETHuser').html(BTSTOT.fETHLP);
+	$('#WALETH').html(BTSTOT.fETHWallet);
+	//ETH $
+	$('#ETH1').html(twoDecimals(ETHPrice.usd*BTSTOT.fETHTotal));
+	$('#ETH2').html(twoDecimals(ETHPrice.usd*BTSTOT.fETHLP));
+	$('#ETH3').html(twoDecimals(ETHPrice.usd*BTSTOT.fETHWallet));
+	
+
+};
+
+
+function toFixed(x) {
+  if (Math.abs(x) < 1.0) {
+    var e = parseInt(x.toString().split('e-')[1]);
+    if (e) {
+        x *= Math.pow(10,e-1);
+        x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+    }
+  } else {
+    var e = parseInt(x.toString().split('+')[1]);
+    if (e > 20) {
+        e -= 20;
+        x /= Math.pow(10,e);
+        x += (new Array(e+1)).join('0');
+    }
+  }
+  return x;
+}
+
 
 
 const isConnected = () => {
@@ -934,6 +1681,18 @@ function fourDecimals(b) {
 
 function sixDecimals(b) {
     const newNumber = Math.floor((b + Number.EPSILON) * 1000000) / 1000000;
+	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(newNumber);
+}
+
+function eightDecimals(b) {
+    const newNumber = Math.floor((b + Number.EPSILON) * 100000000) / 100000000;
+	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(newNumber);
+}
+
+function tenDecimals(b) {
+    const newNumber = Math.floor((b + Number.EPSILON) * 10000000000) / 10000000000;
 	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
     return _.toNumber(newNumber);
 }
@@ -1019,6 +1778,22 @@ async function MetaConnect(){
 *
 */
 
+
+const fillMoreInfo = async () =>{
+	const EthPrices = await getPricesETH();
+	const USDPrices = await getPricesUSD();
+	const MinStakes = await stakeMinimumPrice();
+	const Totals = await Totals();
+	
+	$('#XAMPETH').html(sixDecimals(EthPrices.XAMP));
+	$('#XAMPUSD').html(sixDecimals(USDPrices.XAMP));
+	$('#XAMPMinStake').html(sixDecimals(MinStakes.XAMP));
+	$('#XAMPTOTAL').html(sixDecimals(Totals.XAMP));
+}
+
+
+
+
 const getTotalBalances = async () => {
 	if (DISPLAY_CONSOLE) console.log('getBalances');
 		const provider = await getInfuraProvider();
@@ -1081,6 +1856,8 @@ const getTotalBalances = async () => {
 		};
 };
 
+
+//GET WALLET BALANCES
 const getPoolBalances = async () => {
   if (DISPLAY_CONSOLE) console.log('getBalances');
   const account = await getAccount();
@@ -1132,6 +1909,7 @@ const getPoolBalances = async () => {
     STANDARD_ERC20_ABI,
     PAIRS.YFKA_ETH
   );
+
   const ethContractBalance = await ethContract.methods
     .balanceOf(account)
     .call();
@@ -1139,6 +1917,21 @@ const getPoolBalances = async () => {
 
   const ethContractDecimals = await ethContract.methods.decimals().call();
   if (DISPLAY_CONSOLE) console.log('ethContractDecimals: ', ethContractDecimals);
+
+  
+   const yfkaContract = new provider.eth.Contract(
+    STANDARD_ERC20_ABI,
+    TOKENS.YFKA
+  );
+  
+  const yfkaContractBalance = await ethContract.methods
+    .balanceOf(account)
+    .call();
+  if (DISPLAY_CONSOLE) console.log('yfkaContractBalance: ', yfkaContractBalance);
+
+  const yfkaContractDecimals = await ethContract.methods.decimals().call();
+  if (DISPLAY_CONSOLE) console.log('fykaContractDecimals: ', yfkaContractDecimals);
+
 
   // TODO TOB showing NaN so figure that out
   const amounts = {
@@ -1152,6 +1945,9 @@ const getPoolBalances = async () => {
     ETH: ethContractBalance
       ? ethContractBalance / 10 ** ethContractDecimals
       : 0,
+	YFKA: yfkaContractBalance
+      ? yfkaContractBalance / 10 ** yfkaContractDecimals
+      : 0,
   };
 
   return {
@@ -1159,6 +1955,7 @@ const getPoolBalances = async () => {
     TOB: _.toNumber(amounts.TOB),
     BOA: _.toNumber(amounts.BOA),
     ETH: _.toNumber(amounts.ETH),
+	YFKA: _.toNumber(amounts.YFKA),
   };
 };
 
@@ -1324,7 +2121,6 @@ const updateUserStats = async () => {
 			$('#personal-emission-TOB').html(`${personalemission.TOB}`);
 			$('#personal-emission-BOA').html(`${personalemission.BOA}`);
 			$('#personal-emission-ETH').html(`${personalemission.ETH}`);
-
 		}else return("error");
 
 		// current LP Tokens
@@ -1517,7 +2313,7 @@ const setStakeBalance = async (event)=> {
   const balance = balances[event.currentTarget.value];
   if (DISPLAY_CONSOLE) console.log('balance: ', balance);
   // TODO
-  $('#stake-input').val(balance); // HOTFIX 1 (27.10.2020)
+  $('#stake-input').val(balance);
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
   return balance || '';
@@ -1669,6 +2465,7 @@ $('#stakeBTN').click(async () => {
 });
 
 
+
 /* REDEEM BUTTON FUNCTIONALITY WITH WARNING 
 --------------------------------------------------------------------------------------------
 */
@@ -1738,8 +2535,6 @@ $('#CONFIRM-REDEEM').click(async () => {
 /* 
 --------------------------------------------------------------------------------------
 */
-
-
 
 /* UNSTAKE BUTTON FUNCTIONALITY WITH WARNING 
 --------------------------------------------------------------------------------------------
@@ -1816,6 +2611,7 @@ $('#unstakeBTN').click(async () => {
 */
 
 
+
 $('#connectToMetamask').click(async () => {
 	
 	const provider = await window.web3.currentProvider.enable().catch(e => {
@@ -1827,6 +2623,95 @@ $('#connectToMetamask').click(async () => {
 		setTimeout(() => {  MetaConnect();; }, 100);
 	}
 });
+
+
+$('#dropDownInfo').click(async () => {
+	var x = document.getElementById('moreInfodiv');
+	if (DISPLAY_CONSOLE) console.log('more info Clicked');
+	if (DISPLAY_CONSOLE) console.log('Style.Display = ', x.style.display);
+	
+	if (x.style.display == 'none') {
+		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to fixed');
+		x.style.display = "block";
+		if (DISPLAY_CONSOLE) console.log('Style.Display = ', x.style.display);
+	} else {
+		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
+		x.style.display = "none";
+		if (DISPLAY_CONSOLE) console.log('Style.Display = ', x.style.display);
+	}
+});
+
+$('#dropDownInfoClose').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('more info Close Clicked');
+	if (document.getElementById('moreInfodiv').style.display === 'none') {
+		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to fixed');
+		document.getElementById('moreInfodiv').style.display = 'inline';
+				document.getElementById('XampInfoPanel').style.display = 'block';
+	document.getElementById('TobInfoPanel').style.display = 'none';
+	document.getElementById('BoaInfoPanel').style.display = 'none';
+	document.getElementById('EthInfoPanel').style.display = 'none';
+	document.getElementById('WalletInfoPanel').style.display = 'none';
+	} else {
+		if (DISPLAY_CONSOLE) console.log('set moreInfodiv to none');
+		document.getElementById('moreInfodiv').style.display = 'none';
+		document.getElementById('XampInfoPanel').style.display = 'none';
+		document.getElementById('TobInfoPanel').style.display = 'none';
+		document.getElementById('BoaInfoPanel').style.display = 'none';
+		document.getElementById('EthInfoPanel').style.display = 'none';
+		document.getElementById('WalletInfoPanel').style.display = 'none';
+	}
+
+
+	
+	
+});
+
+$('#WALLETInfo').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('XAMP Info Clicked');
+	document.getElementById('XampInfoPanel').style.display = 'none';
+	document.getElementById('TobInfoPanel').style.display = 'none';
+	document.getElementById('BoaInfoPanel').style.display = 'none';
+	document.getElementById('EthInfoPanel').style.display = 'none';
+	document.getElementById('WalletInfoPanel').style.display = 'block';
+});
+
+
+$('#XAMPInfo').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('XAMP Info Clicked');
+	document.getElementById('XampInfoPanel').style.display = 'block';
+	document.getElementById('TobInfoPanel').style.display = 'none';
+	document.getElementById('BoaInfoPanel').style.display = 'none';
+	document.getElementById('EthInfoPanel').style.display = 'none';
+	document.getElementById('WalletInfoPanel').style.display = 'none';
+
+});
+$('#TOBInfo').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('TOB Info Clicked');
+	document.getElementById('XampInfoPanel').style.display = 'none';
+	document.getElementById('TobInfoPanel').style.display = 'block';
+	document.getElementById('BoaInfoPanel').style.display = 'none';
+	document.getElementById('EthInfoPanel').style.display = 'none';
+	document.getElementById('WalletInfoPanel').style.display = 'none';
+
+});
+$('#BOAInfo').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('BOA Info Clicked');
+	document.getElementById('XampInfoPanel').style.display = 'none';
+	document.getElementById('TobInfoPanel').style.display = 'none';
+	document.getElementById('BoaInfoPanel').style.display = 'block';
+	document.getElementById('EthInfoPanel').style.display = 'none';
+	document.getElementById('WalletInfoPanel').style.display = 'none';
+
+});
+$('#ETHInfo').click(async () => {
+	if (DISPLAY_CONSOLE) console.log('ETH Info Clicked');
+	document.getElementById('XampInfoPanel').style.display = 'none';
+	document.getElementById('TobInfoPanel').style.display = 'none';
+	document.getElementById('BoaInfoPanel').style.display = 'none';
+	document.getElementById('EthInfoPanel').style.display = 'block';
+	document.getElementById('WalletInfoPanel').style.display = 'none';
+});
+
 
 
 /*
@@ -1841,11 +2726,13 @@ $('#connectToMetamask').click(async () => {
 *
 */
 
-
-
 window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
+	//await stakeMinimumPrice();
+	
+	
+	
 	
 	//Mobile Detection.
 	setTimeout(function(){
@@ -1853,12 +2740,11 @@ window.addEventListener('load', async (event) => {
 			if (DISPLAY_CONSOLE) console.log('User appears to be on a mobile.');
 		}
 	}, 100);
-	
-	
-	
-	
+
 	web3.eth.getAccounts(async function(err, accounts){
 		try {
+			
+			
 			if (err != null) console.error("An error occurred: "+err);
 			else if (accounts.length == 0){
 				if (DISPLAY_CONSOLE) console.log('NO ACCOUNTS CONNECTED!');
@@ -1867,6 +2753,8 @@ window.addEventListener('load', async (event) => {
 				});
 			}			
 			else {
+				
+				
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 				var updateAP = await updateActivePool().catch(e => {
@@ -1903,6 +2791,9 @@ window.addEventListener('load', async (event) => {
 					});
 					$('#isConnected').html('wallet connected');
 				}
+				
+				await FillInfo();
+				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 			}
 		}catch(e){
 			errorHandling(e, 'GetAccounts()');
@@ -1910,6 +2801,3 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
-
