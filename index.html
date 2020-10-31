@@ -766,7 +766,17 @@
                                 <p>Unstake %:</p>
                                 <input type="range" min="1" max="100" value="50" class="slider" id="id1" style="width: 100%;">
                                 <span id="sdf" style="font-weight:bold;color:red">54</span>%
+                                <script>
+								
+                                    var slideCol = document.getElementById("id1");
+                                    
+                                    var y = document.getElementById("sdf");
+                                    y.innerHTML = slideCol.value;
 
+                                    slideCol.oninput = function() {
+                                        y.innerHTML = this.value;
+                                    }
+                                </script>
                             </div>
                         </div>
 
