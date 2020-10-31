@@ -2807,11 +2807,6 @@ window.addEventListener('load', async (event) => {
 					errorHandling(e, 'updateGlobal()');
 				});
 				
-				await updateGlobal().catch(e => {
-					errorHandling(e, 'updateGlobal()');
-				});
-				
-				
 				var updateAP = await updateActivePool().catch(e => {
 						errorHandling(e, 'updateActivePool()');
 				});
