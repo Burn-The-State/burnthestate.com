@@ -2798,9 +2798,7 @@ window.addEventListener('load', async (event) => {
 				
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
-				var durp = await updateGlobal().catch(e => {
-					errorHandling(e, 'updateGlobal()');
-				});
+				updateGlobal();
 				
 				var updateAP = await updateActivePool().catch(e => {
 						errorHandling(e, 'updateActivePool()');
