@@ -1214,6 +1214,39 @@ const getBTSTotals = async () => {
   }
 }
 
+// Gets the min size for BTS tokens to stake YFKA
+const stakeMinimumPriceForStaking = async () => {
+  const MIN_STAKE_AMOUNT = 0.2;
+
+  const prices = await getPrices();
+
+  const yfkaPrices = prices.YFKA;
+
+  const tokenKeys = Object.keys(TOKENS);
+  const mappedTokens = tokenKeys.map((key) => {
+    const yfkaMinInEth = yfkaPrices.eth * MIN_STAKE_AMOUNT;
+    const yfkaMinInUsd = yfkaPrices.usd * MIN_STAKE_AMOUNT;
+
+    return {
+      eth: yfkaMinInEth / prices[key].eth,
+      usd: yfkaMinInUsd / prices[key].usd,
+    }
+  });
+
+  return mappedTokens.reduce((acc, token, idx) => {
+    return {
+      ...acc,
+      [tokenKeys[idx]]: token,
+    };
+  }, {});
+}
+
+
+
+
+
+
+
 const totalYFKAStaked = async () =>{
 	const ashContract = yfkaControllerContract();
 	
@@ -2798,7 +2831,10 @@ window.addEventListener('load', async (event) => {
 				
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
-				updateGlobal();
+				await updateGlobal();
+				const testing = await stakeMinimumPriceForStaking();
+				console.log("TESTING: ", testing);
+				
 				
 				var updateAP = await updateActivePool().catch(e => {
 						errorHandling(e, 'updateActivePool()');
@@ -2846,5 +2882,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
+
 
 
