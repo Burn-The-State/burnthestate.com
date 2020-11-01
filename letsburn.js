@@ -1341,7 +1341,7 @@ const FillInfo = async () => {
 	const userRewards = await getRewards();
 	const BTSTOT = await getBTSTotals();
 	const LP = await getTotalLP();
-	
+	const LPconv = await getLPconversions();
 
 	//PULL RESERVES
 	const reserves = await getReserves();
