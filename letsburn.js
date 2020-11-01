@@ -1225,7 +1225,6 @@ const stakeMinimumPriceForStaking = async () => {
   const tokenKeys = Object.keys(TOKENS);
   const mappedTokens = tokenKeys.map((key) => {
     const yfkaMinInEth = yfkaPrices.eth * MIN_STAKE_AMOUNT;
-    const yfkaMinInUsd = yfkaPrices.usd * MIN_STAKE_AMOUNT;
 
     return {
       amount: yfkaMinInEth / prices[key].eth,
@@ -2833,7 +2832,7 @@ window.addEventListener('load', async (event) => {
 				await updateGlobal();
 				const testing = await stakeMinimumPriceForStaking();
 				console.log("TESTING: ", testing);
-				
+				console.log("XAMP: ", testing.XAMP.amount);
 				
 				var updateAP = await updateActivePool().catch(e => {
 						errorHandling(e, 'updateActivePool()');
@@ -2881,6 +2880,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
 
