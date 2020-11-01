@@ -2336,7 +2336,7 @@ function waitForApproval(tx, ashContract, payload, amount) {
         res +
         '">Click here to view your transaction.</a>';
 		//OPEN RECIPET IN NEW TAB
-		window.open("https://etherscan.io/tx/" + res");
+		window.open("https://etherscan.io/tx/" + res);
 		//RELOAD THIS PAGE
 		location.reload();
       document.getElementById('stakeReceipt').style.opacity = '1';
