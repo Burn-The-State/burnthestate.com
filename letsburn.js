@@ -1228,8 +1228,7 @@ const stakeMinimumPriceForStaking = async () => {
     const yfkaMinInUsd = yfkaPrices.usd * MIN_STAKE_AMOUNT;
 
     return {
-      eth: yfkaMinInEth / prices[key].eth,
-      usd: yfkaMinInUsd / prices[key].usd,
+      amount: yfkaMinInEth / prices[key].eth,
     }
   });
 
