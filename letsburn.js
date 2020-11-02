@@ -979,7 +979,7 @@ const totalPooledYFKA = async () =>{
 
 }
 
-const totSupPooledYFKA = totalPooledYFKA();
+
 
 
 
