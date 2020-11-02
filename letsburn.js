@@ -848,6 +848,13 @@ const YFKA_CONTROLLER_ABI = [
 *
 */
 
+const getInfuraProvider = () => {
+  const INFURA_PROVIDER = new Web3.providers.HttpProvider(
+    'https://mainnet.infura.io/v3/91298a4448d34edf884df8b28db5f9ea'
+  );
+  return new Web3(INFURA_PROVIDER);
+};
+
 
 const syncALL = async () =>{
 	const provider = await getInfuraProvider();
@@ -1727,12 +1734,7 @@ const isConnected = () => {
   return web3.isConnected();
 };
 
-const getInfuraProvider = () => {
-  const INFURA_PROVIDER = new Web3.providers.HttpProvider(
-    'https://mainnet.infura.io/v3/91298a4448d34edf884df8b28db5f9ea'
-  );
-  return new Web3(INFURA_PROVIDER);
-};
+
 
 const checksumAddress = (address) => {
 	const provider = getInfuraProvider();
@@ -3028,7 +3030,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
 
