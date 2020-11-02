@@ -2642,7 +2642,7 @@ const fillYFKAinfo = async () =>{
 	if (DISPLAY_CONSOLE) console.log("total YFKA: ", await TotalYFKA);
 	$('#pooledYFKA').html(twoDecimals(await PooledYFKA));
 	if (DISPLAY_CONSOLE) console.log("Pooled YFKA: ", await PooledYFKA);
-	$('#PpooledYFKA').html(twoDecimals((await PooledYFKA/ await TotalYFKA))*100));
+	$('#PpooledYFKA').html(twoDecimals((await PooledYFKA/ await TotalYFKA))*100);
 	if (DISPLAY_CONSOLE) console.log("Pooled/Total: ", (await PooledYFKA/ await TotalYFKA)*100);
 	const totalYFKAStakerd = (await StakedYFKA.fBOA + await StakedYFKA.fXAMP + await StakedYFKA.fTOB + await StakedYFKA.fETH);
 	$('#stakedYFKA').html(twoDecimals(await totalYFKAStakerd));
@@ -3109,5 +3109,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
