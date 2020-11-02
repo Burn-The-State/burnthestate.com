@@ -2652,7 +2652,7 @@ const fillYFKAinfo = async () =>{
 	const totalYFKAStaked = (StakedYFKA.fBOA + StakedYFKA.fXAMP + StakedYFKA.fTOB + StakedYFKA.fETH);
 	$('#stakedYFKA').html(twoDecimals(totalYFKAStaked));
 	if (DISPLAY_CONSOLE) console.log("Total Staked: ", totalYFKAStaked);
-	$('#PstakedYFKA').html(twoDecimals((totalYFKAStaked/PooledYFKA)*100);
+	$('#PstakedYFKA').html(twoDecimals((totalYFKAStaked/PooledYFKA)*100));
 	if (DISPLAY_CONSOLE) console.log("Total Staked/Pooled YFKA: ", (totalYFKAStaked/PooledYFKA)*100);
 	
 	//XAMP POOL
