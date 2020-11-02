@@ -899,6 +899,26 @@ const totalSupplyYFKA = async () =>{
 }
 
 const TotalYFKA = totalSupplyYFKA();
+console.log("TOTAL YFKA:", PooledYFKA);
+
+const totalPooledYFKA = async () =>{
+	//Pull all pooled YFKA
+	const res = await getReserves();
+	const YFKAinXAMP = reserves.XAMP[0];
+	const YFKAinTOB = reserves.TOB[0];
+	const YFKAinBOA = reserves.BOA[0];
+	const YFKAinETH = reserves.ETH[0];
+	
+	
+	return ((YFKAinXAMP+YFKAinTOB+YFKAinBOA+YFKAinETH)/(10**18));
+		
+
+}
+
+const PooledYFKA = totalSupplyYFKA();
+console.log("TOTAL POOLED:", PooledYFKA);
+
+
 
 function errorHandling(error, functionCall){
 	const errorCode = error.code;
@@ -1186,10 +1206,10 @@ const getLPconversions = async () =>{
 	const BOAReserve = reserves.BOA[1]/(10**18);
 	const ETHReserve = reserves.ETH[1]/(10**18);
 	
-	const YFKAinXAMP = reserves.XAMP[0]
-	const YFKAinTOB = reserves.TOB[0]
-	const YFKAinBOA = reserves.BOA[0]
-	const YFKAinETH = reserves.ETH[0]
+	const YFKAinXAMP = reserves.XAMP[0];
+	const YFKAinTOB = reserves.TOB[0];
+	const YFKAinBOA = reserves.BOA[0];
+	const YFKAinETH = reserves.ETH[0];
 	
 	
 	//WORK OUT BTS to LP 
@@ -1350,6 +1370,9 @@ const totalYFKAStaked = async () =>{
 		
 		
 }
+const StakedYFKA = totalYFKAStaked();
+console.log("TOTAL STAKED YFKA:", StakedYFKA);
+
 
 const getPooledBTS = async () => {
 	const totalYFKAStakes = await totalYFKAStaked();
@@ -3030,7 +3053,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
 
