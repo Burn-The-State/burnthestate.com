@@ -922,10 +922,10 @@ const totalSupplyYFKA = async () =>{
 const totalPooledYFKA = async () =>{
 	//Pull all pooled YFKA
 	const res = await getReserves();
-	const YFKAinXAMP = reserves.XAMP[0];
-	const YFKAinTOB = reserves.TOB[0];
-	const YFKAinBOA = reserves.BOA[0];
-	const YFKAinETH = reserves.ETH[0];
+	const YFKAinXAMP = res.XAMP[0];
+	const YFKAinTOB = res.TOB[0];
+	const YFKAinBOA = res.BOA[0];
+	const YFKAinETH = res.ETH[0];
 	
 	
 	return ((YFKAinXAMP+YFKAinTOB+YFKAinBOA+YFKAinETH)/(10**18));
@@ -3109,6 +3109,8 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
+
 
 
 
