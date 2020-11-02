@@ -1174,21 +1174,25 @@ const getLPconversions = async () =>{
 
 const returnLP = async (coin,amount) =>{
 	getLPconv = await getLPconversions();
+		var LP = 0;
 	switch (coin){
 		case "XAMP":
-			const LP = amount/getLPconv.XAMPtoLP;
+			LP = amount/getLPconv.XAMPtoLP;
 			return LP;
 		break;
 		case "TOB":
-			const LP = amount/getLPconv.TOBtoLP;
+			LP = amount/getLPconv.TOBtoLP;
 			return LP;
 		break;
 		case "BOA":
-			const LP = amount/getLPconv.BOAtoLP;
+			LP = amount/getLPconv.BOAtoLP;
 			return LP;
 		break;
 		case "ETH":
-			const LP = amount/getLPconv.ETHtoLP;
+			LP = amount/getLPconv.ETHtoLP;
+			return LP;
+		break;
+		case default:
 			return LP;
 		break;
 		
@@ -2925,7 +2929,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
 
