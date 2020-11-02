@@ -956,11 +956,7 @@ const totalSupplyYFKA = async () =>{
 	return(totalYFKAcirc/(10**18));
 }
 
-totalSupplyYFKA();
-totalPooledYFKA();
 
-
-console.log("STATES: ", STATES);
 
 
 const totalPooledYFKA = async () =>{
@@ -3191,4 +3187,13 @@ window.addEventListener('load', async (event) => {
 });
 
 
+/*
+INITIALISATION
+*/
+
+totalSupplyYFKA();
+totalPooledYFKA();
+
+
+console.log("STATES: ", STATES);
 
