@@ -2514,6 +2514,38 @@ const setUnstakeBalance = async () => {
   });
 };
 
+const checkMinStakeInput = async (stake-value) =>{
+	//FIRSTLY WE SET THE MIN VALUES
+	const minStake = await stakeMinimumPriceForStaking();
+	var stakeName = "";
+	var stakeMinAmount = 0;
+	if (document.getElementById('stakeXamp').checked){
+		stakeName = "XAMP";
+		stakeMinAmount = twoDecimals(minStake.XAMP.amount);
+	}else if(document.getElementById('stakeTob').checked){
+		stakeName = "TOB";
+		stakeMinAmount = twoDecimals(minStake.TOB.amount);
+	}else if(document.getElementById('stakeBoa').checked){
+		stakeName = "BOA";
+		stakeMinAmount = sixDecimals(minStake.BOA.amount);
+	}else if(document.getElementById('stakeEth').checked){
+		stakeName = "ETH";
+		stakeMinAmount = fourDecimals(minStake.ETH.amount);
+	}
+	const LPMin = await returnLP(stakeName,stakeMinAmount);
+	
+	
+	if (stake-value < LPMin){
+		document.getElementById('stakeBTN').disabled = true;
+		$('#bonus-global-token').html('STAKE BALANCE TOO LOW');
+	}else{
+		document.getElementById('stakeBTN').disabled = false;
+		$('#bonus-global-token').html('Stake');
+	}
+	
+
+}
+
 /*
 *
 *
@@ -2527,6 +2559,8 @@ const setUnstakeBalance = async () => {
 */
 
 $('input[type=radio][name=stake]').change(setStakeBalance);
+
+$('input[type=text][name=stake-input]').change(checkMinStakeInput(document.getElementById('stake-input').value));
 
 $('input[type=radio][name=redeem]').change(setRedeemBalance);
 
@@ -2930,7 +2964,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
 
 
