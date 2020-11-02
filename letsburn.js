@@ -2195,7 +2195,7 @@ const updateUserStats = async () => {
 		if (xampReward != "error")
 		{
 			if (DISPLAY_CONSOLE) console.log('xampReward: ', xampReward);
-			$('#reward-XAMP').html(fourDecimals(_.toInteger(xampReward) / 10 ** 18));
+			$('#reward-XAMP').html(sixDecimals(_.toInteger(xampReward) / 10 ** 18));
 		}else return("error");
 		
 		//TOB reward
@@ -2210,7 +2210,7 @@ const updateUserStats = async () => {
 		if (tobReward != "error")
 		{
 			if (DISPLAY_CONSOLE) console.log('tobReward: ', tobReward);
-			$('#reward-TOB').html(fourDecimals(_.toInteger(tobReward) / 10 ** 18));
+			$('#reward-TOB').html(sixDecimals(_.toInteger(tobReward) / 10 ** 18));
 		}else return("error");
 		
 		//BOA reward
@@ -2224,7 +2224,7 @@ const updateUserStats = async () => {
 		});
 		if (boaReward != "error"){
 			if (DISPLAY_CONSOLE) console.log('boaReward: ', boaReward);
-			$('#reward-BOA').html(fourDecimals(_.toInteger(boaReward) / 10 ** 18));
+			$('#reward-BOA').html(sixDecimals(_.toInteger(boaReward) / 10 ** 18));
 		}else return("error");
 		
 		const ethReward = await ashContract.methods
@@ -2238,7 +2238,7 @@ const updateUserStats = async () => {
 		if (ethReward != "error"){
 		if (DISPLAY_CONSOLE) console.log('ethReward: ', ethReward);
 			$('#reward-ETH').html(_.toInteger(ethReward) / 10 ** 18);
-			$('#reward-ETH').html(fourDecimals(_.toInteger(ethReward) / 10 ** 18));
+			$('#reward-ETH').html(sixDecimals(_.toInteger(ethReward) / 10 ** 18));
 		}else return("error");
 		
 		const personalemission = await getPersonalEmissions().catch(e => {
@@ -3137,5 +3137,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
+
 
 
