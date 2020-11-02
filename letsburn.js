@@ -2435,10 +2435,23 @@ const setStakeBalance = async (event)=> {
   // const balance = twoDecimals(balances[event.currentTarget.value]);
   const balance = balances[event.currentTarget.value];
   if (DISPLAY_CONSOLE) console.log('balance: ', balance);
-  // TODO
+
   $('#stake-input').val(balance);
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
+  
+  //ACTIVATE BUTTON IF BALANCE IS ABOVE MIN
+  	if (balance < LPMin){
+		document.getElementById('stakeBTN').disabled = true;
+		document.getElementById('stakeBTN').value = "STAKE BALANCE TOO LOW";
+	}else{
+		document.getElementById('stakeBTN').disabled = false;
+		document.getElementById('stakeBTN').value = "Stake";
+	}
+  
+  
+  
+  
   return balance || '';
 };
 
@@ -2537,10 +2550,10 @@ const checkMinStakeInput = async (stakevalue) =>{
 	
 	if (stakevalue < LPMin){
 		document.getElementById('stakeBTN').disabled = true;
-		$('#bonus-global-token').html('STAKE BALANCE TOO LOW');
+		document.getElementById('stakeBTN').value = "STAKE BALANCE TOO LOW";
 	}else{
 		document.getElementById('stakeBTN').disabled = false;
-		$('#bonus-global-token').html('Stake');
+		document.getElementById('stakeBTN').value = "Stake";
 	}
 	
 
@@ -2964,5 +2977,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
