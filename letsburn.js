@@ -2636,6 +2636,54 @@ const checkMinStakeInput = async (stakevalue) =>{
 
 }
 
+const fillYFKAinfo = async =>{
+	//await Promises.
+	await PooledYFKA;
+	await TotalYFKA;
+	await StakedYFKA;
+	const res = await getReserves();
+	//TOTALS
+	$('#globalYFKA').html(twoDecimals(TotalYFKA /(10**18)));
+	$('#pooledYFKA').html(twoDecimals(PooledYFKA/(10**18)));
+	$('#PpooledYFKA').html(twoDecimals((PooledYFKA/TotalYFKA)*100));
+	const totalYFKAStaked = (StakedYFKA.fBOA + StakedYFKA.fXAMP + StakedYFKA.fTOB + StakedYFKA.fETH);
+	$('#stakedYFKA').html(twoDecimals(totalYFKAStaked));
+	$('#PstakedYFKA').html(twoDecimals((totalYFKAStaked/PooledYFKA)*100));
+	
+	
+	//XAMP POOL
+	const totalXampPool = res.XAMP[0]/(10**18);
+	const stakedXAMP = StakedYFKA.fXAMP;
+	$('#XampPooledYFKA').html(twoDecimals(totalXampPool));
+	$('#PXampPooledYFKA').html(twoDecimals((totalXampPool/PooledYFKA)*100));
+	$('#XampStakedYFKA').html(twoDecimals(stakedXAMP));
+	$('#PXampStakedYFKA').html(twoDecimals((stakedXAMP/totalXampPool)*100));
+	
+	//TOB POOL
+	const totalTobPool = res.TOB[0]/(10**18);
+	const stakedTOB = StakedYFKA.fTOB;
+	$('#TobPooledYFKA').html(twoDecimals(totalTobPool));
+	$('#PTobPooledYFKA').html(twoDecimals((totalTobPool/PooledYFKA)*100));
+	$('#TobStakedYFKA').html(twoDecimals(stakedTOB));
+	$('#PTobStakedYFKA').html(twoDecimals((stakedTOB/totalTobPool)*100));
+	
+	//BOA POOL
+	const totalBoaPool = res.BOA[0]/(10**18);
+	const stakedBOA = StakedYFKA.fBOA;
+	$('#BoaPooledYFKA').html(twoDecimals(totalBoaPool));
+	$('#PBoaPooledYFKA').html(twoDecimals((totalBoaPool/PooledYFKA)*100));
+	$('#BoaStakedYFKA').html(twoDecimals(stakedBOA));
+	$('#PBoaStakedYFKA').html(twoDecimals((stakedTOB/totalBoaPool)*100));
+	
+	//ETH POOL
+	const totalEthPool = res.Eth[0]/(10**18);
+	const stakedETH = StakedYFKA.fETH;
+	$('#EthPooledYFKA').html(twoDecimals(totalEthPool));
+	$('#PEthPooledYFKA').html(twoDecimals((totalEthPool/PooledYFKA)*100));
+	$('#EthStakedYFKA').html(twoDecimals(stakedETH));
+	$('#PEthStakedYFKA').html(twoDecimals((stakedETH/totalEthPool)*100));
+}
+
 /*
 *
 *
@@ -3008,9 +3056,7 @@ window.addEventListener('load', async (event) => {
 				await syncALL();
 				
 				
-				console.log("TOTAL YFKA:", await TotalYFKA);
-				console.log("TOTAL POOLED:", await PooledYFKA);
-				console.log("TOTAL STAKED YFKA:", await StakedYFKA);
+				fillYFKAinfo();
 				
 				
 				console.log("User is logged in to MetaMask");
@@ -3064,7 +3110,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
 
 
