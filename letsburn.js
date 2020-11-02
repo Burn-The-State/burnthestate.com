@@ -2514,7 +2514,7 @@ const setUnstakeBalance = async () => {
   });
 };
 
-const checkMinStakeInput = async (stake-value) =>{
+const checkMinStakeInput = async (stakevalue) =>{
 	//FIRSTLY WE SET THE MIN VALUES
 	const minStake = await stakeMinimumPriceForStaking();
 	var stakeName = "";
@@ -2535,7 +2535,7 @@ const checkMinStakeInput = async (stake-value) =>{
 	const LPMin = await returnLP(stakeName,stakeMinAmount);
 	
 	
-	if (stake-value < LPMin){
+	if (stakevalue < LPMin){
 		document.getElementById('stakeBTN').disabled = true;
 		$('#bonus-global-token').html('STAKE BALANCE TOO LOW');
 	}else{
