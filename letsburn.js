@@ -900,6 +900,11 @@ const syncALL = async () =>{
 	
 }
 
+const checksumAddress = (address) => {
+	const provider = getInfuraProvider();
+	return provider.utils.toChecksumAddress(address);
+}
+
 const totalSupplyYFKA = async () =>{
 	const provider = await getInfuraProvider();
 
@@ -1771,10 +1776,7 @@ const isConnected = () => {
 
 
 
-const checksumAddress = (address) => {
-	const provider = getInfuraProvider();
-	return provider.utils.toChecksumAddress(address);
-}
+
 
 const getAccount = async () => {
 	// START BACK HERE....
@@ -3062,7 +3064,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
 
