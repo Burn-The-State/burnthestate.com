@@ -2647,9 +2647,9 @@ const fillYFKAinfo = async () =>{
 	const totalYFKAStakerd = (await StakedYFKA.fBOA + await StakedYFKA.fXAMP + await StakedYFKA.fTOB + await StakedYFKA.fETH);
 	$('#stakedYFKA').html(twoDecimals(await totalYFKAStakerd));
 	if (DISPLAY_CONSOLE) console.log("Total Staked: ", await totalYFKAStakerd);
-	const stakedPercent = StakedYFKA/PooledYFKA*100;
+	const stakedPercent = (totalYFKAStakerd/PooledYFKA)*100;
 	$('#PstakedYFKA').html(twoDecimals(stakedPercent));
-	if (DISPLAY_CONSOLE) console.log("Total Staked/Pooled YFKA: ", (await totalYFKAStakerd/await PooledYFKA)*100);
+	if (DISPLAY_CONSOLE) console.log("Total Staked/Pooled YFKA: ", stakedPercent;
 	
 	//XAMP POOL
 	const totalXampPool = res.XAMP[0]/(10**18);
