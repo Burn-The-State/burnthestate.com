@@ -2537,8 +2537,10 @@ const checkMinStakeInput = async (stake-value) =>{
 	
 	if (stake-value < LPMin){
 		document.getElementById('stakeBTN').disabled = true;
+		document.getElementById('stakeBTN').value = "STAKE BALANCE TOO LOW";
 	}else{
 		document.getElementById('stakeBTN').disabled = false;
+		document.getElementById('stakeBTN').value = "Stake";
 	}
 	
 
