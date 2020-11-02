@@ -899,7 +899,7 @@ const totalSupplyYFKA = async () =>{
 }
 
 const TotalYFKA = totalSupplyYFKA();
-console.log("TOTAL YFKA:", PooledYFKA);
+console.log("TOTAL YFKA:", TotalYFKA);
 
 const totalPooledYFKA = async () =>{
 	//Pull all pooled YFKA
