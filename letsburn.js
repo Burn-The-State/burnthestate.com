@@ -9,6 +9,9 @@
 *NOTE TO SELF web3.eth.getBalance FOR ETH BALANCE FROM WALLET.
 *
 */
+
+const STATES = {};
+
 const TOKENS = {
   YFKA: '0x4086692d53262b2be0b13909d804f0491ff6ec3e',
   XAMP: '0xf911a7ec46a2c6fa49193212fe4a2a9b95851c27',
@@ -907,6 +910,7 @@ const syncALL = async () =>{
 	UNISWAP_BASE_LP_ABI,
 	PAIRS.YFKA_ETH
 	);
+	
 	const YFKAControllerContract = new provider.eth.Contract(
 	UNISWAP_BASE_LP_ABI,
 	YFKA_CONTROLLER_ADDRESS
@@ -921,10 +925,17 @@ const syncALL = async () =>{
 	await TOBContract2.methods.sync().call();
 	await BOAContract2.methods.sync().call();
 	await YFKAControllerContract.methods.sync().call();
+	
 	console.log("ALL COINS ARE SYNCED");
 
 	
 }
+// FUNCTION().then(x => { console.log(x); } )     CAN I ADD constX to this!?
+//const { foo, bar }  = await iAmAPromise.then(result => result.data);
+/*(async () => {
+  console.log(await getData())
+})()
+*/
 const checksumAddress = (address) => {
 	const provider = getInfuraProvider();
 	return provider.utils.toChecksumAddress(address);
@@ -939,9 +950,17 @@ const totalSupplyYFKA = async () =>{
 	);
 	
 	const totalYFKAcirc = await yfkaContract.methods.totalSupply().call();
+	
+	STATES.totalYFKACirculating = totalYFKAcirc/(10**18);
+	
 	return(totalYFKAcirc/(10**18));
 }
 
+totalSupplyYFKA();
+totalPooledYFKA();
+
+
+console.log("STATES: ", STATES);
 
 
 const totalPooledYFKA = async () =>{
@@ -953,12 +972,18 @@ const totalPooledYFKA = async () =>{
 	const YFKAinETH = res.ETH[0]/(10**18);
 	
 	
+	STATES.YFKAinXAMPPool = YFKAinXAMP;
+	STATES.YFKAinTOBPool = YFKAinTOB;
+	STATES.YFKAinBOAPool = YFKAinBOA;
+	STATES.YFKAinETHPool = YFKAinETH;
+	
+	
 	return ((YFKAinXAMP+YFKAinTOB+YFKAinBOA+YFKAinETH));
 		
 
 }
 
-
+const totSupPooledYFKA = totalPooledYFKA();
 
 
 
@@ -1021,6 +1046,8 @@ const Totals = async () => {
   }
 
 }
+
+
 
 const getPricesYFKA = async () => {
   const tokenKeys = Object.keys(TOKENS);
@@ -3162,7 +3189,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
 
