@@ -907,6 +907,10 @@ const syncALL = async () =>{
 	UNISWAP_BASE_LP_ABI,
 	PAIRS.YFKA_ETH
 	);
+	const YFKAControllerContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	YFKA_CONTROLLER_ADDRESS
+	);
 	
 	await YFKAContract.methods.sync().call();
 	await XAMPContract.methods.sync().call();
@@ -916,7 +920,7 @@ const syncALL = async () =>{
 	await XAMPContract2.methods.sync().call();
 	await TOBContract2.methods.sync().call();
 	await BOAContract2.methods.sync().call();
-	
+	await YFKAControllerContract.methods.sync().call();
 	console.log("ALL COINS ARE SYNCED");
 
 	
