@@ -914,7 +914,7 @@ const totalSupplyYFKA = async () =>{
 	);
 	
 	const totalYFKAcirc = await yfkaContract.methods.totalSupply().call();
-	return(totalYFKAcirc);
+	return(totalYFKAcirc/(10**18));
 }
 
 
@@ -2638,11 +2638,11 @@ const fillYFKAinfo = async () =>{
 	const StakedYFKA = await totalYFKAStaked();
 	const res = await getReserves();
 	//TOTALS
-	$('#globalYFKA').html(twoDecimals(await TotalYFKA /(10**18)));
-	if (DISPLAY_CONSOLE) console.log("total YFKA: ", await TotalYFKA /(10**18));
-	$('#pooledYFKA').html(twoDecimals(await PooledYFKA/(10**18)));
-	if (DISPLAY_CONSOLE) console.log("Pooled YFKA: ", await PooledYFKA/(10**18));
-	$('#PpooledYFKA').html(twoDecimals((await PooledYFKA/ await TotalYFKA)*100));
+	$('#globalYFKA').html(twoDecimals(await TotalYFKA ));
+	if (DISPLAY_CONSOLE) console.log("total YFKA: ", await TotalYFKA);
+	$('#pooledYFKA').html(twoDecimals(await PooledYFKA));
+	if (DISPLAY_CONSOLE) console.log("Pooled YFKA: ", await PooledYFKA);
+	$('#PpooledYFKA').html(twoDecimals((await PooledYFKA/ await TotalYFKA))*100));
 	if (DISPLAY_CONSOLE) console.log("Pooled/Total: ", (await PooledYFKA/ await TotalYFKA)*100);
 	const totalYFKAStakerd = (await StakedYFKA.fBOA + await StakedYFKA.fXAMP + await StakedYFKA.fTOB + await StakedYFKA.fETH);
 	$('#stakedYFKA').html(twoDecimals(await totalYFKAStakerd));
