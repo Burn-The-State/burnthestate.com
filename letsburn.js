@@ -2575,7 +2575,9 @@ const checkMinStakeInput = async (stakevalue) =>{
 
 $('input[type=radio][name=stake]').change(setStakeBalance);
 
-$('input[type=text][name=stake-input]').change(checkMinStakeInput(document.getElementById('stake-input').value));
+$('#stake-input').on("change keyup paste", function(){
+    checkMinStakeInput(document.getElementById('stake-input').value
+});
 
 $('input[type=radio][name=redeem]').change(setRedeemBalance);
 
@@ -2979,8 +2981,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
 
 
 
