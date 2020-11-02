@@ -2284,16 +2284,16 @@ const updateActivePool = async () => {
 	var stakeMinAmount = 0;
 	if (document.getElementById('stakeXamp').checked){
 		stakeName = "XAMP";
-		stakeMinAmount = testing.XAMP.amount;
+		stakeMinAmount = minStake.XAMP.amount;
 	}else if(document.getElementById('stakeTob').checked){
 		stakeName = "TOB";
-		stakeMinAmount = testing.TOB.amount;
+		stakeMinAmount = minStake.TOB.amount;
 	}else if(document.getElementById('stakeBoa').checked){
 		stakeName = "BOA";
-		stakeMinAmount = testing.BOA.amount;
+		stakeMinAmount = minStake.BOA.amount;
 	}else if(document.getElementById('stakeEth').checked){
 		stakeName = "ETH";
-		stakeMinAmount = testing.ETH.amount;
+		stakeMinAmount = minStake.ETH.amount;
 	}
 	const LPMin = await returnLP(stakeName,stakeMinAmount);
 	$('#MinLP').html(`${LPMin}`);
@@ -2929,5 +2929,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
