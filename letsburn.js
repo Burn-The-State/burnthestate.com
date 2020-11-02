@@ -859,7 +859,7 @@ const totalSupplyYFKA = async () =>{
 	TOKENS.YFKA
 	);
 	
-	const totalYFKAcirc = await yfkaContract.methods.totalSupply();
+	const totalYFKAcirc = await yfkaContract.methods.totalSupply().call();
 	console.log("TOTAL YFKA:",totalYFKAcirc/(10**18));
 }
 
@@ -2998,5 +2998,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
