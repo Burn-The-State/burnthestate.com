@@ -917,7 +917,7 @@ const totalSupplyYFKA = async () =>{
 	return(totalYFKAcirc);
 }
 
-const TotalYFKA = totalSupplyYFKA();
+
 
 const totalPooledYFKA = async () =>{
 	//Pull all pooled YFKA
@@ -933,7 +933,7 @@ const totalPooledYFKA = async () =>{
 
 }
 
-const PooledYFKA = totalSupplyYFKA();
+
 
 
 
@@ -1356,11 +1356,6 @@ const stakeMinimumPriceForStaking = async () => {
 }
 
 
-
-
-
-
-
 const totalYFKAStaked = async () =>{
 	const ashContract = yfkaControllerContract();
 	
@@ -1387,7 +1382,7 @@ const totalYFKAStaked = async () =>{
 		
 		
 }
-const StakedYFKA = totalYFKAStaked();
+
 
 
 
@@ -2638,9 +2633,9 @@ const checkMinStakeInput = async (stakevalue) =>{
 
 const fillYFKAinfo = async () =>{
 	//await Promises.
-	await PooledYFKA;
-	await TotalYFKA;
-	await StakedYFKA;
+	const PooledYFKA = await totalPooledYFKA();
+	const TotalYFKA = await totalSupplyYFKA();
+	await StakedYFKA = await totalYFKAStaked();
 	const res = await getReserves();
 	//TOTALS
 	$('#globalYFKA').html(twoDecimals(await TotalYFKA /(10**18)));
@@ -3114,8 +3109,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
 
 
 
