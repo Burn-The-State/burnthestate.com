@@ -2975,7 +2975,7 @@ window.addEventListener('load', async (event) => {
 				await syncALL();
 			}			
 			else {
-				
+				await syncALL();
 				await totalSupplyYFKA();
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
@@ -3028,6 +3028,8 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
+
 
 
 
