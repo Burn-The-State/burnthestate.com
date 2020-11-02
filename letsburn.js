@@ -2647,7 +2647,8 @@ const fillYFKAinfo = async () =>{
 	const totalYFKAStakerd = (await StakedYFKA.fBOA + await StakedYFKA.fXAMP + await StakedYFKA.fTOB + await StakedYFKA.fETH);
 	$('#stakedYFKA').html(twoDecimals(await totalYFKAStakerd));
 	if (DISPLAY_CONSOLE) console.log("Total Staked: ", await totalYFKAStakerd);
-	$('#PstakedYFKA').html(twoDecimals((await totalYFKAStaked/await PooledYFKA)*100));
+	const stakedPercent = totalYFKAStaked/PooledYFKA*100;
+	$('#PstakedYFKA').html(twoDecimals(stakedPercent);
 	if (DISPLAY_CONSOLE) console.log("Total Staked/Pooled YFKA: ", (await totalYFKAStakerd/await PooledYFKA)*100);
 	
 	//XAMP POOL
@@ -2656,7 +2657,7 @@ const fillYFKAinfo = async () =>{
 	$('#XampPooledYFKA').html(twoDecimals(await totalXampPool));
 	$('#PXampPooledYFKA').html(twoDecimals((await totalXampPool/await PooledYFKA)*100));
 	$('#XampStakedYFKA').html(twoDecimals(await stakedXAMP));
-	$('#PXampStakedYFKA').html(twoDecimals((await stakedXAMP/await totalXampPool)*100));
+	$('#PXampStakedYFKA').html(twoDecimals((await stakedXAMP/await totalYFKAStakerd)*100));
 	
 	//TOB POOL
 	const totalTobPool = res.TOB[0]/(10**18);
@@ -2664,7 +2665,7 @@ const fillYFKAinfo = async () =>{
 	$('#TobPooledYFKA').html(twoDecimals(await totalTobPool));
 	$('#PTobPooledYFKA').html(twoDecimals((await totalTobPool/await PooledYFKA)*100));
 	$('#TobStakedYFKA').html(twoDecimals(await stakedTOB));
-	$('#PTobStakedYFKA').html(twoDecimals((await stakedTOB/await totalTobPool)*100));
+	$('#PTobStakedYFKA').html(twoDecimals((await stakedTOB/await totalYFKAStakerd)*100));
 	
 	//BOA POOL
 	const totalBoaPool = res.BOA[0]/(10**18);
@@ -2672,7 +2673,7 @@ const fillYFKAinfo = async () =>{
 	$('#BoaPooledYFKA').html(twoDecimals(await totalBoaPool));
 	$('#PBoaPooledYFKA').html(twoDecimals((await totalBoaPool/await PooledYFKA)*100));
 	$('#BoaStakedYFKA').html(twoDecimals(await stakedBOA));
-	$('#PBoaStakedYFKA').html(twoDecimals((await stakedTOB/await totalBoaPool)*100));
+	$('#PBoaStakedYFKA').html(twoDecimals((await stakedTOB/await totalYFKAStakerd)*100));
 	
 	//ETH POOL
 	const totalEthPool = res.ETH[0]/(10**18);
@@ -2680,7 +2681,7 @@ const fillYFKAinfo = async () =>{
 	$('#EthPooledYFKA').html(twoDecimals(await totalEthPool));
 	$('#PEthPooledYFKA').html(twoDecimals((await totalEthPool/await PooledYFKA)*100));
 	$('#EthStakedYFKA').html(twoDecimals(await stakedETH));
-	$('#PEthStakedYFKA').html(twoDecimals((await stakedETH/await totalEthPool)*100));
+	$('#PEthStakedYFKA').html(twoDecimals((await stakedETH/await totalYFKAStakerd)*100));
 }
 
 /*
