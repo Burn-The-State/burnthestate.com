@@ -850,7 +850,7 @@ const YFKA_CONTROLLER_ABI = [
 
 
 const syncALL = async () =>{
-	
+	const provider = await getInfuraProvider();
 	
 	const XAMPContract = new provider.eth.Contract(
 	UNISWAP_BASE_LP_ABI,
@@ -880,7 +880,7 @@ const syncALL = async () =>{
 }
 
 const totalSupplyYFKA = async () =>{
-	const provider = getInfuraProvider();
+	const provider = await getInfuraProvider();
 
 	const yfkaContract = new provider.eth.Contract(
 	UNISWAP_BASE_LP_ABI,
