@@ -2548,13 +2548,15 @@ const checkMinStakeInput = async (stakevalue) =>{
 	const LPMin = await returnLP(stakeName,stakeMinAmount);
 	
 	
-	if (stakevalue < LPMin){
+  //ACTIVATE BUTTON IF BALANCE IS ABOVE MIN
+  	if (balance < LPMin){
 		document.getElementById('stakeBTN').disabled = true;
-		document.getElementById('stakeBTN').value = "STAKE BALANCE TOO LOW";
+		$('#stakeButtonText').html(`STAKE BALANCE TOO LOW`);
 	}else{
 		document.getElementById('stakeBTN').disabled = false;
-		document.getElementById('stakeBTN').value = "Stake";
+		$('#stakeButtonText').html(`Stake`);
 	}
+  
 	
 
 }
@@ -2977,6 +2979,8 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
+
 
 
 
