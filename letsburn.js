@@ -879,7 +879,7 @@ const syncALL = async () =>{
 	);
 	const TOBContract = new provider.eth.Contract(
 	UNISWAP_BASE_LP_ABI,
-	TOKENS.TOB
+	PAIRS.YFKA_TOB
 	);
 	const BOAContract = new provider.eth.Contract(
 	UNISWAP_BASE_LP_ABI,
@@ -890,14 +890,14 @@ const syncALL = async () =>{
 	TOKENS.YFKA
 	);
 	
-	await YFKAContract.methods.Sync().call();
-	await XAMPContract.methods.Sync().call();
-	await TOBContract.methods.Sync().call();
-	await BOAContract.methods.Sync().call();
+	await YFKAContract.methods.sync().call();
+	await XAMPContract.methods.sync().call();
+	const test = await TOBContract.methods.sync().call();
+	await BOAContract.methods.sync().call();
 	
 	
 	console.log("ALL COINS ARE SYNCED");
-	
+	console.log("RESULT TOB:", test);
 }
 
 const checksumAddress = (address) => {
