@@ -2549,7 +2549,7 @@ const checkMinStakeInput = async (stakevalue) =>{
 	
 	
   //ACTIVATE BUTTON IF BALANCE IS ABOVE MIN
-  	if (balance < LPMin){
+  	if (stakevalue < LPMin){
 		document.getElementById('stakeBTN').disabled = true;
 		$('#stakeButtonText').html(`STAKE BALANCE TOO LOW`);
 	}else{
@@ -2981,6 +2981,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
 
