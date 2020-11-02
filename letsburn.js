@@ -2279,31 +2279,7 @@ const updateActivePool = async () => {
 		return("error");
 	});
 	
-	const minStake = await stakeMinimumPriceForStaking();
-	var stakeName = "";
-	var stakeMinAmount = 0;
-	if (document.getElementById('stakeXamp').checked){
-		stakeName = "XAMP";
-		stakeMinAmount = minStake.XAMP.amount;
-	}else if(document.getElementById('stakeTob').checked){
-		stakeName = "TOB";
-		stakeMinAmount = minStake.TOB.amount;
-	}else if(document.getElementById('stakeBoa').checked){
-		stakeName = "BOA";
-		stakeMinAmount = minStake.BOA.amount;
-	}else if(document.getElementById('stakeEth').checked){
-		stakeName = "ETH";
-		stakeMinAmount = minStake.ETH.amount;
-	}
-	const LPMin = await returnLP(stakeName,stakeMinAmount);
-	$('#MinLP').html(`${LPMin}`);
-	$('#MinBTS').html(`${stakeMinAmount}`);
-	$('#BTSname').html(`${stakeName}`);
-	
-	
-	
-	
-	
+
 	const TotalBalances = await getTotalBalances().catch(e => {
 		errorHandling(e, 'getTotalBalances()');
 		return("error");
@@ -2428,6 +2404,31 @@ function waitForApproval(tx, ashContract, payload, amount) {
 }
 
 const setStakeBalance = async (event)=> {
+	//FIRSTLY WE SET THE MIN VALUES
+	const minStake = await stakeMinimumPriceForStaking();
+	var stakeName = "";
+	var stakeMinAmount = 0;
+	if (document.getElementById('stakeXamp').checked){
+		stakeName = "XAMP";
+		stakeMinAmount = twoDecimals(minStake.XAMP.amount);
+	}else if(document.getElementById('stakeTob').checked){
+		stakeName = "TOB";
+		stakeMinAmount = twoDecimals(minStake.TOB.amount);
+	}else if(document.getElementById('stakeBoa').checked){
+		stakeName = "BOA";
+		stakeMinAmount = sixDecimals(minStake.BOA.amount);
+	}else if(document.getElementById('stakeEth').checked){
+		stakeName = "ETH";
+		stakeMinAmount = fourDecimals(minStake.ETH.amount);
+	}
+	const LPMin = await returnLP(stakeName,stakeMinAmount);
+	$('#MinLP').html(`${sixDecimals(LPMin)}`);
+	$('#MinBTS').html(`${stakeMinAmount}`);
+	$('#BTSname').html(`${stakeName}`);
+	
+	
+	
+	
   if (DISPLAY_CONSOLE) console.log('change radio stake');
   const balances = await getPoolBalances();
   if (DISPLAY_CONSOLE) console.log('balances: ', balances);
@@ -2929,6 +2930,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
 
