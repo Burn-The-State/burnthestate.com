@@ -3008,9 +3008,9 @@ window.addEventListener('load', async (event) => {
 				await syncALL();
 				
 				
-				console.log("TOTAL YFKA:", TotalYFKA);
-				console.log("TOTAL POOLED:", PooledYFKA);
-				console.log("TOTAL STAKED YFKA:", StakedYFKA);
+				console.log("TOTAL YFKA:", await TotalYFKA);
+				console.log("TOTAL POOLED:", await PooledYFKA);
+				console.log("TOTAL STAKED YFKA:", await StakedYFKA);
 				
 				
 				console.log("User is logged in to MetaMask");
@@ -3064,6 +3064,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
 
