@@ -2650,42 +2650,42 @@ const fillYFKAinfo = async () =>{
 	$('#PpooledYFKA').html(twoDecimals((await PooledYFKA/ await TotalYFKA)*100));
 	if (DISPLAY_CONSOLE) console.log("Pooled/Total: ", (await PooledYFKA/ await TotalYFKA)*100);
 	const totalYFKAStaked = (await StakedYFKA.fBOA + await StakedYFKA.fXAMP + await StakedYFKA.fTOB + await StakedYFKA.fETH);
-	$('#stakedYFKA').html(twoDecimals(totalYFKAStaked));
+	$('#stakedYFKA').html(twoDecimals(await totalYFKAStaked));
 	if (DISPLAY_CONSOLE) console.log("Total Staked: ", await totalYFKAStaked);
 	$('#PstakedYFKA').html(twoDecimals((await totalYFKAStaked/await PooledYFKA)*100));
-	if (DISPLAY_CONSOLE) console.log("Total Staked/Pooled YFKA: ", (await totalYFKAStaked/PooledYFKA)*100);
+	if (DISPLAY_CONSOLE) console.log("Total Staked/Pooled YFKA: ", (await totalYFKAStaked/await PooledYFKA)*100);
 	
 	//XAMP POOL
 	const totalXampPool = res.XAMP[0]/(10**18);
-	const stakedXAMP = StakedYFKA.fXAMP;
-	$('#XampPooledYFKA').html(twoDecimals(totalXampPool));
-	$('#PXampPooledYFKA').html(twoDecimals((totalXampPool/PooledYFKA)*100));
-	$('#XampStakedYFKA').html(twoDecimals(stakedXAMP));
-	$('#PXampStakedYFKA').html(twoDecimals((stakedXAMP/totalXampPool)*100));
+	const stakedXAMP = await StakedYFKA.fXAMP;
+	$('#XampPooledYFKA').html(twoDecimals(await totalXampPool));
+	$('#PXampPooledYFKA').html(twoDecimals((await totalXampPool/await PooledYFKA)*100));
+	$('#XampStakedYFKA').html(twoDecimals(await stakedXAMP));
+	$('#PXampStakedYFKA').html(twoDecimals((await stakedXAMP/await totalXampPool)*100));
 	
 	//TOB POOL
 	const totalTobPool = res.TOB[0]/(10**18);
-	const stakedTOB = StakedYFKA.fTOB;
-	$('#TobPooledYFKA').html(twoDecimals(totalTobPool));
-	$('#PTobPooledYFKA').html(twoDecimals((totalTobPool/PooledYFKA)*100));
-	$('#TobStakedYFKA').html(twoDecimals(stakedTOB));
-	$('#PTobStakedYFKA').html(twoDecimals((stakedTOB/totalTobPool)*100));
+	const stakedTOB = await StakedYFKA.fTOB;
+	$('#TobPooledYFKA').html(twoDecimals(await totalTobPool));
+	$('#PTobPooledYFKA').html(twoDecimals((await totalTobPool/await PooledYFKA)*100));
+	$('#TobStakedYFKA').html(twoDecimals(await stakedTOB));
+	$('#PTobStakedYFKA').html(twoDecimals((await stakedTOB/await totalTobPool)*100));
 	
 	//BOA POOL
 	const totalBoaPool = res.BOA[0]/(10**18);
-	const stakedBOA = StakedYFKA.fBOA;
-	$('#BoaPooledYFKA').html(twoDecimals(totalBoaPool));
-	$('#PBoaPooledYFKA').html(twoDecimals((totalBoaPool/PooledYFKA)*100));
-	$('#BoaStakedYFKA').html(twoDecimals(stakedBOA));
-	$('#PBoaStakedYFKA').html(twoDecimals((stakedTOB/totalBoaPool)*100));
+	const stakedBOA = await StakedYFKA.fBOA;
+	$('#BoaPooledYFKA').html(twoDecimals(await totalBoaPool));
+	$('#PBoaPooledYFKA').html(twoDecimals((await totalBoaPool/await PooledYFKA)*100));
+	$('#BoaStakedYFKA').html(twoDecimals(await stakedBOA));
+	$('#PBoaStakedYFKA').html(twoDecimals((await stakedTOB/await totalBoaPool)*100));
 	
 	//ETH POOL
 	const totalEthPool = res.ETH[0]/(10**18);
-	const stakedETH = StakedYFKA.fETH;
-	$('#EthPooledYFKA').html(twoDecimals(totalEthPool));
-	$('#PEthPooledYFKA').html(twoDecimals((totalEthPool/PooledYFKA)*100));
-	$('#EthStakedYFKA').html(twoDecimals(stakedETH));
-	$('#PEthStakedYFKA').html(twoDecimals((stakedETH/totalEthPool)*100));
+	const stakedETH = await StakedYFKA.fETH;
+	$('#EthPooledYFKA').html(twoDecimals(await totalEthPool));
+	$('#PEthPooledYFKA').html(twoDecimals((await totalEthPool/await PooledYFKA)*100));
+	$('#EthStakedYFKA').html(twoDecimals(await stakedETH));
+	$('#PEthStakedYFKA').html(twoDecimals((await stakedETH/await totalEthPool)*100));
 }
 
 /*
@@ -3114,6 +3114,8 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
+
 
 
 
