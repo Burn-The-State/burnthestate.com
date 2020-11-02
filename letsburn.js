@@ -1172,6 +1172,29 @@ const getLPconversions = async () =>{
 	
 }
 
+const returnLP = async (coin,amount) =>{
+	getLPconv = await getLPconversions();
+	switch (coin){
+		case "XAMP":
+			const LP = amount/getLPconv.XAMPtoLP;
+			return LP;
+		break;
+		case "TOB":
+			const LP = amount/getLPconv.TOBtoLP;
+			return LP;
+		break;
+		case "BOA":
+			const LP = amount/getLPconv.BOAtoLP;
+			return LP;
+		break;
+		case "ETH":
+			const LP = amount/getLPconv.ETHtoLP;
+			return LP;
+		break;
+		
+	}
+}
+
 // Total Wallet BTS Helper.
 const getBTSTotals = async () => {
 	const rewards = await getRewards();
@@ -2252,6 +2275,30 @@ const updateActivePool = async () => {
 		return("error");
 	});
 	
+	const minStake = await stakeMinimumPriceForStaking();
+	var stakeName = "";
+	var stakeMinAmount = 0;
+	if (document.getElementById('stakeXamp').checked){
+		stakeName = "XAMP";
+		stakeMinAmount = testing.XAMP.amount;
+	}else if(document.getElementById('stakeTob').checked){
+		stakeName = "TOB";
+		stakeMinAmount = testing.TOB.amount;
+	}else if(document.getElementById('stakeBoa').checked){
+		stakeName = "BOA";
+		stakeMinAmount = testing.BOA.amount;
+	}else if(document.getElementById('stakeEth').checked){
+		stakeName = "ETH";
+		stakeMinAmount = testing.ETH.amount;
+	}
+	const LPMin = await returnLP(stakeName,stakeMinAmount);
+	$('#MinLP').html(`${LPMin}`);
+	$('#MinBTS').html(`${stakeMinAmount}`);
+	$('#BTSname').html(`${stakeName}`);
+	
+	
+	
+	
 	
 	const TotalBalances = await getTotalBalances().catch(e => {
 		errorHandling(e, 'getTotalBalances()');
@@ -2830,9 +2877,7 @@ window.addEventListener('load', async (event) => {
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 				await updateGlobal();
-				const testing = await stakeMinimumPriceForStaking();
-				console.log("TESTING: ", testing);
-				console.log("XAMP: ", testing.XAMP.amount);
+
 				
 				var updateAP = await updateActivePool().catch(e => {
 						errorHandling(e, 'updateActivePool()');
@@ -2880,6 +2925,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
 
