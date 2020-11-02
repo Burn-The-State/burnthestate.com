@@ -3055,7 +3055,7 @@ window.addEventListener('load', async (event) => {
 				await syncALL();
 				
 				
-				fillYFKAinfo();
+				await fillYFKAinfo();
 				
 				
 				console.log("User is logged in to MetaMask");
@@ -3109,8 +3109,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
 
 
 
