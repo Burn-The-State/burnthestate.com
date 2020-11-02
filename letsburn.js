@@ -912,8 +912,7 @@ const totalSupplyYFKA = async () =>{
 	return(totalYFKAcirc);
 }
 
-const TotalYFKA = await totalSupplyYFKA();
-console.log("TOTAL YFKA:", TotalYFKA);
+const TotalYFKA = totalSupplyYFKA();
 
 const totalPooledYFKA = async () =>{
 	//Pull all pooled YFKA
@@ -929,8 +928,7 @@ const totalPooledYFKA = async () =>{
 
 }
 
-const PooledYFKA = await totalSupplyYFKA();
-console.log("TOTAL POOLED:", PooledYFKA);
+const PooledYFKA = totalSupplyYFKA();
 
 
 
@@ -1384,8 +1382,8 @@ const totalYFKAStaked = async () =>{
 		
 		
 }
-const StakedYFKA = await totalYFKAStaked();
-console.log("TOTAL STAKED YFKA:", StakedYFKA);
+const StakedYFKA = totalYFKAStaked();
+
 
 
 const getPooledBTS = async () => {
@@ -3006,7 +3004,13 @@ window.addEventListener('load', async (event) => {
 			}			
 			else {
 				await syncALL();
-				await totalSupplyYFKA();
+				
+				
+				console.log("TOTAL YFKA:", TotalYFKA);
+				console.log("TOTAL POOLED:", PooledYFKA);
+				console.log("TOTAL STAKED YFKA:", StakedYFKA);
+				
+				
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 				await updateGlobal();
