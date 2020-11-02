@@ -2648,7 +2648,7 @@ const fillYFKAinfo = async () =>{
 	$('#stakedYFKA').html(twoDecimals(await totalYFKAStakerd));
 	if (DISPLAY_CONSOLE) console.log("Total Staked: ", await totalYFKAStakerd);
 	const stakedPercent = totalYFKAStaked/PooledYFKA*100;
-	$('#PstakedYFKA').html(twoDecimals(stakedPercent);
+	$('#PstakedYFKA').html(twoDecimals(stakedPercent));
 	if (DISPLAY_CONSOLE) console.log("Total Staked/Pooled YFKA: ", (await totalYFKAStakerd/await PooledYFKA)*100);
 	
 	//XAMP POOL
