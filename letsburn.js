@@ -1192,7 +1192,7 @@ const returnLP = async (coin,amount) =>{
 			LP = amount/getLPconv.ETHtoLP;
 			return LP;
 		break;
-		case default:
+		default:
 			return LP;
 		break;
 		
@@ -2929,8 +2929,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
-
 
 
