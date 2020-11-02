@@ -2636,7 +2636,7 @@ const checkMinStakeInput = async (stakevalue) =>{
 
 }
 
-const fillYFKAinfo = async =>{
+const fillYFKAinfo = async () =>{
 	//await Promises.
 	await PooledYFKA;
 	await TotalYFKA;
@@ -3110,5 +3110,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
