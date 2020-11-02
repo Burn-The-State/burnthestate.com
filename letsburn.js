@@ -2644,11 +2644,11 @@ const fillYFKAinfo = async () =>{
 	if (DISPLAY_CONSOLE) console.log("Pooled YFKA: ", await PooledYFKA/(10**18));
 	$('#PpooledYFKA').html(twoDecimals((await PooledYFKA/ await TotalYFKA)*100));
 	if (DISPLAY_CONSOLE) console.log("Pooled/Total: ", (await PooledYFKA/ await TotalYFKA)*100);
-	const totalYFKAStaked = (await StakedYFKA.fBOA + await StakedYFKA.fXAMP + await StakedYFKA.fTOB + await StakedYFKA.fETH);
-	$('#stakedYFKA').html(twoDecimals(await totalYFKAStaked));
-	if (DISPLAY_CONSOLE) console.log("Total Staked: ", await totalYFKAStaked);
+	const totalYFKAStakerd = (await StakedYFKA.fBOA + await StakedYFKA.fXAMP + await StakedYFKA.fTOB + await StakedYFKA.fETH);
+	$('#stakedYFKA').html(twoDecimals(await totalYFKAStakerd));
+	if (DISPLAY_CONSOLE) console.log("Total Staked: ", await totalYFKAStakerd);
 	$('#PstakedYFKA').html(twoDecimals((await totalYFKAStaked/await PooledYFKA)*100));
-	if (DISPLAY_CONSOLE) console.log("Total Staked/Pooled YFKA: ", (await totalYFKAStaked/await PooledYFKA)*100);
+	if (DISPLAY_CONSOLE) console.log("Total Staked/Pooled YFKA: ", (await totalYFKAStakerd/await PooledYFKA)*100);
 	
 	//XAMP POOL
 	const totalXampPool = res.XAMP[0]/(10**18);
@@ -3109,7 +3109,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
 
