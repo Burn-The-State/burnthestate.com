@@ -2635,7 +2635,7 @@ const fillYFKAinfo = async () =>{
 	//await Promises.
 	const PooledYFKA = await totalPooledYFKA();
 	const TotalYFKA = await totalSupplyYFKA();
-	await StakedYFKA = await totalYFKAStaked();
+	const StakedYFKA = await totalYFKAStaked();
 	const res = await getReserves();
 	//TOTALS
 	$('#globalYFKA').html(twoDecimals(await TotalYFKA /(10**18)));
@@ -3109,6 +3109,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
 
