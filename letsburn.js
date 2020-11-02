@@ -855,7 +855,7 @@ const totalSupplyYFKA = async () =>{
 	
 	
 	const yfkaContract = new provider.eth.Contract(
-	STANDARD_ERC20_ABI,
+	UNISWAP_BASE_LP_ABI,
 	TOKENS.YFKA
 	);
 	
@@ -2998,8 +2998,5 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
-
-
 
 
