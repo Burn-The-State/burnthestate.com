@@ -2680,7 +2680,7 @@ const fillYFKAinfo = async () =>{
 	$('#PBoaStakedYFKA').html(twoDecimals((stakedTOB/totalBoaPool)*100));
 	
 	//ETH POOL
-	const totalEthPool = res.Eth[0]/(10**18);
+	const totalEthPool = res.ETH[0]/(10**18);
 	const stakedETH = StakedYFKA.fETH;
 	$('#EthPooledYFKA').html(twoDecimals(totalEthPool));
 	$('#PEthPooledYFKA').html(twoDecimals((totalEthPool/PooledYFKA)*100));
