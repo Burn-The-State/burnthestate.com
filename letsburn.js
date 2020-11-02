@@ -849,21 +849,49 @@ const YFKA_CONTROLLER_ABI = [
 */
 
 
+const syncALL = async () =>{
+	
+	
+	const XAMPContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	TOKENS.XAMP
+	);
+	const TOBContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	TOKENS.TOB
+	);
+	const BOAContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	TOKENS.BOA
+	);
+	const YFKAContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	TOKENS.YFKA
+	);
+	
+	await YFKAContract.methods.sync().call();
+	await XAMPContract.methods.sync().call();
+	await TOBContract.methods.sync().call();
+	await BOAContract.methods.sync().call();
+	
+	
+	console.log("ALL COINS ARE SYNCED");
+	
+}
+
 const totalSupplyYFKA = async () =>{
 	const provider = getInfuraProvider();
-	const account = await getAccount();
-	
-	
+
 	const yfkaContract = new provider.eth.Contract(
 	UNISWAP_BASE_LP_ABI,
 	TOKENS.YFKA
 	);
 	
 	const totalYFKAcirc = await yfkaContract.methods.totalSupply().call();
-	console.log("TOTAL YFKA:",totalYFKAcirc/(10**18));
+	return(totalYFKAcirc);
 }
 
-
+const TotalYFKA = totalSupplyYFKA();
 
 function errorHandling(error, functionCall){
 	const errorCode = error.code;
@@ -2943,6 +2971,8 @@ window.addEventListener('load', async (event) => {
 				var durp = await updateGlobal().catch(e => {
 					errorHandling(e, 'updateGlobal()');
 				});
+				
+				await syncALL();
 			}			
 			else {
 				
