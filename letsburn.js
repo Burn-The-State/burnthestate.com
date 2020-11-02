@@ -890,10 +890,10 @@ const syncALL = async () =>{
 	TOKENS.YFKA
 	);
 	
-	await YFKAContract.methods.sync().call();
-	await XAMPContract.methods.sync().call();
-	await TOBContract.methods.sync().call();
-	await BOAContract.methods.sync().call();
+	await YFKAContract.methods.Sync().call();
+	await XAMPContract.methods.Sync().call();
+	await TOBContract.methods.Sync().call();
+	await BOAContract.methods.Sync().call();
 	
 	
 	console.log("ALL COINS ARE SYNCED");
