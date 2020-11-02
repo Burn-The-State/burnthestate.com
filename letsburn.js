@@ -848,12 +848,26 @@ const YFKA_CONTROLLER_ABI = [
 *
 */
 
+
+
+
 const getInfuraProvider = () => {
   const INFURA_PROVIDER = new Web3.providers.HttpProvider(
     'https://mainnet.infura.io/v3/91298a4448d34edf884df8b28db5f9ea'
   );
   return new Web3(INFURA_PROVIDER);
 };
+
+
+const yfkaControllerContract = () => {
+  const infuraProvider = getInfuraProvider();
+  const contract = new infuraProvider.eth.Contract(
+    YFKA_CONTROLLER_ABI,
+    checksumAddress(YFKA_CONTROLLER_ADDRESS)
+  );
+  return contract;
+};
+
 
 
 const syncALL = async () =>{
@@ -898,7 +912,7 @@ const totalSupplyYFKA = async () =>{
 	return(totalYFKAcirc);
 }
 
-const TotalYFKA = totalSupplyYFKA();
+const TotalYFKA = await totalSupplyYFKA();
 console.log("TOTAL YFKA:", TotalYFKA);
 
 const totalPooledYFKA = async () =>{
@@ -915,7 +929,7 @@ const totalPooledYFKA = async () =>{
 
 }
 
-const PooledYFKA = totalSupplyYFKA();
+const PooledYFKA = await totalSupplyYFKA();
 console.log("TOTAL POOLED:", PooledYFKA);
 
 
@@ -1370,7 +1384,7 @@ const totalYFKAStaked = async () =>{
 		
 		
 }
-const StakedYFKA = totalYFKAStaked();
+const StakedYFKA = await totalYFKAStaked();
 console.log("TOTAL STAKED YFKA:", StakedYFKA);
 
 
@@ -1763,15 +1777,6 @@ const checksumAddress = (address) => {
 	const provider = getInfuraProvider();
 	return provider.utils.toChecksumAddress(address);
 }
-
-const yfkaControllerContract = () => {
-  const infuraProvider = getInfuraProvider();
-  const contract = new infuraProvider.eth.Contract(
-    YFKA_CONTROLLER_ABI,
-    checksumAddress(YFKA_CONTROLLER_ADDRESS)
-  );
-  return contract;
-};
 
 const getAccount = async () => {
 	// START BACK HERE....
@@ -3053,6 +3058,7 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
+
 
 
 
