@@ -848,6 +848,23 @@ const YFKA_CONTROLLER_ABI = [
 *
 */
 
+
+const totalSupplyYFKA = async () =>{
+	const provider = getInfuraProvider();
+	const account = await getAccount();
+	
+	
+	const yfkaContract = new provider.eth.Contract(
+	STANDARD_ERC20_ABI,
+	TOKENS.YFKA
+	);
+	
+	const totalYFKAcirc = await yfkaContract.methods.totalSupply();
+	console.log("TOTAL YFKA:",totalYFKAcirc/(10**18);
+}
+
+
+
 function errorHandling(error, functionCall){
 	const errorCode = error.code;
 	const errorMessage = error.message;
@@ -2929,7 +2946,7 @@ window.addEventListener('load', async (event) => {
 			}			
 			else {
 				
-				
+				await totalSupplyYFKA();
 				console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 				await updateGlobal();
@@ -2981,7 +2998,6 @@ window.addEventListener('load', async (event) => {
 	});
 	
 });
-
 
 
 
