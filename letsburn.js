@@ -1114,16 +1114,17 @@ const getStakes = async () => {
 	const userOwnedLPETH = await STATES.CONTRACTS.YFKA_CONTROLLER.methods
 		.stakes(YFKA_POOL_INDEXES.ETH, account)
 		.call();	
-  return {
-    XAMP: userOwnedLPXAMP,
-    BOA: userOwnedLPBOA,
-    TOB: userOwnedLPTOB,
-	ETH: userOwnedLPETH,
-	fXAMP: userOwnedLPXAMP/(10**18),
-    fBOA: userOwnedLPBOA/(10**18),
-    fTOB: userOwnedLPTOB/(10**18),
-	fETH: userOwnedLPETH/(10**18),
-  }
+ 
+	STATES.USER_OWNED_LP ={
+		XAMP: userOwnedLPXAMP,
+		BOA: userOwnedLPBOA,
+		TOB: userOwnedLPTOB,
+		ETH: userOwnedLPETH,
+		fXAMP: userOwnedLPXAMP/(10**18),
+		fBOA: userOwnedLPBOA/(10**18),
+		fTOB: userOwnedLPTOB/(10**18),
+		fETH: userOwnedLPETH/(10**18),
+	}
 }
 
 // get Users Rewards (YFKA)
@@ -1245,7 +1246,7 @@ const getLPconversions = async () =>{
 	const YFKAtoLPE = ((YFKAinETH/(10**18)) /LP.ETH)*(10**18);
 	console.log("YFKA TO LP (ETH):", YFKAtoLPE);
 
-	return{
+	STATES.LP_CONVERSIONS = {
 		YFKAtoLPXAMP: YFKAtoLPX,
 		YFKAtoLPTOB: YFKAtoLPT,
 		YFKAtoLPBOA: YFKAtoLPB,
@@ -1254,12 +1255,13 @@ const getLPconversions = async () =>{
 		TOBtoLP: TOBtoLP,
 		BOAtoLP: BOAtoLP, 
 		ETHtoLP: ETHtoLP,
+		
+		
 	}
-	
 }
 
 const returnLP = async (coin,amount) =>{
-	getLPconv = await getLPconversions();
+	getLPconv = STATES.LP_CONVERSIONS;
 		var LP = 0;
 	switch (coin){
 		case "XAMP":
@@ -1290,8 +1292,8 @@ const getBTSTotals = async () => {
 	const rewards = await getRewards();
 	const yfkaRewardTotal = rewards.fXAMP + rewards.fTOB + rewards.fBOA + rewards.fETH;
 	const WalletBalances = STATES.WALLET_BALANCES;
-	const UsersLP = await getStakes();
-	const BTStoLP = await getLPconversions();
+	const UsersLP = STATES.USER_OWNED_LP;
+	const BTStoLP = STATES.LP_CONVERSIONS;
 
 	const XAMPfromLP = BTStoLP.XAMPtoLP*(UsersLP.XAMP/(10**18));	
 	const TOBfromLP = BTStoLP.TOBtoLP*(UsersLP.TOB/(10**18));
@@ -1307,24 +1309,26 @@ const getBTSTotals = async () => {
 	const BoaTOTAL = WalletBalances.fBOA + BOAfromLP;
 	const ETHRTOTAL = WalletBalances.fETH + ETHfromLP;
 	const YFKATOTAL = WalletBalances.fYFKA + YFKAfromLP;
-  return {
-    fXAMPWallet: fourDecimals(WalletBalances.fXAMP/(10**9)) ,
-    fBOAWallet: fourDecimals(WalletBalances.fBOA),
-    fTOBWallet: fourDecimals(WalletBalances.fTOB),
-	fYFKAWallet: fourDecimals(WalletBalances.fYFKA),
-	fETHWallet: fourDecimals(WalletBalances.fETH),
-	fYFKAReward: fourDecimals(yfkaRewardTotal),
-	fXAMPLP: fourDecimals(XAMPfromLP),
-    fBOALP: fourDecimals(BOAfromLP),
-    fTOBLP: fourDecimals(TOBfromLP),
-	fYFKALP: fourDecimals(YFKAfromLP),
-	fETHLP: fourDecimals(ETHfromLP),
-	fXAMPTotal: fourDecimals(XampTOTAL),
-    fBOATotal: fourDecimals(BoaTOTAL),
-    fTOBTotal: fourDecimals(TobTOTAL),
-	fETHTotal: fourDecimals(ETHRTOTAL),
-	fYFKATotal: fourDecimals(YFKATOTAL),
-  }
+	
+	
+	STATES.BTS_TOTALS ={
+		fXAMPWallet: fourDecimals(WalletBalances.fXAMP/(10**9)) ,
+		fBOAWallet: fourDecimals(WalletBalances.fBOA),
+		fTOBWallet: fourDecimals(WalletBalances.fTOB),
+		fYFKAWallet: fourDecimals(WalletBalances.fYFKA),
+		fETHWallet: fourDecimals(WalletBalances.fETH),
+		fYFKAReward: fourDecimals(yfkaRewardTotal),
+		fXAMPLP: fourDecimals(XAMPfromLP),
+		fBOALP: fourDecimals(BOAfromLP),
+		fTOBLP: fourDecimals(TOBfromLP),
+		fYFKALP: fourDecimals(YFKAfromLP),
+		fETHLP: fourDecimals(ETHfromLP),
+		fXAMPTotal: fourDecimals(XampTOTAL),
+		fBOATotal: fourDecimals(BoaTOTAL),
+		fTOBTotal: fourDecimals(TobTOTAL),
+		fETHTotal: fourDecimals(ETHRTOTAL),
+		fYFKATotal: fourDecimals(YFKATOTAL),
+	}
 }
 
 // Gets the min size for BTS tokens to stake YFKA
@@ -1429,7 +1433,7 @@ const getReserves = async () => {
 
 const getStakedUSDTotals = async () => {
 	const totalYFKAStake = STATES.StakedYFKA;
-	const LPConvers = await getLPconversions();
+	const LPConvers = STATES.LP_CONVERSIONS
 	const Prices = STATES.PRICES;
 	
 	const XAMPLPSTAKED = totalYFKAStake.fXAMP/LPConvers.YFKAtoLPXAMP;
@@ -1459,11 +1463,11 @@ const getStakedUSDTotals = async () => {
 
 const FillInfo = async () => {
 	if (DISPLAY_CONSOLE) console.log('getReserves');
-	const userLPS = await getStakes();
+	const userLPS = STATES.USER_OWNED_LP;
 	const userRewards = await getRewards();
-	const BTSTOT = await getBTSTotals();
+	const BTSTOT = STATES.BTS_TOTALS;
 	const LP = STATES.TOTAL_LP;
-	const LPconv = await getLPconversions();
+	const LPconv = STATES.LP_CONVERSIONS;
 
 	//PULL RESERVES
 	const reserves = STATES.POOL_RESERVES;
@@ -1771,7 +1775,7 @@ const getGlobalEmissionRate = async () => {
 
   const emissionRateToReadable = twoDecimals(emissionRateToHuman);
   if (DISPLAY_CONSOLE) console.log('emissionRateToReadable: ', emissionRateToReadable);
-  return emissionRateToReadable;
+  STATE.GLOBAL_EMISSION_RATE = emissionRateToReadable;
 };
 
 const getIndexBySymbol = (value) => {
@@ -1884,18 +1888,6 @@ async function MetaConnect(){
 *
 *
 */
-
-const fillMoreInfo = async () =>{
-	const EthPrices = await getPricesETH();
-	const USDPrices = await getPricesUSD();
-	const MinStakes = await stakeMinimumPrice();
-	const Totals = await Totals();
-	
-	$('#XAMPETH').html(sixDecimals(EthPrices.XAMP));
-	$('#XAMPUSD').html(sixDecimals(USDPrices.XAMP));
-	$('#XAMPMinStake').html(sixDecimals(MinStakes.XAMP));
-	$('#XAMPTOTAL').html(sixDecimals(Totals.XAMP));
-}
 
 const getTotalBalances = async () => {
 	if (DISPLAY_CONSOLE) console.log('getBalances');
@@ -2247,10 +2239,7 @@ const updateUserStats = async () => {
 
 const updateActivePool = async () => {
 	if (DISPLAY_CONSOLE) console.log('updateActivePool');
-	const _globalEmissionRate = await getGlobalEmissionRate().catch(e => {
-		errorHandling(e, 'getGlobalEmissionRate()');
-		return("error");
-	});
+	const _globalEmissionRate = STATE.GLOBAL_EMISSION_RATE;
 	
 
 	const TotalBalances = STATES.TOTALS_BTS;
@@ -2311,7 +2300,7 @@ const updateActivePool = async () => {
 		$('#coin-emission').html(`${globalEmissionRate}`);
 
 		const bonusAddress = await getBonusPool().catch(e => {
-			errorHandling(e, 'getGlobalEmissionRate()');
+			errorHandling(e, 'GetBonusPool()');
 			return("error");
 		});
 		if (bonusAddress != "error"){
@@ -2429,7 +2418,7 @@ const setRedeemBalance = async () => {
   if (DISPLAY_CONSOLE) console.log('change radio redeem');
   const value = $('[name=redeem][type=radio]:checked').val();
   const account = STATES.CONNECTED_WALLET;
-  const globalEmissionRate = await getGlobalEmissionRate();
+  const globalEmissionRate = STATE.GLOBAL_EMISSION_RATE;
 	if (value == "ETH")
 	{
 		$('#redeem-coin-emission').html(`${globalEmissionRate/2}`);
@@ -2467,7 +2456,7 @@ const setUnstakeBalance = async () => {
 	const value = $('[name=unstake][type=radio]:checked').val();
 	const account = STATES.CONNECTED_WALLET;
 	const idx = getIndexBySymbol(value);
-	const globalEmissionRate = await getGlobalEmissionRate();
+	const globalEmissionRate = STATE.GLOBAL_EMISSION_RATE;
 	if (value == "ETH")
 	{
 		$('#unstake-coin-emission').html(`${globalEmissionRate/2}`);
@@ -3055,6 +3044,10 @@ await getWalletBTSCoins();
 await getTotalBalances();
 await getPoolBalances();
 await getPersonalEmissions();
+await getLPconversions();
+await getGlobalEmissionRate();
+await getStakes();
+await getBTSTotals();
 console.log("STATES: ", STATES);
 
 }
