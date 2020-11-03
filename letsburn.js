@@ -3156,7 +3156,7 @@ $('#ETHInfo').click(async () => {
 */
 
 window.addEventListener('load', async (event) => {
-
+var start = new Date().getTime();
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	//await stakeMinimumPrice();
 	
@@ -3239,7 +3239,9 @@ window.addEventListener('load', async (event) => {
 			errorHandling(e, 'GetAccounts()');
 		}
 	});
-	
+var end = new Date().getTime();
+var time = end - start;
+alert('Execution time (main Load): ' + time);	
 });
 
 
