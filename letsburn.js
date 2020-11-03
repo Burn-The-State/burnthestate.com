@@ -2128,7 +2128,7 @@ const getPersonalEmissions = async () => {
 	}
 }
 
-function update_Ticker_style_off(){
+async function update_Ticker_style_off(){
 	
 	
 	document.getElementById('reward-BOA').style.color = "black";
@@ -2178,7 +2178,7 @@ function update_Ticker_style_off(){
 }
 
 
-function update_Ticker_style_on(){
+async function update_Ticker_style_on(){
 		const bonusAddress = await getBonusPool().catch(e => {
 			errorHandling(e, 'GetBonusPool()');
 			return("error");
