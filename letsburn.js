@@ -1931,6 +1931,10 @@ async function MetaConnect(){
 	}		
 }
 
+
+
+
+
 /*
 *
 *
@@ -3066,7 +3070,7 @@ window.addEventListener('load', async (event) => {
 					$('#isConnected').html('wallet connected');
 				}
 				setInterval(
-				  () => console.log('Hello every 10 seconds...'),
+				  () => updateUserStats(),
 				  10000
 				);
 				await FillInfo();
