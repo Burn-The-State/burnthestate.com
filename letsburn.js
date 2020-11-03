@@ -2250,8 +2250,7 @@ const updateUserStats = async () => {
 		{
 			if (DISPLAY_CONSOLE) console.log('xampReward: ', xampReward);
 			$('#reward-XAMP').html(sixDecimals(_.toInteger(xampReward) / 10 ** 18));
-			xamp_reward.style.color = "black";
-			xamp_reward.style.fontWeight = "bold";
+	
 		}else return("error");
 		
 		//TOB reward
@@ -2267,8 +2266,7 @@ const updateUserStats = async () => {
 		{
 			if (DISPLAY_CONSOLE) console.log('tobReward: ', tobReward);
 			$('#reward-TOB').html(sixDecimals(_.toInteger(tobReward) / 10 ** 18));
-			document.getElementById('reward-TOB').style.color = "black";
-			document.getElementById('reward-TOB').style.fontWeight = "bold";
+
 		}else return("error");
 		
 		//BOA reward
@@ -2283,8 +2281,7 @@ const updateUserStats = async () => {
 		if (boaReward != "error"){
 			if (DISPLAY_CONSOLE) console.log('boaReward: ', boaReward);
 			$('#reward-BOA').html(sixDecimals(_.toInteger(boaReward) / 10 ** 18));
-			document.getElementById('reward-BOA').style.color = "black";
-			document.getElementById('reward-BOA').style.fontWeight = "bold";
+
 			
 			
 			
@@ -2302,8 +2299,7 @@ const updateUserStats = async () => {
 		if (DISPLAY_CONSOLE) console.log('ethReward: ', ethReward);
 			$('#reward-ETH').html(_.toInteger(ethReward) / 10 ** 18);
 			$('#reward-ETH').html(sixDecimals(_.toInteger(ethReward) / 10 ** 18));
-			document.getElementById("reward-ETH").style.color = "black";
-			document.getElementById('reward-ETH').style.fontWeight = "bold";
+
 			
 			
 		}else return("error");
