@@ -994,7 +994,7 @@ const totalSupplyYFKA = async () =>{
 	const totalYFKAcirc = await STATES.CONTRACTS.YFKA.methods.totalSupply().call();
 	
 	STATES.TOTAL_CIRCULATING = {
-		XAMP:totalXAMPcirc/(10**18),
+		XAMP:totalXAMPcirc/(10**9),
 		TOB:totalTOBcirc/(10**18),
 		BOA:totalBOAcirc/(10**18),
 		YFKA: totalYFKAcirc/(10**18),
