@@ -988,8 +988,19 @@ const Contract_Setup = async =>{
 }
 
 const totalSupplyYFKA = async () =>{
+	const totalXAMPcirc = await STATES.CONTRACTS.XAMP.methods.totalSupply().call();
+	const totalTOBcirc = await STATES.CONTRACTS.TOB.methods.totalSupply().call();
+	const totalBOAcirc = await STATES.CONTRACTS.BOA.methods.totalSupply().call();
 	const totalYFKAcirc = await STATES.CONTRACTS.YFKA.methods.totalSupply().call();
-	STATES.totalYFKACirculating = totalYFKAcirc/(10**18);
+	
+	STATES.TOTAL_CIRCULATING = {
+		XAMP:totalXAMPcirc/(10**18),
+		TOB:totalTOBcirc/(10**18),
+		BOA:totalBOAcirc/(10**18),
+		YFKA: totalYFKAcirc/(10**18),
+	}
+	
+	
 }
 
 const totalPooledYFKA = async () =>{
@@ -1294,6 +1305,8 @@ const getBTSTotals = async () => {
 	const WalletBalances = STATES.WALLET_BALANCES;
 	const UsersLP = STATES.USER_OWNED_LP;
 	const BTStoLP = STATES.LP_CONVERSIONS;
+	
+	const CIRCULATING = STATES.TOTAL_CIRCULATING;
 
 	const XAMPfromLP = BTStoLP.XAMPtoLP*(UsersLP.XAMP/(10**18));	
 	const TOBfromLP = BTStoLP.TOBtoLP*(UsersLP.TOB/(10**18));
@@ -1309,6 +1322,15 @@ const getBTSTotals = async () => {
 	const BoaTOTAL = WalletBalances.fBOA + BOAfromLP;
 	const ETHRTOTAL = WalletBalances.fETH + ETHfromLP;
 	const YFKATOTAL = WalletBalances.fYFKA + YFKAfromLP;
+	
+	const Percent_Owned = {
+		XAMP: (XampTOTAL / CIRCULATING.XAMP)*100;
+		TOB: (TobTOTAL / CIRCULATING.TOB)*100;
+		BOA: (BoaTOTAL / CIRCULATING.BOA)*100;
+		YFKA: (YFKATOTAL / CIRCULATING.YFKA)*100;
+	}
+	
+	
 	
 	
 	STATES.BTS_TOTALS ={
@@ -1328,6 +1350,10 @@ const getBTSTotals = async () => {
 		fTOBTotal: fourDecimals(TobTOTAL),
 		fETHTotal: fourDecimals(ETHRTOTAL),
 		fYFKATotal: fourDecimals(YFKATOTAL),
+		pOwnedXAMP: Percent_Owned.XAMP,
+		pOwnedTOB: Percent_Owned.TOB,
+		pOwnedBOA: Percent_Owned.BOA,
+		pOwnedYFKA: Percent_Owned.YFKA,
 	}
 }
 
@@ -1684,6 +1710,7 @@ const FillInfo = async () => {
 	$('#XAMPP2').html(twoDecimals(XAMPPrice.usd*(BTSTOT.fXAMPLP)));
 	$('#XAMPP3').html(twoDecimals(XAMPPrice.usd*BTSTOT.fXAMPWallet));
 	
+	$('#pXAMP').html(fourDecimals(BTSTOT.pOwnedXAMP));
 	
 	//TOB
 	$('#TOTTOB').html(BTSTOT.fTOBTotal);
@@ -1694,7 +1721,10 @@ const FillInfo = async () => {
 	$('#TOB2').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBLP));
 	$('#TOB3').html(twoDecimals(TOBPrice.usd*BTSTOT.fTOBWallet));
 	
-	//BOA 
+	$('#pTOB').html(fourDecimals(BTSTOT.pOwnedTOB));	
+	
+	
+	//BOA
 	$('#TOTBOA').html(BTSTOT.fBOATotal);
 	$('#LPBOAuser').html(BTSTOT.fBOALP);
 	$('#WALBOA').html(BTSTOT.fBOAWallet);
@@ -1702,7 +1732,9 @@ const FillInfo = async () => {
 	$('#BOA1').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOATotal));
 	$('#BOA2').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOALP));
 	$('#BOA3').html(twoDecimals(BOAPrice.usd*BTSTOT.fBOAWallet));
-
+	
+	$('#pBOA').html(fourDecimals(BTSTOT.pOwnedBOA));	
+	
 	//YFKA
 	$('#TOTYFKA').html(BTSTOT.fYFKATotal);
 	$('#LPYFKAuser').html(BTSTOT.fYFKALP);
@@ -1713,6 +1745,8 @@ const FillInfo = async () => {
 	$('#YFKA2').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKALP));
 	$('#YFKA3').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAWallet));
 	$('#YFKA4').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAReward));
+		
+	$('#pYFKA').html(fourDecimals(BTSTOT.pOwnedYFKA));	
 
 
 
@@ -2518,10 +2552,11 @@ const checkMinStakeInput = async (stakevalue) =>{
 
 }
 
+
 const fillYFKAinfo = async () =>{
 	//await Promises.
 	const PooledYFKA = STATES.YFKATotalPooled;
-	const TotalYFKA = STATES.totalYFKACirculating;
+	const TotalYFKA = STATES.STATES.TOTAL_CIRCULATING.YFKA;
 	const StakedYFKA = STATES.StakedYFKA;
 	const res = STATES.POOL_RESERVES;
 	//TOTALS
