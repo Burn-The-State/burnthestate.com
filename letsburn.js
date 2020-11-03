@@ -1210,7 +1210,7 @@ const getWalletBTSCoins = async () => {
 
 const getLPconversions = async () =>{
 	const reserves = STATES.POOL_RESERVES;
-	const totalYFKAStakes = await totalYFKAStaked();
+	const totalYFKAStakes = STATES.StakedYFKA;
 	const LP = STATES.TOTAL_LP;
 	
 	
@@ -1365,15 +1365,6 @@ const totalYFKAStaked = async () =>{
 		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH).call();
 	
 	STATES.StakedYFKA={
-		fXAMP:totalStakedYFKA_XAMP/(10**18),
-		fTOB:totalStakedYFKA_TOB/(10**18),
-		fBOA:totalStakedYFKA_BOA/(10**18),
-		fETH:totalStakedYFKA_ETH/(10**18),
-	}
-	
-	
-	
-	return{
 		XAMP:totalStakedYFKA_XAMP,
 		TOB:totalStakedYFKA_TOB,
 		BOA:totalStakedYFKA_BOA,
@@ -1382,17 +1373,11 @@ const totalYFKAStaked = async () =>{
 		fTOB:totalStakedYFKA_TOB/(10**18),
 		fBOA:totalStakedYFKA_BOA/(10**18),
 		fETH:totalStakedYFKA_ETH/(10**18),
-	}
-		
-		
-		
+	}	
 }
 
-
-
-
 const getPooledBTS = async () => {
-	const totalYFKAStakes = await totalYFKAStaked();
+	const totalYFKAStakes = STATES.StakedYFKA;
 	const reserves = STATES.POOL_RESERVES;
 	const totalLP = STATES.TOTAL_LP;
 	
@@ -1443,7 +1428,7 @@ const getReserves = async () => {
 }
 
 const getStakedUSDTotals = async () => {
-	const totalYFKAStake = await totalYFKAStaked();
+	const totalYFKAStake = STATES.StakedYFKA;
 	const LPConvers = await getLPconversions();
 	const Prices = STATES.PRICES;
 	
@@ -1761,10 +1746,6 @@ const isConnected = () => {
   return web3.isConnected();
 };
 
-
-
-
-
 const getAccount = async () => {
 	// START BACK HERE....
 		const accounts = await ethereum.request({method: 'eth_requestAccounts'});
@@ -2025,7 +2006,7 @@ const getPoolBalances = async () => {
 
 };
 
-const getPersonalEmissions= async () => {
+const getPersonalEmissions = async () => {
 	const account = STATES.CONNECTED_WALLET;
 	const bonusPoolIdx = await STATES.CONTRACTS.YFKA_CONTROLLER.methods.getActivePool().call();
 
@@ -2088,12 +2069,13 @@ const getPersonalEmissions= async () => {
 	if (bonusPoolIdx == YFKA_POOL_INDEXES.ETH) {
 		emissionRateToReadableEth = emissionRateToReadableEth * 2;
 	}
-	return {
+	
+	STATES.PERSONAL_EMISSION = {
 		XAMP: _.toNumber(emissionRateToReadableXAMP),
 		TOB: _.toNumber(emissionRateToReadableTob),
 		BOA: _.toNumber(emissionRateToReadableBoa),
 		ETH: _.toNumber(emissionRateToReadableEth),
-	};
+	}
 }
 
 /*
@@ -2170,16 +2152,11 @@ const updateUserStats = async () => {
 			$('#reward-ETH').html(sixDecimals(_.toInteger(ethReward) / 10 ** 18));
 		}else return("error");
 		
-		const personalemission = await getPersonalEmissions().catch(e => {
-			errorHandling(e, 'getPersonalEmissions()');
-			return("error");
-		});
-		if (personalemission != "error"){
-			$('#personal-emission-XAMP').html(`${personalemission.XAMP}`);
-			$('#personal-emission-TOB').html(`${personalemission.TOB}`);
-			$('#personal-emission-BOA').html(`${personalemission.BOA}`);
-			$('#personal-emission-ETH').html(`${personalemission.ETH}`);
-		}else return("error");
+		const personalemission = STATES.PERSONAL_EMISSION;
+		$('#personal-emission-XAMP').html(`${personalemission.XAMP}`);
+		$('#personal-emission-TOB').html(`${personalemission.TOB}`);
+		$('#personal-emission-BOA').html(`${personalemission.BOA}`);
+		$('#personal-emission-ETH').html(`${personalemission.ETH}`);
 
 		// current LP Tokens
 		var XAMPbalance, TOBbalance, BOAbalance, ETHbalance;
@@ -2427,9 +2404,9 @@ const setStakeBalance = async (event)=> {
   if (DISPLAY_CONSOLE) console.log('balances: ', balances);
   // const balance = twoDecimals(balances[event.currentTarget.value]);
   const balance = balances[event.currentTarget.value];
-  if (DISPLAY_CONSOLE) console.log('balance: ', balance);
+  if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance));
 
-  $('#stake-input').val(balance);
+  $('#stake-input').val(toFixed(balance));
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
   
@@ -2566,8 +2543,8 @@ const fillYFKAinfo = async () =>{
 	$('#PpooledYFKA').html(twoDecimals((PooledYFKA/ TotalYFKA))*100);
 	if (DISPLAY_CONSOLE) console.log("Pooled/Total: ", (PooledYFKA/ TotalYFKA)*100);
 	const totalYFKAStakerd = (StakedYFKA.fBOA + StakedYFKA.fXAMP + StakedYFKA.fTOB + StakedYFKA.fETH);
-	$('#stakedYFKA').html(twoDecimals(await totalYFKAStakerd));
-	if (DISPLAY_CONSOLE) console.log("Total Staked: ", await totalYFKAStakerd);
+	$('#stakedYFKA').html(twoDecimals(totalYFKAStakerd));
+	if (DISPLAY_CONSOLE) console.log("Total Staked: ", totalYFKAStakerd);
 	const stakedPercent = (totalYFKAStakerd/PooledYFKA)*100;
 	$('#PstakedYFKA').html(twoDecimals(stakedPercent));
 	if (DISPLAY_CONSOLE) console.log("Total Staked/Pooled YFKA: ", stakedPercent);
@@ -2575,34 +2552,34 @@ const fillYFKAinfo = async () =>{
 	//XAMP POOL
 	const totalXampPool = res.XAMP[0]/(10**18);
 	const stakedXAMP = StakedYFKA.fXAMP;
-	$('#XampPooledYFKA').html(twoDecimals(await totalXampPool));
-	$('#PXampPooledYFKA').html(twoDecimals((await totalXampPool/PooledYFKA)*100));
-	$('#XampStakedYFKA').html(twoDecimals(await stakedXAMP));
-	$('#PXampStakedYFKA').html(twoDecimals((await stakedXAMP/await totalYFKAStakerd)*100));
+	$('#XampPooledYFKA').html(twoDecimals(totalXampPool));
+	$('#PXampPooledYFKA').html(twoDecimals((totalXampPool/PooledYFKA)*100));
+	$('#XampStakedYFKA').html(twoDecimals(stakedXAMP));
+	$('#PXampStakedYFKA').html(twoDecimals((stakedXAMP/totalYFKAStakerd)*100));
 	
 	//TOB POOL
 	const totalTobPool = res.TOB[0]/(10**18);
 	const stakedTOB = StakedYFKA.fTOB;
-	$('#TobPooledYFKA').html(twoDecimals(await totalTobPool));
-	$('#PTobPooledYFKA').html(twoDecimals((await totalTobPool/PooledYFKA)*100));
-	$('#TobStakedYFKA').html(twoDecimals(await stakedTOB));
-	$('#PTobStakedYFKA').html(twoDecimals((await stakedTOB/await totalYFKAStakerd)*100));
+	$('#TobPooledYFKA').html(twoDecimals(totalTobPool));
+	$('#PTobPooledYFKA').html(twoDecimals((totalTobPool/PooledYFKA)*100));
+	$('#TobStakedYFKA').html(twoDecimals(stakedTOB));
+	$('#PTobStakedYFKA').html(twoDecimals((stakedTOB/totalYFKAStakerd)*100));
 	
 	//BOA POOL
 	const totalBoaPool = res.BOA[0]/(10**18);
 	const stakedBOA = StakedYFKA.fBOA;
-	$('#BoaPooledYFKA').html(twoDecimals(await totalBoaPool));
-	$('#PBoaPooledYFKA').html(twoDecimals((await totalBoaPool/PooledYFKA)*100));
-	$('#BoaStakedYFKA').html(twoDecimals(await stakedBOA));
-	$('#PBoaStakedYFKA').html(twoDecimals((await stakedTOB/await totalYFKAStakerd)*100));
+	$('#BoaPooledYFKA').html(twoDecimals(totalBoaPool));
+	$('#PBoaPooledYFKA').html(twoDecimals((totalBoaPool/PooledYFKA)*100));
+	$('#BoaStakedYFKA').html(twoDecimals(stakedBOA));
+	$('#PBoaStakedYFKA').html(twoDecimals((stakedTOB/totalYFKAStakerd)*100));
 	
 	//ETH POOL
 	const totalEthPool = res.ETH[0]/(10**18);
 	const stakedETH = StakedYFKA.fETH;
-	$('#EthPooledYFKA').html(twoDecimals(await totalEthPool));
-	$('#PEthPooledYFKA').html(twoDecimals((await totalEthPool/PooledYFKA)*100));
-	$('#EthStakedYFKA').html(twoDecimals(await stakedETH));
-	$('#PEthStakedYFKA').html(twoDecimals((await stakedETH/await totalYFKAStakerd)*100));
+	$('#EthPooledYFKA').html(twoDecimals(totalEthPool));
+	$('#PEthPooledYFKA').html(twoDecimals((totalEthPool/PooledYFKA)*100));
+	$('#EthStakedYFKA').html(twoDecimals(stakedETH));
+	$('#PEthStakedYFKA').html(twoDecimals((stakedETH/totalYFKAStakerd)*100));
 	
 	
 	// Load google charts
@@ -2713,10 +2690,8 @@ $('#stakeBTN').click(async () => {
 --------------------------------------------------------------------------------------------
 */
 $('#redeemBTN').click(async () => {	
-	const personalemission = await getPersonalEmissions().catch(e => {
-		errorHandling(e, 'getPersonalEmissions()');
-		return("error");
-	});
+	const personalemission = STATES.PERSONAL_EMISSION;
+	
 	switch ($('[name=redeem][type=radio]:checked').val())
 	{
 		case 'XAMP':
@@ -2831,10 +2806,7 @@ $('#unstakeBTN').click(async () => {
 	
 
 	
-	const personalemission = await getPersonalEmissions().catch(e => {
-		errorHandling(e, 'getPersonalEmissions()');
-		return("error");
-	});
+	const personalemission = STATES.PERSONAL_EMISSION;
 	switch ($('[name=unstake][type=radio]:checked').val())
 	{
 		case 'XAMP':
@@ -3082,6 +3054,7 @@ await getPrices();
 await getWalletBTSCoins();
 await getTotalBalances();
 await getPoolBalances();
+await getPersonalEmissions();
 console.log("STATES: ", STATES);
 
 }
