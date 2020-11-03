@@ -20,7 +20,7 @@ const TOKENS = {
   ETH: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
 };
 
-const DISPLAY_CONSOLE = true;
+const DISPLAY_CONSOLE = false;
 const DISPLAY_ERRORS = true;
 
 const PAIRS = {
