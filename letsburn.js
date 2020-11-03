@@ -984,7 +984,7 @@ const Contract_Setup = async =>{
 	
 	
 	
-	STATES.CONTRACTS{
+	STATES.CONTRACTS={
 		XAMP: XAMPContract,
 		TOB: TOBContract,
 		BOA: BOAContract,
@@ -1470,7 +1470,7 @@ const totalYFKAStaked = async () =>{
 	const totalStakedYFKA_ETH = await ashContract.methods
 		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH).call();
 	
-	STATES.StakedYFKA{
+	STATES.StakedYFKA={
 		fXAMP:totalStakedYFKA_XAMP/(10**18),
 		fTOB:totalStakedYFKA_TOB/(10**18),
 		fBOA:totalStakedYFKA_BOA/(10**18),
@@ -3263,4 +3263,3 @@ totalPooledYFKA();
 
 
 console.log("STATES: ", STATES);
-
