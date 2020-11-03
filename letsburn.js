@@ -2129,7 +2129,10 @@ const getPersonalEmissions = async () => {
 }
 
 async function update_Ticker_style_off(){
-	
+	const bonusAddress = await getBonusPool().catch(e => {
+			errorHandling(e, 'GetBonusPool()');
+			return("error");
+		});
 	
 	document.getElementById('reward-BOA').style.color = "black";
 	document.getElementById('reward-BOA').style.fontWeight = "normal";
@@ -2139,14 +2142,6 @@ async function update_Ticker_style_off(){
 	document.getElementById('reward-TOB').style.fontWeight = "normal";
 	document.getElementById('reward-XAMP').style.color = "black";
 	document.getElementById('reward-XAMP').style.fontWeight = "normal";
-	
-	
-	
-	
-	const bonusAddress = await getBonusPool().catch(e => {
-			errorHandling(e, 'GetBonusPool()');
-			return("error");
-		});
 
 	switch (bonusAddress) {
 	case PAIRS.YFKA_XAMP:
