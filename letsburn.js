@@ -3184,7 +3184,7 @@ window.addEventListener('load', async (event) => {
 				await syncALL();
 			}			
 			else {
-				var start = new Date().getTime();
+				var start = performance.now();
 				await syncALL();
 				
 				
@@ -3235,9 +3235,9 @@ window.addEventListener('load', async (event) => {
 				
 				await FillInfo();
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
-				var end = new Date().getTime();
+				var end =	performance.now();
 				var time = end - start;
-				console.log('Execution time (main Load): ' + time/60);	
+				console.log('Execution time (main Load): ', time, " Miliseconds");	
 			}
 		}catch(e){
 			errorHandling(e, 'GetAccounts()');
@@ -3260,5 +3260,4 @@ totalPooledYFKA();
 
 
 console.log("STATES: ", STATES);
-
 
