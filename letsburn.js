@@ -1003,15 +1003,8 @@ const Contract_Setup = async =>{
 
 
 const totalSupplyYFKA = async () =>{
-	const provider = await getInfuraProvider();
-	const yfkaContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	TOKENS.YFKA
-	);
-	const totalYFKAcirc = await STATES.YFKA.methods.totalSupply().call();
-	
+	const totalYFKAcirc = await STATES.CONTRACTS.YFKA.methods.totalSupply().call();
 	STATES.totalYFKACirculating = totalYFKAcirc/(10**18);
-
 }
 
 
