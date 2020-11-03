@@ -2128,16 +2128,102 @@ const getPersonalEmissions = async () => {
 	}
 }
 
-function update_Ticker_style(){
-	document.getElementById('reward-BOA').style.color = "white";
+function update_Ticker_style_off(){
+	
+	
+	document.getElementById('reward-BOA').style.color = "black";
 	document.getElementById('reward-BOA').style.fontWeight = "normal";
-	document.getElementById('reward-ETH').style.color = "white";
+	document.getElementById('reward-ETH').style.color = "black";
 	document.getElementById('reward-ETH').style.fontWeight = "normal";
-	document.getElementById('reward-TOB').style.color = "white";
+	document.getElementById('reward-TOB').style.color = "black";
 	document.getElementById('reward-TOB').style.fontWeight = "normal";
-	document.getElementById('reward-XAMP').style.color = "white";
+	document.getElementById('reward-XAMP').style.color = "black";
 	document.getElementById('reward-XAMP').style.fontWeight = "normal";
+	
+	
+	
+	
+	const bonusAddress = await getBonusPool().catch(e => {
+			errorHandling(e, 'GetBonusPool()');
+			return("error");
+		});
+
+	switch (bonusAddress) {
+	case PAIRS.YFKA_XAMP:
+		document.getElementById('reward-XAMP').style.color = "white";
+		document.getElementById('reward-XAMP').style.fontWeight = "normal";
+		break;
+	case PAIRS.YFKA_TOB:
+		document.getElementById('reward-TOB').style.color = "white";
+		document.getElementById('reward-TOB').style.fontWeight = "normal";
+		break;
+	case PAIRS.YFKA_BOA:
+		document.getElementById('reward-BOA').style.color = "white";
+		document.getElementById('reward-BOA').style.fontWeight = "normal";
+		break;
+	case PAIRS.YFKA_ETH:
+		document.getElementById('reward-ETH').style.color = "white";
+		document.getElementById('reward-ETH').style.fontWeight = "normal";
+		break;
+	
+	default:
+		// Dont do shit
+		break;
+	}
+
+	
+	
+	
+
 }
+
+
+function update_Ticker_style_on(){
+		const bonusAddress = await getBonusPool().catch(e => {
+			errorHandling(e, 'GetBonusPool()');
+			return("error");
+		});
+	
+	document.getElementById('reward-BOA').style.color = "red";
+	document.getElementById('reward-BOA').style.fontWeight = "bold";
+	document.getElementById('reward-ETH').style.color = "red";
+	document.getElementById('reward-ETH').style.fontWeight = "bold";
+	document.getElementById('reward-TOB').style.color = "red";
+	document.getElementById('reward-TOB').style.fontWeight = "bold";
+	document.getElementById('reward-XAMP').style.color = "red";
+	document.getElementById('reward-XAMP').style.fontWeight = "bold";
+	
+	
+	
+	
+
+
+	switch (bonusAddress) {
+	case PAIRS.YFKA_XAMP:
+		document.getElementById('reward-XAMP').style.color = "darkred";
+		break;
+	case PAIRS.YFKA_TOB:
+		document.getElementById('reward-TOB').style.color = "darkred";
+		break;
+	case PAIRS.YFKA_BOA:
+		document.getElementById('reward-BOA').style.color = "darkred";
+		break;
+	case PAIRS.YFKA_ETH:
+		document.getElementById('reward-ETH').style.color = "darkred";
+		break;
+	
+	default:
+		// Dont do shit
+		break;
+	}
+		//1 second delay then reset colour and bold.
+	setTimeout(update_Ticker_style_off, 750);
+	
+	
+	
+
+}
+
 
 
 /*
@@ -2319,9 +2405,8 @@ const updateUserStats = async () => {
 		}else return("error");
 	}else return("error");
 	
-	//1 second delay then reset colour and bold.
-	setTimeout(update_Ticker_style, 1000);
-
+	//Update the styling to show user its changing.
+	update_Ticker_style_on();
 };
 
 
