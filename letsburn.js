@@ -2556,7 +2556,7 @@ const checkMinStakeInput = async (stakevalue) =>{
 const fillYFKAinfo = async () =>{
 	//await Promises.
 	const PooledYFKA = STATES.YFKATotalPooled;
-	const TotalYFKA = STATES.STATES.TOTAL_CIRCULATING.YFKA;
+	const TotalYFKA = STATES.TOTAL_CIRCULATING.YFKA;
 	const StakedYFKA = STATES.StakedYFKA;
 	const res = STATES.POOL_RESERVES;
 	//TOTALS
