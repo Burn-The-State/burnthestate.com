@@ -2400,7 +2400,7 @@ const updateUserStats = async () => {
 	
 	
 	//1 second delay then reset colour and bold.
-	setTimeout(update_Ticker_style_off, 250);
+	setTimeout(update_Ticker_style_off, 100);
 	
 
 };
