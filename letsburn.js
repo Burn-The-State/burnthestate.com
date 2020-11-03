@@ -871,8 +871,6 @@ const yfkaControllerContract = () => {
   return contract;
 };
 
-
-
 const syncALL = async () =>{
 	const provider = await getInfuraProvider();
 	
@@ -912,7 +910,7 @@ const syncALL = async () =>{
 	);
 	
 	const YFKAControllerContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
+	YFKA_CONTROLLER_ABI,
 	YFKA_CONTROLLER_ADDRESS
 	);
 	
@@ -930,30 +928,90 @@ const syncALL = async () =>{
 
 	
 }
-// FUNCTION().then(x => { console.log(x); } )     CAN I ADD constX to this!?
-//const { foo, bar }  = await iAmAPromise.then(result => result.data);
-/*(async () => {
-  console.log(await getData())
-})()
-*/
+
 const checksumAddress = (address) => {
 	const provider = getInfuraProvider();
 	return provider.utils.toChecksumAddress(address);
 }
 
-const totalSupplyYFKA = async () =>{
-	const provider = await getInfuraProvider();
 
-	const yfkaContract = new provider.eth.Contract(
+const Contract_Setup = async =>{
+	const provider = getInfuraProvider();
+	
+	
+	//TOKEN CONTRACTS
+	const XAMPContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	TOKENS.XAMP
+	);
+	const TOBContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	TOKENS.TOB
+	);
+	const BOAContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	TOKENS.BOA
+	);
+	const YFKAContract = new provider.eth.Contract(
 	UNISWAP_BASE_LP_ABI,
 	TOKENS.YFKA
 	);
 	
-	const totalYFKAcirc = await yfkaContract.methods.totalSupply().call();
+	
+	//PAIR CONTRACTS
+	const XAMPContract2 = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_XAMP
+	);
+	const TOBContract2 = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_TOB
+	);
+	const BOAContract2 = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_BOA
+	);
+	const YFKAContract2 = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	PAIRS.YFKA_ETH
+	);
+	
+
+	const YFKAControllerContract = new provider.eth.Contract(
+	YFKA_CONTROLLER_ABI,
+	YFKA_CONTROLLER_ADDRESS
+	);
+	
+	
+	
+	STATES.CONTRACTS{
+		XAMP: XAMPContract,
+		TOB: TOBContract,
+		BOA: BOAContract,
+		YFKA: YFKAContract,
+		
+		YFKA_XAMP:XAMPContract2,
+		YFKA_TOB:TOBContract2,
+		YFKA_BOA:BOAContract2,
+		YFKA_ETH:YFKAContract2,
+		
+		YFKA_CONTROLLER:YFKAControllerContract,
+		
+	}
+	
+}
+
+
+const totalSupplyYFKA = async () =>{
+	const provider = await getInfuraProvider();
+	const yfkaContract = new provider.eth.Contract(
+	UNISWAP_BASE_LP_ABI,
+	TOKENS.YFKA
+	);
+	const totalYFKAcirc = await STATES.YFKA.methods.totalSupply().call();
 	
 	STATES.totalYFKACirculating = totalYFKAcirc/(10**18);
-	
-	return(totalYFKAcirc/(10**18));
+
 }
 
 
@@ -967,16 +1025,11 @@ const totalPooledYFKA = async () =>{
 	const YFKAinBOA = res.BOA[0]/(10**18);
 	const YFKAinETH = res.ETH[0]/(10**18);
 	
-	
 	STATES.YFKAinXAMPPool = YFKAinXAMP;
 	STATES.YFKAinTOBPool = YFKAinTOB;
 	STATES.YFKAinBOAPool = YFKAinBOA;
 	STATES.YFKAinETHPool = YFKAinETH;
-	
-	
-	return ((YFKAinXAMP+YFKAinTOB+YFKAinBOA+YFKAinETH));
-		
-
+	STATES.YFKATotalPooled = YFKAinXAMP+YFKAinTOB+YFKAinBOA+YFKAinETH;
 }
 
 
@@ -1416,6 +1469,16 @@ const totalYFKAStaked = async () =>{
 		.totalYFKAStaked(YFKA_POOL_INDEXES.BOA).call();
 	const totalStakedYFKA_ETH = await ashContract.methods
 		.totalYFKAStaked(YFKA_POOL_INDEXES.ETH).call();
+	
+	STATES.StakedYFKA{
+		fXAMP:totalStakedYFKA_XAMP/(10**18),
+		fTOB:totalStakedYFKA_TOB/(10**18),
+		fBOA:totalStakedYFKA_BOA/(10**18),
+		fETH:totalStakedYFKA_ETH/(10**18),
+	}
+	
+	
+	
 	return{
 		XAMP:totalStakedYFKA_XAMP,
 		TOB:totalStakedYFKA_TOB,
@@ -2681,17 +2744,17 @@ const checkMinStakeInput = async (stakevalue) =>{
 
 const fillYFKAinfo = async () =>{
 	//await Promises.
-	const PooledYFKA = await totalPooledYFKA();
-	const TotalYFKA = await totalSupplyYFKA();
+	const PooledYFKA = await STATES.YFKATotalPooled;
+	const TotalYFKA = STATES.totalYFKACirculating;
 	const StakedYFKA = await totalYFKAStaked();
 	const res = await getReserves();
 	//TOTALS
-	$('#globalYFKA').html(twoDecimals(await TotalYFKA ));
-	if (DISPLAY_CONSOLE) console.log("total YFKA: ", await TotalYFKA);
-	$('#pooledYFKA').html(twoDecimals(await PooledYFKA));
-	if (DISPLAY_CONSOLE) console.log("Pooled YFKA: ", await PooledYFKA);
-	$('#PpooledYFKA').html(twoDecimals((await PooledYFKA/ await TotalYFKA))*100);
-	if (DISPLAY_CONSOLE) console.log("Pooled/Total: ", (await PooledYFKA/ await TotalYFKA)*100);
+	$('#globalYFKA').html(twoDecimals(TotalYFKA ));
+	if (DISPLAY_CONSOLE) console.log("total YFKA: ", TotalYFKA);
+	$('#pooledYFKA').html(twoDecimals(PooledYFKA));
+	if (DISPLAY_CONSOLE) console.log("Pooled YFKA: ", PooledYFKA);
+	$('#PpooledYFKA').html(twoDecimals((PooledYFKA/ TotalYFKA))*100);
+	if (DISPLAY_CONSOLE) console.log("Pooled/Total: ", (PooledYFKA/ TotalYFKA)*100);
 	const totalYFKAStakerd = (await StakedYFKA.fBOA + await StakedYFKA.fXAMP + await StakedYFKA.fTOB + await StakedYFKA.fETH);
 	$('#stakedYFKA').html(twoDecimals(await totalYFKAStakerd));
 	if (DISPLAY_CONSOLE) console.log("Total Staked: ", await totalYFKAStakerd);
@@ -2703,7 +2766,7 @@ const fillYFKAinfo = async () =>{
 	const totalXampPool = res.XAMP[0]/(10**18);
 	const stakedXAMP = await StakedYFKA.fXAMP;
 	$('#XampPooledYFKA').html(twoDecimals(await totalXampPool));
-	$('#PXampPooledYFKA').html(twoDecimals((await totalXampPool/await PooledYFKA)*100));
+	$('#PXampPooledYFKA').html(twoDecimals((await totalXampPool/PooledYFKA)*100));
 	$('#XampStakedYFKA').html(twoDecimals(await stakedXAMP));
 	$('#PXampStakedYFKA').html(twoDecimals((await stakedXAMP/await totalYFKAStakerd)*100));
 	
@@ -2711,7 +2774,7 @@ const fillYFKAinfo = async () =>{
 	const totalTobPool = res.TOB[0]/(10**18);
 	const stakedTOB = await StakedYFKA.fTOB;
 	$('#TobPooledYFKA').html(twoDecimals(await totalTobPool));
-	$('#PTobPooledYFKA').html(twoDecimals((await totalTobPool/await PooledYFKA)*100));
+	$('#PTobPooledYFKA').html(twoDecimals((await totalTobPool/PooledYFKA)*100));
 	$('#TobStakedYFKA').html(twoDecimals(await stakedTOB));
 	$('#PTobStakedYFKA').html(twoDecimals((await stakedTOB/await totalYFKAStakerd)*100));
 	
@@ -2719,7 +2782,7 @@ const fillYFKAinfo = async () =>{
 	const totalBoaPool = res.BOA[0]/(10**18);
 	const stakedBOA = await StakedYFKA.fBOA;
 	$('#BoaPooledYFKA').html(twoDecimals(await totalBoaPool));
-	$('#PBoaPooledYFKA').html(twoDecimals((await totalBoaPool/await PooledYFKA)*100));
+	$('#PBoaPooledYFKA').html(twoDecimals((await totalBoaPool/PooledYFKA)*100));
 	$('#BoaStakedYFKA').html(twoDecimals(await stakedBOA));
 	$('#PBoaStakedYFKA').html(twoDecimals((await stakedTOB/await totalYFKAStakerd)*100));
 	
@@ -2727,7 +2790,7 @@ const fillYFKAinfo = async () =>{
 	const totalEthPool = res.ETH[0]/(10**18);
 	const stakedETH = await StakedYFKA.fETH;
 	$('#EthPooledYFKA').html(twoDecimals(await totalEthPool));
-	$('#PEthPooledYFKA').html(twoDecimals((await totalEthPool/await PooledYFKA)*100));
+	$('#PEthPooledYFKA').html(twoDecimals((await totalEthPool/PooledYFKA)*100));
 	$('#EthStakedYFKA').html(twoDecimals(await stakedETH));
 	$('#PEthStakedYFKA').html(twoDecimals((await stakedETH/await totalYFKAStakerd)*100));
 	
@@ -3190,6 +3253,10 @@ window.addEventListener('load', async (event) => {
 /*
 INITIALISATION
 */
+
+//Initialise Contracts to STATES
+Contract_Setup();
+
 
 totalSupplyYFKA();
 totalPooledYFKA();
