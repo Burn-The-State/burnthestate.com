@@ -1072,6 +1072,26 @@ const getPricesYFKA = async () => {
   }
 }
 
+const getGasPrices = async () =>{
+	 const response = await fetch(`https://ethgasstation.info/json/ethgasAPI.json`);
+	 const gasPrices = await response.json();
+	 
+	 STATES.GAS_PRICE ={
+		FAST:gasPrices['fastest'],
+		FAST_WAIT:gasPrices['fastestWait'],
+		AVERAGE:gasPrices['fast'],
+		AVERAGE_WAIT:gasPrices['fastWait'],
+		SLOW:gasPrices['average'],
+		SLOW_WAIT:gasPrices['avgWait'],
+		
+	}
+	
+}
+
+
+
+
+
 // Get BTS token prices in USD and ETH
 const getPrices = async () => {
   const tokenKeys = Object.keys(TOKENS);
@@ -3083,6 +3103,7 @@ await getLPconversions();
 await getGlobalEmissionRate();
 await getStakes();
 await getBTSTotals();
+await getGasPrices();
 console.log("STATES: ", STATES);
 
 }
