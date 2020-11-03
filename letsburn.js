@@ -2308,7 +2308,7 @@ const updateUserStats = async () => {
 	}else return("error");
 	
 	//1 second delay then reset colour and bold.
-	TimeUnit.SECONDS.sleep(1);
+	Thread.sleep(1000);
 	document.getElementById('reward-BOA').style.color = "white";
 	document.getElementById('reward-BOA').style.fontWeight = "normal";
 	document.getElementById('reward-ETH').style.color = "white";
