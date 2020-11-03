@@ -20,7 +20,7 @@ const TOKENS = {
   ETH: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
 };
 
-const DISPLAY_CONSOLE = false;
+const DISPLAY_CONSOLE = true;
 const DISPLAY_ERRORS = true;
 
 const PAIRS = {
@@ -1165,7 +1165,7 @@ const getTotalLP = async () =>{
 // get Users STAKED LP
 const getStakes = async () => {
 	//Provides Base Amount in Uint256 and Formatted Amount for Easy printing
-	const account = await getAccount();
+	const account = STATES.CONNECTED_WALLET;
 	const ashContract = yfkaControllerContract();
 	
 	const userOwnedLPXAMP = await ashContract.methods
@@ -1194,7 +1194,7 @@ const getStakes = async () => {
 
 // get Users Rewards (YFKA)
 const getRewards = async () => {
-	const account = await getAccount();
+	const account = STATES.CONNECTED_WALLET;
 	const ashContract = yfkaControllerContract();
 	
 	const xampReward = await ashContract.methods
@@ -1238,7 +1238,7 @@ const getRewards = async () => {
 //get USers Wallet Balances
 const getWalletBTSCoins = async () => {
 	const provider = getInfuraProvider();
-	const account = await getAccount();
+	const account = STATES.CONNECTED_WALLET;
 	
 	
 	const xampContract = new provider.eth.Contract(
@@ -1882,6 +1882,7 @@ const getAccount = async () => {
 		const accounts = await ethereum.request({method: 'eth_requestAccounts'});
 		if (DISPLAY_CONSOLE) console.log('accounts:', accounts);
 		const provider = getInfuraProvider();
+		STATES.CONNECTED_WALLET = provider.utils.toChecksumAddress(accounts[0])
 		return provider.utils.toChecksumAddress(accounts[0]);
 };
 
@@ -2094,7 +2095,7 @@ const getTotalBalances = async () => {
 //GET WALLET BALANCES
 const getPoolBalances = async () => {
   if (DISPLAY_CONSOLE) console.log('getBalances');
-  const account = await getAccount();
+  const account = STATES.CONNECTED_WALLET;
   if (!account) return null;
 
   const provider = getInfuraProvider();
@@ -2194,7 +2195,7 @@ const getPoolBalances = async () => {
 };
 
 const getPersonalEmissions= async () => {
-	const account = await getAccount();
+	const account = STATES.CONNECTED_WALLET;
 	const ashContract = yfkaControllerContract();
 	const bonusPoolIdx = await ashContract.methods.getActivePool().call();
 
@@ -2277,10 +2278,7 @@ const getPersonalEmissions= async () => {
 *
 */
 const updateUserStats = async () => {
-	const account = await getAccount().catch(e => {
-		errorHandling(e, 'Get Accounts');
-		return("error");
-	});
+	const account = STATES.CONNECTED_WALLET;
 	
 	if (account != "error"){
 		
@@ -2632,7 +2630,7 @@ const setStakeBalance = async (event)=> {
 const setRedeemBalance = async () => {
   if (DISPLAY_CONSOLE) console.log('change radio redeem');
   const value = $('[name=redeem][type=radio]:checked').val();
-  const account = await getAccount();
+  const account = STATES.CONNECTED_WALLET;
   const globalEmissionRate = await getGlobalEmissionRate();
 	if (value == "ETH")
 	{
@@ -2671,7 +2669,7 @@ const setRedeemBalance = async () => {
 
 const setUnstakeBalance = async () => {
 	const value = $('[name=unstake][type=radio]:checked').val();
-	const account = await getAccount();
+	const account = STATES.CONNECTED_WALLET;
 	const idx = getIndexBySymbol(value);
 	const globalEmissionRate = await getGlobalEmissionRate();
 	if (value == "ETH")
@@ -3253,7 +3251,7 @@ INITIALISATION
 
 //Initialise Contracts to STATES
 Contract_Setup();
-
+getAccount();
 
 totalSupplyYFKA();
 totalPooledYFKA();
