@@ -2157,8 +2157,8 @@ const updateUserStats = async () => {
 		{
 			if (DISPLAY_CONSOLE) console.log('xampReward: ', xampReward);
 			$('#reward-XAMP').html(sixDecimals(_.toInteger(xampReward) / 10 ** 18));
-			$('#reward-XAMP').style.Color = 'black';
-			$('#reward-XAMP').style.font-weight = 'bold';
+			document.getElementById('#reward-XAMP').style.Color = 'black';
+			document.getElementById('#reward-XAMP').style.font-weight = 'bold';
 		}else return("error");
 		
 		//TOB reward
@@ -2174,8 +2174,8 @@ const updateUserStats = async () => {
 		{
 			if (DISPLAY_CONSOLE) console.log('tobReward: ', tobReward);
 			$('#reward-TOB').html(sixDecimals(_.toInteger(tobReward) / 10 ** 18));
-			$('#reward-TOB').style.Color = 'black';
-			$('#reward-TOB').style.font-weight = 'bold';
+			document.getElementById('#reward-TOB').style.Color = 'black';
+			document.getElementById('#reward-TOB').style.font-weight = 'bold';
 		}else return("error");
 		
 		//BOA reward
@@ -2190,8 +2190,8 @@ const updateUserStats = async () => {
 		if (boaReward != "error"){
 			if (DISPLAY_CONSOLE) console.log('boaReward: ', boaReward);
 			$('#reward-BOA').html(sixDecimals(_.toInteger(boaReward) / 10 ** 18));
-			$('#reward-BOA').style.Color = 'black';
-			$('#reward-BOA').style.font-weight = 'bold';
+			document.getElementById('#reward-BOA').style.Color = 'black';
+			document.getElementById('#reward-BOA').style.font-weight = 'bold';
 			
 			
 			
@@ -2209,8 +2209,8 @@ const updateUserStats = async () => {
 		if (DISPLAY_CONSOLE) console.log('ethReward: ', ethReward);
 			$('#reward-ETH').html(_.toInteger(ethReward) / 10 ** 18);
 			$('#reward-ETH').html(sixDecimals(_.toInteger(ethReward) / 10 ** 18));
-			$('#reward-ETH').style.Color = 'black';
-			$('#reward-ETH').style.font-weight = 'bold';
+			document.getElementById('#reward-ETH').style.Color = 'black';
+			document.getElementById('#reward-ETH').style.font-weight = 'bold';
 			
 			
 		}else return("error");
@@ -2309,14 +2309,14 @@ const updateUserStats = async () => {
 	
 	//1 second delay then reset colour and bold.
 	TimeUnit.SECONDS.sleep(1);
-	$('#reward-BOA').style.Color = 'white';
-	$('#reward-BOA').style.font-weight = 'normal';
-	$('#reward-ETH').style.Color = 'white';
-	$('#reward-ETH').style.font-weight = 'normal';
-	$('#reward-TOB').style.Color = 'white';
-	$('#reward-TOB').style.font-weight = 'normal';
-	$('#reward-XAMP').style.Color = 'white';
-	$('#reward-XAMP').style.font-weight = 'normal';
+	document.getElementById('#reward-BOA').style.Color = 'white';
+	document.getElementById('#reward-BOA').style.font-weight = 'normal';
+	document.getElementById('#reward-ETH').style.Color = 'white';
+	document.getElementById('#reward-ETH').style.font-weight = 'normal';
+	document.getElementById('#reward-TOB').style.Color = 'white';
+	document.getElementById('#reward-TOB').style.font-weight = 'normal';
+	document.getElementById('#reward-XAMP').style.Color = 'white';
+	document.getElementById('#reward-XAMP').style.font-weight = 'normal';
 };
 
 const updateActivePool = async () => {
