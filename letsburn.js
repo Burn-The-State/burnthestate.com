@@ -910,7 +910,7 @@ const syncALL = async () =>{
 	);
 	
 	const YFKAControllerContract = new provider.eth.Contract(
-	YFKA_CONTROLLER_ABI,
+	UNISWAP_BASE_LP_ABI,
 	YFKA_CONTROLLER_ADDRESS
 	);
 	
