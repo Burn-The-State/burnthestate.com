@@ -2141,7 +2141,7 @@ const getPersonalEmissions = async () => {
 */
 const updateUserStats = async () => {
 	const account = STATES.CONNECTED_WALLET;
-	
+	const xamp_reward = document.getElementById("reward-XAMP");
 	if (account != "error"){
 		//current Rewards
 		//XAMP reward
@@ -2157,8 +2157,8 @@ const updateUserStats = async () => {
 		{
 			if (DISPLAY_CONSOLE) console.log('xampReward: ', xampReward);
 			$('#reward-XAMP').html(sixDecimals(_.toInteger(xampReward) / 10 ** 18));
-			document.getElementById("reward-XAMP").style.color = "black";
-			document.getElementById("reward-XAMP").style.font-weight = "bold";
+			xamp_reward.style.color = "black";
+			xamp_reward.style.fontWeight = "bold";
 		}else return("error");
 		
 		//TOB reward
@@ -2175,7 +2175,7 @@ const updateUserStats = async () => {
 			if (DISPLAY_CONSOLE) console.log('tobReward: ', tobReward);
 			$('#reward-TOB').html(sixDecimals(_.toInteger(tobReward) / 10 ** 18));
 			document.getElementById('reward-TOB').style.color = "black";
-			document.getElementById('reward-TOB').style.font-weight = "bold";
+			document.getElementById('reward-TOB').style.fontWeight = "bold";
 		}else return("error");
 		
 		//BOA reward
@@ -2191,7 +2191,7 @@ const updateUserStats = async () => {
 			if (DISPLAY_CONSOLE) console.log('boaReward: ', boaReward);
 			$('#reward-BOA').html(sixDecimals(_.toInteger(boaReward) / 10 ** 18));
 			document.getElementById('reward-BOA').style.color = "black";
-			document.getElementById('reward-BOA').style.font-weight = "bold";
+			document.getElementById('reward-BOA').style.fontWeight = "bold";
 			
 			
 			
@@ -2210,7 +2210,7 @@ const updateUserStats = async () => {
 			$('#reward-ETH').html(_.toInteger(ethReward) / 10 ** 18);
 			$('#reward-ETH').html(sixDecimals(_.toInteger(ethReward) / 10 ** 18));
 			document.getElementById("reward-ETH").style.color = "black";
-			document.getElementById('reward-ETH').style.font-weight = "bold";
+			document.getElementById('reward-ETH').style.fontWeight = "bold";
 			
 			
 		}else return("error");
@@ -2310,13 +2310,13 @@ const updateUserStats = async () => {
 	//1 second delay then reset colour and bold.
 	TimeUnit.SECONDS.sleep(1);
 	document.getElementById('reward-BOA').style.color = "white";
-	document.getElementById('reward-BOA').style.font-weight = "normal";
+	document.getElementById('reward-BOA').style.fontWeight = "normal";
 	document.getElementById('reward-ETH').style.color = "white";
-	document.getElementById('reward-ETH').style.font-weight = "normal";
+	document.getElementById('reward-ETH').style.fontWeight = "normal";
 	document.getElementById('reward-TOB').style.color = "white";
-	document.getElementById('reward-TOB').style.font-weight = "normal";
+	document.getElementById('reward-TOB').style.fontWeight = "normal";
 	document.getElementById('reward-XAMP').style.color = "white";
-	document.getElementById('reward-XAMP').style.font-weight = "normal";
+	document.getElementById('reward-XAMP').style.fontWeight = "normal";
 };
 
 const updateActivePool = async () => {
