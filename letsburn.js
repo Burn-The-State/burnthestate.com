@@ -3237,7 +3237,7 @@ window.addEventListener('load', async (event) => {
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 				var end = new Date().getTime();
 				var time = end - start;
-				console.log('Execution time (main Load): ' + time);	
+				console.log('Execution time (main Load): ' + time/60);	
 			}
 		}catch(e){
 			errorHandling(e, 'GetAccounts()');
@@ -3260,4 +3260,5 @@ totalPooledYFKA();
 
 
 console.log("STATES: ", STATES);
+
 
