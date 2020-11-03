@@ -3065,7 +3065,10 @@ window.addEventListener('load', async (event) => {
 					});
 					$('#isConnected').html('wallet connected');
 				}
-				
+				setInterval(
+				  () => console.log('Hello every 10 seconds...'),
+				  10000
+				);
 				await FillInfo();
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 				var end =	performance.now();
