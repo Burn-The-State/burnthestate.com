@@ -1947,10 +1947,10 @@ const getTotalBalances = async () => {
 		if (DISPLAY_CONSOLE) console.log('ethContractDecimals: ', ethContractDecimals);
 
 		STATES.TOTALS_BTS = {
-						XAMP: xampContractBalance
+			XAMP: xampContractBalance
 			  ? xampContractBalance / 10 ** xampContractDecimals
 			  : 0,
-			TOB: tobContract ? tobContractBalance / 10 ** tobContractDecimals : 0,
+			TOB: tobContractBalance ? tobContractBalance / 10 ** tobContractDecimals : 0,
 			BOA: boaContractBalance
 			  ? boaContractBalance / 10 ** boaContractDecimals
 			  : 0,
