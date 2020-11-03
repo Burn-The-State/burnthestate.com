@@ -3156,7 +3156,7 @@ $('#ETHInfo').click(async () => {
 */
 
 window.addEventListener('load', async (event) => {
-var start = new Date().getTime();
+
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	//await stakeMinimumPrice();
 	
@@ -3184,6 +3184,7 @@ var start = new Date().getTime();
 				await syncALL();
 			}			
 			else {
+				var start = new Date().getTime();
 				await syncALL();
 				
 				
@@ -3234,14 +3235,15 @@ var start = new Date().getTime();
 				
 				await FillInfo();
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
+				var end = new Date().getTime();
+				var time = end - start;
+				console.log('Execution time (main Load): ' + time);	
 			}
 		}catch(e){
 			errorHandling(e, 'GetAccounts()');
 		}
 	});
-var end = new Date().getTime();
-var time = end - start;
-alert('Execution time (main Load): ' + time);	
+
 });
 
 
@@ -3258,3 +3260,4 @@ totalPooledYFKA();
 
 
 console.log("STATES: ", STATES);
+
