@@ -2128,6 +2128,18 @@ const getPersonalEmissions = async () => {
 	}
 }
 
+function update_Ticker_style(){
+	document.getElementById('reward-BOA').style.color = "white";
+	document.getElementById('reward-BOA').style.fontWeight = "normal";
+	document.getElementById('reward-ETH').style.color = "white";
+	document.getElementById('reward-ETH').style.fontWeight = "normal";
+	document.getElementById('reward-TOB').style.color = "white";
+	document.getElementById('reward-TOB').style.fontWeight = "normal";
+	document.getElementById('reward-XAMP').style.color = "white";
+	document.getElementById('reward-XAMP').style.fontWeight = "normal";
+}
+
+
 /*
 *
 *
@@ -2308,16 +2320,13 @@ const updateUserStats = async () => {
 	}else return("error");
 	
 	//1 second delay then reset colour and bold.
-	Thread.sleep(1000);
-	document.getElementById('reward-BOA').style.color = "white";
-	document.getElementById('reward-BOA').style.fontWeight = "normal";
-	document.getElementById('reward-ETH').style.color = "white";
-	document.getElementById('reward-ETH').style.fontWeight = "normal";
-	document.getElementById('reward-TOB').style.color = "white";
-	document.getElementById('reward-TOB').style.fontWeight = "normal";
-	document.getElementById('reward-XAMP').style.color = "white";
-	document.getElementById('reward-XAMP').style.fontWeight = "normal";
+	setTimeout(update_Ticker_style, 1000);
+
 };
+
+
+
+
 
 const updateActivePool = async () => {
 	if (DISPLAY_CONSOLE) console.log('updateActivePool');
