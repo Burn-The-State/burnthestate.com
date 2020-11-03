@@ -1775,7 +1775,7 @@ const getGlobalEmissionRate = async () => {
 
   const emissionRateToReadable = twoDecimals(emissionRateToHuman);
   if (DISPLAY_CONSOLE) console.log('emissionRateToReadable: ', emissionRateToReadable);
-  STATE.GLOBAL_EMISSION_RATE = emissionRateToReadable;
+  STATES.GLOBAL_EMISSION_RATE = emissionRateToReadable;
 };
 
 const getIndexBySymbol = (value) => {
@@ -2239,7 +2239,7 @@ const updateUserStats = async () => {
 
 const updateActivePool = async () => {
 	if (DISPLAY_CONSOLE) console.log('updateActivePool');
-	const _globalEmissionRate = STATE.GLOBAL_EMISSION_RATE;
+	const _globalEmissionRate = STATES.GLOBAL_EMISSION_RATE;
 	
 
 	const TotalBalances = STATES.TOTALS_BTS;
@@ -2418,7 +2418,7 @@ const setRedeemBalance = async () => {
   if (DISPLAY_CONSOLE) console.log('change radio redeem');
   const value = $('[name=redeem][type=radio]:checked').val();
   const account = STATES.CONNECTED_WALLET;
-  const globalEmissionRate = STATE.GLOBAL_EMISSION_RATE;
+  const globalEmissionRate = STATES.GLOBAL_EMISSION_RATE;
 	if (value == "ETH")
 	{
 		$('#redeem-coin-emission').html(`${globalEmissionRate/2}`);
@@ -2456,7 +2456,7 @@ const setUnstakeBalance = async () => {
 	const value = $('[name=unstake][type=radio]:checked').val();
 	const account = STATES.CONNECTED_WALLET;
 	const idx = getIndexBySymbol(value);
-	const globalEmissionRate = STATE.GLOBAL_EMISSION_RATE;
+	const globalEmissionRate = STATES.GLOBAL_EMISSION_RATE;
 	if (value == "ETH")
 	{
 		$('#unstake-coin-emission').html(`${globalEmissionRate/2}`);
