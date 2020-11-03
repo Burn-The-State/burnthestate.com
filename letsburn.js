@@ -3237,7 +3237,7 @@ window.addEventListener('load', async (event) => {
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 				var end =	performance.now();
 				var time = end - start;
-				console.log('Execution time (main Load): ', time/60, " seconds");	
+				console.log('Execution time (main Load): ', time/1000, " seconds");	
 			}
 		}catch(e){
 			errorHandling(e, 'GetAccounts()');
