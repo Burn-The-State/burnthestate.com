@@ -3145,7 +3145,7 @@ window.addEventListener('load', async (event) => {
 
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
 	//await stakeMinimumPrice();
-	
+	await Initial_Load();
 	
 	
 	
@@ -3238,12 +3238,13 @@ INITIALISATION
 */
 
 //Initialise Contracts to STATES
-Contract_Setup();
-getAccount();
-getReserves();
-totalSupplyYFKA();
-totalPooledYFKA();
 
-
+async function Initial_Load () {	
+await Contract_Setup();
+await getAccount();
+await getReserves();
+await totalSupplyYFKA();
+await totalPooledYFKA();
 console.log("STATES: ", STATES);
 
+}
