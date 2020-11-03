@@ -1931,6 +1931,10 @@ async function MetaConnect(){
 	}		
 }
 
+
+
+
+
 /*
 *
 *
@@ -2124,6 +2128,98 @@ const getPersonalEmissions = async () => {
 	}
 }
 
+async function update_Ticker_style_off(){
+	const bonusAddress = await getBonusPool().catch(e => {
+			errorHandling(e, 'GetBonusPool()');
+			return("error");
+		});
+	
+	document.getElementById('reward-BOA').style.color = "black";
+	document.getElementById('reward-BOA').style.fontWeight = "normal";
+	document.getElementById('reward-ETH').style.color = "black";
+	document.getElementById('reward-ETH').style.fontWeight = "normal";
+	document.getElementById('reward-TOB').style.color = "black";
+	document.getElementById('reward-TOB').style.fontWeight = "normal";
+	document.getElementById('reward-XAMP').style.color = "black";
+	document.getElementById('reward-XAMP').style.fontWeight = "normal";
+
+	switch (bonusAddress) {
+	case PAIRS.YFKA_XAMP:
+		document.getElementById('reward-XAMP').style.color = "white";
+		document.getElementById('reward-XAMP').style.fontWeight = "normal";
+		break;
+	case PAIRS.YFKA_TOB:
+		document.getElementById('reward-TOB').style.color = "white";
+		document.getElementById('reward-TOB').style.fontWeight = "normal";
+		break;
+	case PAIRS.YFKA_BOA:
+		document.getElementById('reward-BOA').style.color = "white";
+		document.getElementById('reward-BOA').style.fontWeight = "normal";
+		break;
+	case PAIRS.YFKA_ETH:
+		document.getElementById('reward-ETH').style.color = "white";
+		document.getElementById('reward-ETH').style.fontWeight = "normal";
+		break;
+	
+	default:
+		// Dont do shit
+		break;
+	}
+
+	
+	
+	
+
+}
+
+
+async function update_Ticker_style_on(){
+		const bonusAddress = await getBonusPool().catch(e => {
+			errorHandling(e, 'GetBonusPool()');
+			return("error");
+		});
+	
+	document.getElementById('reward-BOA').style.color = "red";
+	document.getElementById('reward-BOA').style.fontWeight = "bold";
+	document.getElementById('reward-ETH').style.color = "red";
+	document.getElementById('reward-ETH').style.fontWeight = "bold";
+	document.getElementById('reward-TOB').style.color = "red";
+	document.getElementById('reward-TOB').style.fontWeight = "bold";
+	document.getElementById('reward-XAMP').style.color = "red";
+	document.getElementById('reward-XAMP').style.fontWeight = "bold";
+	
+	
+	
+	
+
+
+	switch (bonusAddress) {
+	case PAIRS.YFKA_XAMP:
+		document.getElementById('reward-XAMP').style.color = "darkred";
+		break;
+	case PAIRS.YFKA_TOB:
+		document.getElementById('reward-TOB').style.color = "darkred";
+		break;
+	case PAIRS.YFKA_BOA:
+		document.getElementById('reward-BOA').style.color = "darkred";
+		break;
+	case PAIRS.YFKA_ETH:
+		document.getElementById('reward-ETH').style.color = "darkred";
+		break;
+	
+	default:
+		// Dont do shit
+		break;
+	}
+
+	
+	
+	
+
+}
+
+
+
 /*
 *
 *
@@ -2137,7 +2233,7 @@ const getPersonalEmissions = async () => {
 */
 const updateUserStats = async () => {
 	const account = STATES.CONNECTED_WALLET;
-	
+	const xamp_reward = document.getElementById("reward-XAMP");
 	if (account != "error"){
 		//current Rewards
 		//XAMP reward
@@ -2149,10 +2245,14 @@ const updateUserStats = async () => {
 			errorHandling(e, 'STATES.CONTRACTS.YFKA_CONTROLLER.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP)');
 			return("error");
 		});
+		
+		//Update the styling to show user its changing.
+		update_Ticker_style_on();
 		if (xampReward != "error")
 		{
 			if (DISPLAY_CONSOLE) console.log('xampReward: ', xampReward);
 			$('#reward-XAMP').html(sixDecimals(_.toInteger(xampReward) / 10 ** 18));
+	
 		}else return("error");
 		
 		//TOB reward
@@ -2168,6 +2268,7 @@ const updateUserStats = async () => {
 		{
 			if (DISPLAY_CONSOLE) console.log('tobReward: ', tobReward);
 			$('#reward-TOB').html(sixDecimals(_.toInteger(tobReward) / 10 ** 18));
+
 		}else return("error");
 		
 		//BOA reward
@@ -2182,6 +2283,10 @@ const updateUserStats = async () => {
 		if (boaReward != "error"){
 			if (DISPLAY_CONSOLE) console.log('boaReward: ', boaReward);
 			$('#reward-BOA').html(sixDecimals(_.toInteger(boaReward) / 10 ** 18));
+
+			
+			
+			
 		}else return("error");
 		
 		const ethReward = await STATES.CONTRACTS.YFKA_CONTROLLER.methods
@@ -2196,6 +2301,9 @@ const updateUserStats = async () => {
 		if (DISPLAY_CONSOLE) console.log('ethReward: ', ethReward);
 			$('#reward-ETH').html(_.toInteger(ethReward) / 10 ** 18);
 			$('#reward-ETH').html(sixDecimals(_.toInteger(ethReward) / 10 ** 18));
+
+			
+			
 		}else return("error");
 		
 		const personalemission = STATES.PERSONAL_EMISSION;
@@ -2289,7 +2397,17 @@ const updateUserStats = async () => {
 			$('#pool-Share-ETH').html(`${readablePercentageETH}`);
 		}else return("error");
 	}else return("error");
+	
+	
+	//1 second delay then reset colour and bold.
+	setTimeout(update_Ticker_style_off, 100);
+	
+
 };
+
+
+
+
 
 const updateActivePool = async () => {
 	if (DISPLAY_CONSOLE) console.log('updateActivePool');
@@ -3065,7 +3183,10 @@ window.addEventListener('load', async (event) => {
 					});
 					$('#isConnected').html('wallet connected');
 				}
-				
+				setInterval(
+				  () => updateUserStats(),
+				  10000
+				);
 				await FillInfo();
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 				var end =	performance.now();
