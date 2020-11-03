@@ -861,7 +861,6 @@ const getInfuraProvider = () => {
   return new Web3(INFURA_PROVIDER);
 };
 
-
 const yfkaControllerContract = () => {
   const infuraProvider = getInfuraProvider();
   const contract = new infuraProvider.eth.Contract(
@@ -934,7 +933,6 @@ const checksumAddress = (address) => {
 	return provider.utils.toChecksumAddress(address);
 }
 
-
 const Contract_Setup = async =>{
 	const provider = getInfuraProvider();
 	
@@ -1001,14 +999,10 @@ const Contract_Setup = async =>{
 	
 }
 
-
 const totalSupplyYFKA = async () =>{
 	const totalYFKAcirc = await STATES.CONTRACTS.YFKA.methods.totalSupply().call();
 	STATES.totalYFKACirculating = totalYFKAcirc/(10**18);
 }
-
-
-
 
 const totalPooledYFKA = async () =>{
 	//Pull all pooled YFKA
@@ -1026,10 +1020,6 @@ const totalPooledYFKA = async () =>{
 	STATES.YFKATotalPooled = YFKAinXAMP+YFKAinTOB+YFKAinBOA+YFKAinETH;
 }
 
-
-
-
-
 function errorHandling(error, functionCall){
 	const errorCode = error.code;
 	const errorMessage = error.message;
@@ -1043,28 +1033,7 @@ function errorHandling(error, functionCall){
 		}
 	}
 }
-/*
-const stakeMinimumPrice = async () => {
-	const MIN_STAKE_AMOUNT = 0.2;
-	const prices = await getPricesETH();
-	const yfkaPrices = prices.YFKA;
-	const yfkaEth = yfkaPrices.eth;
-	const yfkaMinInEth = yfkaEth * MIN_STAKE_AMOUNT;
-	//XAMP
-	const xampMin = yfkaMinInEth / prices.XAMP.eth;
-	//TOB
-	const tobMin = yfkaMinInEth / prices.TOB.eth;
-	//BOA
-	const boaMin = yfkaMinInEth / prices.BOA.eth;
-	
-	return {
-    YFKA: tokenPrices[TOKENS.YFKA],
-    XAMP: tokenPrices[TOKENS.XAMP],
-    BOA: tokenPrices[TOKENS.BOA],
-    TOB: tokenPrices[TOKENS.TOB],
-  }
-}
-*/
+
 const Totals = async () => {
 	const MIN_STAKE_AMOUNT = 0.2;
 
@@ -3245,6 +3214,7 @@ await getAccount();
 await getReserves();
 await totalSupplyYFKA();
 await totalPooledYFKA();
+await totalYFKAStaked();
 console.log("STATES: ", STATES);
 
 }
