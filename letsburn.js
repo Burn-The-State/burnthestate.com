@@ -2211,8 +2211,7 @@ async function update_Ticker_style_on(){
 		// Dont do shit
 		break;
 	}
-		//1 second delay then reset colour and bold.
-	setTimeout(update_Ticker_style_off, 750);
+
 	
 	
 	
@@ -2246,6 +2245,9 @@ const updateUserStats = async () => {
 			errorHandling(e, 'STATES.CONTRACTS.YFKA_CONTROLLER.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP)');
 			return("error");
 		});
+		
+		//Update the styling to show user its changing.
+		update_Ticker_style_on();
 		if (xampReward != "error")
 		{
 			if (DISPLAY_CONSOLE) console.log('xampReward: ', xampReward);
@@ -2396,8 +2398,11 @@ const updateUserStats = async () => {
 		}else return("error");
 	}else return("error");
 	
-	//Update the styling to show user its changing.
-	update_Ticker_style_on();
+	
+	//1 second delay then reset colour and bold.
+	setTimeout(update_Ticker_style_off, 750);
+	
+
 };
 
 
