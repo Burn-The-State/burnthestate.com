@@ -456,10 +456,16 @@ button {
 	cursor: pointer;
 }
 
+
 /* v2 */
-.modal-body, .modal-header, .modal-footer
+#moreInfo
 {
-color: #fff;
-background-color: #cd2012e6 !important;
-border: 0;
+	border: 0px;
+	line-height: 15px;
+}
+
+#row3 .btn
+{
+	background-color: #000;
+	border: 0px !important;
 }
