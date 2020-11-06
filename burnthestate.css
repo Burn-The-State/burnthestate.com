@@ -469,3 +469,30 @@ button {
 	background-color: #000;
 	border: 0px !important;
 }
+
+#walletInfo
+{
+
+}
+
+#dginfo
+{
+	font-size: 14px;
+	line-height: 18px;
+	background-color: #fff;
+	/*background-color: #cd2012;*/
+	color: #000;
+	border: 0 !important;
+}
+
+#infoBox, #walletInfo
+{
+	border-left: left: 1px solid #b9b9b9 !important;	
+}
+
+#advancedInfo
+{
+	background-color: #fff;
+	color: #000;
+}
+
