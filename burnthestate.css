@@ -70,7 +70,7 @@ mark
 
 #buy
 {
-	background-color: #fff;
+	/*background-color: #fff;*/
 	/*color: #fff;*/
 }
 
@@ -198,7 +198,7 @@ mark
 
 	background-color: #fff;
 	color: #000;
-	border: 1px solid #b9b9b9 !important;
+	/*border: 1px solid #b9b9b9 !important;*/
 	line-height: 15px;
 	background-repeat: no-repeat;
 }
@@ -212,7 +212,7 @@ mark
 
 	background-color: #fff;
 	color: #000;
-	border: 1px solid #b9b9b9 !important;
+	/*border: 1px solid #b9b9b9 !important;*/
 	line-height: 15px;
 	background-repeat: no-repeat;
 }
@@ -226,7 +226,7 @@ mark
 
 	background-color: #fff;
 	color: #000;
-	border: 1px solid #b9b9b9 !important;
+	/*border: 1px solid #b9b9b9 !important;*/
 	line-height: 15px;
 	background-repeat: no-repeat;
 }
@@ -239,7 +239,7 @@ mark
 
 	background-color: #fff;
 	color: #000;
-	border: 1px solid #b9b9b9 !important;
+	/*border: 1px solid #b9b9b9 !important;*/
 	line-height: 15px;
 	background-repeat: no-repeat;
 }
@@ -377,7 +377,7 @@ mark
 
 .coins-y
 {
-	width: 70px;
+	width: 200px;
 	margin-right: 7px;
 	padding-top: 0px;
 }
@@ -462,6 +462,7 @@ button {
 {
 	border: 0px;
 	line-height: 15px;
+	background: transparent;
 }
 
 #row3 .btn

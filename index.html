@@ -12,7 +12,7 @@
   <body>
     <div class="container p-3">
       <!-- nav -->
-      <nav class="navbar navbar-light border rounded">
+      <nav class="navbar navbar-light shadow rounded">
         <a class="navbar-brand" href="#">
         <strong>BURN THE STATE</strong>
         </a>
@@ -22,46 +22,70 @@
         </div>
       </nav>
       <!-- banner -->
-      <div id="banner" class="row m-0 pt-5 pb-5 mt-3 mb-3 pl-4 pr-4 border rounded">
+      <div id="banner" class="row m-0 pt-5 pb-5 mt-3 mb-3 pl-4 pr-4 shadow rounded">
         <div class="col text-left">
           <h1><strong>Crypto back to its roots!</strong></h1>
           <h4>Rather than attempting to recreate traditional financial structures on the blockchain, we should be developing structures that serve as their antithesis.</h4>
-          <!-- TODO _blank -->
+          
+          <!-- btns -->
           <div class="btn-group text-center" role="group" aria-label="">
             <button type="button" class="btn burn-btn"><a href="https://www.antiample.org/" target="_blank" rel="noreferrer noopener"><img class="coins" src="imgs/xamp.png"><br>XAMP</a></button>
             <button type="button" class="btn burn-btn"><a href="https://www.tokensofbabel.com/" target="_blank" rel="noreferrer noopener"><img class="coins" src="imgs/tob.png"><br>TOB</a></button>
             <button type="button" class="btn burn-btn"><a href="https://boa-token.webflow.io/" target="_blank" rel="noreferrer noopener"><img class="coins" src="imgs/boa.png"><br>BOA</a></button>
             <button type="button" class="btn burn-btn"><a href="https://www.burnthestate.com/" target="_blank" rel="noreferrer noopener"><img class="coins" src="imgs/yfka.png"><br>YFKA</a></button>
           </div>
-          <!-- <span class="row m-0 pt-5 pb-0 mt-3 mb-0 pl-0">
-            <span class="col text-left p-0 m-0"><strong>YFKA Total Supply: </strong><span class="info1" id="yfka-total-supply">3204</span></span>
-            </span>
-            <span class="row m-0 pt-0 pb-0 mt-0 mb-3 pl-0">
-            <span class="col text-left p-0 m-0"><strong>Total Value Locked: </strong><span class="info1">99999</span></span>
-            </span> -->
+          
+          <!-- PRICE v2 -->
+          <span class="row m-0 pt-5 pb-0 mt-3 mb-0 pl-0">
+            <span><strong>YFKA: </strong><span class="" id="">200 <small>$USD</small></span></span>
+          </span>
+          
+          <span class="row m-0 pt-0 pb-0 mt-0 mb-0 pl-0">
+            <span><strong>XAMP: </strong><span class="" id="">0.1 <small>$USD</small></span></span>
+          </span>
+
+          <span class="row m-0 pt-0 pb-0 mt-0 mb-0 pl-0">
+            <span><strong>TOB: </strong><span class="" id="">1 <small>$USD</small></span></span>
+          </span>
+
+          <span class="row m-0 pt-0 pb-0 mt-0 mb-3 pl-0">
+            <span><strong>BOA: </strong><span class="" id="">15.000 <small>$USD</small></span></span>
+          </span>
+          
+
         </div>
+
         <div class="col text-right d-none d-lg-block">
           <img class="img-fluid pr-4" src="imgs/cat2.png">
         </div>
       </div>
       <!-- rules -->
-      <div id="rules" class="row m-0 pt-5 pb-4 mb-1 pl-4 pr-4 border border-light rounded">
+      <div id="rules" class="row m-0 pt-5 pb-4 mb-1 pl-4 pr-4 shadow rounded">
       <div class="col-12 text-center justify-content-left">
-      <h1><img class="coins-y" src="imgs/yfka.png"><strong><rfont style="color: #cd2012;">Y</rfont>ield <rfont style="color: #cd2012;">F</rfont>arming <rfont style="color: #cd2012;">K</rfont>nown as <rfont style="color: #cd2012;">A</rfont>sh</strong><br></h1>
-      <h3>Burn The State's Yield Farming Token</h3><br>
-        <div id="header" class="col border rounded pt-4 pb-3 m-0 text-center">  
-          <h4><strong>Sovereign Individual!</strong></h4> <p>Put your XAMP, TOB, BOA and YFKA to work for you!</p> <p><a target="_blank" href="https://uniswap.info/token/0x4086692d53262b2be0b13909d804f0491ff6ec3e"> Provide liquidity on Uniswap</a>, come back to this site, and stake the LP tokens to farm for YFKA.</p>
+
+      <!-- tittle1 -->
+        <div class="row pb-5">
+          <div class="col col-md-auto pb-3"><img class="coins-y" src="imgs/yfka.png"></div>
+          <div class="col col-md-auto text-left align-self-center" id="tittle1"><h1><strong>Yield Farming Known as Ash</strong></h1><h3>Burn The State's Yield Farming Token</h3></div>
         </div>
-          <h3 class="pt-5"><strong>RULES:</strong></h3>
-            <div class="row border rounded text-left m-0 p-4 pt-3">
-              <div class="col-lg p-4 m-2">
+
+        <div class="row justify-content-center">
+          <div id="header" class="col shadow rounded pt-4 pb-3 mb-3 ml-4 mr-4 text-center">  
+            <p><h4><strong>Sovereign Individual!</strong><br><small>Put your XAMP, TOB, BOA and YFKA to work for you!</small></p></h4> <p><a target="_blank" href="https://uniswap.info/token/0x4086692d53262b2be0b13909d804f0491ff6ec3e"> Provide liquidity on Uniswap</a>, come back to this site, and stake the LP tokens to farm for YFKA.</p>
+          </div>
+        </div>
+
+          <!-- rules txt -->
+            <div class="row bg-white rounded text-left m-2 p-4 pt-4 mt-4 shadow-lg" id="rulesTable">
+              <div class="col-12"><h3 class="pt-0 pb-3 pt-2"><strong class="">RULES</strong></h3></div>
+              <div class="col-lg">
                 <p>• Global Emission Rate (APY) was 100% at launch (except YFKA/ETH, which was 50%).</p>
                 <p>• Global Emission Rate decays each Ethereum block.</p>
                 <p>• Decay rate is 1% every 5000 Ethereum blocks.</p>
                 <p>•  When you first <a href="#stake">STAKE</a> you lock in your personal emission rate for the selected pool. If you stake in all 4 pools, you will have 4 different personal emission rates.</p>
                 <p>• Each stake &amp; every addition to a stake <strong>MUST BE A MINIMUM OF 0.4 YFKA WORTH OF LP TOKEN VALUE.</strong> (i.e. 0.2 YFKA + 0.2 YFKA worth of the other paired token). If you try to add less you will get an error and your wallet will show you an extremely high gas fee to send your transaction. <strong>DO NOT CONFIRM THE TRANSACTION, IT WILL FAIL!</strong></p>
               </div>
-              <div class="col-lg p-4 m-2">
+              <div class="col-lg">
                 <p>• Once you lock in your personal emission rate, you retain that rate until you unstake or redeem. Meanwhile the Global Emission Rate continues to decay each block.</p>
                 <p>• <strong>SO LOCK IN AND STAY IN!</strong> Stack YFKA with higher emissions than everyone that locks in after you!</p>             
                 <p>• There is a bonus pool, with 2X rewards. It switches between pools based on the lowest % of LP tokens staked. YFKA/ETH is never eligible for the bonus. </p>
@@ -72,18 +96,18 @@
         
           
         <div class="row text-left pt-4 m-0">
-            <div class="col-lg border rounded p-4 m-2">              
+            <div class="col-lg shadow bg-white rounded p-4 m-2">              
               <h5 style="text-align:center;"><a href="#redeem"><strong>REDEEM</strong></a></h5>
             <p>Claim all farming rewards for selected pool w/out un-staking or adding.</p>
             <p><strong>LOSE YOUR LOCKED RATE ON THE SELECTED POOL AND YOUR RATE RESETS TO THE CURRENT GLOBAL EMISSION RATE FOR YOUR REMAINING STAKE.</strong></p>           
           </div>
       
-            <div class="col-lg border rounded p-4 m-2">  
+            <div class="col-lg shadow bg-white rounded p-4 m-2">  
             <h5 style="text-align:center;"><a href="#unstake"><strong>UNSTAKE</strong></a></h5>
             <p>Claim all farming rewards AND staked LP tokens for selected pool.</p>
             <p><strong>LOSE YOUR LOCKED RATE ON THE SELECTED POOL AND YOUR RATE RESETS TO THE CURRENT GLOBAL EMISSION RATE FOR YOUR REMAINING STAKE.</strong></p>
           </div>  
-          <div class="col-lg border rounded p-4 m-2">
+          <div class="col-lg shadow bg-white rounded p-4 m-2">
             <h5 style="text-align:center;"><a href="#stake"><strong>ADD TO STAKE</strong></a></h5>
             <p><strong>THIS IS THE ONLY WAY TO CLAIM STAKING REWARDS AND SAVE YOUR LOCKED RATE</strong></p>
               <p>When you <a href="#stake">ADD TO STAKE</a> your accrued rewards for the selected pool are sent directly to your  wallet from the YFKA Mint and <strong>YOUR EMISSIONS RATE REMAINS LOCKED!</strong>
@@ -92,8 +116,10 @@
         </div>
       </div>
     </div>
-      <div id="buy" class="row m-0 pb-4 pt-3 pl-3 pr-3 mb-5 text-center border-dark rounded">
-        <div class="col-lg">
+      
+    <!-- buy menu -->
+    <div id="buy" class="row m-0 mb-3 mt-3 p-0 text-center">
+        <div class="col shadow rounded bg-white m-2">
           <a target="_blank" rel="noreferrer noopener" href="https://info.uniswap.org/token/0x4086692d53262b2be0b13909d804f0491ff6ec3e">
             <img class="coins" src="imgs/yfka.png">
             <button type="button" class="btn btn-sm btn-block btn-light mt-2 mb-2">
@@ -101,7 +127,7 @@
             </button>
           </a>
         </div>
-        <div class="col-lg">
+        <div class="col shadow rounded bg-white m-2">
           <a target="_blank" rel="noreferrer noopener" href="https://info.uniswap.org/token/0xf911a7ec46a2c6fa49193212fe4a2a9b95851c27">
             <img class="coins" src="imgs/xamp.png">
             <button type="button" class="btn btn-sm btn-block btn-light mt-2 mb-2">
@@ -109,7 +135,7 @@
             </button>
           </a>
         </div>
-        <div class="col-lg">
+        <div class="col shadow rounded bg-white m-2">
           <a target="_blank" rel="noreferrer noopener" href="https://info.uniswap.org/token/0x7777770f8a6632ff043c8833310e245eba9209e6">
             <img class="coins" src="imgs/tob.png">
             <button type="button" class="btn btn-sm btn-block btn-light mt-2 mb-2">
@@ -117,7 +143,7 @@
             </button>
           </a>
         </div>
-        <div class="col-lg">
+        <div class="col shadow rounded bg-white m-2">
           <a target="_blank" rel="noreferrer noopener" href="https://info.uniswap.org/token/0xf9c36c7ad7fa0f0862589c919830268d1a2581a1">
             <img class="coins" src="imgs/boa.png">
             <button type="button" class="btn btn-sm btn-block btn-light mt-2 mb-2">
@@ -129,14 +155,14 @@
 
 
       <!-- Pools test -->
-      <div id="row3" class="row justify-content-md-center text-center m-0 pl-5 pr-5 pt-5 pb-5 mb-1 border rounded">
+      <div id="row3" class="row justify-content-md-center text-center m-0 pl-5 pr-5 pt-5 pb-5 mb-1 shadow rounded">
         <div class="col-12 mb-3">
           <h4><strong>YFKA POOLS</strong></h4>
         </div>
         <!-- Pool 0 -->
         <div class="col-lg mb-3 mt-3 ml-1 mr-1 text-center">
           <h6><strong>YFKA/XAMP</strong></h6>
-          <div id="pool-XAMP" class="row border rounded pt-1 pb-4 pl-2 pr-2 text-left">
+          <div id="pool-XAMP" class="row shadow rounded pt-1 pb-4 pl-2 pr-2 text-left">
             <div class="col p-0">
               <div class="row pl-2">
                 <div class="col pr-0 pb-3"><img class="" src="imgs/poolXamp.png"></div>
@@ -172,7 +198,7 @@
         <!-- Pool 1 -->
         <div class="col-lg mb-3 mt-3 ml-1 mr-1 text-center">
           <h6><strong>YFKA/TOB</strong></h6>
-          <div id="pool-TOB" class="row border rounded pt-1 pb-4 pl-2 pr-2 text-left">
+          <div id="pool-TOB" class="row shadow rounded pt-1 pb-4 pl-2 pr-2 text-left">
             <div class="col p-0">
               <div class="row pl-2">
                 <div class="col pr-0 pb-3"><img class="" src="imgs/poolTob.png"></div>
@@ -208,7 +234,7 @@
         <!-- Pool 2 -->
         <div class="col-lg mb-3 mt-3 ml-1 mr-2 text-center">
           <h6><strong>YFKA/BOA</strong></h6>
-          <div id="pool-BOA" class="row border rounded pt-1 pb-4 pl-2 pr-2 text-left">
+          <div id="pool-BOA" class="row shadow rounded pt-1 pb-4 pl-2 pr-2 text-left">
             <div class="col p-0">
               <div class="row pl-2">
                 <div class="col pr-0 pb-3"><img class="" src="imgs/poolBoa.png"></div>
@@ -244,7 +270,7 @@
         <!-- Pool 3 -->
         <div class="col-lg mb-3 mt-3 ml-0 mr-1 text-center">
           <h6><strong>YFKA/ETH</strong></h6>
-          <div id="pool-ETH" class="row border rounded pt-1 pb-4 pl-2 pr-2 text-left">
+          <div id="pool-ETH" class="row shadow rounded pt-1 pb-4 pl-2 pr-2 text-left">
             <div class="col p-0">
               <div class="row pl-2">
                 <div class="col pr-0 pb-3"><img class="" src="imgs/poolEth.png"></div>
@@ -278,13 +304,13 @@
           </div>
         </div>
       </div>
-      <button id="advancedInfo" class="btn btn-block mt-2 mb-2" type="button" data-toggle="collapse" data-target="#info0" aria-expanded="false" aria-controls="info0"><strong>YFKA Analytics and Balances</strong></button>
+      <button id="advancedInfo" class="btn btn-block mt-2 mb-2 shadow" type="button" data-toggle="collapse" data-target="#info0" aria-expanded="false" aria-controls="info0"><strong>YFKA Analytics and Balances</strong></button>
 
       <!-- DG info -->
       <div class="collapse" id="info0">
       <div id="dginfo" class="row justify-content-md-center text-center m-0 pl-5 pr-5 pt-5 pb-5 mb-1 border rounded">
 
-        <div class="col-12 col-md-4 pl-3 pt-3 m-0 text-left" id="infoBox">
+        <div class="col-12 col-md-6 pl-3 pt-3 m-0 text-left" id="infoBox">
           <h5><strong>YFKA INFO</strong></h5><br>
           <p>
             <span class="normal"><strong>Total YFKA: </strong><span id="globalYFKA">0</span> YFKA</span><br>
@@ -323,7 +349,7 @@
         <div id="piechart" class="col-lg mt-4 text-center align-self-end"></div>
         </div>
         
-        <div class="col-12 col-md-8 p-0 pl-0">
+        <div class="col-12 col-md-6 p-0 pl-0">
           <div id="walletInfo" class="col-lg text-left pl-3 pt-3">
 
             <h5><strong>WALLET INFO</strong></h5><br>
@@ -393,7 +419,7 @@
       <!-- end of dg info -->
 
       <!-- stake -->
-      <div id="stake" class="row justify-content-md-center m-0 pt-5 pb-5 mb-3 border rounded">
+      <div id="stake" class="row justify-content-md-center m-0 pt-5 pb-5 mb-3 shadow rounded">
         <div class="col-12 text-center">
           <h4><strong>STAKE YOUR TOKENS</strong></h4>
         </div>
@@ -449,7 +475,7 @@
         </div>
       </div>
       <!-- Redeem -->
-      <div id="redeem" class="row justify-content-md-center m-0 pt-5 pb-5 mb-3 border border-dark rounded">
+      <div id="redeem" class="row justify-content-md-center m-0 pt-5 pb-5 mb-3 shadow rounded">
         <div class="col-12 text-center">
           <h4><strong>REDEEM</strong></h4>
         </div>
@@ -506,7 +532,7 @@
         </div>
       </div>
       <!-- unstake -->
-      <div id="unstake" class="row justify-content-md-center m-0 pt-5 pb-5 border rounded mb-3">
+      <div id="unstake" class="row justify-content-md-center m-0 pt-5 pb-5 shadow rounded mb-3">
         <div class="col-12 text-center">
           <h4><strong>UNSTAKE YOUR TOKENS</strong></h4>
         </div>
@@ -561,7 +587,7 @@
         </div>
       </div>
       <!-- footer -->
-      <div id="footer" class="row m-0 p-5 text-center border-dark rounded mb-1">
+      <div id="footer" class="row m-0 p-5 text-center shadow rounded mb-1">
         <div class="col text-center pt-1">
           <a href="https://www.twitter.com/burn_the_state" target="_blank" rel="noreferrer noopener"><img class="icon" src="imgs/twitter.svg"></a>
           <a href="https://discord.gg/RE78xht" target="_blank" rel="noreferrer noopener"><img class="icon" src="imgs/discord.svg"></a>
