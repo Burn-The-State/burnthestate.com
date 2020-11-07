@@ -35,7 +35,7 @@
             <button type="button" class="btn burn-btn"><a href="https://www.burnthestate.com/" target="_blank" rel="noreferrer noopener"><img class="coins" src="imgs/yfka.png"><br>YFKA</a></button>
           </div>
           
-          <!-- PRICE v2 -->
+          <!-- PRICE
           <span class="row m-0 pt-5 pb-0 mt-3 mb-0 pl-0">
             <span><strong>YFKA: </strong><span class="" id="">200 <small>$USD</small></span></span>
           </span>
@@ -50,7 +50,7 @@
 
           <span class="row m-0 pt-0 pb-0 mt-0 mb-3 pl-0">
             <span><strong>BOA: </strong><span class="" id="">15.000 <small>$USD</small></span></span>
-          </span>
+          </span> -->
           
 
         </div>
@@ -173,6 +173,7 @@
               <div id="staked0" class="col"><span class="text-left"><small><strong>Total LP tokens: </strong><span id="total-LP-XAMP">0</span></small></span></div>
               <div id="poolShare0" class="col"><span class="text-left"><small><strong>Pool share: </strong><span id="pool-Share-XAMP">0</span>%</small></span></div>
               <div id="estimateResult0" class="col"><span class="text-left"><small><strong>Earnings: </strong><span id="reward-XAMP">0</span> YFKA</small></span></div>
+              <div id="xampPrice" class="col pt-2"><span class="text-left"><small><strong>XAMP price: </strong><span id="price-XAMP">0</span> $USD</small></span></div>
 
               <div class="col"><button class="btn btn-block btn-dark mt-4" type="button" data-toggle="collapse" data-target="#info1" aria-expanded="false" aria-controls="info1">More info</button></div>
               <div class="collapse" id="info1">
@@ -209,6 +210,7 @@
               <div id="staked0" class="col"><span class="text-left"><small><strong>Total LP tokens: </strong><span id="total-LP-TOB">0</span></small></span></div>
               <div id="poolShare0" class="col"><span class="text-left"><small><strong>Pool share: </strong><span id="pool-Share-TOB">0</span>%</small></span></div>
               <div id="estimateResult0" class="col"><span class="text-left"><small><strong>Earnings: </strong><span id="reward-TOB">0</span> YFKA</small></span></div>
+              <div id="tobPrice" class="col pt-2"><span class="text-left"><small><strong>TOB price: </strong><span id="price-TOB">0</span> $USD</small></span></div>
 
               <div class="col"><button class="btn btn-block btn-dark mt-4" type="button" data-toggle="collapse" data-target="#info2" aria-expanded="false" aria-controls="info2">More info</button></div>
               <div class="collapse" id="info2">
@@ -245,6 +247,7 @@
               <div id="staked0" class="col"><span class="text-left"><small><strong>Total LP tokens: </strong><span id="total-LP-BOA">0</span></small></span></div>
               <div id="poolShare0" class="col"><span class="text-left"><small><strong>Pool share: </strong><span id="pool-Share-BOA">0</span>%</small></span></div>
               <div id="estimateResult0" class="col"><span class="text-left"><small><strong>Earnings: </strong><span id="reward-BOA">0</span> YFKA</small></span></div>
+              <div id="boaPrice" class="col pt-2"><span class="text-left"><small><strong>BOA price: </strong><span id="price-BOA">0</span> $USD</small></span></div>
 
               <div class="col"><button class="btn btn-block btn-dark mt-4" type="button" data-toggle="collapse" data-target="#info3" aria-expanded="false" aria-controls="info3">More info</button></div>
               <div class="collapse" id="info3">
@@ -281,6 +284,7 @@
               <div id="staked0" class="col"><span class="text-left"><small><strong>Total LP tokens: </strong><span id="total-LP-ETH">0</span></small></span></div>
               <div id="poolShare0" class="col"><span class="text-left"><small><strong>Pool share: </strong><span id="pool-Share-ETH">0</span>%</small></span></div>
               <div id="estimateResult0" class="col"><span class="text-left"><small><strong>Earnings: </strong><span id="reward-ETH">0</span> YFKA</small></span></div>
+              <div id="ethPrice" class="col pt-2"><span class="text-left"><small><strong>ETH price: </strong><span id="price-ETH">0</span> $USD</small></span></div>
 
               <div class="col"><button class="btn btn-block btn-dark mt-4" type="button" data-toggle="collapse" data-target="#info4" aria-expanded="false" aria-controls="info4">More info</button></div>
               <div class="collapse" id="info4">
@@ -344,6 +348,10 @@
              YFKA <small>(<span id="PEthPooledYFKA">0</span>% Vs Total Pooled)</span></small><br>
             <span class="normal"><strong>YFKA Staked (ETH): </strong><span id="EthStakedYFKA">0</span>
              YFKA <small>(<span id="PEthStakedYFKA">0</span>% Vs Total Staked)</span></small>
+          </p>
+
+          <p>           
+            <span class="normal"><strong>YFKA price: </strong><span id="price-yfka">0</span> $USD</span>
           </p>
               
         <div id="piechart" class="col-lg mt-4 text-center align-self-end"></div>
