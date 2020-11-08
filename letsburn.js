@@ -1025,8 +1025,8 @@ function errorHandling(error, functionCall){
 	if (DISPLAY_ERRORS) {
 		
 		const Message = 'ERROR (' + functionCall + '): ' + errorMessage;
-		if (DISPLAY_CONSOLE) console.log(Message);
-		if (DISPLAY_CONSOLE) console.log(error);
+		if (DISPLAY_CONSOLE) console.warn(Message);
+		if (DISPLAY_CONSOLE) console.warn(error);
 		if (errorCode == 4001 || errorCode == -32002){
 			$('#isConnected').html('Wallet NOT Connected');
 		}
@@ -3196,3 +3196,4 @@ try{
 console.log("STATES: ", STATES);
 
 }
+
