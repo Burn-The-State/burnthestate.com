@@ -2305,14 +2305,86 @@ const updateUserStats = async () => {
 	}else return("error");
 	
 	
-	//1 second delay then reset colour and bold.
-	setTimeout(update_Ticker_style_off, 100);
+
 	
 
 };
 
 
+async function reward_ticker (){
+	//current Rewards
+		//XAMP reward
+		const xampReward = await STATES.CONTRACTS.YFKA_CONTROLLER.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.XAMP)
+		.call({
+			from: account,
+		}).catch(e => {
+			errorHandling(e, 'STATES.CONTRACTS.YFKA_CONTROLLER.methods.getCurrentReward(YFKA_POOL_INDEXES.XAMP)');
+			return("error");
+		});
+		
+		//Update the styling to show user its changing.
+		update_Ticker_style_on();
+		if (xampReward != "error")
+		{
+			if (DISPLAY_CONSOLE) console.log('xampReward: ', xampReward);
+			$('#reward-XAMP').html(sixDecimals(_.toInteger(xampReward) / 10 ** 18));
+	
+		}else return("error");
+		
+		//TOB reward
+		const tobReward = await STATES.CONTRACTS.YFKA_CONTROLLER.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.TOB)
+		.call({
+			from: account,
+		}).catch(e => {
+			errorHandling(e, 'STATES.CONTRACTS.YFKA_CONTROLLER.methods.getCurrentReward(YFKA_POOL_INDEXES.TOB)');
+			return("error");
+		});
+		if (tobReward != "error")
+		{
+			if (DISPLAY_CONSOLE) console.log('tobReward: ', tobReward);
+			$('#reward-TOB').html(sixDecimals(_.toInteger(tobReward) / 10 ** 18));
 
+		}else return("error");
+		
+		//BOA reward
+		const boaReward = await STATES.CONTRACTS.YFKA_CONTROLLER.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.BOA)
+		.call({
+			from: account,
+		}).catch(e => {
+			errorHandling(e, 'STATES.CONTRACTS.YFKA_CONTROLLER.methods.getCurrentReward(YFKA_POOL_INDEXES.BOA)');
+			return("error");
+		});
+		if (boaReward != "error"){
+			if (DISPLAY_CONSOLE) console.log('boaReward: ', boaReward);
+			$('#reward-BOA').html(sixDecimals(_.toInteger(boaReward) / 10 ** 18));
+
+			
+			
+			
+		}else return("error");
+		
+		const ethReward = await STATES.CONTRACTS.YFKA_CONTROLLER.methods
+		.getCurrentReward(YFKA_POOL_INDEXES.ETH)
+		.call({
+			from: account,
+		}).catch(e => {
+			errorHandling(e, 'STATES.CONTRACTS.YFKA_CONTROLLER.methods.getCurrentReward(YFKA_POOL_INDEXES.ETH)');
+			return("error");
+		});
+		if (ethReward != "error"){
+		if (DISPLAY_CONSOLE) console.log('ethReward: ', ethReward);
+			$('#reward-ETH').html(_.toInteger(ethReward) / 10 ** 18);
+			$('#reward-ETH').html(sixDecimals(_.toInteger(ethReward) / 10 ** 18));
+
+			
+			
+		}else return("error");
+		//1 second delay then reset colour and bold.
+	setTimeout(update_Ticker_style_off, 100);
+}
 
 
 const updateActivePool = async () => {
@@ -3115,7 +3187,7 @@ window.addEventListener('load', async (event) => {
 				//sets the initial Load then sets an interval for the Price/rewards.
 				updateUserStats();
 				setInterval(
-				  () => updateUserStats(),
+				  () => reward_ticker(),
 				  60000
 				);
 				await FillInfo();
@@ -3174,4 +3246,3 @@ try{
 console.log("STATES: ", STATES);
 
 }
-
