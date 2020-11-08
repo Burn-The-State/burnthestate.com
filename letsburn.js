@@ -3164,23 +3164,26 @@ INITIALISATION
 //Initialise Contracts to STATES
 
 async function Initial_Load () {	
-await Contract_Setup();
-await getAccount();
-await getReserves();
-await totalSupplyYFKA();
-await totalPooledYFKA();
-await totalYFKAStaked();
-await getTotalLP();
-await getPrices();
-await getWalletBTSCoins();
-await getTotalBalances();
-await getPoolBalances();
-await getPersonalEmissions();
-await getLPconversions();
-await getGlobalEmissionRate();
-await getStakes();
-await getBTSTotals();
-await getGasPrices();
+try{
+	await Contract_Setup();
+	await getAccount();
+	await getReserves();
+	await totalSupplyYFKA();
+	await totalPooledYFKA();
+	await totalYFKAStaked();
+	await getTotalLP();
+	await getPrices();
+	await getWalletBTSCoins();
+	await getPoolBalances();
+	await getPersonalEmissions();
+	await getLPconversions();
+	await getGlobalEmissionRate();
+	await getStakes();
+	await getBTSTotals();
+	await getGasPrices();
+}catch(e){
+	errorHandling(e, 'Initial_Load()');
+}
 console.log("STATES: ", STATES);
 
 }
