@@ -2312,6 +2312,7 @@ const updateUserStats = async () => {
 
 
 async function reward_ticker (){
+	const account = STATES.CONNECTED_WALLET;
 	//current Rewards
 		//XAMP reward
 		const xampReward = await STATES.CONTRACTS.YFKA_CONTROLLER.methods
@@ -2689,9 +2690,7 @@ const Pie_chart = async () =>{
 		]);
 			
 			var Width = document.getElementById("infoBox").offsetWidth;
-			console.log('Info Box width:', Width, "px");
 			var Height = document.getElementById("infoBox").offsetHeight;
-			console.log('Info Box height:', Height, "px");
 		if (Width <= 0) Width = 235;
 		else Width = '100%';
 		
@@ -3246,3 +3245,4 @@ try{
 console.log("STATES: ", STATES);
 
 }
+
