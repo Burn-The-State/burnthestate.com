@@ -34,7 +34,8 @@ mark
 #connectToMetamask
 {
 	background-color: #000;
-	font-size: 1em;
+	font-size: 0.8em;
+	font-weight: 500;
 }
 
 
@@ -478,7 +479,7 @@ button {
 
 #dginfo
 {
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 18px;
 	background-color: #fff;
 	/*background-color: #cd2012;*/
