@@ -2721,7 +2721,7 @@ const fillYFKAinfo = async () =>{
 
 		  // Display the chart inside the <div> element with id="piechart"
 		  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-		  chart.draw(data, options);
+		  chart.draw(data);
 		}
 	
 		}catch(e){
@@ -3191,4 +3191,5 @@ try{
 console.log("STATES: ", STATES);
 
 }
+
 
