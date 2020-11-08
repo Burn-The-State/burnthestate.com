@@ -2304,7 +2304,7 @@ const updateUserStats = async () => {
 		}else return("error");
 	}else return("error");
 	
-	
+	setTimeout(update_Ticker_style_off, 100);
 
 	
 
