@@ -2647,6 +2647,38 @@ const checkMinStakeInput = async (stakevalue) =>{
 }
 
 
+const Pie_chart = async () =>{
+	// Load google charts (YFKA STAKED)
+	try{
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+
+
+		// Draw the chart and set the chart values
+		function drawChart() {
+		  var data = google.visualization.arrayToDataTable([
+		  ['Pool', 'YFKA'],
+		  ['XAMP', STATES.StakedYFKA.fXAMP],
+		  ['TOB', STATES.StakedYFKA.fTOB],
+		  ['BOA', STATES.StakedYFKA.fBOA],
+		  ['ETH', STATES.StakedYFKA.fETH],
+		]);
+
+		  // Optional; add a title and set the width and height of the chart
+		  var options = {'title':'Staked YFKA'};
+
+		  // Display the chart inside the <div> element with id="piechart"
+		  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		  chart.draw(data, options);
+		}
+	
+		}catch(e){
+		errorHandling(e, "Google Chart");
+	}
+}
+
+
+
 const fillYFKAinfo = async () =>{
 	//await Promises.
 	const PooledYFKA = STATES.YFKATotalPooled;
@@ -2698,36 +2730,6 @@ const fillYFKAinfo = async () =>{
 	$('#PEthPooledYFKA').html(twoDecimals((totalEthPool/PooledYFKA)*100));
 	$('#EthStakedYFKA').html(twoDecimals(stakedETH));
 	$('#PEthStakedYFKA').html(twoDecimals((stakedETH/totalYFKAStakerd)*100));
-	
-	
-	// Load google charts
-	try{
-		google.charts.load('current', {'packages':['corechart']});
-		google.charts.setOnLoadCallback(drawChart);
-
-
-		// Draw the chart and set the chart values
-		function drawChart() {
-		  var data = google.visualization.arrayToDataTable([
-		  ['Pool', 'YFKA'],
-		  ['XAMP', stakedXAMP],
-		  ['TOB', stakedTOB],
-		  ['BOA', stakedBOA],
-		  ['ETH', stakedETH],
-		]);
-
-		  // Optional; add a title and set the width and height of the chart
-		  var options = {'title':'Staked YFKA'};
-
-		  // Display the chart inside the <div> element with id="piechart"
-		  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-		  chart.draw(data, options);
-		}
-	
-		}catch(e){
-		errorHandling(e, "Google Chart");
-	}
-	
 	
 }
 
@@ -3148,6 +3150,9 @@ window.addEventListener('load', async (event) => {
 				  10000
 				);
 				await FillInfo();
+				
+				await Pie_chart();
+				
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 				var end =	performance.now();
 				var time = end - start;
