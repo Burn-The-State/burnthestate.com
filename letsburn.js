@@ -3020,6 +3020,11 @@ $('#WALLETInfo').click(async () => {
 	document.getElementById('WalletInfoPanel').style.display = 'block';
 });
 
+$('#advancedInfo').click(async () =>{
+	await Pie_chart();
+});
+
+
 $('#XAMPInfo').click(async () => {
 	if (DISPLAY_CONSOLE) console.log('XAMP Info Clicked');
 	document.getElementById('XampInfoPanel').style.display = 'block';
@@ -3151,7 +3156,7 @@ window.addEventListener('load', async (event) => {
 				);
 				await FillInfo();
 				
-				await Pie_chart();
+				
 				
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 				var end =	performance.now();
@@ -3196,3 +3201,4 @@ try{
 console.log("STATES: ", STATES);
 
 }
+
