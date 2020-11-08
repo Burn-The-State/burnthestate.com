@@ -853,7 +853,7 @@ const YFKA_CONTROLLER_ABI = [
 
 const getInfuraProvider = () => {
   const INFURA_PROVIDER = new Web3.providers.HttpProvider(
-    'https://mainnet.infura.io/v3/91298a4448d34edf884df8b28db5f9ea'
+    'https://mainnet.infura.io/v3/43579ad11cf54891a727b832864acbb0'
   );
   return new Web3(INFURA_PROVIDER);
 };
@@ -3221,6 +3221,5 @@ try{
 console.log("STATES: ", STATES);
 
 }
-
 
 
