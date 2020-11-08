@@ -858,63 +858,6 @@ const getInfuraProvider = () => {
   return new Web3(INFURA_PROVIDER);
 };
 
-const syncALL = async () =>{
-	const provider = await getInfuraProvider();
-	
-	const XAMPContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	TOKENS.XAMP
-	);
-	const TOBContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	TOKENS.TOB
-	);
-	const BOAContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	TOKENS.BOA
-	);
-	const YFKAContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	TOKENS.YFKA
-	);
-	
-	
-	const XAMPContract2 = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_XAMP
-	);
-	const TOBContract2 = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_TOB
-	);
-	const BOAContract2 = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_BOA
-	);
-	const YFKAContract2 = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	PAIRS.YFKA_ETH
-	);
-	
-	const YFKAControllerContract = new provider.eth.Contract(
-	UNISWAP_BASE_LP_ABI,
-	YFKA_CONTROLLER_ADDRESS
-	);
-	
-	await YFKAContract.methods.sync().call();
-	await XAMPContract.methods.sync().call();
-	await TOBContract.methods.sync().call();
-	await BOAContract.methods.sync().call();
-	await YFKAContract2.methods.sync().call();
-	await XAMPContract2.methods.sync().call();
-	await TOBContract2.methods.sync().call();
-	await BOAContract2.methods.sync().call();
-	await YFKAControllerContract.methods.sync().call();
-	
-	console.log("ALL COINS ARE SYNCED");
-
-	
-}
 
 const checksumAddress = (address) => {
 	const provider = getInfuraProvider();
@@ -3221,5 +3164,6 @@ try{
 console.log("STATES: ", STATES);
 
 }
+
 
 
