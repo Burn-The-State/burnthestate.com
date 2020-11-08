@@ -2717,7 +2717,7 @@ const fillYFKAinfo = async () =>{
 		]);
 
 		  // Optional; add a title and set the width and height of the chart
-		  var options = {'title':'Staked YFKA', 'width':235, 'height':250};
+		  var options = {'title':'Staked YFKA'};
 
 		  // Display the chart inside the <div> element with id="piechart"
 		  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -3191,4 +3191,3 @@ try{
 console.log("STATES: ", STATES);
 
 }
-
