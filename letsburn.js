@@ -2665,7 +2665,7 @@ const Pie_chart = async () =>{
 		]);
 
 		  // Optional; add a title and set the width and height of the chart
-		  var options = {'title':'Staked YFKA','width':235, 'height':250};
+		  var options = {'title':'Staked YFKA','width':285, 'height':320};
 
 		  // Display the chart inside the <div> element with id="piechart"
 		  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
