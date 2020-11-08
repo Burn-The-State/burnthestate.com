@@ -3106,7 +3106,7 @@ window.addEventListener('load', async (event) => {
 				}
 				setInterval(
 				  () => updateUserStats(),
-				  10000
+				  60000
 				);
 				await FillInfo();
 				
