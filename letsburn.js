@@ -2216,7 +2216,7 @@ const updateUserStats = async () => {
 		$('#price-TOB').html(`${coin_prices.TOB.usd}`);
 		$('#price-BOA').html(`${coin_prices.BOA.usd}`);
 		$('#price-ETH').html(`${coin_prices.ETH.usd}`);
-		$('#price-YFKA').html(`${coin_prices.YFKA.usd}`);
+		$('#price-yfka').html(`${coin_prices.YFKA.usd}`);
 		
 		// current LP Tokens
 		var XAMPbalance, TOBbalance, BOAbalance, ETHbalance;
