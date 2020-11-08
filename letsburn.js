@@ -3021,7 +3021,7 @@ $('#WALLETInfo').click(async () => {
 });
 
 $('#advancedInfo').click(async () =>{
-	await Pie_chart();
+	
 });
 
 
@@ -3162,6 +3162,7 @@ window.addEventListener('load', async (event) => {
 				var end =	performance.now();
 				var time = end - start;
 				console.log('Execution time (main Load): ', time/1000, " seconds");	
+				await Pie_chart();
 			}
 		}catch(e){
 			errorHandling(e, 'On Load - Wallet Connected');
