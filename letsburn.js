@@ -2666,14 +2666,14 @@ const Pie_chart = async () =>{
 		  ['ETH', STATES.StakedYFKA.fETH],
 		]);
 			
-			const Width = document.getElementById("infoBox").offsetWidth;
+			var Width = document.getElementById("infoBox").offsetWidth;
 			console.log('Info Box width:', Width, "px");
-			const Height = document.getElementById("infoBox").offsetHeight;
+			var Height = document.getElementById("infoBox").offsetHeight;
 			console.log('Info Box height:', Height, "px");
-		if (Width <= 0) Width = 235
+		if (Width <= 0) Width = 235;
 		else Width = '100%';
 		
-		if (Height <= 0) Height = 235
+		if (Height <= 0) Height = 235;
 		else Height = '100%';
 		  // Optional; add a title and set the width and height of the chart
 		  var options = {'title':'Staked YFKA','width':Width, 'height':Height};
