@@ -2431,7 +2431,7 @@ const updateActivePool = async () => {
 			errorHandling(e, 'GetBonusPool()');
 			return("error");
 		});
-		if (bonusAddress != "error"){
+		if (bonusAddress != "error" && document.getElementById('bonusPool') == null){
 			switch (bonusAddress) {
 			case PAIRS.YFKA_XAMP:
 				$('#bonus-global-token').html('XAMP');
@@ -3196,4 +3196,3 @@ try{
 console.log("STATES: ", STATES);
 
 }
-
