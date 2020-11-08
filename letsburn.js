@@ -3088,6 +3088,7 @@ window.addEventListener('load', async (event) => {
 				
 
 				if (updateUS != "error"){
+					
 					await setStakeBalance({
 						currentTarget: {
 							value: 'XAMP',
@@ -3111,6 +3112,8 @@ window.addEventListener('load', async (event) => {
 					});
 					$('#isConnected').html('wallet connected');
 				}
+				//sets the initial Load then sets an interval for the Price/rewards.
+				updateUserStats();
 				setInterval(
 				  () => updateUserStats(),
 				  60000
