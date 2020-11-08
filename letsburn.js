@@ -2701,28 +2701,32 @@ const fillYFKAinfo = async () =>{
 	
 	
 	// Load google charts
-	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(drawChart);
+	try{
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
 
-	// Draw the chart and set the chart values
-	function drawChart() {
-	  var data = google.visualization.arrayToDataTable([
-	  ['Pool', 'YFKA'],
-	  ['XAMP', stakedXAMP],
-	  ['TOB', stakedTOB],
-	  ['BOA', stakedBOA],
-	  ['ETH', stakedETH],
-	]);
 
-	  // Optional; add a title and set the width and height of the chart
-	  var options = {'title':'Staked YFKA', 'width':550, 'height':400};
+		// Draw the chart and set the chart values
+		function drawChart() {
+		  var data = google.visualization.arrayToDataTable([
+		  ['Pool', 'YFKA'],
+		  ['XAMP', stakedXAMP],
+		  ['TOB', stakedTOB],
+		  ['BOA', stakedBOA],
+		  ['ETH', stakedETH],
+		]);
 
-	  // Display the chart inside the <div> element with id="piechart"
-	  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-	  chart.draw(data, options);
-}
+		  // Optional; add a title and set the width and height of the chart
+		  var options = {'title':'Staked YFKA', 'width':550, 'height':400};
+
+		  // Display the chart inside the <div> element with id="piechart"
+		  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		  chart.draw(data, options);
+		}
 	
-	
+		}catch(e){
+		errorHandling(e, "Google Chart");
+	}
 	
 	
 }
@@ -3150,7 +3154,7 @@ window.addEventListener('load', async (event) => {
 				console.log('Execution time (main Load): ', time/1000, " seconds");	
 			}
 		}catch(e){
-			errorHandling(e, 'GetAccounts()');
+			errorHandling(e, 'On Load - Wallet Connected');
 		}
 	});
 
