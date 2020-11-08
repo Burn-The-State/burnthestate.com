@@ -3171,6 +3171,14 @@ window.addEventListener('load', async (event) => {
 });
 
 
+document.addEventListener('readystatechange', (event) => {
+    if (document.readyState == 'interactive'){
+		console.log("WEBSITE LOADED AND READY");
+		console.log(document.readyState);
+	}
+	console.log(document.readyState);
+});
+
 /*
 INITIALISATION
 */
