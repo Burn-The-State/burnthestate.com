@@ -2211,6 +2211,13 @@ const updateUserStats = async () => {
 		$('#personal-emission-BOA').html(`${personalemission.BOA}`);
 		$('#personal-emission-ETH').html(`${personalemission.ETH}`);
 
+		const coin_prices = STATES.PRICES;
+		$('#price-XAMP').html(`${coin_prices.XAMP.usd}`);
+		$('#price-TOB').html(`${coin_prices.TOB.usd}`);
+		$('#price-BOA').html(`${coin_prices.BOA.usd}`);
+		$('#price-ETH').html(`${coin_prices.ETH.usd}`);
+		$('#price-YFKA').html(`${coin_prices.YFKA.usd}`);
+		
 		// current LP Tokens
 		var XAMPbalance, TOBbalance, BOAbalance, ETHbalance;
 		// XAMP LP token balance
@@ -3164,6 +3171,4 @@ try{
 console.log("STATES: ", STATES);
 
 }
-
-
 
