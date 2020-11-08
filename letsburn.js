@@ -1215,10 +1215,10 @@ const getWalletBTSCoins = async () => {
 	if (DISPLAY_CONSOLE) console.log("ETH WALLET BALANCE : ",Etherbalance/(10**18) );
 	
 	const totalBALANCEXAMP = await STATES.CONTRACTS.XAMP.methods.balanceOf(account).call();
-	const totalBALANCETOB = await STATES.CONTRACTS.XAMP.methods.balanceOf(account).call();
-	const totalBALANCEBOA = await STATES.CONTRACTS.XAMP.methods.balanceOf(account).call();
+	const totalBALANCETOB = await STATES.CONTRACTS.TOB.methods.balanceOf(account).call();
+	const totalBALANCEBOA = await STATES.CONTRACTS.BOA.methods.balanceOf(account).call();
 	const totalBALANCEETH = Etherbalance;
-	const totalBALANCEYFKA = await STATES.CONTRACTS.XAMP.methods.balanceOf(account).call();
+	const totalBALANCEYFKA = await STATES.CONTRACTS.YFKA.methods.balanceOf(account).call();
 	
 	console.log("XAMP BALANCE WALLET =", totalBALANCEXAMP/(10**18));
 	console.log("TOB BALANCE WALLET =", totalBALANCETOB/(10**18));
@@ -1947,50 +1947,6 @@ async function MetaConnect(){
 *
 */
 
-const getTotalBalances = async () => {
-	if (DISPLAY_CONSOLE) console.log('getBalances');
-		// YFKA_XAMP
-		const xampContractBalance = await STATES.CONTRACTS.YFKA_XAMP.methods.totalSupply().call();
-		if (DISPLAY_CONSOLE) console.log('xampTotalBalance: ', xampContractBalance);
-
-		const xampContractDecimals = await STATES.CONTRACTS.YFKA_XAMP.methods.decimals().call();
-		if (DISPLAY_CONSOLE) console.log('xampContractDecimals: ', xampContractDecimals);
-
-		// YFKA_TOB
-		const tobContractBalance = await STATES.CONTRACTS.YFKA_TOB.methods.totalSupply().call();
-		if (DISPLAY_CONSOLE) console.log('tobTotalBalance: ', tobContractBalance);
-
-		const tobContractDecimals = await STATES.CONTRACTS.YFKA_TOB.methods.decimals().call();
-		if (DISPLAY_CONSOLE) console.log('tobContractDecimals: ', tobContractDecimals);
-
-		// YFKA_BOA
-		const boaContractBalance = await STATES.CONTRACTS.YFKA_BOA.methods.totalSupply().call();
-		if (DISPLAY_CONSOLE) console.log('boaTotalBalance: ', boaContractBalance);
-
-		const boaContractDecimals = await STATES.CONTRACTS.YFKA_BOA.methods.decimals().call();
-		if (DISPLAY_CONSOLE) console.log('boaContractDecimals: ', boaContractDecimals);
-
-		// YFKA_ETH		
-		const ethContractBalance = await STATES.CONTRACTS.YFKA_ETH.methods.totalSupply().call();
-		if (DISPLAY_CONSOLE) console.log('ethTotalBalance: ', ethContractBalance);
-
-		const ethContractDecimals = await STATES.CONTRACTS.YFKA_ETH.methods.decimals().call();
-		if (DISPLAY_CONSOLE) console.log('ethContractDecimals: ', ethContractDecimals);
-
-		STATES.TOTALS_BTS = {
-			XAMP: xampContractBalance
-			  ? xampContractBalance / 10 ** xampContractDecimals
-			  : 0,
-			TOB: tobContractBalance ? tobContractBalance / 10 ** tobContractDecimals : 0,
-			BOA: boaContractBalance
-			  ? boaContractBalance / 10 ** boaContractDecimals
-			  : 0,
-			ETH: ethContractBalance
-			  ? ethContractBalance / 10 ** ethContractDecimals
-			  : 0,
-		}
-};
-
 //GET WALLET BALANCES
 const getPoolBalances = async () => {
   if (DISPLAY_CONSOLE) console.log('getBalances');
@@ -2368,30 +2324,30 @@ const updateUserStats = async () => {
 		}else return("error");
 
 		//% of pool
-		const TotalBalances = STATES.TOTALS_BTS;
+		const TotalBalances = STATES.TOTAL_LP;
 		
 		if (TotalBalances != "error")
 		{
 			//XAMP
-			const TotalXAMPbalance = TotalBalances.XAMP;
+			const TotalXAMPbalance = TotalBalances.fXAMP;
 			const percentXAMP = (fourDecimals(xampLpBalance / 10 ** 18) / TotalXAMPbalance) * 100;
 			var readablePercentage = belowZero(fourDecimals(percentXAMP));
 			$('#pool-Share-XAMP').html(`${readablePercentage}`);
 
 			//TOB
-			const TotalTOBbalance = TotalBalances.TOB;
+			const TotalTOBbalance = TotalBalances.fTOB;
 			const percentTOB = (fourDecimals(tobLpBalance / 10 ** 18) / TotalTOBbalance) * 100;
 			var readablePercentTOB = belowZero(fourDecimals(percentTOB));
 			$('#pool-Share-TOB').html(`${readablePercentTOB}`);
 
 			//BOA
-			const TotalBOAbalance = TotalBalances.BOA;
+			const TotalBOAbalance = TotalBalances.fBOA;
 			const percentBOA = (fourDecimals(boaLpBalance / 10 ** 18) / TotalBOAbalance) * 100;
 			var readablePercentageBOA = belowZero(fourDecimals(percentBOA));
 			$('#pool-Share-BOA').html(`${readablePercentageBOA}`);
 		
 			//ETH
-			const TotalETHbalance = TotalBalances.ETH;
+			const TotalETHbalance = TotalBalances.fETH;
 			const percentETH = (fourDecimals(ethLpBalance / 10 ** 18) / TotalETHbalance) * 100;
 			var readablePercentageETH = belowZero(fourDecimals(percentETH));
 			$('#pool-Share-ETH').html(`${readablePercentageETH}`);
@@ -2414,23 +2370,23 @@ const updateActivePool = async () => {
 	const _globalEmissionRate = STATES.GLOBAL_EMISSION_RATE;
 	
 
-	const TotalBalances = STATES.TOTALS_BTS;
+	const TotalBalances = STATES.TOTAL_LP;
 	
 	if (TotalBalances != "error"){
 	
-		const TotalXAMPbalance = TotalBalances.XAMP;
+		const TotalXAMPbalance = TotalBalances.fXAMP;
 		var readableTotalXAMP = twoDecimals(TotalXAMPbalance);
 		$('#total-LP-XAMP').html(`${readableTotalXAMP}`);
 
-		const TotalTOBbalance = TotalBalances.TOB;
+		const TotalTOBbalance = TotalBalances.fTOB;
 		var readableTotalTOB = twoDecimals(TotalTOBbalance);
 		$('#total-LP-TOB').html(`${readableTotalTOB}`);
 		
-		const TotalBOAbalance = TotalBalances.BOA;
+		const TotalBOAbalance = TotalBalances.fBOA;
 		var readableTotalBOA = twoDecimals(TotalBOAbalance);
 		$('#total-LP-BOA').html(`${readableTotalBOA}`);
 		
-		const TotalETHbalance = TotalBalances.ETH;
+		const TotalETHbalance = TotalBalances.fETH;
 		var readableTotalETH = twoDecimals(TotalETHbalance);
 		$('#total-LP-ETH').html(`${readableTotalETH}`);
 	
@@ -3228,3 +3184,4 @@ await getGasPrices();
 console.log("STATES: ", STATES);
 
 }
+
