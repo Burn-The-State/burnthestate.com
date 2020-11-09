@@ -1709,8 +1709,9 @@ const FillInfo = async () => {
 	$('#YFKA3').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAWallet));
 	$('#YFKA4').html(twoDecimals(YFKAPrice.usd*BTSTOT.fYFKAReward));
 		
+	$('#TOTWALUSD').html(twoDecimals((YFKAPrice.usd*BTSTOT.fYFKATotal)+(BOAPrice.usd*BTSTOT.fBOATotal)+(TOBPrice.usd*BTSTOT.fTOBTotal)+(XAMPPrice.usd*BTSTOT.fXAMPTotal)));	
+	
 	$('#pYFKA').html(fourDecimals(BTSTOT.pOwnedYFKA));	
-
 
 
 	//ETH 
@@ -2947,7 +2948,6 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 });
 
 /*
-
 $('#id1').change(async ()=>{
 var slideCol = document.getElementById("id1");
  var balance = $('#unstake-input-hidden').val();
