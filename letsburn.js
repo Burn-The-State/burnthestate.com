@@ -2690,10 +2690,10 @@ const Pie_chart = async () =>{
 			
 			var Width = document.getElementById("infoBox").offsetWidth;
 			var Height = document.getElementById("infoBox").offsetHeight;
-		if (Width <= 0) Width = 235;
+		if (Width <= 0) Width = 420;
 		else Width = '100%';
 		
-		if (Height <= 0) Height = 235;
+		if (Height <= 0) Height = 350;
 		else Height = '100%';
 		  // Optional; add a title and set the width and height of the chart
 		  var options = {'title':'Staked YFKA','width':Width, 'height':Height};
