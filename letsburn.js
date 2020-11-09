@@ -9,7 +9,7 @@
 *NOTE TO SELF web3.eth.getBalance FOR ETH BALANCE FROM WALLET.
 *
 */
-
+const ticker_timer = 300; //Timer in Seconds
 const STATES = {};
 
 const TOKENS = {
@@ -3187,7 +3187,7 @@ window.addEventListener('load', async (event) => {
 				updateUserStats();
 				setInterval(
 				  () => reward_ticker(),
-				  60000
+				  ticker_timer*1000
 				);
 				await FillInfo();
 				
