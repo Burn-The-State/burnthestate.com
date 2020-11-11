@@ -2924,6 +2924,22 @@ $('input[type=checkbox][name=agree-unstake]').change(async () =>{
 
 
 $('input[type=checkbox][name=priceToggle]').change(async () =>{
+	document.getElementById('priceToggle1').checked = true;
+	const Fields = document.getElementsByClassName('price-icon')
+	if (document.getElementById('priceToggle1').checked){
+		for(var i = 0; i < Fields.length; i++){
+			Fields[i].innerHTML = 'ETH';
+		}
+		
+	}else{
+		for(var i = 0; i < Fields.length; i++){
+			Fields[i].innerHTML = '$USD';
+		}
+	}
+});
+
+$('input[type=checkbox][name=priceToggle1]').change(async () =>{
+	document.getElementById('priceToggle').checked = true;
 	const Fields = document.getElementsByClassName('price-icon')
 	if (document.getElementById('priceToggle').checked){
 		for(var i = 0; i < Fields.length; i++){
@@ -2936,7 +2952,6 @@ $('input[type=checkbox][name=priceToggle]').change(async () =>{
 		}
 	}
 });
-
 
 
 
@@ -3264,5 +3279,3 @@ try{
 console.log("STATES: ", STATES);
 
 }
-
-
