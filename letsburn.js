@@ -2929,10 +2929,11 @@ $('input[type=checkbox][name=priceToggle]').change(async () =>{
 		Changer = true;
 		console.log("PriceToggle Checked!");
 		if (document.getElementById('priceToggle1').checked){
-			console.log("Setting PriceToggle1 to checked");
+			console.log("Setting PriceToggle1 to Unchecked (USD)");
 			document.getElementById('priceToggle1').checked = false;
 			$('#priceToggle1').bootstrapToggle('off');
 		}else{
+			console.log("Setting PriceToggle to Checked (ETH)");
 			document.getElementById('priceToggle1').checked = true;
 			$('#priceToggle1').bootstrapToggle('on');
 		}
@@ -2958,10 +2959,11 @@ $('input[type=checkbox][name=priceToggle1]').change(async () =>{
 		Changer = true;
 		console.log("PriceToggle1 Checked!");
 		if (document.getElementById('priceToggle').checked){
-			console.log("Setting PriceToggle to checked");
+			console.log("Setting PriceToggle to Unchecked (USD)");
 			document.getElementById('priceToggle').checked = false;
 			$('#priceToggle').bootstrapToggle('off');
 		}else{
+			console.log("Setting PriceToggle to Checked (ETH)");
 			document.getElementById('priceToggle').checked = true;
 			$('#priceToggle').bootstrapToggle('on');
 		}
@@ -3307,3 +3309,4 @@ try{
 console.log("STATES: ", STATES);
 
 }
+
