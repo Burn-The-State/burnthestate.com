@@ -2924,6 +2924,7 @@ $('input[type=checkbox][name=agree-unstake]').change(async () =>{
 
 
 $('input[type=checkbox][name=priceToggle]').change(async () =>{
+	console.log("PriceToggle Checked!");
 	if (document.getElementById('priceToggle1').checked){
 		//document.getElementById('priceToggle1').checked = true;
 		$('#priceToggle1').bootstrapToggle('on');
@@ -2946,6 +2947,7 @@ $('input[type=checkbox][name=priceToggle]').change(async () =>{
 });
 
 $('input[type=checkbox][name=priceToggle1]').change(async () =>{
+	console.log("PriceToggle1 Checked!");
 	if (document.getElementById('priceToggle').checked){
 		//document.getElementById('priceToggle').checked = true;
 		$('#priceToggle').bootstrapToggle('on');
