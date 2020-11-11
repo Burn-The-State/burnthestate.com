@@ -2924,10 +2924,16 @@ $('input[type=checkbox][name=agree-unstake]').change(async () =>{
 
 
 $('input[type=checkbox][name=priceToggle]').change(async () =>{
+	const Fields = document.getElementByClass('price-icon')
 	if (document.getElementById('priceToggle').checked){
-		document.getElementByClass('price-icon').innerHTML = 'ETH';
+		for(var i = 0; i < Fields.length; i++){
+			Fields[i].innerHTML = 'ETH';
+		}
+		
 	}else{
-		document.getElementByClass('price-icon').innerHTML = '$USD';
+		for(var i = 0; i < Fields.length; i++){
+			Fields[i].innerHTML = '$USD';
+		}
 	}
 });
 
@@ -3258,4 +3264,3 @@ try{
 console.log("STATES: ", STATES);
 
 }
-
