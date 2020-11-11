@@ -2921,6 +2921,20 @@ $('input[type=checkbox][name=agree-unstake]').change(async () =>{
 	}
 });
 
+
+
+$('input[type=checkbox][name=priceToggle]').change(async () =>{
+	if (document.getElementById('priceToggle').checked){
+		document.getElementByClass('priceToggle').innerHTML = 'ETH';
+	}else{
+		document.getElementByClass('priceToggle').innerHTML = '$USD';
+	}
+});
+
+
+
+
+
 $('#CONFIRM-UNSTAKE').click(async () => {
   var ashContract = web3.eth.contract(YFKA_CONTROLLER_ABI);
   ashContract = ashContract.at(checksumAddress(YFKA_CONTROLLER_ADDRESS));
