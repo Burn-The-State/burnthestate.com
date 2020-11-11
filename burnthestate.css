@@ -34,7 +34,8 @@ mark
 #connectToMetamask
 {
 	background-color: #000;
-	font-size: 1em;
+	font-size: 0.8em;
+	font-weight: 500;
 }
 
 
@@ -70,7 +71,7 @@ mark
 
 #buy
 {
-	background-color: #fff;
+	/*background-color: #fff;*/
 	/*color: #fff;*/
 }
 
@@ -83,6 +84,7 @@ mark
 {
 	background-color: #fff;
 	border: 0px !important;
+	font-weight: 700;
 }
 
 #buy a
@@ -198,7 +200,7 @@ mark
 
 	background-color: #fff;
 	color: #000;
-	border: 1px solid #b9b9b9 !important;
+	/*border: 1px solid #b9b9b9 !important;*/
 	line-height: 15px;
 	background-repeat: no-repeat;
 }
@@ -212,7 +214,7 @@ mark
 
 	background-color: #fff;
 	color: #000;
-	border: 1px solid #b9b9b9 !important;
+	/*border: 1px solid #b9b9b9 !important;*/
 	line-height: 15px;
 	background-repeat: no-repeat;
 }
@@ -226,7 +228,7 @@ mark
 
 	background-color: #fff;
 	color: #000;
-	border: 1px solid #b9b9b9 !important;
+	/*border: 1px solid #b9b9b9 !important;*/
 	line-height: 15px;
 	background-repeat: no-repeat;
 }
@@ -239,7 +241,7 @@ mark
 
 	background-color: #fff;
 	color: #000;
-	border: 1px solid #b9b9b9 !important;
+	/*border: 1px solid #b9b9b9 !important;*/
 	line-height: 15px;
 	background-repeat: no-repeat;
 }
@@ -377,7 +379,7 @@ mark
 
 .coins-y
 {
-	width: 70px;
+	width: 200px;
 	margin-right: 7px;
 	padding-top: 0px;
 }
@@ -456,6 +458,50 @@ button {
 	cursor: pointer;
 }
 
+
+/* v2 */
+#moreInfo
+{
+	border: 0px;
+	line-height: 15px;
+	background: transparent;
+}
+
+#row3 .btn
+{
+	background-color: #000;
+	border: 0px !important;
+}
+
+#walletInfo
+{
+
+}
+
+#dginfo
+{
+	font-size: 16px;
+	line-height: 18px;
+	background-color: #fff;
+	/*background-color: #cd2012;*/
+	color: #000;
+	border: 0 !important;
+}
+
+#infoBox, #walletInfo
+{
+	border-left: left: 1px solid #b9b9b9 !important;	
+}
+
+#advancedInfo
+{
+background-color: #fff;
+}
+
+#advancedInfo:hover
+{
+background-color: #f3f3f3;
+}
 /* v2 */
 .modal-body, .modal-header, .modal-footer
 {
@@ -463,3 +509,8 @@ color: #fff;
 background-color: #cd2012e6 !important;
 border: 0;
 }
+
+/*#buyBT:hover
+{
+background-color: #ff7000;
+}*/
