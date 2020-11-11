@@ -2925,9 +2925,9 @@ $('input[type=checkbox][name=agree-unstake]').change(async () =>{
 
 $('input[type=checkbox][name=priceToggle]').change(async () =>{
 	if (document.getElementById('priceToggle').checked){
-		document.getElementByClass('priceToggle').innerHTML = 'ETH';
+		document.getElementByClass('price-icon').innerHTML = 'ETH';
 	}else{
-		document.getElementByClass('priceToggle').innerHTML = '$USD';
+		document.getElementByClass('price-icon').innerHTML = '$USD';
 	}
 });
 
