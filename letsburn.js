@@ -2924,7 +2924,7 @@ $('input[type=checkbox][name=agree-unstake]').change(async () =>{
 
 
 $('input[type=checkbox][name=priceToggle]').change(async () =>{
-	const Fields = document.getElementByClassName('price-icon')
+	const Fields = document.getElementsByClassName('price-icon')
 	if (document.getElementById('priceToggle').checked){
 		for(var i = 0; i < Fields.length; i++){
 			Fields[i].innerHTML = 'ETH';
@@ -3264,4 +3264,5 @@ try{
 console.log("STATES: ", STATES);
 
 }
+
 
