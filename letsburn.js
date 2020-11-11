@@ -2924,6 +2924,13 @@ $('input[type=checkbox][name=agree-unstake]').change(async () =>{
 
 
 $('input[type=checkbox][name=priceToggle]').change(async () =>{
+	if (document.getElementById('priceToggle1').checked){
+		document.getElementById('priceToggle1').checked = true;
+		$('#priceToggle1').bootstrapToggle('on');
+	}else{
+		document.getElementById('priceToggle1').checked = false;
+		$('#priceToggle1').bootstrapToggle('off');
+	}
 	document.getElementById('priceToggle1').checked = true;
 	const Fields = document.getElementsByClassName('price-icon')
 	if (document.getElementById('priceToggle1').checked){
@@ -2939,7 +2946,13 @@ $('input[type=checkbox][name=priceToggle]').change(async () =>{
 });
 
 $('input[type=checkbox][name=priceToggle1]').change(async () =>{
-	document.getElementById('priceToggle').checked = true;
+	if (document.getElementById('priceToggle').checked){
+		document.getElementById('priceToggle').checked = true;
+		$('#priceToggle').bootstrapToggle('on');
+	}else{
+		document.getElementById('priceToggle').checked = false;
+		$('#priceToggle').bootstrapToggle('off');
+	}
 	const Fields = document.getElementsByClassName('price-icon')
 	if (document.getElementById('priceToggle').checked){
 		for(var i = 0; i < Fields.length; i++){
