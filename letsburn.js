@@ -2921,50 +2921,61 @@ $('input[type=checkbox][name=agree-unstake]').change(async () =>{
 	}
 });
 
-
+var Changer = false;
 
 $('input[type=checkbox][name=priceToggle]').change(async () =>{
-	console.log("PriceToggle Checked!");
-	if (document.getElementById('priceToggle1').checked){
-		//document.getElementById('priceToggle1').checked = true;
-		$('#priceToggle1').bootstrapToggle('on');
-	}else{
-		//document.getElementById('priceToggle1').checked = false;
-		$('#priceToggle1').bootstrapToggle('off');
-	}
-	document.getElementById('priceToggle1').checked = true;
-	const Fields = document.getElementsByClassName('price-icon')
-	if (document.getElementById('priceToggle1').checked){
-		for(var i = 0; i < Fields.length; i++){
-			Fields[i].innerHTML = 'ETH';
+	
+	if (Changer == false){
+		Changer = true;
+		console.log("PriceToggle Checked!");
+		if (document.getElementById('priceToggle1').checked){
+			//document.getElementById('priceToggle1').checked = true;
+			$('#priceToggle1').bootstrapToggle('on');
+		}else{
+			//document.getElementById('priceToggle1').checked = false;
+			$('#priceToggle1').bootstrapToggle('off');
 		}
-		
-	}else{
-		for(var i = 0; i < Fields.length; i++){
-			Fields[i].innerHTML = '$USD';
+		document.getElementById('priceToggle1').checked = true;
+		const Fields = document.getElementsByClassName('price-icon')
+		if (document.getElementById('priceToggle1').checked){
+			for(var i = 0; i < Fields.length; i++){
+				Fields[i].innerHTML = 'ETH';
+			}
+			
+		}else{
+			for(var i = 0; i < Fields.length; i++){
+				Fields[i].innerHTML = '$USD';
+			}
 		}
+	}else{
+		Changer = false;
 	}
 });
 
 $('input[type=checkbox][name=priceToggle1]').change(async () =>{
-	console.log("PriceToggle1 Checked!");
-	if (document.getElementById('priceToggle').checked){
-		//document.getElementById('priceToggle').checked = true;
-		$('#priceToggle').bootstrapToggle('on');
-	}else{
-		//document.getElementById('priceToggle').checked = false;
-		$('#priceToggle').bootstrapToggle('off');
-	}
-	const Fields = document.getElementsByClassName('price-icon')
-	if (document.getElementById('priceToggle1').checked){
-		for(var i = 0; i < Fields.length; i++){
-			Fields[i].innerHTML = 'ETH';
+	if (Changer == false){
+		Changer = true;
+		console.log("PriceToggle1 Checked!");
+		if (document.getElementById('priceToggle').checked){
+			//document.getElementById('priceToggle').checked = true;
+			$('#priceToggle').bootstrapToggle('on');
+		}else{
+			//document.getElementById('priceToggle').checked = false;
+			$('#priceToggle').bootstrapToggle('off');
 		}
-		
-	}else{
-		for(var i = 0; i < Fields.length; i++){
-			Fields[i].innerHTML = '$USD';
+		const Fields = document.getElementsByClassName('price-icon')
+		if (document.getElementById('priceToggle1').checked){
+			for(var i = 0; i < Fields.length; i++){
+				Fields[i].innerHTML = 'ETH';
+			}
+			
+		}else{
+			for(var i = 0; i < Fields.length; i++){
+				Fields[i].innerHTML = '$USD';
+			}
 		}
+	}else{
+		Changer = false;
 	}
 });
 
