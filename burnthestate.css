@@ -84,6 +84,7 @@ mark
 {
 	background-color: #fff;
 	border: 0px !important;
+	font-weight: 700;
 }
 
 #buy a
@@ -494,9 +495,12 @@ button {
 
 #advancedInfo
 {
-    background-color: #000;
-    font-size: 0.8em;
-    font-weight: 500;
+background-color: #fff;
+}
+
+#advancedInfo:hover
+{
+background-color: #f3f3f3;
 }
 /* v2 */
 .modal-body, .modal-header, .modal-footer
@@ -505,3 +509,8 @@ color: #fff;
 background-color: #cd2012e6 !important;
 border: 0;
 }
+
+/*#buyBT:hover
+{
+background-color: #ff7000;
+}*/
