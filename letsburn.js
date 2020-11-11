@@ -2937,7 +2937,7 @@ $('input[type=checkbox][name=priceToggle]').change(async () =>{
 			document.getElementById('priceToggle1').checked = true;
 			$('#priceToggle1').bootstrapToggle('on');
 		}
-		document.getElementById('priceToggle1').checked = true;
+
 		const Fields = document.getElementsByClassName('price-icon')
 		if (document.getElementById('priceToggle1').checked){
 			for(var i = 0; i < Fields.length; i++){
@@ -3309,4 +3309,5 @@ try{
 console.log("STATES: ", STATES);
 
 }
+
 
