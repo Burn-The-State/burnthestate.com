@@ -1468,44 +1468,41 @@ const UserConversions = async () =>{
 	const LP = STATES.TOTAL_LP;
 	const LPconv = STATES.LP_CONVERSIONS;
 	const coinPrices = STATES.PRICES;
-	
-	
-	STATES.RESERVES
-	
+
 	
 	//POOL PRICING
 	const XAMPLPUSDTOTAL = twoDecimals(
-							(STATES.RESERVES.XAMP * XAMPPrice.usd) 
+							(STATES.RESERVES.XAMP * coinPrices.XAMP.usd) 
 							+ (STATES.RESERVES.YXAMP * coinPrices.YFKA.usd)
 							);
 	const TOBLPUSDTOTAL = twoDecimals(
-							(STATES.RESERVES.TOB * TOBPrice.usd)
+							(STATES.RESERVES.TOB * coinPrices.TOB.usd)
 							+ (STATES.RESERVES.YTOB * coinPrices.YFKA.usd)
 							);
 	const BOALPUSDTOTAL = twoDecimals(
-							(STATES.RESERVES.BOA * BOAPrice.usd) 
+							(STATES.RESERVES.BOA * coinPrices.BOA.usd) 
 							+ (STATES.RESERVES.YBOA * coinPrices.YFKA.usd)
 							);
 	const ETHLPUSDTOTAL = twoDecimals(
-							(STATES.RESERVES.ETH * ETHPrice.usd) 
+							(STATES.RESERVES.ETH * coinPrices.ETH.usd) 
 							+ (STATES.RESERVES.YETH * coinPrices.YFKA.usd)
 							);
 	
 	//POOL PRICING
 	const XAMPLPETHTOTAL = twoDecimals(
-							(STATES.RESERVES.XAMP * XAMPPrice.eth) 
+							(STATES.RESERVES.XAMP * coinPrices.XAMP.eth) 
 							+ (STATES.RESERVES.YXAMP * coinPrices.YFKA.eth)
 							);
 	const TOBLPETHTOTAL = twoDecimals(
-							(STATES.RESERVES.TOB * TOBPrice.eth)
+							(STATES.RESERVES.TOB * coinPrices.TOB.eth)
 							+ (STATES.RESERVES.YTOB * coinPrices.YFKA.eth)
 							);
 	const BOALPETHTOTAL = twoDecimals(
-							(STATES.RESERVES.BOA * BOAPrice.eth) 
+							(STATES.RESERVES.BOA * coinPrices.BOA.eth) 
 							+ (STATES.RESERVES.YBOA * coinPrices.YFKA.eth)
 							);
 	const ETHLPETHTOTAL = twoDecimals(
-							(STATES.RESERVES.ETH * ETHPrice.eth) 
+							(STATES.RESERVES.ETH * coinPrices.ETH.eth) 
 							+ (STATES.RESERVES.YETH * coinPrices.YFKA.eth)
 							);
 	
@@ -3567,4 +3564,3 @@ try{
 console.log("STATES: ", STATES);
 
 }
-
