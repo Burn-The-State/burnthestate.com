@@ -525,13 +525,10 @@ background-color: #ffffff;
 color: #000000;	
 }
 
-
-
-.toggle-on.btn:hover {
+input[type="checkbox" i] {
     color: #000000;
     border-color: #000000;
+
 }
-.btn-primary {
-    color: #000000;
-    border-color: #000000;
-}
+
+
