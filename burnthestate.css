@@ -516,21 +516,21 @@ border: 0;
 background-color: #ff7000;
 }*/
 
-.toggle.btn.btn-light.on{
+.toggle-on.btn {
 background-color: #e32b17;
 color: #000000;	
 border: #000000;
 }
-.toggle.btn.btn-light.off{
+.toggle-off.btn {
 background-color: #ffffff;
 color: #000000;	
 border: #000000;
 }
 
-.toggle.btn.btn-light.on:hover{
+.toggle-on.btn :hover{
 border: #e32b17;
 }
-.toggle.btn.btn-light.on:hover{
+.toggle-off.btn :hover{
 border: #ffffff;
 }
 
