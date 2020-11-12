@@ -3444,6 +3444,29 @@ $('#ETHInfo').click(async () => {
 	document.getElementById('WalletInfoPanel').style.display = 'none';
 });
 
+
+function toggleFormElements(bDisabled) { 
+    var inputs = document.getElementsByTagName("input"); 
+    for (var i = 0; i < inputs.length; i++) { 
+        inputs[i].disabled = bDisabled;
+    } 
+    var selects = document.getElementsByTagName("select");
+    for (var i = 0; i < selects.length; i++) {
+        selects[i].disabled = bDisabled;
+    }
+    var textareas = document.getElementsByTagName("textarea"); 
+    for (var i = 0; i < textareas.length; i++) { 
+        textareas[i].disabled = bDisabled;
+    }
+    var buttons = document.getElementsByTagName("button");
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = bDisabled;
+    }
+}
+
+
+
+
 /*
 *
 *
@@ -3457,9 +3480,9 @@ $('#ETHInfo').click(async () => {
 */
 
 window.addEventListener('load', async (event) => {
-
+	toggleFormElements(true);
 	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
-	//await stakeMinimumPrice();
+	var start = performance.now();
 	await Initial_Load();
 	
 	
@@ -3482,7 +3505,20 @@ window.addEventListener('load', async (event) => {
 					errorHandling(e, 'updateGlobal()');
 				});
 				
-				//await syncALL();
+				
+				
+				toggleFormElements(false);
+				setInterval(
+				  () => reward_ticker(),
+				  ticker_timer*1000
+				);
+				
+				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
+				var end =	performance.now();
+				var time = end - start;
+				console.log('Execution time (main Load): ', time/1000, " seconds");	
+				
+				console.log("--------- ALL USER ELEMENTS HAVE BEEN RELEASED -------");	
 			}			
 			else {
 				var start = performance.now();
@@ -3536,19 +3572,21 @@ window.addEventListener('load', async (event) => {
 				}
 				//sets the initial Load then sets an interval for the Price/rewards.
 				updateUserStats();
+				await FillInfo();
+				await Pie_chart();
+				toggleFormElements(false);
+				
 				setInterval(
 				  () => reward_ticker(),
 				  ticker_timer*1000
 				);
-				await FillInfo();
-				
-				
 				
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 				var end =	performance.now();
 				var time = end - start;
 				console.log('Execution time (main Load): ', time/1000, " seconds");	
-				await Pie_chart();
+				
+				console.log("--------- ALL USER ELEMENTS HAVE BEEN RELEASED -------");	
 			}
 		}catch(e){
 			errorHandling(e, 'On Load - Wallet Connected');
