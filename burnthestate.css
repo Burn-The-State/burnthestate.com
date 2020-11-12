@@ -519,16 +519,20 @@ background-color: #ff7000;
 .toggle-off.btn{
 background-color: #e32b17;
 color: #000000;	
+border: #000000;
 }
 .toggle-on.btn{
 background-color: #ffffff;
 color: #000000;	
+border: #000000;
 }
 
-input[type="checkbox" i] {
-    color: #000000;
-    border-color: #000000;
-
+.toggle-on.btn:hover{
+border: #e32b17;
 }
+.toggle-off.btn:hover{
+border: #ffffff;
+}
+
 
 
