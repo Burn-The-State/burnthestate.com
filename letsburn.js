@@ -3461,7 +3461,7 @@ function toggleFormElements(bDisabled) {
     var buttons = document.getElementsByTagName("button");
     for (var i = 0; i < buttons.length; i++) {
 		//check we are not enabling the stake button if we shoudlnt be....
-		if (buttons[i].id == "stakeBTN" && bDisabled){
+		if (buttons[i].id == "stakeBTN" && !bDisabled){
 			checkMinStakeInput(document.getElementById('stake-input').value);
 		}
         buttons[i].disabled = bDisabled;
