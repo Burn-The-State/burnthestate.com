@@ -526,3 +526,22 @@ color: #000000;
 }
 
 
+.toggle-handle {
+    position: relative;
+    margin: 0 auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 100%;
+    width: 0;
+    border-width: 0 1px;
+    background-color: #e9ecef;
+}
+
+btn-primary:hover {
+    color: #fff;
+    border-color: #000000;
+}
+.btn-primary {
+    color: #fff;
+    border-color: #000000;
+}
