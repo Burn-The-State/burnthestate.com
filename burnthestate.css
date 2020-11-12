@@ -534,5 +534,8 @@ border: #e32b17;
 border: #ffffff;
 }
 
-
+.toggle-group {
+    left: -100%;
+border: #000000;
+}
 
