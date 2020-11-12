@@ -1450,6 +1450,244 @@ const getStakedUSDTotals = async () => {
 	}
 }
 
+const UserConversions = async () =>{
+	const userLPS = STATES.USER_OWNED_LP;
+	const userRewards = await getRewards();
+	const BTSTOT = STATES.BTS_TOTALS;
+	const LP = STATES.TOTAL_LP;
+	const LPconv = STATES.LP_CONVERSIONS;
+	const coinPrices = STATES.PRICES;
+	
+	//POOL PRICING
+	const XAMPLPUSDTOTAL = twoDecimals(
+							(XAMPReserve * XAMPPrice.usd) 
+							+ (YFKAReserve * coinPrices.YFKA.usd)
+							);
+	const TOBLPUSDTOTAL = twoDecimals(
+							(TOBReserve * TOBPrice.usd)
+							+ (YFKAReserveTOB * coinPrices.YFKA.usd)
+							);
+	const BOALPUSDTOTAL = twoDecimals(
+							(BOAReserve * BOAPrice.usd) 
+							+ (YFKAReserveBOA * coinPrices.YFKA.usd)
+							);
+	const ETHLPUSDTOTAL = twoDecimals(
+							(ETHReserve * ETHPrice.usd) 
+							+ (YFKAReserveETH * coinPrices.YFKA.usd)
+							);
+	
+	//POOL PRICING
+	const XAMPLPETHTOTAL = twoDecimals(
+							(XAMPReserve * XAMPPrice.eth) 
+							+ (YFKAReserve * coinPrices.YFKA.eth)
+							);
+	const TOBLPETHTOTAL = twoDecimals(
+							(TOBReserve * TOBPrice.eth)
+							+ (YFKAReserveTOB * coinPrices.YFKA.eth)
+							);
+	const BOALPETHTOTAL = twoDecimals(
+							(BOAReserve * BOAPrice.eth) 
+							+ (YFKAReserveBOA * coinPrices.YFKA.eth)
+							);
+	const ETHLPETHTOTAL = twoDecimals(
+							(ETHReserve * ETHPrice.eth) 
+							+ (YFKAReserveETH * coinPrices.YFKA.eth)
+							);
+	
+	
+	//LP PRICING USD
+	const XAMPLPUSD = twoDecimals(XAMPLPUSDTOTAL/LP.fXAMP);
+	const TOBLPUSD = twoDecimals(TOBLPUSDTOTAL/LP.fTOB);
+	const BOALPUSD = twoDecimals(BOALPUSDTOTAL/LP.fBOA);
+	const ETHLPUSD = twoDecimals(ETHLPUSDTOTAL/LP.fETH);
+	
+	//LP PRICING ETH
+	const XAMPLPETH = twoDecimals(XAMPLPETHTOTAL/LP.fXAMP);
+	const TOBLPETH = twoDecimals(TOBLPETHTOTAL/LP.fTOB);
+	const BOALPETH = twoDecimals(BOALPETHTOTAL/LP.fBOA);
+	const ETHLPETH = twoDecimals(ETHLPETHTOTAL/LP.fETH);
+
+
+
+	//CALCULATE USERS LP $
+	const USERXAMPLPPRICE =   XAMPLPUSD * userLPS.fXAMP;
+	const USERTOBLPPRICE =   TOBLPUSD * userLPS.fTOB;
+	const USERBOALPPRICE =   BOALPUSD * userLPS.fBOA;
+	const USERETHLPPRICE =   ETHLPUSD * userLPS.fETH;
+	
+	//CALCULATE USERS LP ETH
+	const USERXAMPLPPRICEETH =   XAMPLPETH * userLPS.fXAMP;
+	const USERTOBLPPRICEETH =   TOBLPETH * userLPS.fTOB;
+	const USERBOALPPRICEETH =   BOALPETH * userLPS.fBOA;
+	const USERETHLPPRICEETH =   ETHLPETH * userLPS.fETH;
+	
+	
+	STATES.USDETHCONVS={
+		LPUSD: {
+			XAMP:XAMPLPUSD,
+			TOB:TOBLPUSD,
+			BOA:BOALPUSD,
+			ETH:ETHLPUSD,
+		},
+		TOTALLPUSD: {
+			XAMP:XAMPLPUSDTOTAL,
+			TOB:TOBLPUSDTOTAL,
+			BOA:BOALPUSDTOTAL,
+			ETH:ETHLPUSDTOTAL,
+		},
+		USERLPUSD: {
+			XAMP:USERXAMPLPPRICE,
+			TOB:USERTOBLPPRICE,
+			BOA:USERBOALPPRICE,
+			ETH:USERETHLPPRICE,
+		},
+		
+		USERLPETH: {
+			XAMP:USERXAMPLPPRICEETH,
+			TOB:USERTOBLPPRICEETH,
+			BOA:USERBOALPPRICEETH,
+			ETH:USERETHLPPRICEETH,
+		},
+		TOTALLPETH: {
+			XAMP:XAMPLPETHTOTAL,
+			TOB:TOBLPETHTOTAL,
+			BOA:BOALPETHTOTAL,
+			ETH:ETHLPETHTOTAL,
+		},
+		LPETH: {
+			XAMP:XAMPLPETH,
+			TOB:TOBLPETH,
+			BOA:BOALPETH,
+			ETH:ETHLPETH,
+		},
+		
+		REWARDUSD: {
+			XAMP:coinPrices.YFKA.usd * userRewards.fXAMP,
+			TOB:coinPrices.YFKA.usd * userRewards.fTOB,
+			BOA:coinPrices.YFKA.usd * userRewards.fBOA,
+			ETH: coinPrices.YFKA.usd * userRewards.fETH,
+		},
+		REWARDETH: {
+			XAMP:coinPrices.YFKA.eth * userRewards.fXAMP,
+			TOB:coinPrices.YFKA.eth * userRewards.fTOB,
+			BOA:coinPrices.YFKA.eth * userRewards.fBOA,
+			ETH: coinPrices.YFKA.eth * userRewards.fETH,
+		},
+				
+		
+	}
+	
+	
+	
+	
+	
+	
+}
+
+
+function RefillEther{
+	const coinPrices = STATES.PRICES;
+	const BTSTOT = STATES.BTS_TOTALS;
+	const UsdEthConv = STATES.USDETHCONVS;
+	//UPDATE COIN PRICES and then ALL STATE.USDETHCONV.LPETH/REWARDETH
+	//price-yfka//price-ETH//price-BOA//price-TOB//price-XAMP
+	//XAMPP1 ==TOTAL BALANCE
+	//P2 == STAKED BALANCE
+	//P3 == Wallet BAlance
+	
+	//YFKA1//YFKA2//YFKA3
+	//REWYFKA = Reward total abalnce
+	//TOTWALUSD == TOTAL WALLET BALANCE
+	
+	$('#LPPRICEXAMP').html(Number(UsdEthConv.LPETH.XAMP).toLocaleString());
+	$('#LPPRICETOB').html(Number(UsdEthConv.LPETH.TOB).toLocaleString());
+	$('#LPPRICEBOA').html(Number(UsdEthConv.LPETH.BOA).toLocaleString());
+	$('#LPPRICEETH').html(Number(UsdEthConv.LPETH.ETH).toLocaleString());
+	
+	$('#LPPRICEXAMPTOTAL').html(Number(twoDecimals(UsdEthConv.TOTALLPETH.XAMP)).toLocaleString());
+	$('#LPPRICETOBTOTAL').html(Number(twoDecimals(UsdEthConv.TOTALLPETH.TOB)).toLocaleString());
+	$('#LPPRICEBOATOTAL').html(Number(twoDecimals(UsdEthConv.TOTALLPETH.BOA)).toLocaleString());
+	$('#LPPRICEETHTOTAL').html(Number(twoDecimals(UsdEthConv.TOTALLPETH.ETH)).toLocaleString());
+	
+	$('#reward-XAMP-USD').html(twoDecimals(UsdEthConv.REWARDETH.XAMP));
+	$('#reward-TOB-USD').html(twoDecimals(UsdEthConv.REWARDETH.TOB));
+	$('#reward-BOA-USD').html(twoDecimals(UsdEthConv.REWARDETH.BOA));
+	$('#reward-ETH-USD').html(twoDecimals(UsdEthConv.REWARDETH.ETH));
+	
+	$('#price-XAMP').html(`${coinPrices.XAMP.eth}`);
+	$('#price-TOB').html(`${coinPrices.TOB.eth}`);
+	$('#price-BOA').html(`${coinPrices.BOA.eth}`);
+	$('#price-ETH').html(`${coinPrices.ETH.eth}`);
+	$('#price-yfka').html(`${coinPrices.YFKA.eth}`);
+	
+	$('#UserLPUSDXAMP').html(twoDecimals(UsdEthConv.USERLPETH.XAMP));
+	$('#UserLPUSDTOB').html(twoDecimals(UsdEthConv.USERLPETH.TOB));
+	$('#UserLPUSDBOA').html(twoDecimals(UsdEthConv.USERLPETH.BOA));
+	$('#UserLPUSDETH').html(twoDecimals(UsdEthConv.USERLPETH.ETH));
+	
+	$('#XAMPP1').html(twoDecimals(coinPrices.XAMP.eth*(BTSTOT.fXAMPTotal)));
+	$('#XAMPP2').html(twoDecimals(coinPrices.XAMP.eth*(BTSTOT.fXAMPLP)));
+	$('#XAMPP3').html(twoDecimals(coinPrices.XAMP.eth*BTSTOT.fXAMPWallet));
+	
+	$('#TOBP1').html(twoDecimals(coinPrices.TOB.eth*(BTSTOT.fTOBTotal)));
+	$('#TOBP2').html(twoDecimals(coinPrices.TOB.eth*(BTSTOT.fTOBLP)));
+	$('#TOBP3').html(twoDecimals(coinPrices.TOB.eth*BTSTOT.fTOBWallet));
+	
+	$('#BOAP1').html(twoDecimals(coinPrices.BOA.eth*(BTSTOT.fTOBTotal)));
+	$('#BOAP2').html(twoDecimals(coinPrices.BOA.eth*(BTSTOT.fTOBLP)));
+	$('#BOAP3').html(twoDecimals(coinPrices.BOA.eth*BTSTOT.fTOBWallet));
+}
+
+function RefillUSD{
+	const coinPrices = STATES.PRICES;
+	const BTSTOT = STATES.BTS_TOTALS;
+	const UsdEthConv = STATES.USDETHCONVS;
+	//UPDATE COIN PRICES and then ALL STATE.USDETHCONV.LPUSD/REWARDUSD
+	//price-yfka//price-ETH//price-BOA//price-TOB//price-XAMP
+	
+	$('#LPPRICEXAMP').html(Number(UsdEthConv.LPUSD.XAMP).toLocaleString());
+	$('#LPPRICETOB').html(Number(UsdEthConv.LPUSD.TOB).toLocaleString());
+	$('#LPPRICEBOA').html(Number(UsdEthConv.LPUSD.BOA).toLocaleString());
+	$('#LPPRICEETH').html(Number(UsdEthConv.LPUSD.ETH).toLocaleString());
+	
+	$('#LPPRICEXAMPTOTAL').html(Number(twoDecimals(UsdEthConv.TOTALLPUSD.XAMP)).toLocaleString());
+	$('#LPPRICETOBTOTAL').html(Number(twoDecimals(UsdEthConv.TOTALLPUSD.TOB)).toLocaleString());
+	$('#LPPRICEBOATOTAL').html(Number(twoDecimals(UsdEthConv.TOTALLPUSD.BOA)).toLocaleString());
+	$('#LPPRICEETHTOTAL').html(Number(twoDecimals(UsdEthConv.TOTALLPUSD.ETH)).toLocaleString());
+	
+	$('#reward-XAMP-USD').html(twoDecimals(UsdEthConv.REWARDUSD.XAMP));
+	$('#reward-TOB-USD').html(twoDecimals(UsdEthConv.REWARDUSD.TOB));
+	$('#reward-BOA-USD').html(twoDecimals(UsdEthConv.REWARDUSD.BOA));
+	$('#reward-ETH-USD').html(twoDecimals(UsdEthConv.REWARDUSD.ETH));
+	
+	$('#price-XAMP').html(`${coinPrices.XAMP.usd}`);
+	$('#price-TOB').html(`${coinPrices.TOB.usd}`);
+	$('#price-BOA').html(`${coinPrices.BOA.usd}`);
+	$('#price-ETH').html(`${coinPrices.ETH.usd}`);
+	$('#price-yfka').html(`${coinPrices.YFKA.usd}`);
+
+	
+	
+	$('#UserLPUSDXAMP').html(twoDecimals(UsdEthConv.USERLPUSD.XAMP));
+	$('#UserLPUSDTOB').html(twoDecimals(UsdEthConv.USERLPUSD.TOB));
+	$('#UserLPUSDBOA').html(twoDecimals(UsdEthConv.USERLPUSD.BOA));
+	$('#UserLPUSDETH').html(twoDecimals(UsdEthConv.USERLPUSD.ETH));
+	
+	$('#XAMPP1').html(twoDecimals(XAMPPrice.XAMP.usd*(BTSTOT.fXAMPTotal)));
+	$('#XAMPP2').html(twoDecimals(XAMPPrice.XAMP.usd*(BTSTOT.fXAMPLP)));
+	$('#XAMPP3').html(twoDecimals(XAMPPrice.XAMP.usd*BTSTOT.fXAMPWallet));
+	
+	$('#TOBP1').html(twoDecimals(coinPrices.TOB.usd*(BTSTOT.fTOBTotal)));
+	$('#TOBP2').html(twoDecimals(coinPrices.TOB.usd*(BTSTOT.fTOBLP)));
+	$('#TOBP3').html(twoDecimals(coinPrices.TOB.usd*BTSTOT.fTOBWallet));
+	
+	$('#BOAP1').html(twoDecimals(coinPrices.BOA.usd*(BTSTOT.fTOBTotal)));
+	$('#BOAP2').html(twoDecimals(coinPrices.BOA.usd*(BTSTOT.fTOBLP)));
+	$('#BOAP3').html(twoDecimals(coinPrices.BOA.usd*BTSTOT.fTOBWallet));
+}
+
+
+
 const FillInfo = async () => {
 	if (DISPLAY_CONSOLE) console.log('getReserves');
 	const userLPS = STATES.USER_OWNED_LP;
@@ -2932,10 +3170,12 @@ $('input[type=checkbox][name=priceToggle]').change(async () =>{
 			console.log("Setting PriceToggle1 to Unchecked (USD)");
 			document.getElementById('priceToggle1').checked = false;
 			$('#priceToggle1').bootstrapToggle('off');
+			RefillUSD();
 		}else{
 			console.log("Setting PriceToggle to Checked (ETH)");
 			document.getElementById('priceToggle1').checked = true;
 			$('#priceToggle1').bootstrapToggle('on');
+			RefillEther();
 		}
 
 		const Fields = document.getElementsByClassName('price-icon')
@@ -2961,11 +3201,13 @@ $('input[type=checkbox][name=priceToggle1]').change(async () =>{
 		if (document.getElementById('priceToggle').checked){
 			console.log("Setting PriceToggle to Unchecked (USD)");
 			document.getElementById('priceToggle').checked = false;
+			RefillUSD();
 			$('#priceToggle').bootstrapToggle('off');
 		}else{
 			console.log("Setting PriceToggle to Checked (ETH)");
 			document.getElementById('priceToggle').checked = true;
 			$('#priceToggle').bootstrapToggle('on');
+			RefillEther();
 		}
 		const Fields = document.getElementsByClassName('price-icon')
 		if (document.getElementById('priceToggle1').checked){
@@ -3303,11 +3545,11 @@ try{
 	await getStakes();
 	await getBTSTotals();
 	await getGasPrices();
+	await UserConversions();
 }catch(e){
 	errorHandling(e, 'Initial_Load()');
 }
 console.log("STATES: ", STATES);
 
 }
-
 
