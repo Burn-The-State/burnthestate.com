@@ -527,10 +527,10 @@ color: #000000;
 border: #000000;
 }
 
-.toggle-on.btn :hover{
+.toggle-on.btn:hover{
 border: #e32b17;
 }
-.toggle-off.btn :hover{
+.toggle-off.btn:hover{
 border: #ffffff;
 }
 
