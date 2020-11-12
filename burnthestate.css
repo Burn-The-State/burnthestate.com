@@ -516,11 +516,11 @@ border: 0;
 background-color: #ff7000;
 }*/
 
-.toggle-on{
+.toggle-off.btn{
 background-color: #e32b17;
 color: #000000;	
 }
-.toggle-off{
+.toggle-on.btn{
 background-color: #ffffff;
 color: #000000;	
 }
