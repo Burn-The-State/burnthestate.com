@@ -2789,7 +2789,7 @@ function waitForApproval(tx, ashContract, payload, amount) {
 		//OPEN RECIPET IN NEW TAB
 		window.open("https://etherscan.io/tx/" + res);
 		//RELOAD THIS PAGE
-		location.reload();
+		//location.reload();
       document.getElementById('stakeReceipt').style.opacity = '1';
       // updatePoolBalances();
     });
