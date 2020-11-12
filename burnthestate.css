@@ -515,3 +515,14 @@ border: 0;
 {
 background-color: #ff7000;
 }*/
+
+.toggle-on{
+background-color: #e32b17;
+color: #000000;	
+}
+.toggle-off{
+background-color: #ffffff;
+color: #000000;	
+}
+
+
