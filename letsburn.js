@@ -1232,6 +1232,17 @@ const getLPconversions = async () =>{
 		
 		
 	}
+	
+	STATES.RESERVES ={
+		XAMP: XAMPReserve,
+		TOB: TOBReserve,
+		BOA: BOAReserve,
+		ETH: ETHReserve,
+		YXAMP: YFKAinXAMP /(10**18),
+		YTOB: YFKAinTOB /(10**18),
+		YBOA: YFKAinBOA /(10**18),
+		YETH: YFKAinETH /(10**18),
+	}
 }
 
 const returnLP = async (coin,amount) =>{
@@ -1458,40 +1469,44 @@ const UserConversions = async () =>{
 	const LPconv = STATES.LP_CONVERSIONS;
 	const coinPrices = STATES.PRICES;
 	
+	
+	STATES.RESERVES
+	
+	
 	//POOL PRICING
 	const XAMPLPUSDTOTAL = twoDecimals(
-							(XAMPReserve * XAMPPrice.usd) 
-							+ (YFKAReserve * coinPrices.YFKA.usd)
+							(STATES.RESERVES.XAMP * XAMPPrice.usd) 
+							+ (STATES.RESERVES.YXAMP * coinPrices.YFKA.usd)
 							);
 	const TOBLPUSDTOTAL = twoDecimals(
-							(TOBReserve * TOBPrice.usd)
-							+ (YFKAReserveTOB * coinPrices.YFKA.usd)
+							(STATES.RESERVES.TOB * TOBPrice.usd)
+							+ (STATES.RESERVES.YTOB * coinPrices.YFKA.usd)
 							);
 	const BOALPUSDTOTAL = twoDecimals(
-							(BOAReserve * BOAPrice.usd) 
-							+ (YFKAReserveBOA * coinPrices.YFKA.usd)
+							(STATES.RESERVES.BOA * BOAPrice.usd) 
+							+ (STATES.RESERVES.YBOA * coinPrices.YFKA.usd)
 							);
 	const ETHLPUSDTOTAL = twoDecimals(
-							(ETHReserve * ETHPrice.usd) 
-							+ (YFKAReserveETH * coinPrices.YFKA.usd)
+							(STATES.RESERVES.ETH * ETHPrice.usd) 
+							+ (STATES.RESERVES.YETH * coinPrices.YFKA.usd)
 							);
 	
 	//POOL PRICING
 	const XAMPLPETHTOTAL = twoDecimals(
-							(XAMPReserve * XAMPPrice.eth) 
-							+ (YFKAReserve * coinPrices.YFKA.eth)
+							(STATES.RESERVES.XAMP * XAMPPrice.eth) 
+							+ (STATES.RESERVES.YXAMP * coinPrices.YFKA.eth)
 							);
 	const TOBLPETHTOTAL = twoDecimals(
-							(TOBReserve * TOBPrice.eth)
-							+ (YFKAReserveTOB * coinPrices.YFKA.eth)
+							(STATES.RESERVES.TOB * TOBPrice.eth)
+							+ (STATES.RESERVES.YTOB * coinPrices.YFKA.eth)
 							);
 	const BOALPETHTOTAL = twoDecimals(
-							(BOAReserve * BOAPrice.eth) 
-							+ (YFKAReserveBOA * coinPrices.YFKA.eth)
+							(STATES.RESERVES.BOA * BOAPrice.eth) 
+							+ (STATES.RESERVES.YBOA * coinPrices.YFKA.eth)
 							);
 	const ETHLPETHTOTAL = twoDecimals(
-							(ETHReserve * ETHPrice.eth) 
-							+ (YFKAReserveETH * coinPrices.YFKA.eth)
+							(STATES.RESERVES.ETH * ETHPrice.eth) 
+							+ (STATES.RESERVES.YETH * coinPrices.YFKA.eth)
 							);
 	
 	
@@ -3552,4 +3567,3 @@ try{
 console.log("STATES: ", STATES);
 
 }
-
