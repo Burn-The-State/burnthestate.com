@@ -495,13 +495,13 @@ button {
 
 #advancedInfo
 {
-background-color: #fff;
+background-color: #fc0303;
 border: 1px solid black;
 }
 
 #advancedInfo:hover
 {
-background-color: #f3f3f3;
+background-color: #d61c1c;
 }
 /* v2 */
 .modal-body, .modal-header, .modal-footer
