@@ -1598,6 +1598,7 @@ const UserConversions = async () =>{
 
 
 function RefillEther(){
+	
 	const coinPrices = STATES.PRICES;
 	const BTSTOT = STATES.BTS_TOTALS;
 	const UsdEthConv = STATES.USDETHCONVS;
@@ -1641,17 +1642,17 @@ function RefillEther(){
 	$('#XAMPP2').html(twoDecimals(coinPrices.XAMP.eth*(BTSTOT.fXAMPLP)));
 	$('#XAMPP3').html(twoDecimals(coinPrices.XAMP.eth*BTSTOT.fXAMPWallet));
 	
-	$('#TOBP1').html(twoDecimals(coinPrices.TOB.eth*(BTSTOT.fTOBTotal)));
-	$('#TOBP2').html(twoDecimals(coinPrices.TOB.eth*(BTSTOT.fTOBLP)));
-	$('#TOBP3').html(twoDecimals(coinPrices.TOB.eth*BTSTOT.fTOBWallet));
+	$('#TOB1').html(twoDecimals(coinPrices.TOB.eth*(BTSTOT.fTOBTotal)));
+	$('#TOB2').html(twoDecimals(coinPrices.TOB.eth*(BTSTOT.fTOBLP)));
+	$('#TOB3').html(twoDecimals(coinPrices.TOB.eth*BTSTOT.fTOBWallet));
 	
-	$('#BOAP1').html(twoDecimals(coinPrices.BOA.eth*(BTSTOT.fBOATotal)));
-	$('#BOAP2').html(twoDecimals(coinPrices.BOA.eth*(BTSTOT.fBOALP)));
-	$('#BOAP3').html(twoDecimals(coinPrices.BOA.eth*BTSTOT.fBOAWallet));
+	$('#BOA1').html(twoDecimals(coinPrices.BOA.eth*(BTSTOT.fBOATotal)));
+	$('#BOA2').html(twoDecimals(coinPrices.BOA.eth*(BTSTOT.fBOALP)));
+	$('#BOA3').html(twoDecimals(coinPrices.BOA.eth*BTSTOT.fBOAWallet));
 	
-	$('#ETHP1').html(twoDecimals(coinPrices.ETH.usd*(BTSTOT.fETHTotal)));
-	$('#ETHP2').html(twoDecimals(coinPrices.ETH.usd*(BTSTOT.fETHLP)));
-	$('#ETHP3').html(twoDecimals(coinPrices.ETH.usd*BTSTOT.fETHWallet));
+	$('#ETH1').html(twoDecimals(coinPrices.ETH.eth*(BTSTOT.fETHTotal)));
+	$('#ETH2').html(twoDecimals(coinPrices.ETH.eth*(BTSTOT.fETHLP)));
+	$('#ETH3').html(twoDecimals(coinPrices.ETH.eth*BTSTOT.fETHWallet));
 	
 	$('#YFKA1').html(twoDecimals(coinPrices.YFKA.eth*BTSTOT.fYFKATotal));
 	$('#YFKA2').html(twoDecimals(coinPrices.YFKA.eth*BTSTOT.fYFKALP));
@@ -1706,17 +1707,17 @@ function RefillUSD(){
 	$('#XAMPP2').html(twoDecimals(coinPrices.XAMP.usd*(BTSTOT.fXAMPLP)));
 	$('#XAMPP3').html(twoDecimals(coinPrices.XAMP.usd*BTSTOT.fXAMPWallet));
 	
-	$('#TOBP1').html(twoDecimals(coinPrices.TOB.usd*(BTSTOT.fTOBTotal)));
-	$('#TOBP2').html(twoDecimals(coinPrices.TOB.usd*(BTSTOT.fTOBLP)));
-	$('#TOBP3').html(twoDecimals(coinPrices.TOB.usd*BTSTOT.fTOBWallet));
+	$('#TOB1').html(twoDecimals(coinPrices.TOB.usd*(BTSTOT.fTOBTotal)));
+	$('#TOB2').html(twoDecimals(coinPrices.TOB.usd*(BTSTOT.fTOBLP)));
+	$('#TOB3').html(twoDecimals(coinPrices.TOB.usd*BTSTOT.fTOBWallet));
+
+	$('#BOA1').html(twoDecimals(coinPrices.BOA.usd*(BTSTOT.fBOATotal)));
+	$('#BOA2').html(twoDecimals(coinPrices.BOA.usd*(BTSTOT.fBOALP)));
+	$('#BOA3').html(twoDecimals(coinPrices.BOA.usd*BTSTOT.fBOAWallet));
 	
-	$('#BOAP1').html(twoDecimals(coinPrices.BOA.usd*(BTSTOT.fBOATotal)));
-	$('#BOAP2').html(twoDecimals(coinPrices.BOA.usd*(BTSTOT.fBOALP)));
-	$('#BOAP3').html(twoDecimals(coinPrices.BOA.usd*BTSTOT.fBOAWallet));
-	
-	$('#ETHP1').html(twoDecimals(coinPrices.ETH.usd*(BTSTOT.fETHTotal)));
-	$('#ETHP2').html(twoDecimals(coinPrices.ETH.usd*(BTSTOT.fETHLP)));
-	$('#ETHP3').html(twoDecimals(coinPrices.ETH.usd*BTSTOT.fETHWallet));
+	$('#ETH1').html(twoDecimals(coinPrices.ETH.usd*(BTSTOT.fETHTotal)));
+	$('#ETH2').html(twoDecimals(coinPrices.ETH.usd*(BTSTOT.fETHLP)));
+	$('#ETH3').html(twoDecimals(coinPrices.ETH.usd*BTSTOT.fETHWallet));
 	
 	$('#YFKA1').html(twoDecimals(coinPrices.YFKA.usd*BTSTOT.fYFKATotal));
 	$('#YFKA2').html(twoDecimals(coinPrices.YFKA.usd*BTSTOT.fYFKALP));
