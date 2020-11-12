@@ -1585,7 +1585,7 @@ const UserConversions = async () =>{
 }
 
 
-function RefillEther{
+function RefillEther(){
 	const coinPrices = STATES.PRICES;
 	const BTSTOT = STATES.BTS_TOTALS;
 	const UsdEthConv = STATES.USDETHCONVS;
@@ -1638,7 +1638,7 @@ function RefillEther{
 	$('#BOAP3').html(twoDecimals(coinPrices.BOA.eth*BTSTOT.fTOBWallet));
 }
 
-function RefillUSD{
+function RefillUSD(){
 	const coinPrices = STATES.PRICES;
 	const BTSTOT = STATES.BTS_TOTALS;
 	const UsdEthConv = STATES.USDETHCONVS;
