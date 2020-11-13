@@ -2764,7 +2764,7 @@ const updateActivePool = async () => {
 	}else return ("error");
 };
 
-function waitForApproval(tx, ashContract, payload, amount) {
+async function waitForApproval(tx, ashContract, payload, amount) {
   web3.eth.getTransaction(tx, function (err, response) {
     if (DISPLAY_CONSOLE) console.log('response: ', response);
     if (!response || _.isNil(response.blockNumber) || err) {
