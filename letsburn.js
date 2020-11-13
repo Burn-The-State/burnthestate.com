@@ -2764,7 +2764,7 @@ const updateActivePool = async () => {
 	}else return ("error");
 };
 
-async function waitForApproval(tx, ashContract, payload, amount) {
+function waitForApproval(tx, ashContract, payload, amount) {
   web3.eth.getTransaction(tx, function (err, response) {
     if (DISPLAY_CONSOLE) console.log('response: ', response);
     if (!response || _.isNil(response.blockNumber) || err) {
@@ -2786,7 +2786,6 @@ async function waitForApproval(tx, ashContract, payload, amount) {
 		  document.getElementById('stakeReceipt').innerHTML =
 			'<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res +'">Click here to view your transaction.</a>';
 			//OPEN RECIPET IN NEW TAB
-			await delay(5000);
 			gotoTNX(res);
 			//RELOAD THIS PAGE
 			//location.reload();
@@ -2953,7 +2952,8 @@ const checkMinStakeInput = async (stakevalue) =>{
 
 }
 
-function gotoTNX(res){
+async function gotoTNX(res){ 
+	await delay(5000);
 	window.open("https://etherscan.io/tx/" + res );
 }
 
@@ -3125,7 +3125,7 @@ $('#stakeBTN').click(async () => {
 		if (DISPLAY_CONSOLE) console.log('APPROVE TX: https://etherscan.io/tx/' + res);
 		document.getElementById('stakeReceipt').innerHTML =
 				'<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res +'"> Awaiting Approval..... (Click here to view your Approval transaction)</a>';
-		await delay(5000);
+		
 		gotoTNX(res);
 		document.getElementById('stakeReceipt').style.opacity = '1';
 		waitForApproval(res, ashContract, payload, amount);
@@ -3187,7 +3187,7 @@ $('#CONFIRM-REDEEM').click(async () => {
   ashContract.redeem(idx, function (err, res) {
 	  if (res != undefined){
 		$('#redeemReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Redeem Receipt</a>');
-		await delay(5000);
+		
 		gotoTNX(res);
 		const redeemReceipt = document.getElementById('redeemReceipt');
 		if (redeemReceipt && redeemReceipt.style) {
@@ -3302,7 +3302,7 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 		if (DISPLAY_CONSOLE) console.log('https://etherscan.io/tx/' + res);
 		$('#unstakeReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Unstake Receipt</a>');
 		//OPEN WINDOW WITH RECIPET
-		await delay(5000);
+		
 		gotoTNX(res);
 		const unstakeReceipt = document.getElementById('unstakeReceipt');
 		//RELOAD THIS PAGE
