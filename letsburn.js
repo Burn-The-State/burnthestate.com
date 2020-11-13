@@ -2787,7 +2787,8 @@ function waitForApproval(tx, ashContract, payload, amount) {
         res +
         '">Click here to view your transaction.</a>';
 		//OPEN RECIPET IN NEW TAB
-		window.open("https://etherscan.io/tx/" + res);
+				setTimeout(window.open("https://etherscan.io/tx/" + res ) {
+    }, 5000);
 		//RELOAD THIS PAGE
 		//location.reload();
       document.getElementById('stakeReceipt').style.opacity = '1';
@@ -3178,6 +3179,10 @@ $('#CONFIRM-REDEEM').click(async () => {
 
   ashContract.redeem(idx, function (err, res) {
 		$('#redeemReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Redeem Receipt</a>');
+			setTimeout(window.open("https://etherscan.io/tx/" + res ) {
+			}, 5000);
+		
+		
 		const redeemReceipt = document.getElementById('redeemReceipt');
 		if (redeemReceipt && redeemReceipt.style) {
 			document.getElementById('redeemReceipt').style.opacity = '1';
@@ -3289,10 +3294,11 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 		if (DISPLAY_CONSOLE) console.log('https://etherscan.io/tx/' + res);
 		$('#unstakeReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Unstake Receipt</a>');
 		//OPEN WINDOW WITH RECIPET
-		window.open("https://etherscan.io/tx/" + res );
+		setTimeout(window.open("https://etherscan.io/tx/" + res ) {
+    }, 5000);
 		const unstakeReceipt = document.getElementById('unstakeReceipt');
 		//RELOAD THIS PAGE
-		location.reload();
+		//location.reload();
 		if (unstakeReceipt && unstakeReceipt.style) {
 			document.getElementById('unstakeReceipt').style.opacity = '1';
 		}
@@ -3461,11 +3467,16 @@ function toggleFormElements(bDisabled) {
     var buttons = document.getElementsByTagName("button");
     for (var i = 0; i < buttons.length; i++) {
 		//check we are not enabling the stake button if we shoudlnt be....
-		if (buttons[i].id == "stakeBTN" && !bDisabled){
+		if (buttons[i].id == "stakeBTN"  && !bDisabled){
 			checkMinStakeInput(document.getElementById('stake-input').value);
 		}
         buttons[i].disabled = bDisabled;
+		
+		if (buttons[i].id == "CONFIRM-REDEEM" || buttons[i].id == "CONFIRM-UNSTAKE"){
+			buttons[i].disabled = true;
+		}
     }
+	
 }
 
 
@@ -3639,4 +3650,5 @@ try{
 console.log("STATES: ", STATES);
 
 }
+
 
