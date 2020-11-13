@@ -2782,14 +2782,16 @@ function waitForApproval(tx, ashContract, payload, amount) {
     if (DISPLAY_CONSOLE) console.log('Payload: ', payload);
     if (DISPLAY_CONSOLE) console.log('Calling: Stake ');
     ashContract.stake(payload, amount, function (err, res) {
-      document.getElementById('stakeReceipt').innerHTML =
-        '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res +'">Click here to view your transaction.</a>';
-		//OPEN RECIPET IN NEW TAB
-				setTimeout(window.open("https://etherscan.io/tx/" + res ), 5000);
-		//RELOAD THIS PAGE
-		//location.reload();
-      document.getElementById('stakeReceipt').style.opacity = '1';
-      // updatePoolBalances();
+		if (res != undefined){
+		  document.getElementById('stakeReceipt').innerHTML =
+			'<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res +'">Click here to view your transaction.</a>';
+			//OPEN RECIPET IN NEW TAB
+					setTimeout(window.open("https://etherscan.io/tx/" + res ), 5000);
+			//RELOAD THIS PAGE
+			//location.reload();
+		  document.getElementById('stakeReceipt').style.opacity = '1';
+		  // updatePoolBalances();
+		}
     });
   });
 }
@@ -3175,12 +3177,14 @@ $('#CONFIRM-REDEEM').click(async () => {
   const idx = getIndexBySymbol(value);
 
   ashContract.redeem(idx, function (err, res) {
+	  if (res != undefined){
 		$('#redeemReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Redeem Receipt</a>');
 			setTimeout(window.open("https://etherscan.io/tx/" + res ), 5000);
 		const redeemReceipt = document.getElementById('redeemReceipt');
 		if (redeemReceipt && redeemReceipt.style) {
 			document.getElementById('redeemReceipt').style.opacity = '1';
 		}
+	  }
   });
 });
 
@@ -3285,6 +3289,7 @@ $('#CONFIRM-UNSTAKE').click(async () => {
   
   amount = _.toNumber(amount) * 10 ** 18;
   ashContract.unstake(idx, amount, function (err, res) {
+	  if (res != undefined){
 		if (DISPLAY_CONSOLE) console.log('https://etherscan.io/tx/' + res);
 		$('#unstakeReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Unstake Receipt</a>');
 		//OPEN WINDOW WITH RECIPET
@@ -3295,6 +3300,7 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 		if (unstakeReceipt && unstakeReceipt.style) {
 			document.getElementById('unstakeReceipt').style.opacity = '1';
 		}
+	  }
   });
 });
 
@@ -3643,5 +3649,6 @@ try{
 console.log("STATES: ", STATES);
 
 }
+
 
 
