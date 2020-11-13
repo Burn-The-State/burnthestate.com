@@ -2783,12 +2783,9 @@ function waitForApproval(tx, ashContract, payload, amount) {
     if (DISPLAY_CONSOLE) console.log('Calling: Stake ');
     ashContract.stake(payload, amount, function (err, res) {
       document.getElementById('stakeReceipt').innerHTML =
-        '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' +
-        res +
-        '">Click here to view your transaction.</a>';
+        '<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res +'">Click here to view your transaction.</a>';
 		//OPEN RECIPET IN NEW TAB
-				setTimeout(window.open("https://etherscan.io/tx/" + res ) {
-    }, 5000);
+				setTimeout(window.open("https://etherscan.io/tx/" + res ), 5000);
 		//RELOAD THIS PAGE
 		//location.reload();
       document.getElementById('stakeReceipt').style.opacity = '1';
@@ -3179,10 +3176,7 @@ $('#CONFIRM-REDEEM').click(async () => {
 
   ashContract.redeem(idx, function (err, res) {
 		$('#redeemReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Redeem Receipt</a>');
-			setTimeout(window.open("https://etherscan.io/tx/" + res ) {
-			}, 5000);
-		
-		
+			setTimeout(window.open("https://etherscan.io/tx/" + res ), 5000);
 		const redeemReceipt = document.getElementById('redeemReceipt');
 		if (redeemReceipt && redeemReceipt.style) {
 			document.getElementById('redeemReceipt').style.opacity = '1';
@@ -3294,8 +3288,7 @@ $('#CONFIRM-UNSTAKE').click(async () => {
 		if (DISPLAY_CONSOLE) console.log('https://etherscan.io/tx/' + res);
 		$('#unstakeReceipt').html('<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res + '">Unstake Receipt</a>');
 		//OPEN WINDOW WITH RECIPET
-		setTimeout(window.open("https://etherscan.io/tx/" + res ) {
-    }, 5000);
+		setTimeout(window.open("https://etherscan.io/tx/" + res ),5000);
 		const unstakeReceipt = document.getElementById('unstakeReceipt');
 		//RELOAD THIS PAGE
 		//location.reload();
