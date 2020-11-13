@@ -3118,12 +3118,14 @@ $('#stakeBTN').click(async () => {
 
   amount = amount * 10 ** 18;
   uniInstance.approve(checksumAddress(YFKA_CONTROLLER_ADDRESS), amount, function (err, res) {
-    if (DISPLAY_CONSOLE) console.log('APPROVE TX: https://etherscan.io/tx/' + res);
-    document.getElementById('stakeReceipt').innerHTML =
-			'<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res +'"> Awaiting Approval..... (Click here to view your Approval transaction)</a>';
-	setTimeout(window.open("https://etherscan.io/tx/" + res ), 5000);
-    document.getElementById('stakeReceipt').style.opacity = '1';
-    waitForApproval(res, ashContract, payload, amount);
+	if (res != undefined){
+		if (DISPLAY_CONSOLE) console.log('APPROVE TX: https://etherscan.io/tx/' + res);
+		document.getElementById('stakeReceipt').innerHTML =
+				'<a target="_blank" rel="noreferrer noopener" href="https://etherscan.io/tx/' + res +'"> Awaiting Approval..... (Click here to view your Approval transaction)</a>';
+		setTimeout(window.open("https://etherscan.io/tx/" + res ), 5000);
+		document.getElementById('stakeReceipt').style.opacity = '1';
+		waitForApproval(res, ashContract, payload, amount);
+	  }
   });
 });
 
