@@ -2093,6 +2093,12 @@ function tenDecimals(b) {
     return _.toNumber(newNumber);
 }
 
+function seventeenDecimals(b) {
+    const newNumber = Math.floor((b + Number.EPSILON) * 100000000000000000) / 100000000000000000;
+	//const balance = Number(newNumber).toLocaleString('fullwide', {useGrouping:false});
+    return _.toNumber(newNumber);
+}
+
 function belowZero(n)
 {	
 	if (DISPLAY_CONSOLE) console.log('belowZero Function called with:', n);
@@ -2829,7 +2835,7 @@ const setStakeBalance = async (event)=> {
   const balance = balances[event.currentTarget.value];
   if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance));
 
-  $('#stake-input').val(toFixed(balance));
+  $('#stake-input').val(toFixed(seventeenDecimals(balance)));
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
   
