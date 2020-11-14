@@ -2814,6 +2814,80 @@ function waitForApproval(tx, ashContract, payload, amount) {
   });
 }
 
+
+
+
+var reroundDown = function(value) {
+	if (DISPLAY_CONSOLE) console.log('reroundDown Input Value:' , value);
+    if (Math.floor(value) !== value)
+        const decimals = value.toString().split(".")[1].length || 0; //Get Decimal places
+		switch (decimals){
+			case 1:
+			value = value - 0.1;
+			break;
+			case 2: 
+			value = value - 0.01;
+			break;
+			case 3:
+			value = value - 0.001;
+			break;
+			case 4:
+			value = value - 0.0001;
+			break;
+			case 5:
+			value = value - 0.00001;
+			break;
+			case 6:
+			value = value - 0.000001;
+			break;
+			case 7:
+			value = value - 0.0000001;
+			break;
+			case 8: 
+			value = value - 0.00000001;
+			break;
+			case 9:
+			value = value - 0.000000001;
+			break;
+			case 10:
+			value = value - 0.0000000001;
+			break;
+			case 11:
+			value = value - 0.00000000001;
+			break;
+			case 12:
+			value = value - 0.000000000001;
+			break;
+			case 13:
+			value = value - 0.0000000000001;
+			break;
+			case 14:
+			value = value - 0.00000000000001;
+			break;
+			case 15:
+			value = value - 0.000000000000001;
+			break;
+			case 16:
+			value = value - 0.0000000000000001;
+			break;
+			case 17:
+			value = value - 0.00000000000000001;
+			break;
+			case 18:
+			value = value - 0.000000000000000001;
+			break;
+			
+			
+			
+		}
+		if (DISPLAY_CONSOLE) console.log('reroundDown Input Value (ROUNDED):' , value);
+		return value;
+
+    return 0;
+}
+
+
+
 const setStakeBalance = async (event)=> {
 	//FIRSTLY WE SET THE MIN VALUES
 	const minStake = await stakeMinimumPriceForStaking();
@@ -2847,16 +2921,10 @@ const setStakeBalance = async (event)=> {
   const balance = balances[event.currentTarget.value];
   if (DISPLAY_CONSOLE) console.log('balance: ', balance);
 
-	
-	if (balance>0){
-  $('#stake-input').val(toFixed(balance));
+  $('#stake-input').val(reroundDown(toFixed(balance)));
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
-}else{
-	  $('#stake-input').val(toFixed(0));
-  // $('#stake-input').attr('placeholder', `${balance}`);
-  $('#stake-balance').html(sixDecimals(0));
-}
+
   
   //ACTIVATE BUTTON IF BALANCE IS ABOVE MIN
   	if (balance < LPMin){
