@@ -2848,6 +2848,10 @@ const setStakeBalance = async (event)=> {
   $('#stake-input').val(toFixed(balance));
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
+}else{
+	  $('#stake-input').val(toFixed(0));
+  // $('#stake-input').attr('placeholder', `${balance}`);
+  $('#stake-balance').html(sixDecimals(0));
 }
   
   //ACTIVATE BUTTON IF BALANCE IS ABOVE MIN
