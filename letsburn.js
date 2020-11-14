@@ -3000,7 +3000,7 @@ const setUnstakeBalance = async () => {
 		if (DISPLAY_CONSOLE) console.log('_.toInteger(res)');
 		if (DISPLAY_CONSOLE) console.log(_.toInteger(res));
 
-		const balance = reroundDown(_.toNumber(res) / 10 ** 18);
+		const balance = _.toNumber(res) / 10 ** 18;
 		const reablebalance = fourDecimals(balance);
     if (DISPLAY_CONSOLE) console.log('Staked XAMP: ', balance);
     $('#unstake-input').val(`${balance}`);
