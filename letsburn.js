@@ -2187,7 +2187,7 @@ const getPoolBalances = async () => {
   if (!account) return null;
 
   // YFKA_XAMP
-  const xampContractBalance = await STATES.CONTRACTS.YFKA_XAMP.methods
+  var xampContractBalance = await STATES.CONTRACTS.YFKA_XAMP.methods
     .balanceOf(account)
     .call();
   if (DISPLAY_CONSOLE) console.log('xampContractBalance: ', xampContractBalance);
@@ -2196,43 +2196,51 @@ const getPoolBalances = async () => {
   if (DISPLAY_CONSOLE) console.log('xampContractDecimals: ', xampContractDecimals);
 
   // YFKA_TOB
-  const tobContractBalance = await STATES.CONTRACTS.YFKA_TOB.methods
+  var tobContractBalance = await STATES.CONTRACTS.YFKA_TOB.methods
     .balanceOf(account)
     .call();
   if (DISPLAY_CONSOLE) console.log('tobContractBalance: ', tobContractBalance);
 
-  const tobContractDecimals = await STATES.CONTRACTS.YFKA_TOB.methods.decimals().call();
+  var tobContractDecimals = await STATES.CONTRACTS.YFKA_TOB.methods.decimals().call();
   if (DISPLAY_CONSOLE) console.log('tobContractDecimals: ', tobContractDecimals);
 
   // YFKA_BOA
-  const boaContractBalance = await STATES.CONTRACTS.YFKA_BOA.methods
+  var boaContractBalance = await STATES.CONTRACTS.YFKA_BOA.methods
     .balanceOf(account)
     .call();
   if (DISPLAY_CONSOLE) console.log('boaContractBalance: ', boaContractBalance);
 
-  const boaContractDecimals = await STATES.CONTRACTS.YFKA_BOA.methods.decimals().call();
+  var boaContractDecimals = await STATES.CONTRACTS.YFKA_BOA.methods.decimals().call();
   if (DISPLAY_CONSOLE) console.log('boaContractDecimals: ', boaContractDecimals);
 
   // YFKA_ETH
-  const ethContractBalance = await STATES.CONTRACTS.YFKA_ETH.methods
+  var ethContractBalance = await STATES.CONTRACTS.YFKA_ETH.methods
     .balanceOf(account)
     .call();
   if (DISPLAY_CONSOLE) console.log('ethContractBalance: ', ethContractBalance);
 
-  const ethContractDecimals = await STATES.CONTRACTS.YFKA_ETH.methods.decimals().call();
+  var ethContractDecimals = await STATES.CONTRACTS.YFKA_ETH.methods.decimals().call();
   if (DISPLAY_CONSOLE) console.log('ethContractDecimals: ', ethContractDecimals);
 
   // TODO TOB showing NaN so figure that out
+  
+  
+  if (xampContractBalance > 0) xampContractBalance = xampContractBalance-1;
+  if (tobContractBalance > 0) tobContractBalance = tobContractBalance-1;	  
+  if (boaContractBalance > 0) boaContractBalance = boaContractBalance-1; 
+  if (ethContractBalance > 0) ethContractBalance = ethContractBalance-1; 
+
+  
   const amounts = {
     XAMP: xampContractBalance
-      ? (xampContractBalance / 10 ** xampContractDecimals) - 0.000000000000000001
+      ? (xampContractBalance / 10 ** xampContractDecimals)
       : 0,
-    TOB: tobContractBalance ? (tobContractBalance / 10 ** tobContractDecimals) - 0.000000000000000001 : 0,
+    TOB: tobContractBalance ? (tobContractBalance / 10 ** tobContractDecimals) : 0,
     BOA: boaContractBalance
-      ? (boaContractBalance / 10 ** boaContractDecimals)- 0.000000000000000001
+      ? (boaContractBalance / 10 ** boaContractDecimals)
       : 0,
     ETH: ethContractBalance
-      ? (ethContractBalance / 10 ** ethContractDecimals)- 0.000000000000000001
+      ? (ethContractBalance / 10 ** ethContractDecimals)
       : 0,
   };
 
@@ -2833,12 +2841,8 @@ const setStakeBalance = async (event)=> {
   if (DISPLAY_CONSOLE) console.log('balances: ', balances);
   // const balance = twoDecimals(balances[event.currentTarget.value]);
   const balance = balances[event.currentTarget.value];
-  if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance-0.0000000000000001));
-    if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(tenDecimals(balance-0.0000000000000001)));
-	if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance - 0.000000000000000001));
-	if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance - 0.00000000000000001));
-	if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance - 0.0000000000000001));
-	if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance - 0.1));
+  if (DISPLAY_CONSOLE) console.log('balance: ', balance);
+
 	
 	if (balance>0){
   $('#stake-input').val(toFixed(balance-0.0000000000000001));
