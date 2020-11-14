@@ -2819,7 +2819,7 @@ function waitForApproval(tx, ashContract, payload, amount) {
 
 var reroundDown = function(value) {
 	if (DISPLAY_CONSOLE) console.log('reroundDown Input Value:' , value);
-    if (Math.floor(value) !== value){
+    
         const decimals = value.toString().split(".")[1].length || 0; //Get Decimal places
 		switch (decimals){
 			case 1:
@@ -2882,8 +2882,6 @@ var reroundDown = function(value) {
 		}
 		if (DISPLAY_CONSOLE) console.log('reroundDown Input Value (ROUNDED):' , value);
 		return value;
-	}
-    return 0;
 }
 
 
