@@ -69,11 +69,13 @@ mark
 	text-decoration: underline;
 }
 
-#buy
+/*#buy
 {
-	/*background-color: #fff;*/
-	/*color: #fff;*/
-}
+
+	background-color: #fff;
+	color: #fff;
+}*/
+
 
 #buy img
 {
@@ -467,16 +469,19 @@ button {
 	background: transparent;
 }
 
-#row3 .btn
+
+#row3 .btn-dark
 {
 	background-color: #000;
 	border: 0px !important;
 }
 
-#walletInfo
+
+/*#walletInfo
 {
 
-}
+}*/
+
 
 #dginfo
 {
@@ -488,19 +493,23 @@ button {
 	border: 0 !important;
 }
 
-#infoBox, #walletInfo
+
+/*#infoBox, #walletInfo
 {
 	border-left: left: 1px solid #b9b9b9 !important;	
-}
+}*/
 
 #advancedInfo
 {
-background-color: #fff;
+background-color: #ffffff;
+border: 1px solid black;
 }
 
 #advancedInfo:hover
 {
-background-color: #f3f3f3;
+
+background-color: #d61c1c;
+
 }
 /* v2 */
 .modal-body, .modal-header, .modal-footer
@@ -514,3 +523,23 @@ border: 0;
 {
 background-color: #ff7000;
 }*/
+
+
+.toggle-on.btn {
+background-color: #e32b17;
+color: #000000;	
+border: #000000;
+}
+.toggle-off.btn {
+background-color: #ffffff;
+color: #000000;	
+border: #000000;
+}
+
+.toggle-on.btn:hover{
+border: #e32b17;
+}
+.toggle-off.btn:hover{
+border: #ffffff;
+}
+
