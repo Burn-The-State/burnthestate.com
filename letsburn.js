@@ -2845,7 +2845,7 @@ const setStakeBalance = async (event)=> {
 
 	
 	if (balance>0){
-  $('#stake-input').val(toFixed(balance-0.0000000000000001));
+  $('#stake-input').val(toFixed(balance));
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
 }
