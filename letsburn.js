@@ -20,7 +20,7 @@ const TOKENS = {
   ETH: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
 };
 
-const DISPLAY_CONSOLE = true;
+const DISPLAY_CONSOLE = false;
 const DISPLAY_ERRORS = true;
 
 const PAIRS = {
@@ -1163,11 +1163,11 @@ const getWalletBTSCoins = async () => {
 	const totalBALANCEETH = Etherbalance;
 	const totalBALANCEYFKA = await STATES.CONTRACTS.YFKA.methods.balanceOf(account).call();
 	
-	console.log("XAMP BALANCE WALLET =", totalBALANCEXAMP/(10**18));
-	console.log("TOB BALANCE WALLET =", totalBALANCETOB/(10**18));
-	console.log("BOA BALANCE WALLET =", totalBALANCEBOA/(10**18));
-	console.log("ETH BALANCE WALLET =", totalBALANCEETH/(10**18));
-	console.log("YFKA BALANCE WALLET =", totalBALANCEYFKA/(10**18));
+	if (DISPLAY_CONSOLE) console.log("XAMP BALANCE WALLET =", totalBALANCEXAMP/(10**18));
+	if (DISPLAY_CONSOLE) console.log("TOB BALANCE WALLET =", totalBALANCETOB/(10**18));
+	if (DISPLAY_CONSOLE) console.log("BOA BALANCE WALLET =", totalBALANCEBOA/(10**18));
+	if (DISPLAY_CONSOLE) console.log("ETH BALANCE WALLET =", totalBALANCEETH/(10**18));
+	if (DISPLAY_CONSOLE) console.log("YFKA BALANCE WALLET =", totalBALANCEYFKA/(10**18));
 	
 	STATES.WALLET_BALANCES = {
 		XAMP: totalBALANCEXAMP,
@@ -1205,20 +1205,20 @@ const getLPconversions = async () =>{
 	//XAMP POOL
 	const XAMPtoLP = (XAMPReserve/LP.XAMP) *(10**18);
 	const YFKAtoLPX = ((YFKAinXAMP/(10**18)) /LP.XAMP)*(10**18);
-	console.log("YFKA TO LP (XAMP):", YFKAtoLPX);
+	if (DISPLAY_CONSOLE) console.log("YFKA TO LP (XAMP):", YFKAtoLPX);
 
 	//TOB POOL
 	const TOBtoLP = (TOBReserve/LP.TOB) *(10**18);
 	const YFKAtoLPT = ((YFKAinTOB/(10**18)) /LP.TOB)*(10**18);
-	console.log("YFKA TO LP (TOB):", YFKAtoLPT);
+	if (DISPLAY_CONSOLE) console.log("YFKA TO LP (TOB):", YFKAtoLPT);
 	//BOA POOL
 	const BOAtoLP = (BOAReserve/LP.BOA) *(10**18);
 	const YFKAtoLPB = ((YFKAinBOA/(10**18)) /LP.BOA)*(10**18);
-	console.log("YFKA TO LP (ETH):", YFKAtoLPB);
+	if (DISPLAY_CONSOLE) console.log("YFKA TO LP (ETH):", YFKAtoLPB);
 	//ETH POOL
 	const ETHtoLP = (ETHReserve/LP.ETH) *(10**18);
 	const YFKAtoLPE = ((YFKAinETH/(10**18)) /LP.ETH)*(10**18);
-	console.log("YFKA TO LP (ETH):", YFKAtoLPE);
+	if (DISPLAY_CONSOLE) console.log("YFKA TO LP (ETH):", YFKAtoLPE);
 
 	STATES.LP_CONVERSIONS = {
 		YFKAtoLPXAMP: YFKAtoLPX,
@@ -1755,7 +1755,7 @@ const FillInfo = async () => {
 	const TOBPrice = coinPrices.TOB;
 	const BOAPrice = coinPrices.BOA;
 	const ETHPrice = coinPrices.ETH;
-	console.log("ETH PRICE: ", ETHPrice);
+	if (DISPLAY_CONSOLE) console.log("ETH PRICE: ", ETHPrice);
 
 
 	//GET XAMP POOLED
@@ -3315,14 +3315,14 @@ $('input[type=checkbox][name=priceToggle]').change(async () =>{
 	
 	if (Changer == false){
 		Changer = true;
-		console.log("PriceToggle Checked!");
+		if (DISPLAY_CONSOLE)console.log("PriceToggle Checked!");
 		if (document.getElementById('priceToggle1').checked){
-			console.log("Setting PriceToggle1 to Unchecked (USD)");
+			if (DISPLAY_CONSOLE)console.log("Setting PriceToggle1 to Unchecked (USD)");
 			document.getElementById('priceToggle1').checked = false;
 			$('#priceToggle1').bootstrapToggle('off');
 			RefillUSD();
 		}else{
-			console.log("Setting PriceToggle to Checked (ETH)");
+			if (DISPLAY_CONSOLE)console.log("Setting PriceToggle to Checked (ETH)");
 			document.getElementById('priceToggle1').checked = true;
 			$('#priceToggle1').bootstrapToggle('on');
 			RefillEther();
@@ -3347,14 +3347,14 @@ $('input[type=checkbox][name=priceToggle]').change(async () =>{
 $('input[type=checkbox][name=priceToggle1]').change(async () =>{
 	if (Changer == false){
 		Changer = true;
-		console.log("PriceToggle1 Checked!");
+		if (DISPLAY_CONSOLE)console.log("PriceToggle1 Checked!");
 		if (document.getElementById('priceToggle').checked){
-			console.log("Setting PriceToggle to Unchecked (USD)");
+			if (DISPLAY_CONSOLE)console.log("Setting PriceToggle to Unchecked (USD)");
 			document.getElementById('priceToggle').checked = false;
 			RefillUSD();
 			$('#priceToggle').bootstrapToggle('off');
 		}else{
-			console.log("Setting PriceToggle to Checked (ETH)");
+			if (DISPLAY_CONSOLE)console.log("Setting PriceToggle to Checked (ETH)");
 			document.getElementById('priceToggle').checked = true;
 			$('#priceToggle').bootstrapToggle('on');
 			RefillEther();
@@ -3598,7 +3598,7 @@ function toggleFormElements(bDisabled) {
 
 window.addEventListener('load', async (event) => {
 	toggleFormElements(true);
-	if (DISPLAY_CONSOLE) console.log("PAGE LOAD");
+	console.log("PAGE LOAD");
 	var start = performance.now();
 	await Initial_Load();
 	
@@ -3633,7 +3633,7 @@ window.addEventListener('load', async (event) => {
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 				var end =	performance.now();
 				var time = end - start;
-				console.log('Execution time (main Load): ', time/1000, " seconds");	
+				if (DISPLAY_CONSOLE)console.log('Execution time (main Load): ', time/1000, " seconds");	
 				
 				console.log("--------- ALL USER ELEMENTS HAVE BEEN RELEASED -------");	
 			}			
@@ -3645,7 +3645,7 @@ window.addEventListener('load', async (event) => {
 				await fillYFKAinfo();
 				
 				
-				console.log("User is logged in to MetaMask");
+				if (DISPLAY_CONSOLE)console.log("User is logged in to MetaMask");
 				if (DISPLAY_CONSOLE) console.log('ACCOUNTS CONNECTED!');
 				await updateGlobal();
 
@@ -3701,7 +3701,7 @@ window.addEventListener('load', async (event) => {
 				if (DISPLAY_CONSOLE) console.log("---END OF INITIAL LOAD---");
 				var end =	performance.now();
 				var time = end - start;
-				console.log('Execution time (main Load): ', time/1000, " seconds");	
+				if (DISPLAY_CONSOLE)console.log('Execution time (main Load): ', time/1000, " seconds");	
 				
 				console.log("--------- ALL USER ELEMENTS HAVE BEEN RELEASED -------");	
 			}
@@ -3715,10 +3715,10 @@ window.addEventListener('load', async (event) => {
 
 document.addEventListener('readystatechange', (event) => {
     if (document.readyState == 'interactive'){
-		console.log("WEBSITE LOADED AND READY");
-		console.log(document.readyState);
+		if (DISPLAY_CONSOLE)console.log("WEBSITE LOADED AND READY");
+		if (DISPLAY_CONSOLE)console.log(document.readyState);
 	}
-	console.log(document.readyState);
+	if (DISPLAY_CONSOLE)console.log(document.readyState);
 });
 
 /*
@@ -3749,6 +3749,7 @@ try{
 }catch(e){
 	errorHandling(e, 'Initial_Load()');
 }
-console.log("STATES: ", STATES);
+if (DISPLAY_CONSOLE)console.log("STATES: ", STATES);
 
 }
+
