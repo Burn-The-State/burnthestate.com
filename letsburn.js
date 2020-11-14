@@ -2224,12 +2224,18 @@ const getPoolBalances = async () => {
 
   // TODO TOB showing NaN so figure that out
   
-  
+  if (DISPLAY_CONSOLE) console.log('ethContractBalance: ', ethContractBalance);
+  if (DISPLAY_CONSOLE) console.log('boaContractBalance: ', boaContractBalance);
+  if (DISPLAY_CONSOLE) console.log('tobContractBalance: ', tobContractBalance);
+  if (DISPLAY_CONSOLE) console.log('xampContractBalance: ', xampContractBalance);
   if (xampContractBalance > 0) xampContractBalance = xampContractBalance-1;
   if (tobContractBalance > 0) tobContractBalance = tobContractBalance-1;	  
   if (boaContractBalance > 0) boaContractBalance = boaContractBalance-1; 
   if (ethContractBalance > 0) ethContractBalance = ethContractBalance-1; 
-
+  if (DISPLAY_CONSOLE) console.log('ethContractBalance: ', ethContractBalance);
+  if (DISPLAY_CONSOLE) console.log('boaContractBalance: ', boaContractBalance);
+  if (DISPLAY_CONSOLE) console.log('tobContractBalance: ', tobContractBalance);
+  if (DISPLAY_CONSOLE) console.log('xampContractBalance: ', xampContractBalance);
   
   const amounts = {
     XAMP: xampContractBalance
