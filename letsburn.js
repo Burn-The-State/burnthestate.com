@@ -2833,11 +2833,13 @@ const setStakeBalance = async (event)=> {
   if (DISPLAY_CONSOLE) console.log('balances: ', balances);
   // const balance = twoDecimals(balances[event.currentTarget.value]);
   const balance = balances[event.currentTarget.value];
-  if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance));
-
-  $('#stake-input').val(toFixed(balance-0.000000000000000001));
+  if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance-0.0000000000000001));
+    if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(tenDecimals(balance-0.0000000000000001)));
+	if (balance>0){
+  $('#stake-input').val(toFixed(balance-0.0000000000000001));
   // $('#stake-input').attr('placeholder', `${balance}`);
   $('#stake-balance').html(sixDecimals(balance));
+}
   
   //ACTIVATE BUTTON IF BALANCE IS ABOVE MIN
   	if (balance < LPMin){
@@ -3665,4 +3667,3 @@ try{
 console.log("STATES: ", STATES);
 
 }
-
