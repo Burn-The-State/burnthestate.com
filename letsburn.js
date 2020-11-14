@@ -2237,10 +2237,10 @@ const getPoolBalances = async () => {
   };
 
 	STATES.USER_LP ={
-		XAMP: _.toNumber(amounts.XAMP),
-		TOB: _.toNumber(amounts.TOB),
-		BOA: _.toNumber(amounts.BOA),
-		ETH: _.toNumber(amounts.ETH),
+		XAMP: amounts.XAMP,
+		TOB:  amounts.TOB,
+		BOA:  amounts.BOA,
+		ETH:  amounts.ETH,
 	}
 
 };
@@ -2835,6 +2835,11 @@ const setStakeBalance = async (event)=> {
   const balance = balances[event.currentTarget.value];
   if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance-0.0000000000000001));
     if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(tenDecimals(balance-0.0000000000000001)));
+	if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance - 0.000000000000000001));
+	if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance - 0.00000000000000001));
+	if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance - 0.0000000000000001));
+	if (DISPLAY_CONSOLE) console.log('balance: ', toFixed(balance - 0.1));
+	
 	if (balance>0){
   $('#stake-input').val(toFixed(balance-0.0000000000000001));
   // $('#stake-input').attr('placeholder', `${balance}`);
